@@ -1,6 +1,4 @@
 """
-diagnostic.py - Diagnostic test statistics and ROC analysis.
-
 This module provides functions for calculating diagnostic test
 performance measures: sensitivity, specificity, predictive values,
 likelihood ratios, and ROC curve analysis.
