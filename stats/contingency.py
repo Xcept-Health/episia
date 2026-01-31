@@ -1,5 +1,5 @@
 """
-contingency.py - Core 2x2 contingency table calculations for epidemiology.
+Contingency Core 2x2 contingency table calculations for epidemiology.
 
 This module provides the Table2x2 class for performing epidemiological
 calculations on 2x2 contingency tables, including risk ratios, odds ratios,
