@@ -8,3 +8,4 @@ models/*
 core/*
 architecture.md
 test/*
+*__pycache__
