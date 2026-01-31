@@ -1,0 +1,10 @@
+
+api/*
+compatibility/*
+viz/*
+simulation/*
+data/*
+models/*
+core/*
+architecture.md
+test/*
