@@ -5,12 +5,11 @@ likelihood ratios, and ROC curve analysis.
 """
 
 import numpy as np
-from typing import Union, Tuple, Optional, Dict, List
+from typing import Tuple, Optional, Dict, List
 from dataclasses import dataclass
 from enum import Enum
-import warnings
 from scipy import stats
-from sklearn.metrics import roc_curve, auc, precision_recall_curve
+from sklearn.metrics import roc_curve, auc
 
 
 class DiagnosticMeasure(Enum):
