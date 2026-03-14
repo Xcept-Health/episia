@@ -1,6 +1,6 @@
-# Contributing to EyeTrace
+# Contributing to epitools
 
-First off, thank you for considering contributing to EyeTrace! We welcome all forms of contributions, including bug reports, feature suggestions, documentation improvements, code, tests, and more.
+First off, thank you for considering contributing to epitools! We welcome all forms of contributions, including bug reports, feature suggestions, documentation improvements, code, tests, and more.
 
 This guide will help you understand how to contribute effectively.
 
@@ -60,5 +60,5 @@ We love pull requests (PRs)! Here’s how to proceed:
 
 1. **Clone your fork**:
    ```bash
-   git clone https://github.com/your-username/eyetrace.git
-   cd eyetrace
+   git clone https://github.com/your-username/epitools.git
+   cd epitools

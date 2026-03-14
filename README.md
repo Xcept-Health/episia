@@ -249,34 +249,57 @@ print(ss)
 All plot functions accept `backend="plotly"` (default, interactive) or `backend="matplotlib"` (publication-quality, 300 DPI).
 
 ```python
+import numpy as np
+from epitools import epi
 from epitools.viz import (
     plot_epicurve, plot_roc, plot_forest,
-    plot_incidence, plot_doubling,
-    set_theme, get_available_themes,
+    plot_incidence, set_theme, get_available_themes,
+)
+from epitools.stats.diagnostic import roc_analysis
+from epitools.data.surveillance import SurveillanceDataset
+import pandas as pd
+
+print(get_available_themes())
+set_theme("dark")
+
+# ── Créer les données d'exemple ───────────────────────────────────────────────
+
+# 1. TimeSeriesResult depuis un modèle SEIR
+model  = epi.seir(N=1_000_000, I0=10, E0=50,
+                  beta=0.35, sigma=1/5.2, gamma=1/14)
+result = model.run()   # c'est le ModelResult
+
+# Convertir en TimeSeriesResult pour plot_epicurve
+from epitools.api.results import TimeSeriesResult
+timeseries_result = TimeSeriesResult(
+    times=result.t,
+    values=result.compartments["I"],
 )
 
-# Available themes
-print(get_available_themes())
-# ['scientific', 'minimal', 'dark', 'colorblind']
+# 2. ROCResult
+y_true  = np.array([1,1,1,0,0,0,1,0,1,0])
+y_score = np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
+roc_result = roc_analysis(y_true, y_score)
 
-set_theme("dark")
+# ── Visualisations ────────────────────────────────────────────────────────────
 
 # Epidemic curve
 plot_epicurve(timeseries_result, animate=True).show()
 
 # ROC
-plot_roc(roc_result, backend="matplotlib")
+roc_result.plot().show()
 
-# Forest plot (stratified analysis)
-plot_forest(stratified_result, title="Stratified OR by age group").show()
+# Modèle trajectoires
+result.plot().show()
 
-# Export publication figure
-fig = plot_epicurve(result, backend="matplotlib")
+# Export Matplotlib
+fig = result.plot(backend="matplotlib")
 fig.savefig("figure1.pdf", dpi=300, bbox_inches="tight")
 
-# Export interactive HTML
-fig_plotly = plot_epicurve(result)
+# Export HTML interactif
+fig_plotly = result.plot()
 fig_plotly.write_html("figure1.html")
+
 ```
 
 ---
