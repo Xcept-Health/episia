@@ -78,12 +78,42 @@ class MeanResult:
 
 
 def proportion_ci(
+    numerator: int = None,
+    denominator: int = None,
+    method: CI_Method = CI_Method.WILSON,
+    confidence: float = 0.95,
+    *,
+    k: int = None,
+    n: int = None,
+    **kwargs
+) -> ProportionResult:
+    """Wrapper accepting both proportion_ci(45, 200) and proportion_ci(k=45, n=200)."""
+    # Resolve aliases k/n → numerator/denominator
+    if numerator is None and k is not None:
+        numerator = k
+    if denominator is None and n is not None:
+        denominator = n
+    if numerator is None or denominator is None:
+        raise TypeError(
+            "proportion_ci() requires numerator and denominator. "
+            "Use proportion_ci(45, 200) or proportion_ci(k=45, n=200)."
+        )
+    return _proportion_ci_impl(numerator, denominator, method, confidence, **kwargs)
+
+
+def _proportion_ci_impl(
     numerator: int,
     denominator: int,
-    method: CI_Method = CI_Method.WILSON,
+    method = CI_Method.WILSON,
     confidence: float = 0.95,
     **kwargs
 ) -> ProportionResult:
+    # Accept string method names e.g. method="wilson"
+    if isinstance(method, str):
+        try:
+            method = CI_Method(method.lower())
+        except ValueError:
+            method = CI_Method.WILSON
     """
     Calculate proportion with confidence interval.
     
