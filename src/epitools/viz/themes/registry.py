@@ -6,10 +6,10 @@ Provides a unified set_theme() / get_theme() API used by both backends.
 
 Available themes
 ----------------
-    scientific   publication-ready, clean, high-contrast (default)
-    minimal      ultra-clean, no grid, maximum whitespace
-    dark         dark background for dashboards and presentations
-    colorblind   Wong (2011) accessible palette + distinct line styles
+    scientific  — publication-ready, clean, high-contrast (default)
+    minimal     — ultra-clean, no grid, maximum whitespace
+    dark        — dark background for dashboards and presentations
+    colorblind  — Wong (2011) accessible palette + distinct line styles
 """
 
 from __future__ import annotations
@@ -18,6 +18,7 @@ import os
 from typing import Any, Dict, List, Optional
 
 import matplotlib as _mpl
+import matplotlib.style as _mpl_style
 
 # ---------------------------------------------------------------------------
 # Theme registry
@@ -67,24 +68,22 @@ def set_theme(theme: str) -> None:
     """
     Set the active EpiTools theme globally.
 
-    Applies the corresponding Matplotlib style immediately.
-    Plotly figures will pick it up on next plot call.
+    Applies the Matplotlib style if available — silently skips if
+    matplotlib.style is unavailable in the current environment.
 
     Args:
         theme: One of 'scientific', 'minimal', 'dark', 'colorblind'.
 
     Raises:
         ValueError: Unknown theme name.
-
-    Example::
-
-        from epitools.viz.themes.registry import set_theme
-        set_theme("dark")
     """
     global _active_theme
     _validate(theme)
     _active_theme = theme
-    _apply_mpl(theme)
+    try:
+        _apply_mpl(theme)
+    except Exception:
+        pass  # Matplotlib theming is best-effort — never crash set_theme()
 
 
 def get_theme() -> str:
@@ -116,7 +115,7 @@ def get_plotly_layout(theme: Optional[str] = None) -> Dict[str, Any]:
     """
     Return a base Plotly layout dict for a given theme.
 
-    Intended for use inside plotly_plotter  provides consistent
+    Intended for use inside plotly_plotter — provides consistent
     background colours and font colours per theme.
 
     Args:
@@ -210,27 +209,45 @@ def _validate(theme: str) -> None:
 
 
 def _apply_mpl(theme: str) -> None:
-    """Apply Matplotlib style  .mplstyle file first, fallback to built-in."""
-    style_path = os.path.join(_THEME_DIR, f"{theme}.mplstyle")
+    """
+    Apply Matplotlib style — .mplstyle file first, then built-in fallbacks.
 
+    Completely silent on failure — a missing style never crashes the user.
+    """
+    # Ensure matplotlib.style is importable (lazy import guard)
+    try:
+        import matplotlib.style as _style
+    except ImportError:
+        return
+
+    # 1. Try the bundled .mplstyle file
+    style_path = os.path.join(_THEME_DIR, f"{theme}.mplstyle")
     if os.path.isfile(style_path) and os.path.getsize(style_path) > 0:
         try:
-            _mpl.style.use(style_path)
-            return
-        except Exception:
-            pass   # fall through to built-in
-
-    fallback = _MPL_FALLBACKS.get(theme, "default")
-
-    # fallback might be a file path (custom theme) or a built-in style name
-    if os.path.isfile(str(fallback)):
-        try:
-            _mpl.style.use(fallback)
+            _style.use(style_path)
             return
         except Exception:
             pass
 
+    # 2. Try the named fallback
+    fallback = _MPL_FALLBACKS.get(theme, "default")
+
+    if os.path.isfile(str(fallback)):
+        try:
+            _style.use(fallback)
+            return
+        except Exception:
+            pass
+
+    # 3. Try the fallback name directly
     try:
-        _mpl.style.use(fallback)
+        _style.use(fallback)
+        return
     except Exception:
-        _mpl.style.use("default")
+        pass
+
+    # 4. Try "default" as last resort
+    try:
+        _style.use("default")
+    except Exception:
+        pass  # give up silently — matplotlib will use its own defaults
