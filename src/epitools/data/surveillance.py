@@ -2,21 +2,21 @@
 data/surveillance.py - Epidemiological surveillance data utilities.
 
 Tools for ingesting, cleaning, aggregating, and alerting on
-routine surveillance data — designed for the Burkina Faso / francophone
+routine surveillance data  designed for the Burkina Faso / francophone
 African public health context (SNIS, DHIS2-compatible CSV exports).
 
 Public classes
 --------------
-    SurveillanceDataset  — structured weekly/daily case counts per site/disease
-    AlertEngine          — threshold-based and statistical alert detection
+    SurveillanceDataset   structured weekly/daily case counts per site/disease
+    AlertEngine           threshold-based and statistical alert detection
 
 Public functions
 ----------------
-    from_dhis2_csv()     — load DHIS2 export CSV
-    from_weekly_bulletin()— parse standard weekly bulletin table
-    aggregate_by()       — temporal or spatial aggregation
-    compute_attack_rate()— attack rate per stratum
-    endemic_channel()    — historical percentile envelope (alert zones)
+    from_dhis2_csv()      load DHIS2 export CSV
+    from_weekly_bulletin() parse standard weekly bulletin table
+    aggregate_by()        temporal or spatial aggregation
+    compute_attack_rate() attack rate per stratum
+    endemic_channel()     historical percentile envelope (alert zones)
 """
 
 from __future__ import annotations
@@ -37,12 +37,12 @@ class SurveillanceDataset:
     Structured surveillance case count dataset.
 
     Wraps a pandas DataFrame with columns:
-        date / week / period  — time axis
-        district / site       — spatial unit (optional)
-        disease               — disease or syndrome name
-        cases                 — integer case count
-        deaths                — integer death count (optional)
-        population            — population at risk (optional)
+        date / week / period   time axis
+        district / site        spatial unit (optional)
+        disease                disease or syndrome name
+        cases                  integer case count
+        deaths                 integer death count (optional)
+        population             population at risk (optional)
 
     Built from CSV, DHIS2 exports, or a plain DataFrame.
 
