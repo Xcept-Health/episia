@@ -25,7 +25,7 @@ class RiskRatioResult:
     estimate: float
     ci_lower: float
     ci_upper: float
-    methiod: str
+    method: str
     table: "Table2x2"
     
     def __repr__(self) -> str:
