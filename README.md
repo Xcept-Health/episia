@@ -350,30 +350,48 @@ plot_epicurve(ts, title="Méningite  Région Centre 2024").show()
 ### `epitools.api.reporting`  Report generation
 
 ```python
+from epitools.models import SEIRModel
+from epitools.models.parameters import SEIRParameters
 from epitools import EpiReport, report_from_model
+from epitools.viz import plot_epicurve, plot_model
 import webbrowser, os
 
-# Automated model report
+#  1. Define model parameters 
+params = SEIRParameters(
+    N=22_100_000,   # Population of Burkina Faso ~2024
+    I0=1,           # Initial infectious cases
+    E0=10,          # Initial exposed (incubating) cases
+    beta=0.35,      # Transmission rate
+    sigma=1 / 5.2,  # Incubation rate (avg. incubation period = 5.2 days)
+    gamma=1 / 14,   # Recovery rate  (avg. infectious period 
+    t_span=(0, 365),
+)
+
+#  2. Run the model 
+model_result = SEIRModel(params).run()
+
+#  3. Auto-generate a full model report 
 report = report_from_model(
-    result,
-    title="SEIR Analysis  Burkina Faso 2024",
+    model_result,
+    title="SEIR Analysis – Burkina Faso 2024",
     author="Dr. Ariel Shadrac Ouedraogo",
     institution="Xcept-Health",
 )
 path = report.save_html("report.html")
 webbrowser.open(f"file:///{os.path.abspath(path)}")
 
-# Custom report builder
+#  4. Build a custom epidemiological bulletin 
 report = EpiReport(
-    title="Weekly Epidemiological Bulletin  Week 12",
+    title="Weekly Epidemiological Bulletin – Week 12",
     author="Direction Régionale de la Santé",
-    institution="Ministère de la Santé  Burkina Faso",
+    institution="Ministère de la Santé – Burkina Faso",
 )
 
 report.add_text(
     "This bulletin covers epidemiological events for the week of March 17–23, 2025.",
     title="Summary",
 )
+
 report.add_metrics({
     "Meningitis cases":   42,
     "Deaths":             3,
@@ -381,14 +399,22 @@ report.add_metrics({
     "Attack rate":        "8.4 / 100,000",
     "Alert districts":    4,
 })
-report.add_figure(fig_epicurve, title="Epidemic curve", caption="Weekly cases, Region Centre.")
-report.add_table(df_districts, title="Cases by district")
-report.add_divider()
-report.add_result(rr, title="Risk Ratio  Exposed vs. Unexposed")
 
-report.save_html("bulletin_s12.html")    # self-contained, dark/light mode
-report.save_markdown("bulletin_s12.md") # for publication
-report.save_json("bulletin_s12.json")   # machine-readable
+# plot_epicurve() expects a TimeSeriesResult (surveillance data)
+fig = plot_epicurve(
+    times=model_result.t,
+    values=model_result.compartments["I"],
+    title="Epidemic curve",
+    xlabel="Day",
+    ylabel="Infectious",
+)
+report.add_figure(fig, title="Epidemic curve", caption="Weekly cases, Region Centre.")
+report.add_divider()
+
+#  5. Export in multiple formats 
+report.save_html("bulletin_s12.html")       
+report.save_markdown("bulletin_s12.md")
+report.save_json("bulletin_s12.json")
 ```
 
 **Report output** is a self-contained HTML file with glassmorphism design, automatic dark/light mode based on system preference, and a copy-to-clipboard button.
