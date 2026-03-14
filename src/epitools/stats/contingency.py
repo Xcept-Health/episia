@@ -86,7 +86,7 @@ class Table2x2:
         d (int): Unexposed non-cases
     """
     
-    __slots__ = ('a', 'b', 'c', 'd')
+    __slots__ = ('a', 'b', 'c', 'd', '_cache')
     
     def __init__(self, a: int, b: int, c: int, d: int):
         """
