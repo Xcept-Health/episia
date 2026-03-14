@@ -41,7 +41,7 @@ def get_plotter(
     config: PlotConfig = None,
 ) -> BasePlotter:
     """
-    Factory — return a plotter instance for the requested backend.
+    Factory  return a plotter instance for the requested backend.
 
     Args:
         backend: 'plotly' (default) or 'matplotlib' / 'mpl'.

@@ -4,7 +4,7 @@ viz/plotters/mpl_plotter.py - Matplotlib rendering backend for EpiTools.
 Purpose: publication-quality static figures only.
     - No animations (use PlotlyPlotter for interactive / animated output)
     - Respects .mplstyle theme files
-    - Returns matplotlib Figure objects — saveable at any DPI
+    - Returns matplotlib Figure objects  saveable at any DPI
     - Suitable for journal submissions, theses, reports
 
 Supported output formats: PNG, SVG, PDF (via fig.savefig)
@@ -109,7 +109,7 @@ def _style_axes(ax, cfg: PlotConfig) -> None:
 
 class MatplotlibPlotter(BasePlotter):
     """
-    Matplotlib rendering backend — static, publication-quality figures.
+    Matplotlib rendering backend  static, publication-quality figures.
 
     Returns matplotlib.figure.Figure objects.
 
@@ -128,7 +128,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Epidemic curve — bar chart suitable for publication.
+        Epidemic curve  bar chart suitable for publication.
         Trend line overlaid if available.
         """
         import matplotlib.pyplot as plt
@@ -180,7 +180,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Compartmental model trajectories — clean multi-line plot.
+        Compartmental model trajectories  clean multi-line plot.
         R₀ and peak annotations included.
         """
         import matplotlib.pyplot as plt
@@ -247,7 +247,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        ROC curve — square axes, AUC annotation, optimal threshold marker.
+        ROC curve  square axes, AUC annotation, optimal threshold marker.
         Publication-ready with equal aspect ratio.
         """
         import matplotlib.pyplot as plt
@@ -311,7 +311,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Forest plot — horizontal CI lines, suitable for meta-analysis tables.
+        Forest plot  horizontal CI lines, suitable for meta-analysis tables.
         """
         import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
@@ -412,7 +412,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Single association measure — horizontal CI with reference line.
+        Single association measure  horizontal CI with reference line.
         Compact figure, suitable as an inline element in a report.
         """
         import matplotlib.pyplot as plt
@@ -571,7 +571,7 @@ class MatplotlibPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        2x2 contingency table — annotated heatmap with summary table.
+        2x2 contingency table  annotated heatmap with summary table.
         """
         import matplotlib.pyplot as plt
         import matplotlib.gridspec as gridspec

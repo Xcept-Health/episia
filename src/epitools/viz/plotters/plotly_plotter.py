@@ -1,7 +1,7 @@
 """
 viz/plotters/plotly_plotter.py - Plotly rendering backend for EpiTools.
 
-Default backend — produces interactive HTML figures suitable for:
+Default backend  produces interactive HTML figures suitable for:
     - Notebooks (Jupyter / JupyterLab)
     - Web frontends (React via plotly.js / JSON serialization)
     - Standalone HTML exports
@@ -214,7 +214,7 @@ class PlotlyPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Epidemic curve — bar chart of cases over time.
+        Epidemic curve  bar chart of cases over time.
 
         Animation (FRAME_BY_FRAME / PLAY_PAUSE):
             Bars build up period by period from left to right.
@@ -615,7 +615,7 @@ class PlotlyPlotter(BasePlotter):
                 ))
             return traces
 
-        # null line (1 for ratios, 0 for differences — infer from estimates)
+        # null line (1 for ratios, 0 for differences  infer from estimates)
         null_value = 1.0 if all(r["est"] > 0.01 for r in rows) else 0.0
 
         base_layout = _layout(
@@ -665,7 +665,7 @@ class PlotlyPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        Single association measure — horizontal CI plot with reference line.
+        Single association measure  horizontal CI plot with reference line.
         Static (no animation by design).
         """
         import plotly.graph_objects as go
@@ -857,7 +857,7 @@ class PlotlyPlotter(BasePlotter):
         config: Optional[PlotConfig] = None,
     ) -> Any:
         """
-        2x2 contingency table — annotated heatmap with risk summary.
+        2x2 contingency table  annotated heatmap with risk summary.
         Static (no animation by design).
         """
         import plotly.graph_objects as go

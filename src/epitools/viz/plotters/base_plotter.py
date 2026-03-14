@@ -31,11 +31,11 @@ class AnimationType(Enum):
     """
     Animation types supported across backends.
 
-    FRAME_BY_FRAME  — discrete frames (e.g. day-by-day epidemic curve buildup).
-    CONTINUOUS      — smooth interpolated transition (e.g. model trajectory).
-    SLIDER          — interactive parameter slider (Plotly only).
-    PLAY_PAUSE      — auto-play with play/pause button (Plotly / Browser).
-    LOOP            — continuous loop, no controls (Matplotlib FuncAnimation).
+    FRAME_BY_FRAME   discrete frames (e.g. day-by-day epidemic curve buildup).
+    CONTINUOUS       smooth interpolated transition (e.g. model trajectory).
+    SLIDER           interactive parameter slider (Plotly only).
+    PLAY_PAUSE       auto-play with play/pause button (Plotly / Browser).
+    LOOP             continuous loop, no controls (Matplotlib FuncAnimation).
     """
     FRAME_BY_FRAME = "frame_by_frame"
     CONTINUOUS     = "continuous"
@@ -51,7 +51,7 @@ class AnimationConfig:
 
     Attributes:
         enabled:       Whether animation is active.
-        anim_type:     AnimationType — how frames are driven.
+        anim_type:     AnimationType  how frames are driven.
         duration_ms:   Total animation duration in milliseconds.
         frame_ms:      Duration of each frame in milliseconds.
         transition_ms: Transition time between frames (Plotly).
@@ -77,7 +77,7 @@ class AnimationConfig:
 
     @classmethod
     def smooth(cls, duration_ms: int = 4000) -> "AnimationConfig":
-        """Smooth continuous animation — good for model trajectories."""
+        """Smooth continuous animation  good for model trajectories."""
         return cls(
             enabled=True,
             anim_type=AnimationType.CONTINUOUS,
@@ -90,7 +90,7 @@ class AnimationConfig:
 
     @classmethod
     def frame_buildup(cls, n_frames: int, total_ms: int = 5000) -> "AnimationConfig":
-        """Frame-by-frame buildup — good for epidemic curves / time-series."""
+        """Frame-by-frame buildup  good for epidemic curves / time-series."""
         frame_ms = max(20, total_ms // max(n_frames, 1))
         return cls(
             enabled=True,
@@ -104,7 +104,7 @@ class AnimationConfig:
 
     @classmethod
     def interactive_slider(cls) -> "AnimationConfig":
-        """Interactive parameter slider — Plotly only."""
+        """Interactive parameter slider  Plotly only."""
         return cls(
             enabled=True,
             anim_type=AnimationType.SLIDER,
@@ -133,7 +133,7 @@ class PlotConfig:
         ylabel:       Y-axis label.
         width:        Figure width in pixels (Plotly) or inches (Matplotlib).
         height:       Figure height in pixels (Plotly) or inches (Matplotlib).
-        theme:        Theme name — 'scientific', 'minimal', 'dark', 'colorblind'.
+        theme:        Theme name  'scientific', 'minimal', 'dark', 'colorblind'.
         palette:      List of hex color strings to use in sequence.
         show_grid:    Whether to show grid lines.
         show_legend:  Whether to show the legend.
@@ -167,7 +167,7 @@ class PlotConfig:
 
     @classmethod
     def publication(cls, title: str = "", **kwargs) -> "PlotConfig":
-        """Suitable for paper figures — no grid, serif fonts, high contrast."""
+        """Suitable for paper figures  no grid, serif fonts, high contrast."""
         return cls(
             title=title,
             theme="scientific",
@@ -189,9 +189,9 @@ class OutputFormat(Enum):
     SVG    = "svg"
     PDF    = "pdf"
     HTML   = "html"
-    JSON   = "json"   # Plotly only — serialised figure dict
-    GIF    = "gif"    # Animated — Matplotlib only
-    MP4    = "mp4"    # Animated — requires ffmpeg
+    JSON   = "json"   # Plotly only  serialised figure dict
+    GIF    = "gif"    # Animated  Matplotlib only
+    MP4    = "mp4"    # Animated  requires ffmpeg
 
 
 # ---------------------------------------------------------------------------
@@ -257,8 +257,8 @@ class BasePlotter(ABC):
         Plot an epidemic curve (cases over time).
 
         Supports animations:
-            FRAME_BY_FRAME — bars build up day by day.
-            PLAY_PAUSE     — auto-play buildup with controls.
+            FRAME_BY_FRAME  bars build up day by day.
+            PLAY_PAUSE      auto-play buildup with controls.
 
         Args:
             result: TimeSeriesResult from stats.time_series.
@@ -279,9 +279,9 @@ class BasePlotter(ABC):
         Plot compartmental model trajectories (SIR / SEIR / SEIRD).
 
         Supports animations:
-            CONTINUOUS  — smooth line drawing from t=0 to t=end.
-            PLAY_PAUSE  — play/pause controls over time axis.
-            SLIDER      — interactive time slider (Plotly only).
+            CONTINUOUS   smooth line drawing from t=0 to t=end.
+            PLAY_PAUSE   play/pause controls over time axis.
+            SLIDER       interactive time slider (Plotly only).
 
         Args:
             result: ModelResult from models.sir / seir / seird.
@@ -302,7 +302,7 @@ class BasePlotter(ABC):
         Plot ROC curve with AUC annotation.
 
         Supports animations:
-            CONTINUOUS — threshold sweeps from 0 to 1, tracing the curve.
+            CONTINUOUS  threshold sweeps from 0 to 1, tracing the curve.
 
         Args:
             result: ROCResult from stats.diagnostic.
@@ -323,7 +323,7 @@ class BasePlotter(ABC):
         Plot forest plot for stratified or regression results.
 
         Supports animations:
-            FRAME_BY_FRAME — strata / variables appear one by one.
+            FRAME_BY_FRAME  strata / variables appear one by one.
 
         Args:
             result: StratifiedResult or RegressionResult.
@@ -343,7 +343,7 @@ class BasePlotter(ABC):
         """
         Plot a single association measure (RR / OR / RD) with CI.
 
-        No animation — static by design.
+        No animation  static by design.
 
         Args:
             result: AssociationResult.
@@ -365,7 +365,7 @@ class BasePlotter(ABC):
         (confusion matrix + metrics bar chart).
 
         Supports animations:
-            FRAME_BY_FRAME — metrics bars fill in sequence.
+            FRAME_BY_FRAME  metrics bars fill in sequence.
 
         Args:
             result: DiagnosticResult.
@@ -385,7 +385,7 @@ class BasePlotter(ABC):
         """
         Plot 2x2 contingency table with annotated cells and risk summary.
 
-        No animation — static by design.
+        No animation  static by design.
 
         Args:
             result: Table2x2 or AssociationResult with table metadata.

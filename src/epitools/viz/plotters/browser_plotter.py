@@ -57,7 +57,7 @@ def save_html(
 
     # Inject custom title
     if full_html and title:
-        html = html.replace("<title>", f"<title>{title} — ", 1)
+        html = html.replace("<title>", f"<title>{title}  ", 1)
 
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
@@ -70,9 +70,9 @@ def to_react_props(fig: Any) -> Dict[str, Any]:
     Serialize a Plotly figure into props for react-plotly.js <Plot />.
 
     Returns a dict with keys:
-        "data"   — list of trace dicts
-        "layout" — layout dict
-        "config" — recommended config dict
+        "data"    list of trace dicts
+        "layout"  layout dict
+        "config"  recommended config dict
 
     Usage in React::
 
