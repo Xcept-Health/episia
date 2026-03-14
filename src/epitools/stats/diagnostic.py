@@ -95,19 +95,43 @@ class ROCResult:
     auc: float
     optimal_threshold: float
     optimal_point: Dict[str, float]
-    
+    method: str = "youden"
+
     def __repr__(self) -> str:
-        return f"AUC: {self.auc:.3f}, Optimal threshold: {self.optimal_threshold:.3f}"
-    
+        sens = self.optimal_point.get("sensitivity", float("nan"))
+        spec = self.optimal_point.get("specificity", float("nan"))
+        return (
+            f"ROC Curve  AUC: {self.auc:.3f}\n"
+            f"Optimal threshold: {self.optimal_threshold:.3f}  "
+            f"(Sens={sens:.3f}, Spec={spec:.3f})"
+        )
+
     def to_dict(self) -> Dict:
-        """Convert result to dictionary."""
+        """Return a JSON-serializable dictionary."""
         return {
-            "auc": self.auc,
-            "optimal_threshold": self.optimal_threshold,
-            "optimal_sensitivity": self.optimal_point.get("sensitivity"),
-            "optimal_specificity": self.optimal_point.get("specificity"),
-            "optimal_youden": self.optimal_point.get("youden")
+            "auc":                  self.auc,
+            "optimal_threshold":    self.optimal_threshold,
+            "optimal_sensitivity":  self.optimal_point.get("sensitivity"),
+            "optimal_specificity":  self.optimal_point.get("specificity"),
+            "optimal_youden":       self.optimal_point.get("youden"),
+            "method":               self.method,
+            "n_thresholds":         len(self.thresholds),
         }
+
+    def plot(self, backend: str = "plotly", **kwargs):
+        """Plot the ROC curve — opens in browser (Plotly) or returns Figure (Matplotlib)."""
+        try:
+            from epitools.viz.roc import plot_roc
+        except ImportError:
+            from viz.roc import plot_roc
+        return plot_roc(self, backend=backend, **kwargs)
+
+    def show(self):
+        """Convenience: plot() then show() — equivalent to roc.plot().show()."""
+        fig = self.plot()
+        if hasattr(fig, "show"):
+            fig.show()
+        return fig
 
 
 def diagnostic_test_2x2(
