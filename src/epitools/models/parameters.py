@@ -3,11 +3,11 @@ models/parameters.py - Parameter containers for compartmental models.
 
 Classes
 -------
-    ModelParameters   — base parameters shared by all models (N, t_span, I0)
-    SIRParameters     — beta, gamma
-    SEIRParameters    — beta, sigma, gamma
-    SEIRDParameters   — beta, sigma, gamma, mu
-    ScenarioSet       — collection of parameter sets for comparison
+    ModelParameters    base parameters shared by all models (N, t_span, I0)
+    SIRParameters      beta, gamma
+    SEIRParameters     beta, sigma, gamma
+    SEIRDParameters    beta, sigma, gamma, mu
+    ScenarioSet        collection of parameter sets for comparison
 
 Validation is strict: nonsensical values (negative rates, N=0, R0<0)
 raise ValueError immediately at construction time.

@@ -22,10 +22,10 @@ class CompartmentalModel(ABC):
     Abstract base class for compartmental epidemic models.
 
     Subclasses must implement:
-        compartment_names  — property listing compartment names (e.g. ['S','I','R'])
-        _derivatives()     — ODE right-hand side
-        _initial_state()   — initial conditions vector from parameters
-        _compute_metrics() — derive R0, peak, final_size from solution
+        compartment_names   property listing compartment names (e.g. ['S','I','R'])
+        _derivatives()      ODE right-hand side
+        _initial_state()    initial conditions vector from parameters
+        _compute_metrics()  derive R0, peak, final_size from solution
 
     The run() method is fully implemented here via _derivatives() and
     the shared solver in models.solver.

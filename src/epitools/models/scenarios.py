@@ -2,12 +2,12 @@
 models/scenarios.py - Multi-scenario runner for compartmental models.
 
 Runs a set of parameter scenarios through a model class and returns
-a structured comparison — ready for plotting or tabular export.
+a structured comparison  ready for plotting or tabular export.
 
 Public classes
 --------------
-    ScenarioRunner  — runs N scenarios and returns ScenarioResults
-    ScenarioResults — container for multi-scenario comparison
+    ScenarioRunner   runs N scenarios and returns ScenarioResults
+    ScenarioResults  container for multi-scenario comparison
 """
 
 from __future__ import annotations
