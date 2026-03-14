@@ -50,6 +50,24 @@ __email__        = "arielshadrac@gmail.com"
 __organization__ = "Xcept-Health"
 __license__      = "MIT"
 
+# ── Plotly renderer — auto-configure browser for script environments ──────────
+# Prevents raw JSON from being dumped in the terminal when calling fig.show()
+# in a non-notebook context (PowerShell, CMD, terminal).
+# In Jupyter, the renderer is left as-is so inline display works normally.
+try:
+    import plotly.io as _pio
+    _in_notebook = False
+    try:
+        from IPython import get_ipython as _get_ipython
+        _in_notebook = _get_ipython() is not None
+    except ImportError:
+        pass
+    if not _in_notebook:
+        _pio.renderers.default = "browser"
+    del _pio, _in_notebook
+except ImportError:
+    pass
+
 # ── Main entry point ──────────────────────────────────────────────────────────
 from .api.unified  import epi, EpiToolsAPI
 
