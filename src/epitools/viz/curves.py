@@ -3,10 +3,10 @@ viz/curves.py - Epidemic curve and trend visualizations for EpiTools.
 
 Public functions
 ----------------
-    plot_epicurve   — bar chart of cases over time, optional trend overlay
-    plot_trend      — trend line only (linear / LOESS / moving average)
-    plot_incidence  — incidence rate over time with optional CI band
-    plot_doubling   — log-scale growth with doubling time annotation
+    plot_epicurve    bar chart of cases over time, optional trend overlay
+    plot_trend       trend line only (linear / LOESS / moving average)
+    plot_incidence   incidence rate over time with optional CI band
+    plot_doubling    log-scale growth with doubling time annotation
 
 All functions accept both the internal EpidemicCurve / TimeSeriesResult
 objects from stats.time_series and the unified TimeSeriesResult from
@@ -14,8 +14,8 @@ api.results. Raw numpy arrays are also accepted for convenience.
 
 Backend selection
 -----------------
-    backend="plotly"      (default) — interactive, web-ready
-    backend="matplotlib"  — publication quality, static
+    backend="plotly"      (default)  interactive, web-ready
+    backend="matplotlib"   publication quality, static
 """
 
 from __future__ import annotations
@@ -110,7 +110,7 @@ def plot_epicurve(
         backend:  'plotly' (default) or 'matplotlib'.
         theme:    Theme name.
         animate:  If True, bars build up frame by frame (Plotly only).
-        config:   Full PlotConfig override — supersedes individual args.
+        config:   Full PlotConfig override  supersedes individual args.
 
     Returns:
         plotly.graph_objects.Figure or matplotlib.figure.Figure
@@ -118,7 +118,7 @@ def plot_epicurve(
     Examples::
 
         # From a TimeSeriesResult
-        fig = plot_epicurve(result, title="Ebola 2014 — Guinea")
+        fig = plot_epicurve(result, title="Ebola 2014  Guinea")
         fig.show()
 
         # From raw arrays

@@ -3,8 +3,8 @@ viz/forest.py - Forest plot visualizations for EpiTools.
 
 Public functions
 ----------------
-    plot_forest        — stratified / regression forest plot
-    plot_meta_forest   — meta-analysis style with heterogeneity stats
+    plot_forest         stratified / regression forest plot
+    plot_meta_forest    meta-analysis style with heterogeneity stats
 """
 
 from __future__ import annotations
@@ -312,7 +312,7 @@ def plot_meta_forest(
             lo, hi = pooled_ci
             y_pool = -1
             diamond = mpatches.FancyArrow(
-                0, 0, 0, 0   # placeholder — use polygon instead
+                0, 0, 0, 0   # placeholder  use polygon instead
             )
             poly_x = [lo, pooled_estimate, hi, pooled_estimate]
             poly_y = [y_pool, y_pool + 0.35, y_pool, y_pool - 0.35]

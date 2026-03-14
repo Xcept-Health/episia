@@ -6,10 +6,10 @@ Provides a unified set_theme() / get_theme() API used by both backends.
 
 Available themes
 ----------------
-    scientific  — publication-ready, clean, high-contrast (default)
-    minimal     — ultra-clean, no grid, maximum whitespace
-    dark        — dark background for dashboards and presentations
-    colorblind  — Wong (2011) accessible palette + distinct line styles
+    scientific   publication-ready, clean, high-contrast (default)
+    minimal      ultra-clean, no grid, maximum whitespace
+    dark         dark background for dashboards and presentations
+    colorblind   Wong (2011) accessible palette + distinct line styles
 """
 
 from __future__ import annotations
@@ -116,7 +116,7 @@ def get_plotly_layout(theme: Optional[str] = None) -> Dict[str, Any]:
     """
     Return a base Plotly layout dict for a given theme.
 
-    Intended for use inside plotly_plotter — provides consistent
+    Intended for use inside plotly_plotter  provides consistent
     background colours and font colours per theme.
 
     Args:
@@ -210,7 +210,7 @@ def _validate(theme: str) -> None:
 
 
 def _apply_mpl(theme: str) -> None:
-    """Apply Matplotlib style — .mplstyle file first, fallback to built-in."""
+    """Apply Matplotlib style  .mplstyle file first, fallback to built-in."""
     style_path = os.path.join(_THEME_DIR, f"{theme}.mplstyle")
 
     if os.path.isfile(style_path) and os.path.getsize(style_path) > 0:

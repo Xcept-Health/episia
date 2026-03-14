@@ -42,6 +42,14 @@ from .plotters import (
     MatplotlibPlotter,
 )
 
+# Model trajectories (SIR / SEIR / SEIRD)
+def plot_model(result, backend="plotly", **kwargs):
+    """Plot compartmental model trajectories from a ModelResult."""
+    plotter = get_plotter(backend)
+    from .plotters import PlotConfig
+    config = kwargs.pop("config", None) or PlotConfig(**kwargs) if kwargs else PlotConfig()
+    return plotter.plot_model(result, config=config)
+
 # Curve / time-series plots
 from .curves import (
     plot_epicurve,
@@ -85,6 +93,8 @@ __all__ = [
     "get_plotter", "PlotConfig", "AnimationConfig",
     "AnimationType", "OutputFormat",
     "PlotlyPlotter", "MatplotlibPlotter",
+    # Models
+    "plot_model",
     # Curves
     "plot_epicurve", "plot_trend", "plot_incidence", "plot_doubling",
     # ROC

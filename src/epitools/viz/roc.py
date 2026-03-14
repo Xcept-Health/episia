@@ -3,9 +3,9 @@ viz/roc.py - ROC curve visualizations for EpiTools.
 
 Public functions
 ----------------
-    plot_roc          — single ROC curve with AUC + optimal threshold
-    plot_roc_compare  — multiple ROC curves on the same axes (model comparison)
-    plot_precision_recall — precision-recall curve (complement to ROC)
+    plot_roc           single ROC curve with AUC + optimal threshold
+    plot_roc_compare   multiple ROC curves on the same axes (model comparison)
+    plot_precision_recall  precision-recall curve (complement to ROC)
 """
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ def plot_roc(
         from epitools.viz.roc import plot_roc
 
         result = roc_analysis(y_true, y_score)
-        plot_roc(result, title="Malaria RDT — ROC").show()
+        plot_roc(result, title="Malaria RDT  ROC").show()
     """
     if config is None:
         anim = (

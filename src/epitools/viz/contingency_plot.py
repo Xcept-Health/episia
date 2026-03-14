@@ -3,8 +3,8 @@ viz/contingency_plot.py - 2x2 table visualizations for EpiTools.
 
 Public functions
 ----------------
-    plot_contingency  — annotated heatmap + summary metrics
-    plot_measures     — horizontal CI chart for all association measures
+    plot_contingency   annotated heatmap + summary metrics
+    plot_measures      horizontal CI chart for all association measures
 """
 
 from __future__ import annotations

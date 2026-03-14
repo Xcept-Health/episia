@@ -29,7 +29,7 @@ def hex_to_rgba_str(hex_color: str, alpha: float = 1.0) -> str:
 
 
 def adjust_alpha(hex_color: str, alpha: float) -> str:
-    """Return rgba string with given alpha — convenience wrapper."""
+    """Return rgba string with given alpha  convenience wrapper."""
     return hex_to_rgba_str(hex_color, alpha)
 
 
