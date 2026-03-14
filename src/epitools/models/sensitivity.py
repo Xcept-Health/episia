@@ -6,8 +6,8 @@ trajectories into percentile envelopes + summary statistics.
 
 Public classes
 --------------
-    SensitivityAnalysis   — configure distributions and run sampling
-    SensitivityResult     — percentile envelopes, summaries, plots
+    SensitivityAnalysis    configure distributions and run sampling
+    SensitivityResult      percentile envelopes, summaries, plots
 
 Supported distributions
 -----------------------
@@ -242,7 +242,7 @@ class SensitivityResult:
         env   = self.envelopes[compartment]
         t     = self.t
         title = title or (
-            f"Sensitivity Analysis — {compartment}  "
+            f"Sensitivity Analysis  {compartment}  "
             f"(n={self.n_samples})"
         )
 
@@ -372,7 +372,7 @@ class SensitivityResult:
         median = float(np.median(values))
         p5     = float(np.percentile(values, 5))
         p95    = float(np.percentile(values, 95))
-        title  = f"Distribution — {label}  (médiane={median:.3f})"
+        title  = f"Distribution  {label}  (médiane={median:.3f})"
 
         from ..viz.themes.registry import get_palette
         pal = get_palette(theme)
@@ -629,7 +629,7 @@ class SensitivityAnalysis:
         return results
 
     def _execute(self, samples: List[Dict]) -> List[Dict]:
-        """Run all models — sequential (n_jobs=1) or parallel."""
+        """Run all models  sequential (n_jobs=1) or parallel."""
         args_list = [
             (self.model_class, self.param_class,
              self.fixed, s, self.t_eval_points)
@@ -639,7 +639,7 @@ class SensitivityAnalysis:
         if self.n_jobs == 1:
             return [_run_one(a) for a in args_list]
 
-        # Parallel — fallback to sequential on error
+        # Parallel  fallback to sequential on error
         try:
             workers = (
                 self.n_jobs if self.n_jobs > 0
@@ -681,7 +681,7 @@ class SensitivityAnalysis:
                 f"Check your parameter distributions and fixed params."
             )
 
-        # Common time array — use first successful run's t
+        # Common time array  use first successful run's t
         t_ref = good[0]["t"]
 
         # Interpolate all trajectories onto t_ref
