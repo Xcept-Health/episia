@@ -358,7 +358,7 @@ import webbrowser, os
 
 #  1. Define model parameters 
 params = SEIRParameters(
-    N=22_100_000,   # Population of Burkina Faso ~2024
+    N=22_100_000,   # Population of Burkina Faso ~ 2024
     I0=1,           # Initial infectious cases
     E0=10,          # Initial exposed (incubating) cases
     beta=0.35,      # Transmission rate
