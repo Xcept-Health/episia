@@ -78,6 +78,35 @@ class SampleSizeResult:
 
 
 def sample_size_risk_ratio(
+    risk_unexposed: float = None,
+    risk_ratio: float = None,
+    power: float = 0.8,
+    alpha: float = 0.05,
+    test_type: TestType = TestType.TWO_SIDED,
+    r: float = 1.0,
+    design_effect: float = 1.0,
+    *,
+    p0: float = None,
+    rr_expected: float = None,
+    **kwargs
+) -> SampleSizeResult:
+    # Aliases: p0 → risk_unexposed, rr_expected → risk_ratio
+    if risk_unexposed is None and p0 is not None:
+        risk_unexposed = p0
+    if risk_ratio is None and rr_expected is not None:
+        risk_ratio = rr_expected
+    if risk_unexposed is None or risk_ratio is None:
+        raise TypeError(
+            "sample_size_risk_ratio() requires risk_unexposed and risk_ratio. "
+            "Use sample_size_risk_ratio(0.10, 2.0) or "
+            "sample_size_risk_ratio(p0=0.10, rr_expected=2.0)."
+        )
+    return _sample_size_rr_impl(
+        risk_unexposed, risk_ratio, power, alpha, test_type, r, design_effect, **kwargs
+    )
+
+
+def _sample_size_rr_impl(
     risk_unexposed: float,
     risk_ratio: float,
     power: float = 0.8,
