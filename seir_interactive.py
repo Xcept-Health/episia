@@ -1,5 +1,5 @@
 """
-seir_interactive.py — SEIR visualization avec contrôles temps réel.
+seir_interactive.py  SEIR visualization avec contrôles temps réel.
 
 Script autonome (matplotlib). Aucune dépendance externe hormis numpy et matplotlib.
 
@@ -125,7 +125,7 @@ class SEIRApp:
 
     def _build_figure(self):
         self.fig = plt.figure(figsize=(15, 8), facecolor="#f5f5f5")
-        self.fig.canvas.manager.set_window_title("EpiTools — SEIR Interactive")
+        self.fig.canvas.manager.set_window_title("EpiTools  SEIR Interactive")
 
         gs = gridspec.GridSpec(
             2, 2,
@@ -150,7 +150,7 @@ class SEIRApp:
         self._build_annotation_box()
 
     def _build_sliders(self):
-        """Left panel — parameter sliders."""
+        """Left panel  parameter sliders."""
         slider_color = "#e8e8f0"
         left   = 0.04
         width  = 0.18
@@ -215,7 +215,7 @@ class SEIRApp:
         self.radio.on_clicked(self._on_model_change)
 
     def _build_annotation_box(self):
-        """Text box — key metrics."""
+        """Text box  key metrics."""
         self.info_text = self.fig.text(
             0.04, 0.26, "",
             fontsize=8.5,
@@ -313,7 +313,7 @@ class SEIRApp:
         self.ax_main.set_xlabel("Jours", fontsize=10)
         self.ax_main.set_ylabel("Individus", fontsize=10)
         self.ax_main.set_title(
-            f"Modèle {self.model}  —  N={N:,.0f}",
+            f"Modèle {self.model}    N={N:,.0f}",
             fontsize=12, fontweight="bold"
         )
         self.ax_main.legend(loc="center right", fontsize=9,
@@ -446,7 +446,7 @@ class SEIRApp:
 # ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    print("EpiTools — SEIR Interactive")
+    print("EpiTools  SEIR Interactive")
     print("Sliders : N, I0, E0, β, σ, γ, μ, durée")
     print("Touches : [Espace] play/pause  [R] reset  [S] sauvegarder")
     app = SEIRApp()
