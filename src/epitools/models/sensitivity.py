@@ -34,6 +34,12 @@ from typing import Any, Dict, List, Optional, Tuple, Type
 import numpy as np
 
 
+def _cprint(text: str, color: tuple) -> None:
+    """Print text in RGB colour."""
+    r, g, b = color
+    print(f"\033[38;2;{r};{g};{b}m{text}\033[0m")
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Sampler
 # ─────────────────────────────────────────────────────────────────────────────
@@ -514,25 +520,17 @@ class SensitivityAnalysis:
         # Validate one sample first to catch config errors early
         self._validate_one(samples[0])
 
-        if verbose:
-            print(f"Running {self.n_samples} models…", end=" ", flush=True)
-
-        raw_results = self._execute(samples)
+        raw_results = self._execute_with_progress(samples, verbose)
 
         n_ok   = sum(1 for r in raw_results if "error" not in r)
         n_fail = len(raw_results) - n_ok
 
-        if verbose:
-            print(f"done  ({n_ok}/{self.n_samples} OK)")
-
-        # Afficher les 3 premières erreurs pour aider au diagnostic
         if n_fail > 0 and verbose:
             errors = [r for r in raw_results if "error" in r][:3]
             for r in errors:
-                print(f"  [erreur sample] {r['error']}")
+                _cprint(f"  [erreur] {r['error']}", (255, 80, 80))
                 if "detail" in r and n_ok == 0:
-                    # Afficher le traceback complet si 0 succès
-                    print(r["detail"][:800])
+                    print(r["detail"][:600])
 
         return self._aggregate(raw_results, samples)
 
@@ -547,6 +545,88 @@ class SensitivityAnalysis:
             raise ValueError(
                 f"Parameter validation failed for sample {sample}: {e}"
             )
+
+    # ── Progress helpers ─────────────────────────────────────────────────────
+
+    def _execute_with_progress(
+        self, samples: List[Dict], verbose: bool
+    ) -> List[Dict]:
+        """Run all models with a coloured gradient progress bar."""
+        n = len(samples)
+
+        if not verbose:
+            return self._execute(samples)
+
+        # Gradient colours teal → violet → rose
+        _GRAD = [
+            (0, 210, 190), (0, 180, 255),
+            (100, 120, 255), (200, 60, 220), (240, 80, 160),
+        ]
+
+        def _lerp(a, b, t):
+            return int(a + (b - a) * t)
+
+        def _grad_color(pos, total):
+            t = pos / max(total - 1, 1)
+            n_stops = len(_GRAD) - 1
+            i = min(int(t * n_stops), n_stops - 1)
+            lt = t * n_stops - i
+            r = _lerp(_GRAD[i][0], _GRAD[i+1][0], lt)
+            g = _lerp(_GRAD[i][1], _GRAD[i+1][1], lt)
+            b = _lerp(_GRAD[i][2], _GRAD[i+1][2], lt)
+            return r, g, b
+
+        def _rgb(r, g, b, text):
+            return f"\033[38;2;{r};{g};{b}m{text}\033[0m"
+
+        def _bold(text):
+            return f"\033[1m{text}\033[0m"
+
+        bar_width = 36
+        label     = "EpiTools · Monte Carlo"
+
+        def _draw(done, total, n_ok, n_fail):
+            frac   = done / max(total, 1)
+            filled = int(frac * bar_width)
+            bar    = ""
+            for i in range(bar_width):
+                r, g, b = _grad_color(i, bar_width)
+                char = "█" if i < filled else "░"
+                bar += _rgb(r, g, b, char)
+
+            r0, g0, b0 = _grad_color(filled, bar_width)
+            pct  = _rgb(r0, g0, b0, f"{frac*100:5.1f}%")
+            stat = f"  {done}/{total}"
+            if n_fail:
+                stat += f"  \033[38;2;255;80;80m✗ {n_fail}\033[0m"
+
+            line = f"  {_bold(label)}  {bar} {pct}{stat}"
+            print(f"\r{line}", end="", flush=True)
+
+        results = []
+        n_ok = n_fail = 0
+
+        args_list = [
+            (self.model_class, self.param_class,
+             self.fixed, s, self.t_eval_points)
+            for s in samples
+        ]
+
+        print()  # newline before bar
+        for i, args in enumerate(args_list):
+            r = _run_one(args)
+            results.append(r)
+            if "error" in r:
+                n_fail += 1
+            else:
+                n_ok += 1
+            _draw(i + 1, n, n_ok, n_fail)
+
+        r0, g0, b0 = _grad_color(bar_width - 1, bar_width)
+        done_text  = _rgb(r0, g0, b0, "✓ done")
+        print(f"  {done_text}  {n_ok}/{n} OK\n", flush=True)
+
+        return results
 
     def _execute(self, samples: List[Dict]) -> List[Dict]:
         """Run all models — sequential (n_jobs=1) or parallel."""
