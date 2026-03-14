@@ -20,9 +20,9 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
-
-# ==================== Base ==================== 
-
+# ---------------------------------------------------------------------------
+# Base
+# ---------------------------------------------------------------------------
 
 class EpiResult(ABC):
     """
@@ -71,11 +71,42 @@ class EpiResult(ABC):
             raise NotImplementedError(
                 f"{self.__class__.__name__} does not have an associated plot function."
             )
-        from epitools import viz
-        func = getattr(viz, self._viz_function, None)
+        # Import viz dynamically — works regardless of package name
+        try:
+            from epitools import viz as _viz
+        except ImportError:
+            try:
+                import viz as _viz  # dev / editable install fallback
+            except ImportError:
+                raise ImportError(
+                    "EpiTools viz module not found. "
+                    "Make sure the package is installed: pip install -e ."
+                )
+        func = getattr(_viz, self._viz_function, None)
         if func is None:
-            raise AttributeError(f"viz.{self._viz_function} not found.")
-        return func(self, backend=backend, **kwargs)
+            raise AttributeError(
+                f"viz.{self._viz_function} not found in epitools.viz. "
+                f"Available: {[x for x in dir(_viz) if x.startswith('plot_')]}"
+            )
+        fig = func(self, backend=backend, **kwargs)
+
+        # Auto-open in browser for Plotly figures in script context
+        if backend == "plotly":
+            try:
+                import plotly.io as pio
+                # Only force browser renderer if running as a script (not notebook)
+                _in_notebook = False
+                try:
+                    from IPython import get_ipython
+                    _in_notebook = get_ipython() is not None
+                except ImportError:
+                    pass
+                if not _in_notebook:
+                    pio.renderers.default = "browser"
+            except ImportError:
+                pass
+
+        return fig
 
     @staticmethod
     def _json_safe(obj: Any) -> Any:
@@ -111,9 +142,9 @@ class EpiResult(ABC):
         return f"({fmt.format(lower)}\u2013{fmt.format(upper)})"
 
 
-
-# ==================== Confidence interval container ==================== 
-
+# ---------------------------------------------------------------------------
+# Confidence interval container
+# ---------------------------------------------------------------------------
 
 @dataclass
 class ConfidenceInterval:
@@ -147,9 +178,9 @@ class ConfidenceInterval:
         return self.lower <= value <= self.upper
 
 
-
-# ==================== Association measures  (RR, OR, RD, IRR...) ==================== 
-
+# ---------------------------------------------------------------------------
+# Association measures  (RR, OR, RD, IRR...)
+# ---------------------------------------------------------------------------
 
 @dataclass
 class AssociationResult(EpiResult):
@@ -206,9 +237,9 @@ class AssociationResult(EpiResult):
         }
 
 
-
-# ==================== Proportion / descriptive ==================== 
-
+# ---------------------------------------------------------------------------
+# Proportion / descriptive
+# ---------------------------------------------------------------------------
 
 @dataclass
 class ProportionResult(EpiResult):
@@ -253,9 +284,9 @@ class ProportionResult(EpiResult):
         }
 
 
-
-# ==================== Sample size & power ==================== 
-
+# ---------------------------------------------------------------------------
+# Sample size & power
+# ---------------------------------------------------------------------------
 
 @dataclass
 class SampleSizeResult(EpiResult):
@@ -317,9 +348,9 @@ class SampleSizeResult(EpiResult):
         }
 
 
-
-# ==================== Diagnostic test ==================== 
-
+# ---------------------------------------------------------------------------
+# Diagnostic test
+# ---------------------------------------------------------------------------
 
 @dataclass
 class DiagnosticResult(EpiResult):
@@ -398,9 +429,9 @@ class DiagnosticResult(EpiResult):
         return d
 
 
-
-# ==================== ROC curve
-
+# ---------------------------------------------------------------------------
+# ROC curve
+# ---------------------------------------------------------------------------
 
 @dataclass
 class ROCResult(EpiResult):
@@ -446,9 +477,9 @@ class ROCResult(EpiResult):
         }
 
 
-
-# ==================== Stratified analysis (Mantel-Haenszel)
-
+# ---------------------------------------------------------------------------
+# Stratified analysis (Mantel-Haenszel)
+# ---------------------------------------------------------------------------
 
 @dataclass
 class StratifiedResult(EpiResult):
@@ -503,9 +534,9 @@ class StratifiedResult(EpiResult):
         }
 
 
-
-# ==================== Epidemic model (SIR / SEIR / SEIRD)
-
+# ---------------------------------------------------------------------------
+# Epidemic model (SIR / SEIR / SEIRD)
+# ---------------------------------------------------------------------------
 
 @dataclass
 class ModelResult(EpiResult):
@@ -570,9 +601,9 @@ class ModelResult(EpiResult):
         return pd.DataFrame({"t": self.t, **self.compartments})
 
 
-
-# ==================== Time series / incidence ==================== 
-
+# ---------------------------------------------------------------------------
+# Time series / incidence
+# ---------------------------------------------------------------------------
 
 @dataclass
 class TimeSeriesResult(EpiResult):
@@ -626,9 +657,9 @@ class TimeSeriesResult(EpiResult):
         return pd.DataFrame(data)
 
 
-
-# ==================== Regression ==================== 
-
+# ---------------------------------------------------------------------------
+# Regression
+# ---------------------------------------------------------------------------
 
 @dataclass
 class RegressionResult(EpiResult):
@@ -684,9 +715,9 @@ class RegressionResult(EpiResult):
         }
 
 
-
-# ==================== Factory helpers ==================== 
-
+# ---------------------------------------------------------------------------
+# Factory helpers
+# ---------------------------------------------------------------------------
 
 def make_ci(
     lower: float,
@@ -743,9 +774,9 @@ def make_proportion(
     )
 
 
-
-# ==================== Exports ==================== 
-
+# ---------------------------------------------------------------------------
+# Exports
+# ---------------------------------------------------------------------------
 
 __all__ = [
     "EpiResult",

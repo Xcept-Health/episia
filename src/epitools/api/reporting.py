@@ -3,18 +3,18 @@ api/reporting.py - Report generation for EpiTools analyses.
 
 Generates structured epidemiological reports in multiple formats:
     - Markdown  (.md)
-    - HTML      (.html)  — self-contained, print-ready
-    - JSON      (.json)  — machine-readable full export
+    - HTML      (.html)   self-contained, print-ready
+    - JSON      (.json)   machine-readable full export
 
 Public classes
 --------------
-    EpiReport       — builder: add sections, tables, figures, then export
-    ReportSection   — typed section (text, table, figure, metrics)
+    EpiReport        builder: add sections, tables, figures, then export
+    ReportSection    typed section (text, table, figure, metrics)
 
 Public functions
 ----------------
-    report_from_result()  — one-line report from any EpiResult
-    report_from_model()   — full model run report with plots
+    report_from_result()   one-line report from any EpiResult
+    report_from_model()    full model run report with plots
 """
 
 from __future__ import annotations
@@ -158,7 +158,7 @@ class EpiReport:
                 except ImportError:
                     lines.append(str(sec.content))
             elif sec.kind == "figure":
-                lines.append("*[Figure — voir version HTML]*")
+                lines.append("*[Figure  voir version HTML]*")
             if sec.caption:
                 lines.append(f"\n*{sec.caption}*")
             lines.append("")
@@ -286,7 +286,7 @@ def report_from_result(
 ) -> EpiReport:
     """One-line report from any EpiResult."""
     report = EpiReport(
-        title=title or f"Rapport — {result.__class__.__name__}",
+        title=title or f"Rapport  {result.__class__.__name__}",
         author=author,
     )
     report.add_result(result, title="Résultats")
@@ -341,7 +341,7 @@ def report_from_model(
     try:
         fig = model_result.plot(backend=backend)
         report.add_figure(fig, title="Trajectoires du modèle",
-                          caption=f"Simulation {mtype} — compartiments S/E/I/R(/D).")
+                          caption=f"Simulation {mtype}  compartiments S/E/I/R(/D).")
     except Exception:
         pass
 
@@ -357,8 +357,8 @@ def report_from_model(
         for m, lbl in [("r0","R₀"), ("peak_infected","Pic infectieux"),
                         ("final_size","Taille finale")]:
             if f"{m}_median" in s:
-                sa_m[f"{lbl} — médiane"] = _fmt(s[f"{m}_median"])
-                sa_m[f"{lbl} — IC 90%"]  = (
+                sa_m[f"{lbl}  médiane"] = _fmt(s[f"{m}_median"])
+                sa_m[f"{lbl}  IC 90%"]  = (
                     f"[{_fmt(s[f'{m}_p5'])}, {_fmt(s[f'{m}_p95'])}]")
         report.add_metrics(sa_m)
         try:
@@ -382,7 +382,7 @@ def report_from_model(
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _fmt(v: Any) -> str:
-    if v is None: return "—"
+    if v is None: return ""
     if isinstance(v, float):
         return f"{v:,.1f}" if abs(v) >= 1000 else f"{v:.4f}"
     if isinstance(v, int):
@@ -426,7 +426,7 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Epitools - {title}</title>
   <style>
-    :root {
+    :root {{
       --bg: #fbfbfd;
       --glass-bg: rgba(255, 255, 255, 0.75);
       --glass-border: rgba(255, 255, 255, 0.4);
@@ -436,9 +436,8 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
       --accent-soft: rgba(0, 113, 227, 0.1);
       --card-shadow: 0 20px 40px rgba(0,0,0,0.04);
       --table-hover: rgba(0,0,0,0.02);
-    }
-
-    [data-theme="dark"] {
+    }}
+    [data-theme="dark"] {{
       --bg: #000000;
       --glass-bg: rgba(28, 28, 30, 0.7);
       --glass-border: rgba(255, 255, 255, 0.1);
@@ -448,265 +447,150 @@ _HTML_TEMPLATE = """<!DOCTYPE html>
       --accent-soft: rgba(41, 151, 255, 0.15);
       --card-shadow: 0 20px 40px rgba(0,0,0,0.4);
       --table-hover: rgba(255,255,255,0.05);
-    }
-
-    * { box-sizing: border-box; transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease; }
-
-    body {
+    }}
+    *, *::before, *::after {{ box-sizing: border-box; transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease; }}
+    body {{
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      margin: 0; padding: 0;
+      display: flex; flex-direction: column; align-items: center;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-    }
-
-    nav {
-      width: 100%;
-      max-width: 900px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 2rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    }}
+    nav {{
+      width: 100%; max-width: 900px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 2rem; position: sticky; top: 0; z-index: 100;
       backdrop-filter: blur(10px);
-    }
-
-    .theme-toggle {
+    }}
+    .theme-toggle {{
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
-      padding: 8px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      color: var(--text-main);
-      font-size: 0.85rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      padding: 8px 16px; border-radius: 20px;
+      cursor: pointer; color: var(--text-main);
+      font-size: 0.85rem; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
       box-shadow: var(--card-shadow);
-    }
-
-    .theme-toggle:hover { transform: scale(1.05); }
-
-    .container {
-      width: 100%;
-      max-width: 850px;
-      padding: 0 1.5rem 5rem;
-    }
-
-    header h1 {
-      font-size: 3.2rem;
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .meta {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      color: var(--text-dim);
-      font-size: 0.9rem;
-      margin-bottom: 3rem;
-    }
-
-    .glass-panel {
-      position: relative; 
+    }}
+    .theme-toggle:hover {{ transform: scale(1.05); }}
+    .container {{ width: 100%; max-width: 850px; padding: 0 1.5rem 5rem; }}
+    header h1 {{
+      font-size: 3.2rem; font-weight: 700;
+      letter-spacing: -0.04em; margin-bottom: 0.5rem; text-align: center;
+    }}
+    .meta {{
+      display: flex; justify-content: center; gap: 2rem;
+      color: var(--text-dim); font-size: 0.9rem; margin-bottom: 3rem;
+    }}
+    .glass-panel {{
+      position: relative;
       background: var(--glass-bg);
       backdrop-filter: blur(25px) saturate(180%);
       -webkit-backdrop-filter: blur(25px) saturate(180%);
       border: 1px solid var(--glass-border);
-      border-radius: 28px;
-      padding: 4rem 3rem 3rem 3rem; 
+      border-radius: 28px; padding: 4rem 3rem 3rem 3rem;
       box-shadow: var(--card-shadow);
-    }
-
-    h2 {
-      font-size: 1.6rem;
-      margin-top: 2rem;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 2rem 0;
-    }
-
-    th {
-      text-align: left;
-      color: var(--text-dim);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      padding: 1rem;
+    }}
+    h2 {{ font-size: 1.6rem; margin-top: 2rem; font-weight: 600; letter-spacing: -0.02em; }}
+    h3 {{ font-size: 1.2rem; margin-top: 1.5rem; font-weight: 600; }}
+    p {{ line-height: 1.7; color: var(--text-main); }}
+    table {{ width: 100%; border-collapse: collapse; margin: 2rem 0; }}
+    th {{
+      text-align: left; color: var(--text-dim);
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.1em; padding: 1rem;
       border-bottom: 1px solid var(--glass-border);
-    }
-
-    td {
+    }}
+    td {{
       padding: 1.2rem 1rem;
       border-bottom: 1px solid var(--glass-border);
       font-size: 0.95rem;
-    }
-
-    tr:hover td { background: var(--table-hover); cursor: default; }
-
-    .val {
+    }}
+    tr:hover td {{ background: var(--table-hover); }}
+    .val {{
       font-family: "SF Mono", "Fira Code", monospace;
-      font-weight: 600;
-      color: var(--accent);
-      text-align: right;
-    }
-
-    .badge {
-      padding: 4px 12px;
-      border-radius: 12px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-
-    pre {
-      background: rgba(0,0,0,0.05);
-      padding: 1.5rem;
+      font-weight: 600; color: var(--accent); text-align: right;
+    }}
+    table.metrics th {{ background: none; }}
+    table.epi-table th {{ background: none; }}
+    pre {{
+      background: rgba(0,0,0,0.05); padding: 1.5rem;
       border-radius: 18px;
-      font-family: "SF Mono", monospace;
-      font-size: 0.85rem;
-      overflow-x: auto;
-      border: 1px solid var(--glass-border);
-    }
-
-    [data-theme="dark"] pre { background: rgba(255,255,255,0.05); }
-
-
-    .copy-main-btn {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
+      font-family: "SF Mono", monospace; font-size: 0.85rem;
+      overflow-x: auto; border: 1px solid var(--glass-border);
+    }}
+    [data-theme="dark"] pre {{ background: rgba(255,255,255,0.05); }}
+    .figure {{ margin: 2rem 0; }}
+    .caption {{ font-size: 0.85rem; color: var(--text-dim); font-style: italic; margin-top: 0.5rem; }}
+    hr {{ border: none; border-top: 1px solid var(--glass-border); margin: 2rem 0; }}
+    .copy-main-btn {{
+      position: absolute; top: 20px; right: 24px;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: var(--text-main); padding: 8px 16px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
       backdrop-filter: blur(10px);
       box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .copy-main-btn:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
-
-    @media (max-width: 600px) {
-      header h1 { font-size: 2.2rem; }
-      .glass-panel { padding: 3.5rem 1.5rem 1.5rem 1.5rem; }
-      .copy-main-btn { top: 16px; right: 16px; }
-    }
+      display: flex; align-items: center; gap: 6px;
+    }}
+    .copy-main-btn:hover {{ color: var(--accent); border-color: var(--accent); }}
+    footer {{ margin-top: 4rem; text-align: center; color: var(--text-dim); font-size: 0.85rem; }}
+    @media (max-width: 600px) {{
+      header h1 {{ font-size: 2.2rem; }}
+      .glass-panel {{ padding: 3.5rem 1.5rem 1.5rem 1.5rem; }}
+    }}
   </style>
 </head>
 <body>
-
   <nav>
-    <div style="font-weight: 700; font-size: 1.2rem; letter-spacing: -1px;">Epit<span style="color:var(--accent)">oo</span>ls<span style="color:var(--accent)">.</span></div>
+    <div style="font-weight:700;font-size:1.2rem;letter-spacing:-1px;">
+      Epit<span style="color:var(--accent)">oo</span>ls<span style="color:var(--accent)">.</span>
+    </div>
     <button class="theme-toggle" id="theme-btn">
       <span id="theme-text">dark</span>
     </button>
   </nav>
-
   <div class="container">
     <header>
       <h1>{title}</h1>
       <div class="meta">{meta}</div>
     </header>
-
     <main class="glass-panel">
       <button class="copy-main-btn" id="copy-btn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
       </button>
-
       <div id="content-to-copy">
         {description}
-        <div style="margin-top:2rem">
-          {body}
-        </div>
+        <div style="margin-top:2rem">{body}</div>
       </div>
     </main>
-
-    <footer style="margin-top: 4rem; text-align: center; color: var(--text-dim); font-size: 0.85rem;">
-      <p>© <span id="copyright-year">2026</span> Epitools</p>
+    <footer>
+      <p>© <span id="yr">2026</span> Epitools  Xcept-Health</p>
     </footer>
   </div>
-
   <script>
-
     const btn = document.getElementById('theme-btn');
     const themeText = document.getElementById('theme-text');
     const html = document.documentElement;
-
-    btn.addEventListener('click', () => {
-      if (html.getAttribute('data-theme') === 'light') {
-        html.setAttribute('data-theme', 'dark');
-        themeText.innerText = 'light';
-      } else {
-        html.setAttribute('data-theme', 'light');
-        themeText.innerText = 'dark';
-      }
-    });
-
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        html.setAttribute('data-theme', 'dark');
-        themeText.innerText = 'light';
-    }
-
-    const startYear = 2026;
-    const currentYear = new Date().getFullYear();
-    const yearElement = document.getElementById('copyright-year');
-    
-    if (currentYear > startYear) {
-      yearElement.innerText = `${startYear} - ${currentYear}`;
-    }
-
-    const copyBtn = document.getElementById('copy-btn');
-    const copyText = document.getElementById('copy-text');
-    const contentToCopy = document.getElementById('content-to-copy');
-
-    copyBtn.addEventListener('click', async () => {
-      const text = contentToCopy.innerText;
-
-      try {
-        await navigator.clipboard.writeText(text.trim());
-        
-        copyText.innerText = 'Copied !';
-        copyBtn.style.color = 'var(--accent)';
-        copyBtn.style.borderColor = 'var(--accent)';
-        
-
-        setTimeout(() => {
-          copyText.innerText = 'Copy';
-          copyBtn.style.color = '';
-          copyBtn.style.borderColor = '';
-        }, 2000);
-      } catch (err) {
-        console.error('Copy error:', err);
-        copyText.innerText = 'Erreur';
-      }
-    });
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {{
+      html.setAttribute('data-theme','dark'); themeText.innerText='light';
+    }}
+    btn.addEventListener('click', () => {{
+      if (html.getAttribute('data-theme')==='light') {{
+        html.setAttribute('data-theme','dark'); themeText.innerText='light';
+      }} else {{
+        html.setAttribute('data-theme','light'); themeText.innerText='dark';
+      }}
+    }});
+    const y = new Date().getFullYear();
+    if (y > 2026) document.getElementById('yr').innerText = '2026 - ' + y;
+    document.getElementById('copy-btn').addEventListener('click', async () => {{
+      try {{
+        await navigator.clipboard.writeText(document.getElementById('content-to-copy').innerText.trim());
+        document.getElementById('copy-btn').style.color = 'var(--accent)';
+        setTimeout(() => document.getElementById('copy-btn').style.color = '', 2000);
+      }} catch(e) {{ console.error(e); }}
+    }});
   </script>
 </body>
 </html>"""

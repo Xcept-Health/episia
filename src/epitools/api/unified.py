@@ -21,7 +21,7 @@ Usage::
     ds.epicurve().plot().show()
 
     # Rapport
-    report = epi.report(result, title="SEIR — Burkina Faso 2024")
+    report = epi.report(result, title="SEIR  Burkina Faso 2024")
     report.save_html("rapport.html")
 
     # Thème
@@ -35,7 +35,7 @@ from typing import Any, Optional
 
 class EpiToolsAPI:
     """
-    Unified EpiTools API — single entry point for all functionality.
+    Unified EpiTools API  single entry point for all functionality.
 
     Instantiated as the module-level `epi` singleton.
     """
