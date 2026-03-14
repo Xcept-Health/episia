@@ -21,49 +21,127 @@ class ConfidenceMethod(Enum):
     
 @dataclass
 class RiskRatioResult:
-    """Rich Reslult object for Risk Ratio calculations."""
+    """Result object for Risk Ratio calculations."""
     estimate: float
     ci_lower: float
     ci_upper: float
     method: str
     table: "Table2x2"
-    
+    null_value: float = 1.0
+
     def __repr__(self) -> str:
-        return f"Risk Ratio: {self.estimate:.3f} ({self.ci_lower:.3f}-{self.ci_upper:.3f})"
-    
+        sig = " *" if self.significant else ""
+        return f"Risk Ratio: {self.estimate:.3f} ({self.ci_lower:.3f}-{self.ci_upper:.3f}){sig}"
+
+    @property
+    def significant(self) -> bool:
+        """True if the 95% CI does not contain the null value (1.0)."""
+        return not (self.ci_lower <= self.null_value <= self.ci_upper)
+
+    @property
+    def p_value(self) -> Optional[float]:
+        """Approximate two-sided p-value from the CI (Wald method)."""
+        import math
+        if self.estimate <= 0:
+            return None
+        try:
+            from scipy import stats as _stats
+            se = (math.log(self.ci_upper) - math.log(self.ci_lower)) / (2 * 1.96)
+            if se == 0:
+                return None
+            z = abs(math.log(self.estimate)) / se
+            return float(2 * (1 - _stats.norm.cdf(z)))
+        except Exception:
+            return None
+
     def to_dict(self) -> Dict:
-        """Convert result to dictionary for easy serialization."""
+        """Return a JSON-serializable dictionary."""
         return {
-            "measure": "risk_ratio",
-            "estimate": self.estimate,
-            "ci_lower": self.ci_lower,
-            "ci_upper": self.ci_upper,
-            "method": self.method,
-            "table": self.table.to_dict()
+            "measure":   "risk_ratio",
+            "estimate":  self.estimate,
+            "ci_lower":  self.ci_lower,
+            "ci_upper":  self.ci_upper,
+            "method":    self.method,
+            "significant": self.significant,
+            "p_value":   self.p_value,
+            "null_value": self.null_value,
+            "table":     self.table.to_dict(),
         }
+
+    def plot(self, backend: str = "plotly", **kwargs):
+        """Forest-style plot for this risk ratio."""
+        from api.results import make_ci, make_association
+        result = make_association(
+            measure="risk_ratio",
+            estimate=self.estimate,
+            ci_lower=self.ci_lower,
+            ci_upper=self.ci_upper,
+            p_value=self.p_value,
+            null_value=self.null_value,
+        )
+        return result.plot(backend=backend, **kwargs)
         
 @dataclass
 class OddsRatioResult:
-    """"Rich Result object for Odds Ratio calculations."""
+    """Result object for Odds Ratio calculations."""
     estimate: float
     ci_lower: float
     ci_upper: float
     method: str
     table: "Table2x2"
-  
+    null_value: float = 1.0
+
     def __repr__(self) -> str:
-        return f"Odds Ratio: {self.estimate:.3f} ({self.ci_lower:.3f}-{self.ci_upper:.3f})"
-    
+        sig = " *" if self.significant else ""
+        return f"Odds Ratio: {self.estimate:.3f} ({self.ci_lower:.3f}-{self.ci_upper:.3f}){sig}"
+
+    @property
+    def significant(self) -> bool:
+        """True if the 95% CI does not contain the null value (1.0)."""
+        return not (self.ci_lower <= self.null_value <= self.ci_upper)
+
+    @property
+    def p_value(self) -> Optional[float]:
+        """Approximate two-sided p-value from the CI."""
+        import math
+        if self.estimate <= 0:
+            return None
+        try:
+            from scipy import stats as _stats
+            se = (math.log(self.ci_upper) - math.log(self.ci_lower)) / (2 * 1.96)
+            if se == 0:
+                return None
+            z = abs(math.log(self.estimate)) / se
+            return float(2 * (1 - _stats.norm.cdf(z)))
+        except Exception:
+            return None
+
     def to_dict(self) -> Dict:
-        """Convert result to dictionary for easy serialization."""
+        """Return a JSON-serializable dictionary."""
         return {
-            "measure": "odds_ratio",
-            "estimate": self.estimate,
-            "ci_lower": self.ci_lower,
-            "ci_upper": self.ci_upper,
-            "method": self.method,
-            "table": self.table.to_dict()
+            "measure":    "odds_ratio",
+            "estimate":   self.estimate,
+            "ci_lower":   self.ci_lower,
+            "ci_upper":   self.ci_upper,
+            "method":     self.method,
+            "significant": self.significant,
+            "p_value":    self.p_value,
+            "null_value": self.null_value,
+            "table":      self.table.to_dict(),
         }
+
+    def plot(self, backend: str = "plotly", **kwargs):
+        """Forest-style plot for this odds ratio."""
+        from api.results import make_association
+        result = make_association(
+            measure="odds_ratio",
+            estimate=self.estimate,
+            ci_lower=self.ci_lower,
+            ci_upper=self.ci_upper,
+            p_value=self.p_value,
+            null_value=self.null_value,
+        )
+        return result.plot(backend=backend, **kwargs)
         
 
 class Table2x2:
