@@ -89,51 +89,36 @@ class BaseCalculator:
     
     def cached_method(self, func: Callable) -> Callable:
         """
-        Decorator for caching method results.
-        
-        Args:
-            func: Method to cache
-            
-        Returns:
-            Decorated method with caching
+        Decorator for caching method results (instance method usage).
+
+        Usage: call on an instance, not on the class directly.
+        For class-level decoration use @staticmethod + manual caching.
         """
         @wraps(func)
         def wrapper(*args, **kwargs):
-            # Skip caching if disabled
             if not self._enabled or self.cache_strategy == CacheStrategy.NONE:
                 return func(*args, **kwargs)
-            
-            # Generate cache key (skip self in args)
             cache_key = self._generate_cache_key(*args[1:], **kwargs)
-            
-            # Update statistics
             self.stats.call_count += 1
-            
-            # Check cache
             if cache_key in self._cache:
                 self.stats.cache_hits += 1
                 return self._cache[cache_key]
-            
-            # Calculate and cache
             start_time = time.perf_counter()
             result = func(*args, **kwargs)
-            end_time = time.perf_counter()
-            
-            self.stats.total_time += (end_time - start_time)
-            self.stats.last_call_time = end_time
-            
-            # Store in cache (with LRU eviction if needed)
-            if self.cache_strategy == CacheStrategy.LRU:
-                # Simple LRU implementation (max 1000 entries)
-                if len(self._cache) >= 1000:
-                    # Remove oldest (first) entry
-                    oldest_key = next(iter(self._cache))
-                    del self._cache[oldest_key]
-            
+            self.stats.total_time += (time.perf_counter() - start_time)
+            if self.cache_strategy == CacheStrategy.LRU and len(self._cache) >= 1000:
+                del self._cache[next(iter(self._cache))]
             self._cache[cache_key] = result
             return result
-        
         return wrapper
+
+    @staticmethod
+    def _cache_decorator(func: Callable) -> Callable:
+        """
+        Class-level cache decorator using functools.lru_cache.
+        Use this instead of @BaseCalculator.cached_method at class definition.
+        """
+        return lru_cache(maxsize=512)(func)
 
 
 class EpidemiologicalCalculator(BaseCalculator):
@@ -146,7 +131,7 @@ class EpidemiologicalCalculator(BaseCalculator):
     def __init__(self, cache_strategy: CacheStrategy = CacheStrategy.LRU):
         super().__init__(cache_strategy)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def risk_ratio(self, a: int, b: int, c: int, d: int) -> float:
         """
         Calculate risk ratio with caching.
@@ -168,7 +153,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return risk_exposed / risk_unexposed
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def odds_ratio(self, a: int, b: int, c: int, d: int) -> float:
         """
         Calculate odds ratio with caching.
@@ -184,7 +169,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return (a * d) / (b * c)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def attributable_fraction_exposed(self, rr: float) -> float:
         """
         Calculate attributable fraction among exposed.
@@ -199,7 +184,7 @@ class EpidemiologicalCalculator(BaseCalculator):
             return 0.0
         return (rr - 1) / rr
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def population_attributable_fraction(self, rr: float, p_exposed: float) -> float:
         """
         Calculate population attributable fraction.
@@ -219,7 +204,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return numerator / denominator
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def standard_error_proportion(self, p: float, n: int) -> float:
         """
         Calculate standard error of a proportion.
@@ -236,7 +221,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return np.sqrt(p * (1 - p) / n)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def confidence_interval_proportion(
         self, 
         p: float, 
@@ -268,7 +253,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return (lower, upper)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def binomial_probability(
         self, 
         k: int, 
@@ -289,7 +274,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         from scipy import stats
         return stats.binom.pmf(k, n, p)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def poisson_probability(
         self, 
         k: int, 
@@ -317,7 +302,7 @@ class MatrixCalculator(BaseCalculator):
     def __init__(self, cache_strategy: CacheStrategy = CacheStrategy.LRU):
         super().__init__(cache_strategy)
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def next_generation_matrix(
         self, 
         transmission_matrix: np.ndarray,
@@ -335,7 +320,7 @@ class MatrixCalculator(BaseCalculator):
         """
         return transmission_matrix @ duration_matrix
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def basic_reproduction_number(
         self, 
         next_generation_matrix: np.ndarray
@@ -352,7 +337,7 @@ class MatrixCalculator(BaseCalculator):
         eigenvalues = np.linalg.eigvals(next_generation_matrix)
         return float(np.max(np.abs(eigenvalues)))
     
-    @BaseCalculator.cached_method
+    @lru_cache(maxsize=512)
     def effective_reproduction_number(
         self, 
         R0: float, 
