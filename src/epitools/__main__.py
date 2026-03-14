@@ -13,7 +13,7 @@ import sys
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _rgb(r, g, b, text):
-    """True-colour ANSI escape — falls back to plain text on Windows < Win10."""
+    """True-colour ANSI escape  falls back to plain text on Windows < Win10."""
     return f"\033[38;2;{r};{g};{b}m{text}\033[0m"
 
 
@@ -40,7 +40,7 @@ def _supports_color():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# ASCII art title — gradient left → right across each row
+# ASCII art title  gradient left → right across each row
 # ─────────────────────────────────────────────────────────────────────────────
 
 _LOGO = [
@@ -152,7 +152,7 @@ _MODULES = [
     ),
     (
         "epitools.viz",
-        "Visualization — Plotly (interactive) & Matplotlib (publication)",
+        "Visualization  Plotly (interactive) & Matplotlib (publication)",
         [
             "plot_epicurve(result)           → Figure",
             "plot_roc(result)                → Figure",
@@ -279,7 +279,7 @@ def _print_doc(color: bool):
     print(rr)
 
     # Generate a report
-    report = epi.report(result, title="SEIR — Burkina Faso")
+    report = epi.report(result, title="SEIR  Burkina Faso")
     report.save_html("rapport.html")"""
 
     if color:

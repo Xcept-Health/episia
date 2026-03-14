@@ -42,7 +42,7 @@ INSTALL_REQUIRES = [
 # ── Optional dependencies ─────────────────────────────────────────────────────
 
 EXTRAS_REQUIRE = {
-    # Full install — all optional features
+    # Full install  all optional features
     "full": [
         "ipywidgets>=8.0.0",        # Interactive Jupyter dashboard
         "kaleido>=0.2.1",           # Plotly static export (PNG/SVG/PDF)
@@ -65,7 +65,7 @@ EXTRAS_REQUIRE = {
         "pillow>=9.0.0",
     ],
 
-    # Machine learning — calibration, ROC, precision-recall
+    # Machine learning  calibration, ROC, precision-recall
     "ml": [
         "scikit-learn>=1.2.0",
     ],
@@ -92,7 +92,7 @@ EXTRAS_REQUIRE = {
     ],
 }
 
-# Convenience alias — everything except dev/docs
+# Convenience alias  everything except dev/docs
 EXTRAS_REQUIRE["all"] = list({
     dep
     for key in ("full", "jupyter", "export", "ml")
@@ -113,7 +113,7 @@ setup(
     # ── Description ───────────────────────────────────────────────────────────
     description=(
         "Open-source Python epidemiology and biostatistics toolbox. "
-        "Based on OpenEpi algorithms — risk ratios, odds ratios, sample size, "
+        "Based on OpenEpi algorithms  risk ratios, odds ratios, sample size, "
         "diagnostic test evaluation, compartmental epidemic models (SIR/SEIR/SEIRD), "
         "Monte Carlo sensitivity analysis, surveillance data tools, and "
         "automated report generation. Built for the francophone African "
