@@ -71,7 +71,7 @@ class EpiResult(ABC):
             raise NotImplementedError(
                 f"{self.__class__.__name__} does not have an associated plot function."
             )
-        # Import viz dynamically — works regardless of package name
+        # Import viz dynamically  works regardless of package name
         try:
             from epitools import viz as _viz
         except ImportError:
