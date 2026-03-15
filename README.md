@@ -17,7 +17,7 @@
 [![Status](https://img.shields.io/badge/Status-Alpha-red?style=flat-square)](https://github.com/Xcept-Health/epitools)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 
-*Based on [OpenEpi](https://openepi.com) algorithms  extended for the francophone African public health context*
+*Based on [OpenEpi](https://openepi.com) algorithms extended for the African public health context*
 
 [Installation](#installation) · [Quick Start](#quick-start) · [Modules](#modules) · [Examples](#examples) · [Roadmap](#roadmap)
 
@@ -27,18 +27,18 @@
 
 ## Overview
 
-EpiTools is a Python library for epidemiologists, public health researchers, and biostatisticians. It provides a unified, validated set of tools covering the full analytical workflow  from raw surveillance data to statistical analysis, epidemic modeling, and automated report generation.
+EpiTools is a Python library for epidemiologists, public health researchers, and biostatisticians. It provides a unified, validated set of tools covering the full analytical workflow from raw surveillance data to statistical analysis, epidemic modeling, and automated report generation.
 
 Built on the scientific foundation of [OpenEpi](https://openepi.com), EpiTools extends it with compartmental epidemic models (SIR/SEIR/SEIRD), Monte Carlo sensitivity analysis, and a modern Python API designed to be both approachable and production-grade.
 
 **Designed for:**
 - Field epidemiologists working in resource-limited settings
-- Public health researchers in francophone Africa
+- Public health researchers in  Africa and around the world
 - Students and academics in epidemiology and biostatistics
 - Developers building health analytics applications
 
 **Key properties:**
-- 100% offline  zero network dependencies at runtime
+- 100% offline zero network dependencies at runtime
 - Dual visualization backend: Plotly (interactive) and Matplotlib (publication-quality)
 - Unified result objects: every function returns a rich, serializable result
 - Self-contained HTML reports with dark/light mode toggle
@@ -78,7 +78,7 @@ pip install epitools[full]
 ```python
 from epitools import epi
 
-#  Epidemic model 
+# Epidemic model
 model  = epi.seir(N=1_000_000, I0=10, E0=50,
                   beta=0.35, sigma=1/5.2, gamma=1/14)
 result = model.run()
@@ -91,15 +91,15 @@ print(result)
 
 result.plot().show()  # Opens interactive Plotly figure in browser
 
-#  Biostatistics 
+# Biostatistics
 rr = epi.risk_ratio(a=40, b=10, c=20, d=30)
 print(rr)
 # Risk Ratio: 2.667 (1.514–4.696)
 
-#  Automated report 
+# Automated report
 import webbrowser, os
-report = epi.report(result, title="SEIR  Burkina Faso 2024")
-path   = report.save_html("rapport.html")
+report = epi.report(result, title="SEIR Burkina Faso 2024")
+path   = report.save_html("report.html")
 webbrowser.open(f"file:///{os.path.abspath(path)}")
 ```
 
@@ -113,11 +113,11 @@ python -m epitools
 
 ## Modules
 
-### `epitools.models`  Compartmental epidemic models
+### `epitools.models` Compartmental epidemic models
 
 | Class / Function | Description |
 |---|---|
-| `SIRModel` | Classic SIR  dS/dt, dI/dt, dR/dt |
+| `SIRModel` | Classic SIR dS/dt, dI/dt, dR/dt |
 | `SEIRModel` | SEIR with latent (exposed) compartment |
 | `SEIRDModel` | SEIRD with disease-induced mortality |
 | `ModelCalibrator` | Fit model parameters to observed data (L-BFGS-B) |
@@ -128,7 +128,7 @@ python -m epitools
 from epitools.models import SEIRModel, SEIRDModel, SensitivityAnalysis
 from epitools.models.parameters import SEIRParameters, SEIRDParameters, ScenarioSet
 
-# SEIR  COVID-like parameters
+# SEIR COVID-like parameters
 params = SEIRParameters(
     N=1_000_000, I0=1, E0=10,
     beta=0.35,
@@ -138,7 +138,7 @@ params = SEIRParameters(
 )
 result = SEIRModel(params).run()
 
-# SEIRD  with mortality
+# SEIRD with mortality
 params_d = SEIRDParameters(
     N=1_000_000, I0=1, E0=10,
     beta=0.35, sigma=1/5.2, gamma=0.09, mu=0.01,  # CFR ≈ 10%
@@ -159,16 +159,16 @@ sa = SensitivityAnalysis(
     n_samples=500,
     seed=42,
 )
-sa_result = sa.run()                # gradient progress bar in terminal
-sa_result.plot("I").show()          # percentile envelope
+sa_result = sa.run()                          # gradient progress bar in terminal
+sa_result.plot("I").show()                    # percentile envelope
 sa_result.plot_metric_distribution("r0").show()
 print(sa_result.summary())
 
 # Scenario comparison
 scenarios = ScenarioSet([
-    ("No intervention",   SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.35, sigma=1/5.2, gamma=1/14)),
-    ("50% reduction",     SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.18, sigma=1/5.2, gamma=1/14)),
-    ("70% reduction",     SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.11, sigma=1/5.2, gamma=1/14)),
+    ("No intervention", SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.35, sigma=1/5.2, gamma=1/14)),
+    ("50% reduction",   SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.18, sigma=1/5.2, gamma=1/14)),
+    ("70% reduction",   SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.11, sigma=1/5.2, gamma=1/14)),
 ])
 from epitools.models import ScenarioRunner
 sr = ScenarioRunner(SEIRModel).run(scenarios)
@@ -178,14 +178,14 @@ sr.to_dataframe()
 
 ---
 
-### `epitools.stats`  Biostatistics & epidemiological measures
+### `epitools.stats` Biostatistics & epidemiological measures
 
 | Function | Returns | Description |
 |---|---|---|
 | `risk_ratio(a, b, c, d)` | `AssociationResult` | Risk ratio with CI |
 | `odds_ratio(a, b, c, d)` | `AssociationResult` | Odds ratio with CI |
 | `proportion_ci(k, n)` | `ProportionResult` | Proportion with Wilson CI |
-| `mean_ci(data)` | descriptive result | Mean with CI |
+| `mean_ci(data)` | `MeanResult` | Mean with CI |
 | `diagnostic_test_2x2(tp, fp, fn, tn)` | `DiagnosticResult` | Sensitivity, specificity, PPV, NPV, LR+/- |
 | `roc_analysis(y_true, y_score)` | `ROCResult` | Full ROC curve, AUC, optimal threshold |
 | `sample_size_risk_ratio(...)` | `SampleSizeResult` | Sample size for cohort study |
@@ -201,7 +201,7 @@ from epitools.stats import (
 # Association measures
 rr = risk_ratio(a=40, b=10, c=20, d=30)
 print(rr)               # Risk Ratio: 2.667 (1.514–4.696)
-print(rr.significant)   # True  CI does not contain 1.0
+print(rr.significant)   # True CI does not contain 1.0
 print(rr.to_dict())
 
 or_ = odds_ratio(a=40, b=10, c=20, d=30)
@@ -236,7 +236,7 @@ ss = sample_size_risk_ratio(
     power=0.80,
 )
 print(ss)
-# Sample Size  Cohort Study
+# Sample Size Cohort Study
 #   Per group : 199
 #   Total     : 398
 #   Power     : 80.0%  α=0.05
@@ -244,7 +244,7 @@ print(ss)
 
 ---
 
-### `epitools.viz`  Visualization
+### `epitools.viz` Visualization
 
 All plot functions accept `backend="plotly"` (default, interactive) or `backend="matplotlib"` (publication-quality, 300 DPI).
 
@@ -256,65 +256,54 @@ from epitools.viz import (
     plot_incidence, set_theme, get_available_themes,
 )
 from epitools.stats.diagnostic import roc_analysis
-from epitools.data.surveillance import SurveillanceDataset
-import pandas as pd
 
 print(get_available_themes())
 set_theme("dark")
 
-#  Créer les données d'exemple 
-
-# 1. TimeSeriesResult depuis un modèle SEIR
+# 1. Build a TimeSeriesResult from a SEIR model
 model  = epi.seir(N=1_000_000, I0=10, E0=50,
                   beta=0.35, sigma=1/5.2, gamma=1/14)
-result = model.run()   # c'est le ModelResult
+result = model.run()   # ModelResult
 
-# Convertir en TimeSeriesResult pour plot_epicurve
+# Convert to TimeSeriesResult for plot_epicurve
 from epitools.api.results import TimeSeriesResult
-timeseries_result = TimeSeriesResult(
+ts_result = TimeSeriesResult(
     times=result.t,
     values=result.compartments["I"],
 )
 
-# 2. ROCResult
+# 2. Build a ROCResult
 y_true  = np.array([1,1,1,0,0,0,1,0,1,0])
 y_score = np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
 roc_result = roc_analysis(y_true, y_score)
 
-#  Visualisations 
+# Visualizations
+plot_epicurve(ts_result, animate=True).show()     # epidemic curve
+roc_result.plot().show()                          # ROC curve
+result.plot().show()                              # model trajectories
 
-# Epidemic curve
-plot_epicurve(timeseries_result, animate=True).show()
-
-# ROC
-roc_result.plot().show()
-
-# Modèle trajectoires
-result.plot().show()
-
-# Export Matplotlib
+# Matplotlib export (publication-quality)
 fig = result.plot(backend="matplotlib")
 fig.savefig("figure1.pdf", dpi=300, bbox_inches="tight")
 
-# Export HTML interactif
+# Interactive HTML export
 fig_plotly = result.plot()
 fig_plotly.write_html("figure1.html")
-
 ```
 
 ---
 
-### `epitools.data`  Surveillance data
+### `epitools.data` Surveillance data
 
 ```python
 from epitools.data import SurveillanceDataset, AlertEngine
 
 # Load from CSV (DHIS2-compatible export)
 ds = SurveillanceDataset.from_csv(
-    "meningite_2024.csv",
+    "meningitis_2024.csv",
     date_col="date",
-    cases_col="cas",
-    deaths_col="deces",
+    cases_col="cases",
+    deaths_col="deaths",
     district_col="district",
     population_col="population",
 )
@@ -342,35 +331,35 @@ print(f"{summary['n_alerts']} alerts: {summary['severity_counts']}")
 
 # Convert to viz layer
 ts = ds.to_timeseries_result()
-plot_epicurve(ts, title="Méningite  Région Centre 2024").show()
+plot_epicurve(ts, title="Meningitis Centre Region 2024").show()
 ```
 
 ---
 
-### `epitools.api.reporting`  Report generation
+### `epitools.api.reporting` Report generation
 
 ```python
 from epitools.models import SEIRModel
 from epitools.models.parameters import SEIRParameters
 from epitools import EpiReport, report_from_model
-from epitools.viz import plot_epicurve, plot_model
+from epitools.viz import plot_epicurve
 import webbrowser, os
 
-#  1. Define model parameters 
+# 1. Define model parameters
 params = SEIRParameters(
     N=22_100_000,   # Population of Burkina Faso ~ 2024
     I0=1,           # Initial infectious cases
     E0=10,          # Initial exposed (incubating) cases
     beta=0.35,      # Transmission rate
     sigma=1 / 5.2,  # Incubation rate (avg. incubation period = 5.2 days)
-    gamma=1 / 14,   # Recovery rate  (avg. infectious period 
+    gamma=1 / 14,   # Recovery rate (avg. infectious period = 14 days)
     t_span=(0, 365),
 )
 
-#  2. Run the model 
+# 2. Run the model
 model_result = SEIRModel(params).run()
 
-#  3. Auto-generate a full model report 
+# 3. Auto-generate a full model report
 report = report_from_model(
     model_result,
     title="SEIR Analysis – Burkina Faso 2024",
@@ -380,11 +369,11 @@ report = report_from_model(
 path = report.save_html("report.html")
 webbrowser.open(f"file:///{os.path.abspath(path)}")
 
-#  4. Build a custom epidemiological bulletin 
+# 4. Build a custom epidemiological bulletin
 report = EpiReport(
     title="Weekly Epidemiological Bulletin – Week 12",
-    author="Direction Régionale de la Santé",
-    institution="Ministère de la Santé – Burkina Faso",
+    author="Regional Health Authority",
+    institution="Ministry of Health – Burkina Faso",
 )
 
 report.add_text(
@@ -400,7 +389,7 @@ report.add_metrics({
     "Alert districts":    4,
 })
 
-# plot_epicurve() expects a TimeSeriesResult (surveillance data)
+# plot_epicurve() accepts a TimeSeriesResult or raw arrays
 fig = plot_epicurve(
     times=model_result.t,
     values=model_result.compartments["I"],
@@ -408,13 +397,13 @@ fig = plot_epicurve(
     xlabel="Day",
     ylabel="Infectious",
 )
-report.add_figure(fig, title="Epidemic curve", caption="Weekly cases, Region Centre.")
+report.add_figure(fig, title="Epidemic curve", caption="Weekly cases, Centre Region.")
 report.add_divider()
 
-#  5. Export in multiple formats 
-report.save_html("bulletin_s12.html")       
-report.save_markdown("bulletin_s12.md")
-report.save_json("bulletin_s12.json")
+# 5. Export in multiple formats
+report.save_html("bulletin_w12.html")
+report.save_markdown("bulletin_w12.md")
+report.save_json("bulletin_w12.json")
 ```
 
 **Report output** is a self-contained HTML file with glassmorphism design, automatic dark/light mode based on system preference, and a copy-to-clipboard button.
@@ -427,19 +416,19 @@ report.save_json("bulletin_s12.json")
 epitools/
 ├ api/
 │   ├ results.py        Unified result classes (EpiResult, ModelResult, ROCResult…)
-│   ├ unified.py        epi singleton  convenience entry point
+│   ├ unified.py        epi singleton convenience entry point
 │   └ reporting.py      EpiReport builder → HTML / Markdown / JSON
 │
 ├ models/
 │   ├ base.py           CompartmentalModel abstract class
-│   ├ sir.py            SIR  dS/dt dI/dt dR/dt
-│   ├ seir.py           SEIR  adds latent compartment E
-│   ├ seird.py          SEIRD  adds death compartment D
+│   ├ sir.py            SIR dS/dt dI/dt dR/dt
+│   ├ seir.py           SEIR adds latent compartment E
+│   ├ seird.py          SEIRD adds death compartment D
 │   ├ parameters.py     SIRParameters, SEIRParameters, SEIRDParameters, ScenarioSet
 │   ├ solver.py         solve_ivp wrapper, HIT, doubling time
-│   ├ calibration.py    ModelCalibrator  L-BFGS-B parameter fitting
+│   ├ calibration.py    ModelCalibrator L-BFGS-B parameter fitting
 │   ├ scenarios.py      ScenarioRunner, ScenarioResults
-│   └ sensitivity.py    SensitivityAnalysis  Monte Carlo
+│   └ sensitivity.py    SensitivityAnalysis Monte Carlo
 │
 ├ stats/
 │   ├ contingency.py    Table2x2, risk_ratio, odds_ratio
@@ -459,7 +448,7 @@ epitools/
 │   └ contingency_plot.py  plot_contingency, plot_measures
 │
 ├ data/
-│   ├ dataset.py        Dataset  pandas wrapper with epi methods
+│   ├ dataset.py        Dataset pandas wrapper with epi methods
 │   ├ io.py             read_csv, read_excel, from_pandas
 │   ├ surveillance.py   SurveillanceDataset, AlertEngine, endemic_channel
 │   └ transformers.py   EpidemiologicalTransformer, DateTransformer
@@ -470,8 +459,8 @@ epitools/
 │   ├ exceptions.py     EpiToolsError, ValidationError, DataError
 │   └ constants.py      CI methods, statistical thresholds
 │
-├ simulation/           Post-MVP  stochastic models, networks, spatial
-├ compatibility/        Post-MVP  OpenEpi, R epiR interop
+├ simulation/           Post-MVP stochastic models, networks, spatial
+├ compatibility/        Post-MVP OpenEpi, R epiR interop
 │
 ├ __init__.py           Public API surface
 └ __main__.py           python -m epitools → terminal reference
@@ -487,7 +476,7 @@ epitools/
 | **v0.2.0** | MCMC calibration (`emcee`), robustness improvements | Planned |
 | **v0.3.0** | Stochastic simulation (Gillespie), spatial patch models, SEIRV | Planned |
 | **v0.4.0** | R compatibility (`epiR`, `EpiEstim`), formal scientific validation, PyPI | Planned |
-| **v0.5.0** | Advanced temporal anomaly detection (CUSUM, LOESS  pure numpy/scipy) | Planned |
+| **v0.5.0** | Advanced temporal anomaly detection (CUSUM, LOESS pure numpy/scipy) | Planned |
 
 ---
 
@@ -519,11 +508,10 @@ Code style: `black` + `isort`. Type hints required for all public functions.
 
 ## License
 
-MIT License  see [LICENSE](LICENSE) for details.
+MIT License see [LICENSE](LICENSE) for details.
 
 ---
 Copyright (c) 2026 Xcept-Health
-
 
 ---
 
