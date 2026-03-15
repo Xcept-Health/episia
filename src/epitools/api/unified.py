@@ -24,7 +24,7 @@ Usage::
     report = epi.report(result, title="SEIR  Burkina Faso 2024")
     report.save_html("rapport.html")
 
-    # Thème
+    # Theme
     epi.set_theme("dark")
 """
 

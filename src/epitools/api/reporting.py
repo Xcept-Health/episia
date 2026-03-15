@@ -43,15 +43,15 @@ class EpiReport:
 
         report = EpiReport(title="Analyse SEIR", author="Dr. Ouedraogo")
         report.add_text("Introduction...", title="Introduction")
-        report.add_metrics({"R0": 3.2, "Pic": 42500})
-        report.add_table(df, title="Résultats")
+        report.add_metrics({"R0": 3.2, "Peak": 42500})
+        report.add_table(df, title="Results")
         report.save_html("rapport.html")
         report.save_markdown("rapport.md")
     """
 
     def __init__(
         self,
-        title: str = "Rapport épidémiologique",
+        title: str = "Epidemiological report",
         author: Optional[str] = None,
         institution: Optional[str] = None,
         date: Optional[str] = None,
@@ -63,9 +63,8 @@ class EpiReport:
         self.date        = date or datetime.now().strftime("%d %B %Y")
         self.description = description
         self.sections: List[ReportSection] = []
-        
-    
-    #  Adders 
+
+    # Adders ─────
 
     def add_text(self, text: str, title: Optional[str] = None,
                  level: int = 2) -> "EpiReport":
@@ -74,7 +73,7 @@ class EpiReport:
         return self
 
     def add_metrics(self, metrics: Dict[str, Any],
-                    title: Optional[str] = "Indicateurs clés") -> "EpiReport":
+                    title: Optional[str] = "Key indicators") -> "EpiReport":
         self.sections.append(ReportSection(
             kind="metrics", content=metrics, title=title))
         return self
@@ -87,7 +86,7 @@ class EpiReport:
             if not isinstance(data, pd.DataFrame):
                 data = pd.DataFrame(data)
             if len(data) > max_rows:
-                caption = (caption or "") + f"\n*Tronqué à {max_rows}/{len(data)} lignes.*"
+                caption = (caption or "") + f"\n*Truncated to {max_rows}/{len(data)} rows.*"
                 data = data.head(max_rows)
         except ImportError:
             pass
@@ -124,15 +123,15 @@ class EpiReport:
         self.sections.append(ReportSection(kind="divider", content=None))
         return self
 
-    #  Markdown 
+    # Markdown ────
 
     def to_markdown(self) -> str:
         lines = [f"# {self.title}\n"]
         if self.author:
-            lines.append(f"**Auteur :** {self.author}  ")
+            lines.append(f"**Author:** {self.author}  ")
         if self.institution:
-            lines.append(f"**Institution :** {self.institution}  ")
-        lines.append(f"**Date :** {self.date}\n")
+            lines.append(f"**Institution:** {self.institution}  ")
+        lines.append(f"**Date:** {self.date}\n")
         if self.description:
             lines.append(f"*{self.description}*\n")
         lines.append("---\n")
@@ -145,7 +144,7 @@ class EpiReport:
             if sec.kind == "text":
                 lines.append(str(sec.content))
             elif sec.kind == "metrics":
-                lines += ["| Indicateur | Valeur |",
+                lines += ["| Indicator | Value |",
                           "|:-----------|-------:|"]
                 for k, v in sec.content.items():
                     lines.append(f"| {k} | {_fmt(v)} |")
@@ -159,7 +158,7 @@ class EpiReport:
                 except ImportError:
                     lines.append(str(sec.content))
             elif sec.kind == "figure":
-                lines.append("*[Figure  voir version HTML]*")
+                lines.append("*[Figure — see HTML version]*")
             if sec.caption:
                 lines.append(f"\n*{sec.caption}*")
             lines.append("")
@@ -170,7 +169,7 @@ class EpiReport:
         path.write_text(self.to_markdown(), encoding="utf-8")
         return path
 
-    #  HTML 
+    # HTML ────────
 
     def to_html(self) -> str:
         parts = []
@@ -198,7 +197,7 @@ class EpiReport:
                 )
                 parts.append(
                     f"<table class='metrics'><thead><tr>"
-                    f"<th>Indicateur</th><th>Valeur</th></tr></thead>"
+                    f"<th>Indicator</th><th>Value</th></tr></thead>"
                     f"<tbody>{rows}</tbody></table>"
                 )
             elif sec.kind == "table":
@@ -219,10 +218,10 @@ class EpiReport:
 
         meta = ""
         if self.author:
-            meta += f"<span><strong>Auteur :</strong> {_esc(self.author)}</span>"
+            meta += f"<span><strong>Author:</strong> {_esc(self.author)}</span>"
         if self.institution:
-            meta += f"<span><strong>Institution :</strong> {_esc(self.institution)}</span>"
-        meta += f"<span><strong>Date :</strong> {_esc(self.date)}</span>"
+            meta += f"<span><strong>Institution:</strong> {_esc(self.institution)}</span>"
+        meta += f"<span><strong>Date:</strong> {_esc(self.date)}</span>"
         desc = f'<p class="desc">{_esc(self.description)}</p>' if self.description else ""
 
         return _HTML_TEMPLATE.format(
@@ -235,7 +234,7 @@ class EpiReport:
         path.write_text(self.to_html(), encoding="utf-8")
         return path
 
-    #  JSON 
+    # JSON ────────
 
     def to_json(self, indent: int = 2) -> str:
         export: Dict[str, Any] = {
@@ -276,7 +275,7 @@ class EpiReport:
         return f"EpiReport('{self.title}', {len(self.sections)} sections)"
 
 
-#  Factory functions 
+# Factory functions 
 
 def report_from_result(
     result: Any,
@@ -287,13 +286,13 @@ def report_from_result(
 ) -> EpiReport:
     """One-line report from any EpiResult."""
     report = EpiReport(
-        title=title or f"Rapport  {result.__class__.__name__}",
+        title=title or f"Report — {result.__class__.__name__}",
         author=author,
     )
-    report.add_result(result, title="Résultats")
+    report.add_result(result, title="Results")
     try:
         fig = result.plot(backend=backend)
-        report.add_figure(fig, title="Visualisation")
+        report.add_figure(fig, title="Visualization")
     except Exception:
         pass
     return report
@@ -311,60 +310,60 @@ def report_from_model(
     """Full model simulation report (SIR / SEIR / SEIRD)."""
     mtype  = model_result.model_type
     report = EpiReport(
-        title=title or f"Rapport modèle {mtype}",
+        title=title or f"Model report — {mtype}",
         author=author, institution=institution,
     )
 
     report.add_text(
-        f"Simulation du modèle compartmental **{mtype}** "
-        f"avec les paramètres ci-dessous.",
+        f"Compartmental model simulation **{mtype}** "
+        f"with the parameters below.",
         title="Introduction",
     )
 
     params = {k: _fmt(v) for k, v in model_result.parameters.items()
               if not isinstance(v, (list, dict))}
-    report.add_metrics(params, title="Paramètres")
+    report.add_metrics(params, title="Parameters")
 
     metrics: Dict[str, Any] = {}
     if model_result.r0 is not None:
         metrics["R₀"] = f"{model_result.r0:.3f}"
         hit = max(0.0, 1 - 1 / model_result.r0) if model_result.r0 > 1 else 0.0
-        metrics["Seuil immunité collective"] = f"{hit:.1%}"
+        metrics["Herd immunity threshold"] = f"{hit:.1%}"
     if model_result.peak_infected is not None:
-        metrics["Pic d'infectieux"] = f"{model_result.peak_infected:,.0f}"
-        metrics["Jour du pic"]      = f"{model_result.peak_time:.0f}"
+        metrics["Peak infectious"] = f"{model_result.peak_infected:,.0f}"
+        metrics["Peak day"]      = f"{model_result.peak_time:.0f}"
     if model_result.final_size is not None:
-        metrics["Taille finale"] = f"{model_result.final_size:.1%}"
+        metrics["Final size"] = f"{model_result.final_size:.1%}"
         n = model_result.parameters.get("N", 1)
-        metrics["Cas totaux estimés"] = f"{model_result.final_size * n:,.0f}"
-    report.add_metrics(metrics, title="Indicateurs épidémiologiques")
+        metrics["Estimated total cases"] = f"{model_result.final_size * n:,.0f}"
+    report.add_metrics(metrics, title="Epidemiological indicators")
 
     try:
         fig = model_result.plot(backend=backend)
-        report.add_figure(fig, title="Trajectoires du modèle",
-                          caption=f"Simulation {mtype}  compartiments S/E/I/R(/D).")
+        report.add_figure(fig, title="Model trajectories",
+                          caption=f"Simulation {mtype} — S/E/I/R(/D) compartments.")
     except Exception:
         pass
 
     if sensitivity_result is not None:
         report.add_divider()
         report.add_text(
-            f"Analyse de sensibilité Monte Carlo "
-            f"({sensitivity_result.n_samples} tirages).",
-            title="Analyse de sensibilité",
+            f"Monte Carlo sensitivity analysis "
+            f"({sensitivity_result.n_samples} samples).",
+            title="Sensitivity analysis",
         )
         s = sensitivity_result.summary()
         sa_m: Dict[str, str] = {}
-        for m, lbl in [("r0","R₀"), ("peak_infected","Pic infectieux"),
-                        ("final_size","Taille finale")]:
+        for m, lbl in [("r0","R₀"), ("peak_infected","Peak infectious"),
+                        ("final_size","Final size")]:
             if f"{m}_median" in s:
-                sa_m[f"{lbl}  médiane"] = _fmt(s[f"{m}_median"])
-                sa_m[f"{lbl}  IC 90%"]  = (
+                sa_m[f"{lbl}  median"] = _fmt(s[f"{m}_median"])
+                sa_m[f"{lbl}  90% CI"]  = (
                     f"[{_fmt(s[f'{m}_p5'])}, {_fmt(s[f'{m}_p95'])}]")
         report.add_metrics(sa_m)
         try:
             fig_sa = sensitivity_result.plot(compartment="I", backend=backend)
-            report.add_figure(fig_sa, title="Enveloppe d'incertitude",
+            report.add_figure(fig_sa, title="Uncertainty envelope",
                               caption="Percentiles 5–25–50–75–95.")
         except Exception:
             pass
@@ -372,15 +371,15 @@ def report_from_model(
     try:
         df = model_result.to_dataframe()
         idx = [0, len(df)//4, len(df)//2, 3*len(df)//4, len(df)-1]
-        report.add_table(df.iloc[idx], title="Extrait des trajectoires",
-                         caption="Valeurs à t=0, 25%, 50%, 75%, fin.")
+        report.add_table(df.iloc[idx], title="Trajectory excerpt",
+                         caption="Values at t=0, 25%, 50%, 75%, end.")
     except Exception:
         pass
 
     return report
 
 
-#  Helpers 
+# Helpers 
 
 def _fmt(v: Any) -> str:
     if v is None: return ""
@@ -417,11 +416,11 @@ def _figure_to_html(figure: Any, width: str = "100%") -> str:
         return (f'<img src="data:image/png;base64,{b64}" '
                 f'style="width:{width};max-width:100%;" alt="figure">')
     except Exception:
-        return "<p><em>[Figure non disponible]</em></p>"
+        return "<p><em>[Figure not available]</em></p>"
 
 
 _HTML_TEMPLATE = """<!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
