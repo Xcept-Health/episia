@@ -262,7 +262,7 @@ import pandas as pd
 print(get_available_themes())
 set_theme("dark")
 
-#  Créer les données d'exemple ─
+#  Créer les données d'exemple 
 
 # 1. TimeSeriesResult depuis un modèle SEIR
 model  = epi.seir(N=1_000_000, I0=10, E0=50,

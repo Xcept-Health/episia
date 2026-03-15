@@ -26,7 +26,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-# Import target 
+# ── Import target ─────────────────────────────────────────────────────────────
 from epitools.api.reporting import (
     EpiReport,
     ReportSection,
@@ -69,7 +69,7 @@ class TestEpiReportInit:
 
     def test_default_title(self):
         r = EpiReport()
-        assert r.title == "Rapport épidémiologique"
+        assert r.title == "Epidemiological report"
 
     def test_custom_title(self):
         r = EpiReport(title="My Report")
@@ -183,7 +183,7 @@ class TestAddMetrics:
 
     def test_default_title(self, empty_report):
         empty_report.add_metrics({"x": 1})
-        assert empty_report.sections[0].title == "Indicateurs clés"
+        assert empty_report.sections[0].title == "Key indicators"
 
     def test_custom_title(self, empty_report):
         empty_report.add_metrics({"x": 1}, title="My Metrics")
@@ -391,7 +391,7 @@ class TestToHtml:
         import re
         r = EpiReport(title="<script>alert('xss')</script>")
         html = r.to_html()
-        # The <title> tag must be escaped  raw <script> must not appear there
+        # The <title> tag must be escaped — raw <script> must not appear there
         title_tag = re.search(r"<title>(.*?)</title>", html, re.DOTALL)
         assert title_tag is not None
         assert "<script>" not in title_tag.group(1)
@@ -413,7 +413,7 @@ class TestToHtml:
     def test_xss_escaping_in_author(self):
         r = EpiReport(title="T", author='"><img src=x onerror=alert(1)>')
         html = r.to_html()
-        # Raw <img must not appear  it must be escaped
+        # Raw <img must not appear — it must be escaped
         assert "<img" not in html
         # onerror may appear as text inside &lt;img ... onerror=...&gt; which is safe
         # but must not appear as a live attribute
@@ -524,7 +524,7 @@ class TestToJson:
 
 
 
-# 6. save_*  file I/O
+# 6. save_* — file I/O
 
 
 class TestSaveHtml:
@@ -682,7 +682,8 @@ class TestEsc:
 
 
 
-# 8. Factory functions  report_from_result & report_from_model
+# 8. Factory functions — report_from_result & report_from_model
+
 
 class TestReportFromResult:
 
@@ -815,6 +816,7 @@ class TestReportFromModel:
 
 
 # 9. Edge cases & error paths
+
 
 class TestEdgeCases:
 
