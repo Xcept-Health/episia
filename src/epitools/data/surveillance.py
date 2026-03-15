@@ -28,9 +28,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 import numpy as np
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # SurveillanceDataset
-# ─────────────────────────────────────────────────────────────────────────────
 
 class SurveillanceDataset:
     """
@@ -81,7 +80,7 @@ class SurveillanceDataset:
             self._df[date_col] = pd.to_datetime(self._df[date_col],
                                                  errors="coerce")
 
-    # ── Constructors ─────────────────────────────────────────────────────────
+    #  Constructors
 
     @classmethod
     def from_csv(
@@ -136,7 +135,7 @@ class SurveillanceDataset:
         """Wrap an existing DataFrame."""
         return cls(df, **kwargs)
 
-    # ── Properties ───────────────────────────────────────────────────────────
+    #  Properties
 
     @property
     def df(self):
@@ -182,7 +181,7 @@ class SurveillanceDataset:
             return sorted(self._df[self.disease_col].dropna().unique().tolist())
         return []
 
-    # ── Filtering ────────────────────────────────────────────────────────────
+    #  Filtering 
 
     def filter_district(self, district: str) -> "SurveillanceDataset":
         """Return a new dataset filtered to a single district."""
@@ -224,7 +223,7 @@ class SurveillanceDataset:
             population_col=self.population_col,
         )
 
-    # ── Aggregation ──────────────────────────────────────────────────────────
+    #  Aggregation 
 
     def aggregate(
         self,
@@ -264,7 +263,7 @@ class SurveillanceDataset:
         result = result.rename(columns={"_period": "period"})
         return result.sort_values("period").reset_index(drop=True)
 
-    # ── Epidemiological metrics ───────────────────────────────────────────────
+    #  Epidemiological metrics
 
     def attack_rate(
         self,
@@ -345,7 +344,7 @@ class SurveillanceDataset:
             "percentiles": percentiles,
         }
 
-    # ── Export to EpiTools viz ────────────────────────────────────────────────
+    #  Export to EpiTools viz 
 
     def to_timeseries_result(self):
         """
@@ -362,7 +361,7 @@ class SurveillanceDataset:
 
         return TimeSeriesResult(times=times, values=values)
 
-    # ── Summary ──────────────────────────────────────────────────────────────
+    #  Summary 
 
     def summary(self) -> Dict[str, Any]:
         """Return a summary statistics dict."""
@@ -393,9 +392,8 @@ class SurveillanceDataset:
         )
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # AlertEngine
-# ─────────────────────────────────────────────────────────────────────────────
 
 @dataclass
 class Alert:
@@ -529,9 +527,8 @@ class AlertEngine:
         }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Module-level convenience functions
-# ─────────────────────────────────────────────────────────────────────────────
 
 def from_dhis2_csv(
     path: Union[str, Path],

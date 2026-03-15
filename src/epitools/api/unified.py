@@ -40,7 +40,7 @@ class EpiToolsAPI:
     Instantiated as the module-level `epi` singleton.
     """
 
-    # ── Stats ─────────────────────────────────────────────────────────────
+    #  Stats 
 
     @staticmethod
     def risk_ratio(*args, **kwargs):
@@ -72,7 +72,7 @@ class EpiToolsAPI:
         from ..stats.diagnostic import diagnostic_test_2x2
         return diagnostic_test_2x2(*args, **kwargs)
 
-    # ── Models ────────────────────────────────────────────────────────────
+    #  Models 
 
     @staticmethod
     def sir(N: int, I0: float, beta: float, gamma: float,
@@ -106,7 +106,7 @@ class EpiToolsAPI:
                             t_span=(0, t_end), **kwargs)
         return SEIRDModel(p)
 
-    # ── Data ──────────────────────────────────────────────────────────────
+    #  Data 
 
     @staticmethod
     def read_csv(path, **kwargs):
@@ -118,7 +118,7 @@ class EpiToolsAPI:
         from ..data.surveillance import SurveillanceDataset
         return SurveillanceDataset.from_csv(path, **kwargs)
 
-    # ── Reporting ─────────────────────────────────────────────────────────
+    #  Reporting 
 
     @staticmethod
     def report(result: Any, title: Optional[str] = None, **kwargs):
@@ -129,7 +129,7 @@ class EpiToolsAPI:
             return report_from_model(result, title=title, **kwargs)
         return report_from_result(result, title=title, **kwargs)
 
-    # ── Viz ───────────────────────────────────────────────────────────────
+    #  Viz 
 
     @staticmethod
     def set_theme(theme: str) -> None:

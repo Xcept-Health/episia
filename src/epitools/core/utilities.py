@@ -14,7 +14,7 @@ from contextlib import contextmanager
 from numbers import Number
 
 
-# ==================== DECORATORS ====================
+# DECORATORS
 
 def timer(func: Callable) -> Callable:
     """
@@ -147,7 +147,7 @@ def memoize(maxsize: int = 128) -> Callable:
     return decorator
 
 
-# ==================== DATA UTILITIES ====================
+# DATA UTILITIES
 
 def safe_divide(
     numerator: Union[Number, np.ndarray],
@@ -280,7 +280,7 @@ def create_bins(
         raise ValueError(f"Unknown binning method: {method}")
 
 
-# ==================== STATISTICAL UTILITIES ====================
+# STATISTICAL UTILITIES
 
 def logit(p: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
     """
@@ -354,7 +354,7 @@ def winsorize(
     return np.clip(x, lower_q, upper_q)
 
 
-# ==================== CONTEXT MANAGERS ====================
+# CONTEXT MANAGERS
 
 @contextmanager
 def numpy_errstate(**kwargs):
@@ -403,7 +403,7 @@ def pandas_display_options(**kwargs):
             setattr(pd, key, value)
 
 
-# ==================== TYPE CHECKING ====================
+# TYPE CHECKING
 
 def is_numeric(x: Any) -> bool:
     """
@@ -447,7 +447,7 @@ def is_binary_array(x: Any) -> bool:
     return set(unique_vals).issubset({0, 1})
 
 
-# ==================== FILE UTILITIES ====================
+# FILE UTILITIES
 
 def sanitize_filename(filename: str) -> str:
     """
@@ -472,7 +472,7 @@ def sanitize_filename(filename: str) -> str:
     return sanitized
 
 
-# ==================== RANDOM UTILITIES ====================
+# RANDOM UTILITIES
 
 def set_random_seed(seed: Optional[int] = None) -> None:
     """

@@ -35,7 +35,7 @@ class CompartmentalModel(ABC):
         self.parameters = parameters
         self._result: Optional[Any] = None   # cached ModelResult after run()
 
-    # ------------------------------------------------------------------ abstract
+    # abstract
 
     @property
     @abstractmethod
@@ -85,7 +85,7 @@ class CompartmentalModel(ABC):
         """
         ...
 
-    # ------------------------------------------------------------------ run
+    # run
 
     def run(
         self,
@@ -135,7 +135,7 @@ class CompartmentalModel(ABC):
         self._result = self._build_result(t, sol, metrics)
         return self._result
 
-    # ------------------------------------------------------------------ result builder
+    # result builder
 
     def _build_result(
         self,
@@ -162,7 +162,7 @@ class CompartmentalModel(ABC):
             final_size=metrics.get("final_size"),
         )
 
-    # ------------------------------------------------------------------ convenience
+    # convenience
 
     def plot(self, backend: str = "plotly", **kwargs) -> Any:
         """

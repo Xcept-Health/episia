@@ -28,9 +28,8 @@ from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
 from .plotters.base_plotter import OutputFormat
 
 
-# ---------------------------------------------------------------------------
+
 # Internal helpers
-# ---------------------------------------------------------------------------
 
 def _coerce_times_values(
     source: Any,
@@ -80,9 +79,8 @@ def _coerce_times_values(
     return times, values, trend, trend_method, doubling_time
 
 
-# ---------------------------------------------------------------------------
+
 # plot_epicurve
-# ---------------------------------------------------------------------------
 
 def plot_epicurve(
     result: Any = None,
@@ -157,9 +155,8 @@ def plot_epicurve(
     return plotter.plot_epicurve(proxy, config=config)
 
 
-# ---------------------------------------------------------------------------
+
 # plot_trend
-# ---------------------------------------------------------------------------
 
 def plot_trend(
     result: Any = None,
@@ -266,9 +263,8 @@ def plot_trend(
         return fig
 
 
-# ---------------------------------------------------------------------------
+
 # plot_incidence
-# ---------------------------------------------------------------------------
 
 def plot_incidence(
     result: Any = None,
@@ -373,9 +369,8 @@ def plot_incidence(
         return fig
 
 
-# ---------------------------------------------------------------------------
+
 # plot_doubling
-# ---------------------------------------------------------------------------
 
 def plot_doubling(
     result: Any = None,
@@ -486,9 +481,8 @@ def plot_doubling(
         return fig
 
 
-# ---------------------------------------------------------------------------
+
 # Internal colour helpers
-# ---------------------------------------------------------------------------
 
 def _get_palette(theme: str) -> List[str]:
     from .themes.registry import get_palette
@@ -502,9 +496,8 @@ def _hex_to_rgb(hex_color: str) -> str:
     return f"{r},{g},{b}"
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
 
 __all__ = [
     "plot_epicurve",

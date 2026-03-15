@@ -18,9 +18,8 @@ from .plotters import get_plotter, PlotConfig, AnimationConfig
 from .themes.registry import get_palette
 
 
-# ---------------------------------------------------------------------------
+
 # plot_roc
-# ---------------------------------------------------------------------------
 
 def plot_roc(
     result: Any,
@@ -75,9 +74,8 @@ def plot_roc(
     return get_plotter(backend).plot_roc(result, config=config)
 
 
-# ---------------------------------------------------------------------------
+
 # plot_roc_compare
-# ---------------------------------------------------------------------------
 
 def plot_roc_compare(
     results: List[Any],
@@ -178,9 +176,8 @@ def plot_roc_compare(
         return fig
 
 
-# ---------------------------------------------------------------------------
+
 # plot_precision_recall
-# ---------------------------------------------------------------------------
 
 def plot_precision_recall(
     y_true: Any,

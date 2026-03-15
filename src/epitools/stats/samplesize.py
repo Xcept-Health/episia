@@ -608,7 +608,7 @@ def design_effect_deff(
     return 1 + (average_cluster_size - 1) * intraclass_correlation
 
 
-# ==================== HELPER FUNCTIONS ====================
+#  HELPER FUNCTIONS 
 
 def _z_score(alpha: float, test_type: TestType = TestType.TWO_SIDED) -> float:
     """Get z-score for given alpha and test type."""
@@ -624,7 +624,7 @@ def _validate_probability(value: float, name: str) -> None:
         raise ValueError(f"{name} must be between 0 and 1")
 
 
-# ==================== COMPREHENSIVE SAMPLE SIZE FUNCTION ====================
+#  COMPREHENSIVE SAMPLE SIZE FUNCTION 
 
 def calculate_sample_size(
     design: Union[str, StudyDesign],
@@ -673,7 +673,7 @@ def calculate_sample_size(
         raise ValueError(f"Unsupported study design: {design}")
 
 
-# ==================== MODULE EXPORTS ====================
+#  MODULE EXPORTS 
 
 __all__ = [
     'StudyDesign',

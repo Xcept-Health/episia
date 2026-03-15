@@ -8,9 +8,8 @@ Usage:
 import sys
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # ANSI colour helpers
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _rgb(r, g, b, text):
     """True-colour ANSI escape  falls back to plain text on Windows < Win10."""
@@ -39,9 +38,9 @@ def _supports_color():
     return hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # ASCII art title  gradient left → right across each row
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 _LOGO = [
     " ███████╗██████╗ ██╗████████╗ ██████╗  ██████╗ ██╗     ███████╗",
@@ -98,9 +97,8 @@ def _render_logo(color: bool) -> str:
     return "\n".join(lines)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Version & metadata
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _get_version():
     try:
@@ -120,9 +118,8 @@ def _get_python_version():
     return f"{v.major}.{v.minor}.{v.micro}"
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Module catalogue
-# ─────────────────────────────────────────────────────────────────────────────
 
 _MODULES = [
     (
@@ -188,9 +185,9 @@ _MODULES = [
 ]
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Printer
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def _section(title, color, c_rgb):
     if color:
@@ -204,12 +201,12 @@ def _print_doc(color: bool):
     py_ver    = _get_python_version()
     W         = 68
 
-    # ── Logo ──
+    #  Logo 
     print()
     print(_render_logo(color))
     print()
 
-    # ── Tagline ──
+    #  Tagline 
     tagline = "Open-source epidemiology & biostatistics for Python"
     sub     = f"v{version}  ·  Python {py_ver}  ·  Xcept-Health  ·  MIT"
     if color:
@@ -222,7 +219,7 @@ def _print_doc(color: bool):
     print()
     print("  " + "─" * (W - 2))
 
-    # ── Modules ──
+    #  Modules 
     grad_steps = [
         (0,  210, 190),
         (60, 130, 255),
@@ -257,7 +254,7 @@ def _print_doc(color: bool):
     print()
     print("  " + "─" * (W - 2))
 
-    # ── Quick start ──
+    #  Quick start 
     print()
     if color:
         print(_bold(_rgb(0, 210, 190, "  Quick start")))
@@ -287,7 +284,7 @@ def _print_doc(color: bool):
     else:
         print(snippet)
 
-    # ── Footer ──
+    #  Footer 
     print()
     print("  " + "─" * (W - 2))
     footer = "  GitHub : https://github.com/Xcept-Health/epitools"
@@ -298,7 +295,7 @@ def _print_doc(color: bool):
     print()
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 def main():
     color = _supports_color()

@@ -192,7 +192,7 @@ class Table2x2:
         self._cache: Dict[str, float] = {}    
         
 
-    # ==================== PROPERTIES & CACHED CALCULATIONS ====================
+    # PROPERTIES & CACHED CALCULATIONS 
 
     @property
     def total_exposed(self) -> int:
@@ -265,7 +265,7 @@ class Table2x2:
                 self._cache[key] = self.b / self.d
         return self._cache[key]
     
-    # ==================== CORE EPIDEMIOLOGICAL MEASURES ====================
+    # CORE EPIDEMIOLOGICAL MEASURES 
     
     def risk_ratio(self, 
                    method: ConfidenceMethod = ConfidenceMethod.WALD,
@@ -391,7 +391,7 @@ class Table2x2:
             "confidence": confidence
         }
         
-    # ==================== ATTRIBUTABLE FRACTION MEASURES ====================
+    # ATTRIBUTABLE FRACTION MEASURES 
     
     def attributable_fraction_exposed(self) -> float:
         """
@@ -408,7 +408,7 @@ class Table2x2:
             return 0.0
         return (rr - 1) / rr  
 
-    # ==================== STATISTICAL TESTS ====================
+    # STATISTICAL TESTS 
     
     def chi_square(self, correction: bool = True) -> Dict[str, float]:
         """
@@ -475,7 +475,7 @@ class Table2x2:
             "test": "fisher_exact"
         }
         
-        # ==================== CONFIDENCE INTERVAL METHODS ====================
+        # CONFIDENCE INTERVAL METHODS 
         
     def _wald_ci_rr(self, rr: float, confidence: float) -> Tuple[float, float]:
         """Wald confidence interval for risk ratio."""
@@ -544,7 +544,7 @@ class Table2x2:
         alpha = 1 - confidence
         return stats.norm.ppf(1 - alpha/2)
     
-    # ==================== UTILITY METHODS ====================
+    # UTILITY METHODS 
 
     def to_dict(self) -> Dict[str, int]:
         """Convert table to dictionary representation."""
@@ -592,7 +592,7 @@ class Table2x2:
             "fisher_exact": self.fisher_exact()
         }
 
-# ==================== CONVENIENCE FUNCTIONS ====================
+# CONVENIENCE FUNCTIONS 
 
 def risk_ratio(a: int, b: int, c: int, d: int, **kwargs) -> RiskRatioResult:
     """
@@ -654,7 +654,7 @@ def from_dataframe(df, exposed_col: str, outcome_col: str) -> Table2x2:
     return Table2x2(a, b, c, d)
 
 
-# ==================== MODULE EXPORTS ====================
+# MODULE EXPORTS 
 
 __all__ = [
     'Table2x2',

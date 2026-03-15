@@ -19,9 +19,8 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
 
-# ---------------------------------------------------------------------------
+
 # Base
-# ---------------------------------------------------------------------------
 
 @dataclass
 class ModelParameters:
@@ -79,9 +78,8 @@ class ModelParameters:
         }
 
 
-# ---------------------------------------------------------------------------
+
 # SIR
-# ---------------------------------------------------------------------------
 
 @dataclass
 class SIRParameters(ModelParameters):
@@ -122,9 +120,8 @@ class SIRParameters(ModelParameters):
         return d
 
 
-# ---------------------------------------------------------------------------
+
 # SEIR
-# ---------------------------------------------------------------------------
 
 @dataclass
 class SEIRParameters(ModelParameters):
@@ -179,9 +176,8 @@ class SEIRParameters(ModelParameters):
         return d
 
 
-# ---------------------------------------------------------------------------
+
 # SEIRD
-# ---------------------------------------------------------------------------
 
 @dataclass
 class SEIRDParameters(ModelParameters):
@@ -243,9 +239,8 @@ class SEIRDParameters(ModelParameters):
         return d
 
 
-# ---------------------------------------------------------------------------
+
 # ScenarioSet
-# ---------------------------------------------------------------------------
 
 @dataclass
 class ScenarioSet:

@@ -17,9 +17,8 @@ from .plotters import get_plotter, PlotConfig
 from .themes.registry import get_palette
 
 
-# ---------------------------------------------------------------------------
+
 # plot_contingency
-# ---------------------------------------------------------------------------
 
 def plot_contingency(
     result: Any,
@@ -56,9 +55,9 @@ def plot_contingency(
     return get_plotter(backend).plot_contingency(result, config=config)
 
 
-# ---------------------------------------------------------------------------
+
 # plot_measures
-# ---------------------------------------------------------------------------
+
 
 def plot_measures(
     result: Any,

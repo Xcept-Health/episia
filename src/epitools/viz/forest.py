@@ -17,9 +17,8 @@ from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
 from .themes.registry import get_palette
 
 
-# ---------------------------------------------------------------------------
+
 # _collect_rows helper
-# ---------------------------------------------------------------------------
 
 def _collect_rows(result: Any) -> Tuple[List[Dict], float]:
     """Extract rows and null_value from various result types."""
@@ -85,9 +84,8 @@ def _p_str(p: Optional[float]) -> str:
     return "p<0.001" if p < 0.001 else f"p={p:.3f}"
 
 
-# ---------------------------------------------------------------------------
+
 # plot_forest
-# ---------------------------------------------------------------------------
 
 def plot_forest(
     result: Any,
@@ -132,9 +130,8 @@ def plot_forest(
     return get_plotter(backend).plot_forest(result, config=config)
 
 
-# ---------------------------------------------------------------------------
+
 # plot_meta_forest
-# ---------------------------------------------------------------------------
 
 def plot_meta_forest(
     estimates: List[float],

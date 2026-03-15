@@ -7,7 +7,7 @@ Default backend  produces interactive HTML figures suitable for:
     - Standalone HTML exports
 
 Supported animations
---------------------
+
     FRAME_BY_FRAME  plot_epicurve, plot_forest, plot_diagnostic
     CONTINUOUS      plot_model, plot_roc
     PLAY_PAUSE      plot_epicurve, plot_model
@@ -33,9 +33,8 @@ from .base_plotter import (
 )
 
 
-# ---------------------------------------------------------------------------
+
 # Colour palettes per theme
-# ---------------------------------------------------------------------------
 
 _PALETTES: Dict[str, List[str]] = {
     "scientific":  ["#1f77b4", "#d62728", "#2ca02c", "#ff7f0e", "#9467bd",
@@ -69,9 +68,8 @@ _FONT_COLOR: Dict[str, str] = {
 }
 
 
-# ---------------------------------------------------------------------------
+
 # Helper: build Plotly layout dict
-# ---------------------------------------------------------------------------
 
 def _layout(cfg: PlotConfig, **overrides) -> Dict:
     theme   = cfg.theme
@@ -117,9 +115,8 @@ def _palette(cfg: PlotConfig) -> List[str]:
     return _PALETTES.get(cfg.theme, _PALETTES["scientific"])
 
 
-# ---------------------------------------------------------------------------
+
 # Helper: build animation frames + layout buttons
-# ---------------------------------------------------------------------------
 
 def _make_play_pause_buttons(anim: AnimationConfig) -> List[Dict]:
     """Return updatemenus list with Play / Pause buttons."""
@@ -179,9 +176,8 @@ def _make_slider(labels: List[str], anim: AnimationConfig,
     )
 
 
-# ---------------------------------------------------------------------------
 # PlotlyPlotter
-# ---------------------------------------------------------------------------
+
 
 class PlotlyPlotter(BasePlotter):
     """
@@ -191,7 +187,7 @@ class PlotlyPlotter(BasePlotter):
     Call .show() to display, .to_json() to serialize for React/JS.
 
     Animations supported
-    --------------------
+    --
     FRAME_BY_FRAME : plot_epicurve, plot_forest, plot_diagnostic
     CONTINUOUS     : plot_model, plot_roc
     PLAY_PAUSE     : plot_epicurve, plot_model
@@ -206,7 +202,7 @@ class PlotlyPlotter(BasePlotter):
         AnimationType.SLIDER,
     )
 
-    # ------------------------------------------------------------------ epicurve
+    # epicurve
 
     def plot_epicurve(
         self,
@@ -253,7 +249,7 @@ class PlotlyPlotter(BasePlotter):
             )
             return go.Figure(data=traces, layout=layout)
 
-        # --- animated version ------------------------------------------------
+        #  animated version 
         # Frame i shows bars for periods 0..i
         frames = []
         for i in range(n):
@@ -284,7 +280,7 @@ class PlotlyPlotter(BasePlotter):
         fig.update_layout(layout)
         return fig
 
-    # ------------------------------------------------------------------ model
+    # model
 
     def plot_model(
         self,
@@ -341,7 +337,7 @@ class PlotlyPlotter(BasePlotter):
             )
             return go.Figure(data=traces, layout=layout)
 
-        # --- animated: one frame per time step -------------------------------
+        #  animated: one frame per time step -
         frames = []
         for i in range(1, n_steps + 1):
             frame_traces = []
@@ -390,7 +386,7 @@ class PlotlyPlotter(BasePlotter):
         fig.update_layout(layout)
         return fig
 
-    # ------------------------------------------------------------------ ROC
+    # ROC
 
     def plot_roc(
         self,
@@ -470,7 +466,7 @@ class PlotlyPlotter(BasePlotter):
             )
             return go.Figure(data=[diag, roc_trace, marker], layout=layout)
 
-        # --- animated: threshold sweep ---------------------------------------
+        #  animated: threshold sweep 
         frames = []
         for i in range(2, n + 1):
             frames.append(go.Frame(
@@ -509,7 +505,7 @@ class PlotlyPlotter(BasePlotter):
         fig.update_layout(layout)
         return fig
 
-    # ------------------------------------------------------------------ forest
+    # forest
 
     def plot_forest(
         self,
@@ -529,7 +525,7 @@ class PlotlyPlotter(BasePlotter):
         anim = cfg.animation
         pal  = _palette(cfg)
 
-        # Collect rows -------------------------------------------------
+        # Collect rows -
         rows: List[Dict] = []
 
         # StratifiedResult
@@ -641,7 +637,7 @@ class PlotlyPlotter(BasePlotter):
             traces = _build_traces(rows, y_pos)
             return go.Figure(data=traces, layout=base_layout)
 
-        # --- animated: rows appear one by one --------------------------------
+        #  animated: rows appear one by one --
         frames = []
         for i in range(1, n_rows + 1):
             frames.append(go.Frame(
@@ -657,7 +653,7 @@ class PlotlyPlotter(BasePlotter):
         fig.update_layout(base_layout)
         return fig
 
-    # ------------------------------------------------------------------ association
+    # association
 
     def plot_association(
         self,
@@ -735,7 +731,7 @@ class PlotlyPlotter(BasePlotter):
         fig.update_layout(layout)
         return fig
 
-    # ------------------------------------------------------------------ diagnostic
+    # diagnostic
 
     def plot_diagnostic(
         self,
@@ -758,7 +754,7 @@ class PlotlyPlotter(BasePlotter):
         font_c = _FONT_COLOR.get(cfg.theme, "#222222")
         bg     = _BG.get(cfg.theme, "#ffffff")
 
-        # Confusion matrix ------------------------------------------------
+        # Confusion matrix 
         cm_values = [
             [result.tn, result.fp],
             [result.fn, result.tp],
@@ -778,7 +774,7 @@ class PlotlyPlotter(BasePlotter):
             hoverinfo="text",
         )
 
-        # Metrics bar chart -----------------------------------------------
+        # Metrics bar chart --
         metrics = {
             "Sensitivity": result.sensitivity,
             "Specificity": result.specificity,
@@ -849,7 +845,7 @@ class PlotlyPlotter(BasePlotter):
         )
         return fig
 
-    # ------------------------------------------------------------------ contingency
+    # contingency
 
     def plot_contingency(
         self,
@@ -943,7 +939,7 @@ class PlotlyPlotter(BasePlotter):
         )
         return fig
 
-    # ------------------------------------------------------------------ save
+    # save
 
     def save(
         self,
@@ -980,8 +976,7 @@ class PlotlyPlotter(BasePlotter):
         return path
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
 
 __all__ = ["PlotlyPlotter"]

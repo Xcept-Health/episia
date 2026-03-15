@@ -26,9 +26,8 @@ from .base_plotter import (
 )
 
 
-# ---------------------------------------------------------------------------
+
 # Theme helpers
-# ---------------------------------------------------------------------------
 
 # Colour palettes mirroring plotly_plotter for consistency
 _PALETTES: Dict[str, List[str]] = {
@@ -103,9 +102,8 @@ def _style_axes(ax, cfg: PlotConfig) -> None:
         ax.set_axisbelow(True)
 
 
-# ---------------------------------------------------------------------------
+
 # MatplotlibPlotter
-# ---------------------------------------------------------------------------
 
 class MatplotlibPlotter(BasePlotter):
     """
@@ -120,7 +118,7 @@ class MatplotlibPlotter(BasePlotter):
     BACKEND_NAME = "matplotlib"
     SUPPORTED_ANIMATIONS: Tuple[AnimationType, ...] = ()   # none
 
-    # ------------------------------------------------------------------ epicurve
+    #  epicurve
 
     def plot_epicurve(
         self,
@@ -172,7 +170,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ model
+    #  model
 
     def plot_model(
         self,
@@ -239,7 +237,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ ROC
+    #  ROC
 
     def plot_roc(
         self,
@@ -303,7 +301,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ forest
+    #  forest
 
     def plot_forest(
         self,
@@ -404,7 +402,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ association
+    #  association
 
     def plot_association(
         self,
@@ -467,7 +465,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ diagnostic
+    #  diagnostic
 
     def plot_diagnostic(
         self,
@@ -498,7 +496,7 @@ class MatplotlibPlotter(BasePlotter):
         ax_cm.set_facecolor(bg)
         ax_bar.set_facecolor(bg)
 
-        # --- Confusion matrix heatmap ------------------------------------
+        #  Confusion matrix heatmap 
         cm = np.array([
             [result.tn, result.fp],
             [result.fn, result.tp],
@@ -524,7 +522,7 @@ class MatplotlibPlotter(BasePlotter):
                          fontsize=cfg.font_size, fontweight="bold")
         ax_cm.tick_params(colors=fc)
 
-        # --- Metrics bar chart -------------------------------------------
+        #  Metrics bar chart 
         metrics = {
             "Sensitivity": result.sensitivity,
             "Specificity": result.specificity,
@@ -563,7 +561,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ contingency
+    #  contingency
 
     def plot_contingency(
         self,
@@ -664,7 +662,7 @@ class MatplotlibPlotter(BasePlotter):
         fig.tight_layout()
         return fig
 
-    # ------------------------------------------------------------------ save
+    #  save
 
     def save(
         self,
@@ -698,8 +696,7 @@ class MatplotlibPlotter(BasePlotter):
         return path
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
 
 __all__ = ["MatplotlibPlotter"]

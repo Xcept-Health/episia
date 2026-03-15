@@ -63,8 +63,9 @@ class EpiReport:
         self.date        = date or datetime.now().strftime("%d %B %Y")
         self.description = description
         self.sections: List[ReportSection] = []
-
-    # ── Adders ──────────────────────────────────────────────────────────────
+        
+    
+    #  Adders 
 
     def add_text(self, text: str, title: Optional[str] = None,
                  level: int = 2) -> "EpiReport":
@@ -123,7 +124,7 @@ class EpiReport:
         self.sections.append(ReportSection(kind="divider", content=None))
         return self
 
-    # ── Markdown ─────────────────────────────────────────────────────────────
+    #  Markdown 
 
     def to_markdown(self) -> str:
         lines = [f"# {self.title}\n"]
@@ -169,7 +170,7 @@ class EpiReport:
         path.write_text(self.to_markdown(), encoding="utf-8")
         return path
 
-    # ── HTML ─────────────────────────────────────────────────────────────────
+    #  HTML 
 
     def to_html(self) -> str:
         parts = []
@@ -234,7 +235,7 @@ class EpiReport:
         path.write_text(self.to_html(), encoding="utf-8")
         return path
 
-    # ── JSON ─────────────────────────────────────────────────────────────────
+    #  JSON 
 
     def to_json(self, indent: int = 2) -> str:
         export: Dict[str, Any] = {
@@ -275,7 +276,7 @@ class EpiReport:
         return f"EpiReport('{self.title}', {len(self.sections)} sections)"
 
 
-# ── Factory functions ─────────────────────────────────────────────────────────
+#  Factory functions 
 
 def report_from_result(
     result: Any,
@@ -379,7 +380,7 @@ def report_from_model(
     return report
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+#  Helpers 
 
 def _fmt(v: Any) -> str:
     if v is None: return ""

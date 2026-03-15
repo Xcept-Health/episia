@@ -8,7 +8,7 @@ from typing import Dict, Any
 import numpy as np
 
 
-# ==================== STATISTICAL CONSTANTS ====================
+# STATISTICAL CONSTANTS 
 
 class ConfidenceLevel(float, Enum):
     """Common confidence levels."""
@@ -72,7 +72,7 @@ EUROPEAN_STANDARD_POPULATION = np.array([
 ])
 
 
-# ==================== DISEASE-SPECIFIC CONSTANTS ====================
+# DISEASE-SPECIFIC CONSTANTS 
 
 COVID19_PARAMS = {
     "incubation_period": {
@@ -141,7 +141,7 @@ EBOLA_PARAMS = {
 }
 
 
-# ==================== CALCULATION METHODS ====================
+# CALCULATION METHODS 
 
 class ConfidenceIntervalMethod(str, Enum):
     """Methods for confidence interval calculation."""
@@ -171,7 +171,7 @@ class OddsRatioMethod(str, Enum):
     EXACT = "exact"
 
 
-# ==================== VISUALIZATION CONSTANTS ====================
+# VISUALIZATION CONSTANTS 
 
 class PlotStyle(str, Enum):
     """Plot style presets."""
@@ -202,7 +202,7 @@ DEFAULT_COLOR_PALETTE = ColorPalette.VIRIDIS
 DEFAULT_PLOT_STYLE = PlotStyle.SCIENTIFIC
 
 
-# ==================== CONFIGURATION DICTIONARY ====================
+# CONFIGURATION DICTIONARY 
 
 EPITOOLS_CONFIG: Dict[str, Any] = {
     # Statistical defaults

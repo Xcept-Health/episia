@@ -12,9 +12,8 @@ from typing import List, Optional, Tuple, Union
 import numpy as np
 
 
-# ---------------------------------------------------------------------------
+
 # Colour utilities
-# ---------------------------------------------------------------------------
 
 def hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
     """Convert '#rrggbb' to (r, g, b) tuple."""
@@ -33,9 +32,8 @@ def adjust_alpha(hex_color: str, alpha: float) -> str:
     return hex_to_rgba_str(hex_color, alpha)
 
 
-# ---------------------------------------------------------------------------
+
 # Scale / axis helpers
-# ---------------------------------------------------------------------------
 
 def nice_log_ticks(vmin: float, vmax: float) -> List[float]:
     """
@@ -78,9 +76,8 @@ def symlog_range(values: np.ndarray, margin: float = 0.05) -> Tuple[float, float
     return vmin - pad, vmax + pad
 
 
-# ---------------------------------------------------------------------------
+
 # Confidence interval band helper
-# ---------------------------------------------------------------------------
 
 def ci_band_xy(
     x: np.ndarray,
@@ -103,9 +100,8 @@ def ci_band_xy(
     return x_poly, y_poly
 
 
-# ---------------------------------------------------------------------------
+
 # Annotation helpers
-# ---------------------------------------------------------------------------
 
 def p_value_label(p: Optional[float]) -> str:
     """
@@ -147,9 +143,8 @@ def significance_stars(p: Optional[float]) -> str:
     return "ns"
 
 
-# ---------------------------------------------------------------------------
+
 # Figure sizing
-# ---------------------------------------------------------------------------
 
 def auto_height(n_rows: int, row_px: int = 36, min_px: int = 300,
                 max_px: int = 900) -> int:
@@ -173,9 +168,8 @@ def px_to_inches(px: int, dpi: int = 100) -> float:
     return px / dpi
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
 
 __all__ = [
     "hex_to_rgb",

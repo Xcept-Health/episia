@@ -325,7 +325,7 @@ def prevalence(
     return proportion_ci(cases, population, confidence=confidence)
 
 
-# ==================== CONFIDENCE INTERVAL METHODS ====================
+#  CONFIDENCE INTERVAL METHODS 
 
 def _wald_ci(
     p: float,
@@ -497,7 +497,7 @@ def _check_sample_size(
     return n * p >= min_size and n * (1 - p) >= min_size
 
 
-# ==================== ADDITIONAL DESCRIPTIVE FUNCTIONS ====================
+#  ADDITIONAL DESCRIPTIVE FUNCTIONS 
 
 def median_ci(
     data: np.ndarray,
@@ -591,7 +591,7 @@ def interquartile_range(
     return iqr
 
 
-# ==================== MODULE EXPORTS ====================
+#  MODULE EXPORTS 
 
 __all__ = [
     'CI_Method',

@@ -23,9 +23,8 @@ from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 
-# ---------------------------------------------------------------------------
+
 # Animation support
-# ---------------------------------------------------------------------------
 
 class AnimationType(Enum):
     """
@@ -117,9 +116,8 @@ class UnsupportedAnimationError(NotImplementedError):
     pass
 
 
-# ---------------------------------------------------------------------------
+
 # Plot configuration
-# ---------------------------------------------------------------------------
 
 @dataclass
 class PlotConfig:
@@ -179,9 +177,8 @@ class PlotConfig:
         )
 
 
-# ---------------------------------------------------------------------------
+
 # Output type
-# ---------------------------------------------------------------------------
 
 class OutputFormat(Enum):
     """Output format when saving or exporting a figure."""
@@ -194,9 +191,8 @@ class OutputFormat(Enum):
     MP4    = "mp4"    # Animated  requires ffmpeg
 
 
-# ---------------------------------------------------------------------------
+
 # Abstract base plotter
-# ---------------------------------------------------------------------------
 
 class BasePlotter(ABC):
     """
@@ -221,7 +217,7 @@ class BasePlotter(ABC):
     def __init__(self, config: Optional[PlotConfig] = None):
         self.default_config = config or PlotConfig()
 
-    # ------------------------------------------------------------------ helpers
+    #  helpers
 
     def _resolve_config(self, override: Optional[PlotConfig]) -> PlotConfig:
         """Merge per-call override with instance defaults."""
@@ -245,7 +241,7 @@ class BasePlotter(ABC):
                 f"Supported: {[a.value for a in self.SUPPORTED_ANIMATIONS]}"
             )
 
-    # ------------------------------------------------------------------ abstract plot methods
+    #  abstract plot methods
 
     @abstractmethod
     def plot_epicurve(
@@ -396,7 +392,7 @@ class BasePlotter(ABC):
         """
         ...
 
-    # ------------------------------------------------------------------ optional: save
+    #  optional: save
 
     def save(
         self,
@@ -424,7 +420,7 @@ class BasePlotter(ABC):
             f"Backend '{self.BACKEND_NAME}' does not implement save()."
         )
 
-    # ------------------------------------------------------------------ repr
+    #  repr
 
     def __repr__(self) -> str:
         return (
@@ -434,9 +430,9 @@ class BasePlotter(ABC):
         )
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
+
 
 __all__ = [
     "AnimationType",

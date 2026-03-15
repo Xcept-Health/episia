@@ -20,9 +20,8 @@ from typing import Any, Dict, List, Optional
 import matplotlib as _mpl
 import matplotlib.style as _mpl_style
 
-# ---------------------------------------------------------------------------
+
 # Theme registry
-# ---------------------------------------------------------------------------
 
 _THEME_DIR = os.path.join(os.path.dirname(__file__))
 
@@ -60,15 +59,14 @@ _MPL_FALLBACKS: Dict[str, str] = {
 }
 
 
-# ---------------------------------------------------------------------------
+
 # Public API
-# ---------------------------------------------------------------------------
 
 def set_theme(theme: str) -> None:
     """
     Set the active EpiTools theme globally.
 
-    Applies the Matplotlib style if available — silently skips if
+    Applies the Matplotlib style if available  silently skips if
     matplotlib.style is unavailable in the current environment.
 
     Args:
@@ -115,7 +113,7 @@ def get_plotly_layout(theme: Optional[str] = None) -> Dict[str, Any]:
     """
     Return a base Plotly layout dict for a given theme.
 
-    Intended for use inside plotly_plotter — provides consistent
+    Intended for use inside plotly_plotter  provides consistent
     background colours and font colours per theme.
 
     Args:
@@ -196,9 +194,8 @@ def register_theme(
         _MPL_FALLBACKS[name] = "default"
 
 
-# ---------------------------------------------------------------------------
+
 # Internal helpers
-# ---------------------------------------------------------------------------
 
 def _validate(theme: str) -> None:
     if theme not in AVAILABLE_THEMES:
@@ -210,9 +207,9 @@ def _validate(theme: str) -> None:
 
 def _apply_mpl(theme: str) -> None:
     """
-    Apply Matplotlib style — .mplstyle file first, then built-in fallbacks.
+    Apply Matplotlib style  .mplstyle file first, then built-in fallbacks.
 
-    Completely silent on failure — a missing style never crashes the user.
+    Completely silent on failure  a missing style never crashes the user.
     """
     # Ensure matplotlib.style is importable (lazy import guard)
     try:
@@ -250,4 +247,4 @@ def _apply_mpl(theme: str) -> None:
     try:
         _style.use("default")
     except Exception:
-        pass  # give up silently — matplotlib will use its own defaults
+        pass  # give up silently  matplotlib will use its own defaults

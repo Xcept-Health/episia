@@ -760,7 +760,7 @@ def interaction_term(
     return interaction
 
 
-# ==================== MODULE EXPORTS ====================
+#  MODULE EXPORTS 
 
 __all__ = [
     'RegressionType',

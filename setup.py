@@ -14,19 +14,19 @@ from setuptools import setup, find_packages
 from pathlib import Path
 import re
 
-# ── Read README ───────────────────────────────────────────────────────────────
+#  Read README ─
 here = Path(__file__).parent
 long_description = (here / "README.md").read_text(encoding="utf-8") \
     if (here / "README.md").exists() else ""
 
-# ── Read version — regex only, no exec() ─────────────────────────────────────
+#  Read version — regex only, no exec() ─
 # exec() would run the relative imports in __init__.py and crash during build.
 _init_path = here / "src" / "epitools" / "__init__.py"
 _init_text  = _init_path.read_text(encoding="utf-8") if _init_path.exists() else ""
 _match      = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', _init_text, re.M)
 __version__ = _match.group(1) if _match else "0.1.0"
 
-# ── Core dependencies ─────────────────────────────────────────────────────────
+#  Core dependencies ─
 
 INSTALL_REQUIRES = [
     "numpy>=1.24.0",
@@ -36,7 +36,7 @@ INSTALL_REQUIRES = [
     "matplotlib>=3.7.0",
 ]
 
-# ── Optional dependencies ─────────────────────────────────────────────────────
+#  Optional dependencies ─
 
 EXTRAS_REQUIRE = {
     "full": [
@@ -84,7 +84,7 @@ EXTRAS_REQUIRE["all"] = list({
     for dep in EXTRAS_REQUIRE[key]
 })
 
-# ── Package setup ─────────────────────────────────────────────────────────────
+#  Package setup ─
 
 setup(
     name="epitools",

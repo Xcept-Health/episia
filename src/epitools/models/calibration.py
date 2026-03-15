@@ -97,7 +97,7 @@ class ModelCalibrator:
         self.fit_params   = fit_params
         self.loss         = loss
 
-    # ------------------------------------------------------------------ public
+    # public
 
     def fit(
         self,
@@ -171,7 +171,7 @@ class ModelCalibrator:
         result = model.run()
         return cal, result
 
-    # ------------------------------------------------------------------ internal
+    # internal
 
     def _build_model(self, fit_params: Dict[str, float]):
         """Instantiate model with fixed + fitted parameters."""

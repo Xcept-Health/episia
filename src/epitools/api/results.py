@@ -20,9 +20,8 @@ from abc import ABC, abstractmethod
 import numpy as np
 
 
-# ---------------------------------------------------------------------------
+
 # Base
-# ---------------------------------------------------------------------------
 
 class EpiResult(ABC):
     """
@@ -142,10 +141,8 @@ class EpiResult(ABC):
         return f"({fmt.format(lower)}\u2013{fmt.format(upper)})"
 
 
-# ---------------------------------------------------------------------------
-# Confidence interval container
-# ---------------------------------------------------------------------------
 
+# Confidence interval container
 @dataclass
 class ConfidenceInterval:
     """
@@ -178,9 +175,8 @@ class ConfidenceInterval:
         return self.lower <= value <= self.upper
 
 
-# ---------------------------------------------------------------------------
+
 # Association measures  (RR, OR, RD, IRR...)
-# ---------------------------------------------------------------------------
 
 @dataclass
 class AssociationResult(EpiResult):
@@ -237,9 +233,8 @@ class AssociationResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Proportion / descriptive
-# ---------------------------------------------------------------------------
 
 @dataclass
 class ProportionResult(EpiResult):
@@ -284,9 +279,8 @@ class ProportionResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Sample size & power
-# ---------------------------------------------------------------------------
 
 @dataclass
 class SampleSizeResult(EpiResult):
@@ -348,9 +342,8 @@ class SampleSizeResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Diagnostic test
-# ---------------------------------------------------------------------------
 
 @dataclass
 class DiagnosticResult(EpiResult):
@@ -429,9 +422,8 @@ class DiagnosticResult(EpiResult):
         return d
 
 
-# ---------------------------------------------------------------------------
+
 # ROC curve
-# ---------------------------------------------------------------------------
 
 @dataclass
 class ROCResult(EpiResult):
@@ -477,9 +469,8 @@ class ROCResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Stratified analysis (Mantel-Haenszel)
-# ---------------------------------------------------------------------------
 
 @dataclass
 class StratifiedResult(EpiResult):
@@ -534,9 +525,8 @@ class StratifiedResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Epidemic model (SIR / SEIR / SEIRD)
-# ---------------------------------------------------------------------------
 
 @dataclass
 class ModelResult(EpiResult):
@@ -601,9 +591,8 @@ class ModelResult(EpiResult):
         return pd.DataFrame({"t": self.t, **self.compartments})
 
 
-# ---------------------------------------------------------------------------
+
 # Time series / incidence
-# ---------------------------------------------------------------------------
 
 @dataclass
 class TimeSeriesResult(EpiResult):
@@ -657,9 +646,8 @@ class TimeSeriesResult(EpiResult):
         return pd.DataFrame(data)
 
 
-# ---------------------------------------------------------------------------
+
 # Regression
-# ---------------------------------------------------------------------------
 
 @dataclass
 class RegressionResult(EpiResult):
@@ -715,9 +703,8 @@ class RegressionResult(EpiResult):
         }
 
 
-# ---------------------------------------------------------------------------
+
 # Factory helpers
-# ---------------------------------------------------------------------------
 
 def make_ci(
     lower: float,
@@ -774,9 +761,8 @@ def make_proportion(
     )
 
 
-# ---------------------------------------------------------------------------
+
 # Exports
-# ---------------------------------------------------------------------------
 
 __all__ = [
     "EpiResult",

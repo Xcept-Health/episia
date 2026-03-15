@@ -466,7 +466,7 @@ def stratified_by_variable(
     return StratifiedTable(tables, strata_names)
 
 
-# ==================== MODULE EXPORTS ====================
+#  MODULE EXPORTS 
 
 __all__ = [
     'StratifiedMethod',

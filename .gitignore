@@ -214,6 +214,4 @@ __marimo__/
 *.pyd
 
 
-seir_interactive.py
-test.py
-test1.py
+meningite_2024.csv

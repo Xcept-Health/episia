@@ -585,7 +585,7 @@ def detect_peaks(
     }
 
 
-# ==================== MODULE EXPORTS ====================
+#  MODULE EXPORTS 
 
 __all__ = [
     'TimeAggregation',
