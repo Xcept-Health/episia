@@ -78,7 +78,7 @@ pip install epitools[full]
 ```python
 from epitools import epi
 
-# ── Epidemic model ────────────────────────────────────────────────────────────
+#  Epidemic model 
 model  = epi.seir(N=1_000_000, I0=10, E0=50,
                   beta=0.35, sigma=1/5.2, gamma=1/14)
 result = model.run()
@@ -91,12 +91,12 @@ print(result)
 
 result.plot().show()  # Opens interactive Plotly figure in browser
 
-# ── Biostatistics ─────────────────────────────────────────────────────────────
+#  Biostatistics 
 rr = epi.risk_ratio(a=40, b=10, c=20, d=30)
 print(rr)
 # Risk Ratio: 2.667 (1.514–4.696)
 
-# ── Automated report ──────────────────────────────────────────────────────────
+#  Automated report 
 import webbrowser, os
 report = epi.report(result, title="SEIR  Burkina Faso 2024")
 path   = report.save_html("rapport.html")
@@ -262,7 +262,7 @@ import pandas as pd
 print(get_available_themes())
 set_theme("dark")
 
-# ── Créer les données d'exemple ───────────────────────────────────────────────
+#  Créer les données d'exemple ─
 
 # 1. TimeSeriesResult depuis un modèle SEIR
 model  = epi.seir(N=1_000_000, I0=10, E0=50,
@@ -281,7 +281,7 @@ y_true  = np.array([1,1,1,0,0,0,1,0,1,0])
 y_score = np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
 roc_result = roc_analysis(y_true, y_score)
 
-# ── Visualisations ────────────────────────────────────────────────────────────
+#  Visualisations 
 
 # Epidemic curve
 plot_epicurve(timeseries_result, animate=True).show()
@@ -425,56 +425,56 @@ report.save_json("bulletin_s12.json")
 
 ```
 epitools/
-├── api/
-│   ├── results.py        Unified result classes (EpiResult, ModelResult, ROCResult…)
-│   ├── unified.py        epi singleton  convenience entry point
-│   └── reporting.py      EpiReport builder → HTML / Markdown / JSON
+├ api/
+│   ├ results.py        Unified result classes (EpiResult, ModelResult, ROCResult…)
+│   ├ unified.py        epi singleton  convenience entry point
+│   └ reporting.py      EpiReport builder → HTML / Markdown / JSON
 │
-├── models/
-│   ├── base.py           CompartmentalModel abstract class
-│   ├── sir.py            SIR  dS/dt dI/dt dR/dt
-│   ├── seir.py           SEIR  adds latent compartment E
-│   ├── seird.py          SEIRD  adds death compartment D
-│   ├── parameters.py     SIRParameters, SEIRParameters, SEIRDParameters, ScenarioSet
-│   ├── solver.py         solve_ivp wrapper, HIT, doubling time
-│   ├── calibration.py    ModelCalibrator  L-BFGS-B parameter fitting
-│   ├── scenarios.py      ScenarioRunner, ScenarioResults
-│   └── sensitivity.py    SensitivityAnalysis  Monte Carlo
+├ models/
+│   ├ base.py           CompartmentalModel abstract class
+│   ├ sir.py            SIR  dS/dt dI/dt dR/dt
+│   ├ seir.py           SEIR  adds latent compartment E
+│   ├ seird.py          SEIRD  adds death compartment D
+│   ├ parameters.py     SIRParameters, SEIRParameters, SEIRDParameters, ScenarioSet
+│   ├ solver.py         solve_ivp wrapper, HIT, doubling time
+│   ├ calibration.py    ModelCalibrator  L-BFGS-B parameter fitting
+│   ├ scenarios.py      ScenarioRunner, ScenarioResults
+│   └ sensitivity.py    SensitivityAnalysis  Monte Carlo
 │
-├── stats/
-│   ├── contingency.py    Table2x2, risk_ratio, odds_ratio
-│   ├── descriptive.py    proportion_ci, mean_ci, incidence_rate
-│   ├── diagnostic.py     diagnostic_test_2x2, roc_analysis
-│   ├── samplesize.py     sample_size_*, power_calculation
-│   ├── stratified.py     Mantel-Haenszel, Breslow-Day
-│   ├── regression.py     Logistic / Poisson regression
-│   └── time_series.py    Epidemic curves, trend analysis
+├ stats/
+│   ├ contingency.py    Table2x2, risk_ratio, odds_ratio
+│   ├ descriptive.py    proportion_ci, mean_ci, incidence_rate
+│   ├ diagnostic.py     diagnostic_test_2x2, roc_analysis
+│   ├ samplesize.py     sample_size_*, power_calculation
+│   ├ stratified.py     Mantel-Haenszel, Breslow-Day
+│   ├ regression.py     Logistic / Poisson regression
+│   └ time_series.py    Epidemic curves, trend analysis
 │
-├── viz/
-│   ├── plotters/         Plotly + Matplotlib backends, AnimationConfig
-│   ├── themes/           scientific, minimal, dark, colorblind (.mplstyle)
-│   ├── curves.py         plot_epicurve, plot_trend, plot_incidence, plot_doubling
-│   ├── roc.py            plot_roc, plot_roc_compare, plot_precision_recall
-│   ├── forest.py         plot_forest, plot_meta_forest
-│   └── contingency_plot.py  plot_contingency, plot_measures
+├ viz/
+│   ├ plotters/         Plotly + Matplotlib backends, AnimationConfig
+│   ├ themes/           scientific, minimal, dark, colorblind (.mplstyle)
+│   ├ curves.py         plot_epicurve, plot_trend, plot_incidence, plot_doubling
+│   ├ roc.py            plot_roc, plot_roc_compare, plot_precision_recall
+│   ├ forest.py         plot_forest, plot_meta_forest
+│   └ contingency_plot.py  plot_contingency, plot_measures
 │
-├── data/
-│   ├── dataset.py        Dataset  pandas wrapper with epi methods
-│   ├── io.py             read_csv, read_excel, from_pandas
-│   ├── surveillance.py   SurveillanceDataset, AlertEngine, endemic_channel
-│   └── transformers.py   EpidemiologicalTransformer, DateTransformer
+├ data/
+│   ├ dataset.py        Dataset  pandas wrapper with epi methods
+│   ├ io.py             read_csv, read_excel, from_pandas
+│   ├ surveillance.py   SurveillanceDataset, AlertEngine, endemic_channel
+│   └ transformers.py   EpidemiologicalTransformer, DateTransformer
 │
-├── core/
-│   ├── validator.py      Input validation
-│   ├── calculator.py     Optimised calculators with caching
-│   ├── exceptions.py     EpiToolsError, ValidationError, DataError
-│   └── constants.py      CI methods, statistical thresholds
+├ core/
+│   ├ validator.py      Input validation
+│   ├ calculator.py     Optimised calculators with caching
+│   ├ exceptions.py     EpiToolsError, ValidationError, DataError
+│   └ constants.py      CI methods, statistical thresholds
 │
-├── simulation/           Post-MVP  stochastic models, networks, spatial
-├── compatibility/        Post-MVP  OpenEpi, R epiR interop
+├ simulation/           Post-MVP  stochastic models, networks, spatial
+├ compatibility/        Post-MVP  OpenEpi, R epiR interop
 │
-├── __init__.py           Public API surface
-└── __main__.py           python -m epitools → terminal reference
+├ __init__.py           Public API surface
+└ __main__.py           python -m epitools → terminal reference
 ```
 
 ---
