@@ -146,7 +146,7 @@ class EpidemiologicalCalculator(BaseCalculator):
     def __init__(self, cache_strategy: CacheStrategy = CacheStrategy.LRU):
         super().__init__(cache_strategy)
     
-    @BaseCalculator.cached_method
+    
     def risk_ratio(self, a: int, b: int, c: int, d: int) -> float:
         """
         Calculate risk ratio with caching.
@@ -168,7 +168,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return risk_exposed / risk_unexposed
     
-    @BaseCalculator.cached_method
+    
     def odds_ratio(self, a: int, b: int, c: int, d: int) -> float:
         """
         Calculate odds ratio with caching.
@@ -184,7 +184,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return (a * d) / (b * c)
     
-    @BaseCalculator.cached_method
+    
     def attributable_fraction_exposed(self, rr: float) -> float:
         """
         Calculate attributable fraction among exposed.
@@ -199,7 +199,7 @@ class EpidemiologicalCalculator(BaseCalculator):
             return 0.0
         return (rr - 1) / rr
     
-    @BaseCalculator.cached_method
+    
     def population_attributable_fraction(self, rr: float, p_exposed: float) -> float:
         """
         Calculate population attributable fraction.
@@ -219,7 +219,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return numerator / denominator
     
-    @BaseCalculator.cached_method
+    
     def standard_error_proportion(self, p: float, n: int) -> float:
         """
         Calculate standard error of a proportion.
@@ -236,7 +236,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return np.sqrt(p * (1 - p) / n)
     
-    @BaseCalculator.cached_method
+    
     def confidence_interval_proportion(
         self, 
         p: float, 
@@ -268,7 +268,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         
         return (lower, upper)
     
-    @BaseCalculator.cached_method
+    
     def binomial_probability(
         self, 
         k: int, 
@@ -289,7 +289,7 @@ class EpidemiologicalCalculator(BaseCalculator):
         from scipy import stats
         return stats.binom.pmf(k, n, p)
     
-    @BaseCalculator.cached_method
+    
     def poisson_probability(
         self, 
         k: int, 
@@ -317,7 +317,7 @@ class MatrixCalculator(BaseCalculator):
     def __init__(self, cache_strategy: CacheStrategy = CacheStrategy.LRU):
         super().__init__(cache_strategy)
     
-    @BaseCalculator.cached_method
+    
     def next_generation_matrix(
         self, 
         transmission_matrix: np.ndarray,
@@ -335,7 +335,7 @@ class MatrixCalculator(BaseCalculator):
         """
         return transmission_matrix @ duration_matrix
     
-    @BaseCalculator.cached_method
+    
     def basic_reproduction_number(
         self, 
         next_generation_matrix: np.ndarray
@@ -352,7 +352,7 @@ class MatrixCalculator(BaseCalculator):
         eigenvalues = np.linalg.eigvals(next_generation_matrix)
         return float(np.max(np.abs(eigenvalues)))
     
-    @BaseCalculator.cached_method
+    
     def effective_reproduction_number(
         self, 
         R0: float, 
