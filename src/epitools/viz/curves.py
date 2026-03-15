@@ -139,10 +139,17 @@ def plot_epicurve(
     proxy.trend_method = trend_method
 
     if config is None:
-        anim_cfg = (
-            AnimationConfig.frame_buildup(len(t))
-            if animate else AnimationConfig.default()
-        )
+        if animate:
+            anim_cfg = AnimationConfig.frame_buildup(len(t))
+            # Downsample data to match capped frame count
+            step = max(1, len(t) // AnimationConfig.MAX_ANIMATION_FRAMES)
+            if step > 1:
+                t = t[::step]
+                v = v[::step]
+                if trend is not None:
+                    trend = trend[::step]
+        else:
+            anim_cfg = AnimationConfig.default()
         config = PlotConfig(
             title=title,
             xlabel=xlabel,

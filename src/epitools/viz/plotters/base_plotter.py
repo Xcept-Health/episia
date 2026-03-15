@@ -20,11 +20,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 
 
 
 # Animation support
+
 
 class AnimationType(Enum):
     """
@@ -87,10 +88,23 @@ class AnimationConfig:
             easing="cubic-in-out",
         )
 
+    # Maximum number of animation frames — above this the browser lags badly
+    MAX_ANIMATION_FRAMES: int = 60
+
     @classmethod
     def frame_buildup(cls, n_frames: int, total_ms: int = 5000) -> "AnimationConfig":
-        """Frame-by-frame buildup  good for epidemic curves / time-series."""
-        frame_ms = max(20, total_ms // max(n_frames, 1))
+        """
+        Frame-by-frame buildup — good for epidemic curves / time-series.
+
+        Automatically downsamples to at most MAX_ANIMATION_FRAMES (60) frames
+        so the animation stays smooth regardless of how many data points the
+        model produced.  A 365-day SEIR run at 10 pts/day = 3 650 points
+        is reduced to 60 evenly-spaced frames.
+        """
+        # Clamp: never generate more than MAX_ANIMATION_FRAMES frames
+        # Downsampling happens in curves.py before building the proxy object
+        effective_frames = min(n_frames, cls.MAX_ANIMATION_FRAMES)
+        frame_ms = max(20, total_ms // max(effective_frames, 1))
         return cls(
             enabled=True,
             anim_type=AnimationType.FRAME_BY_FRAME,
@@ -118,6 +132,7 @@ class UnsupportedAnimationError(NotImplementedError):
 
 
 # Plot configuration
+
 
 @dataclass
 class PlotConfig:
@@ -180,6 +195,7 @@ class PlotConfig:
 
 # Output type
 
+
 class OutputFormat(Enum):
     """Output format when saving or exporting a figure."""
     PNG    = "png"
@@ -193,6 +209,7 @@ class OutputFormat(Enum):
 
 
 # Abstract base plotter
+
 
 class BasePlotter(ABC):
     """

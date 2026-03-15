@@ -9,7 +9,6 @@ from typing import Tuple, Optional, Dict, List
 from dataclasses import dataclass
 from enum import Enum
 from scipy import stats
-from sklearn.metrics import roc_curve, auc
 
 
 class DiagnosticMeasure(Enum):
@@ -260,6 +259,7 @@ def roc_analysis(
         ROCResult object
     """
     # Calculate ROC curve
+    from sklearn.metrics import roc_curve, auc  # lazy — avoids 1.5s startup cost
     fpr, tpr, thresholds = roc_curve(y_true, y_score, **kwargs)
     roc_auc = auc(fpr, tpr)
     
@@ -568,7 +568,7 @@ def optimal_threshold_grid_search(
     return results
 
 
-#  MODULE EXPORTS 
+# MODULE EXPORTS 
 
 __all__ = [
     'DiagnosticMeasure',

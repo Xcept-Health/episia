@@ -5,15 +5,13 @@ logistic regression for binary outcomes and Poisson regression
 for count data.
 """
 
+import math
 import numpy as np
-from typing import Union, Tuple, Optional, Dict, List
+from typing import Tuple, Optional, Dict, List
 from dataclasses import dataclass
 from enum import Enum
-import warnings
-from scipy import stats, optimize
+from scipy import stats
 import pandas as pd
-from sklearn.linear_model import LogisticRegression as SklearnLogistic
-from sklearn.preprocessing import StandardScaler
 
 
 class RegressionType(Enum):
@@ -329,11 +327,12 @@ def _logistic_standard_errors(
         # Use pseudo-inverse if singular
         vcov = np.linalg.pinv(information)
     
-    # Standard errors
-    se = np.sqrt(np.diag(vcov))
+    # Standard errors — clip negative variances from numerical noise
+    se = np.sqrt(np.maximum(np.diag(vcov), 0.0))
     
-    # Wald test statistics
-    z_scores = beta / se
+    # Wald test statistics — guard against SE=0 (degenerate cases)
+    with np.errstate(divide="ignore", invalid="ignore"):
+        z_scores = np.where(se > 0, beta / se, 0.0)
     
     # Two-sided p-values
     p_values = 2 * (1 - stats.norm.cdf(np.abs(z_scores)))
@@ -413,7 +412,7 @@ def poisson_regression(
         except np.linalg.LinAlgError:
             delta = 0.01 * gradient
         
-        beta_new = beta - delta
+        beta_new = beta + delta
         
         if np.max(np.abs(beta_new - beta)) < tol:
             beta = beta_new
@@ -425,7 +424,9 @@ def poisson_regression(
     linear_predictor = X @ beta + offset
     mu = np.exp(linear_predictor)
     mu = np.clip(mu, 1e-10, 1e10)
-    log_likelihood = np.sum(y * np.log(mu) - mu - np.log(np.math.factorial(y.astype(int))))
+    # math.lgamma(n+1) = log(n!) — vectorized, compatible with all NumPy versions
+    log_factorial = np.array([math.lgamma(int(yi) + 1) for yi in y])
+    log_likelihood = np.sum(y * np.log(mu) - mu - log_factorial)
     
     # Standard errors
     W = np.diag(mu)

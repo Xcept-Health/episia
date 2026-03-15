@@ -15,7 +15,6 @@ from __future__ import annotations
 from typing import Callable, Optional, Tuple
 
 import numpy as np
-from scipy.integrate import solve_ivp
 
 
 def solve_model(
@@ -78,14 +77,14 @@ def solve_model(
     return sol.t, solution
 
 
-# ---------------------------------------------------------------------------
+
 # Internal helpers
-# ---------------------------------------------------------------------------
 
 def _integrate(
     f, y0, t_span, t_eval, method, rtol, atol, max_step,
 ):
     """Run solve_ivp with automatic stiff fallback."""
+    from scipy.integrate import solve_ivp  # lazy — avoids 1s startup cost
     sol = solve_ivp(
         f,
         t_span,
