@@ -26,7 +26,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-# ── Import target ─────────────────────────────────────────────────────────────
+# Import target 
 from epitools.api.reporting import (
     EpiReport,
     ReportSection,
@@ -37,9 +37,9 @@ from epitools.api.reporting import (
 )
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # Fixtures
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 @pytest.fixture
 def empty_report():
@@ -61,9 +61,9 @@ def full_report():
     return r
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 1. EpiReport.__init__
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestEpiReportInit:
 
@@ -118,9 +118,9 @@ class TestEpiReportInit:
         assert "0 sections" in repr(r)
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 2. Section adders
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestAddText:
 
@@ -272,9 +272,9 @@ class TestChaining:
         assert kinds == ["text", "metrics", "divider"]
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 3. to_markdown()
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestToMarkdown:
 
@@ -343,9 +343,9 @@ class TestToMarkdown:
         assert "My desc" in md
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 4. to_html()
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestToHtml:
 
@@ -391,7 +391,7 @@ class TestToHtml:
         import re
         r = EpiReport(title="<script>alert('xss')</script>")
         html = r.to_html()
-        # The <title> tag must be escaped — raw <script> must not appear there
+        # The <title> tag must be escaped  raw <script> must not appear there
         title_tag = re.search(r"<title>(.*?)</title>", html, re.DOTALL)
         assert title_tag is not None
         assert "<script>" not in title_tag.group(1)
@@ -413,7 +413,7 @@ class TestToHtml:
     def test_xss_escaping_in_author(self):
         r = EpiReport(title="T", author='"><img src=x onerror=alert(1)>')
         html = r.to_html()
-        # Raw <img must not appear — it must be escaped
+        # Raw <img must not appear  it must be escaped
         assert "<img" not in html
         # onerror may appear as text inside &lt;img ... onerror=...&gt; which is safe
         # but must not appear as a live attribute
@@ -444,9 +444,9 @@ class TestToHtml:
         assert "Ouédraogo" in html
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 5. to_json()
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestToJson:
 
@@ -523,9 +523,9 @@ class TestToJson:
         assert "\n" in raw
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 6. save_* — file I/O
-# ══════════════════════════════════════════════════════════════════════════════
+
+# 6. save_*  file I/O
+
 
 class TestSaveHtml:
 
@@ -610,9 +610,9 @@ class TestSaveJson:
         assert data["title"] == "Données épidémiologiques"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 7. Helper functions
-# ══════════════════════════════════════════════════════════════════════════════
+
 
 class TestFmt:
 
@@ -681,9 +681,8 @@ class TestEsc:
         assert _esc("") == ""
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-# 8. Factory functions — report_from_result & report_from_model
-# ══════════════════════════════════════════════════════════════════════════════
+
+# 8. Factory functions  report_from_result & report_from_model
 
 class TestReportFromResult:
 
@@ -814,9 +813,8 @@ class TestReportFromModel:
         assert data["title"] is not None
 
 
-# ══════════════════════════════════════════════════════════════════════════════
+
 # 9. Edge cases & error paths
-# ══════════════════════════════════════════════════════════════════════════════
 
 class TestEdgeCases:
 
