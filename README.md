@@ -13,7 +13,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-0.1.0-orange?style=flat-square)](https://github.com/Xcept-Health/epitools)
+[![Version](https://img.shields.io/badge/Version-0.1.0-alpha-orange?style=flat-square)](https://github.com/Xcept-Health/epitools)
 [![Status](https://img.shields.io/badge/Status-Alpha-red?style=flat-square)](https://github.com/Xcept-Health/epitools)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 
@@ -506,7 +506,7 @@ epitools/
 
 | Version | Focus | Status |
 |---|---|---|
-| **v0.1.0** | Core stats, SIR/SEIR/SEIRD, viz, reporting, surveillance | **Current** |
+| **v0.1.0-alpha** | Core stats, SIR/SEIR/SEIRD, viz, reporting, surveillance | **Current** |
 | **v0.2.0** | MCMC calibration (`emcee`), robustness improvements | Planned |
 | **v0.3.0** | Stochastic simulation (Gillespie), spatial patch models, SEIRV | Planned |
 | **v0.4.0** | R compatibility (`epiR`, `EpiEstim`), formal scientific validation, PyPI | Planned |

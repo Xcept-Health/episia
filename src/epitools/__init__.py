@@ -44,7 +44,7 @@ Advanced usage (direct imports)::
     from epitools.data import SurveillanceDataset, AlertEngine
 """
 
-__version__      = "0.1.0"
+__version__      = "0.1.0-alpha"
 __author__       = "Ariel Shadrac Ouedraogo"
 __email__        = "arielshadrac@gmail.com"
 __organization__ = "Xcept-Health"

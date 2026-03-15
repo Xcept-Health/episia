@@ -158,7 +158,7 @@ class EpiToolsAPI:
 
     def __repr__(self) -> str:
         return (
-            "EpiTools API  v0.1.0\n"
+            "EpiTools API  v0.1.0-alpha\n"
             "  epi.sir() / epi.seir() / epi.seird()\n"
             "  epi.risk_ratio() / epi.odds_ratio() / epi.proportion_ci()\n"
             "  epi.read_csv() / epi.report() / epi.set_theme()"

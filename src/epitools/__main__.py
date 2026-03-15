@@ -110,7 +110,7 @@ def _get_version():
         import importlib.metadata
         return importlib.metadata.version("epitools")
     except Exception:
-        return "0.1.0"
+        return "0.1.0-alpha"
 
 
 def _get_python_version():
