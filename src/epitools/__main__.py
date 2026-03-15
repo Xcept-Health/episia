@@ -110,7 +110,7 @@ def _get_version():
         import importlib.metadata
         return importlib.metadata.version("epitools")
     except Exception:
-        return "0.1.0-alpha"
+        return "0.1.0-beta"
 
 
 def _get_python_version():
@@ -277,7 +277,7 @@ def _print_doc(color: bool):
 
     # Generate a report
     report = epi.report(result, title="SEIR  Burkina Faso")
-    report.save_html("rapport.html")"""
+    report.save_html("report.html")"""
 
     if color:
         print(_dim(snippet))

@@ -18,7 +18,7 @@ Quick start::
 
     # Report
     report = epi.report(result, title="SEIR — Burkina Faso 2024")
-    report.save_html("rapport.html")
+    report.save_html("report.html")
 
 Advanced usage (direct imports)::
 
@@ -44,13 +44,13 @@ Advanced usage (direct imports)::
     from epitools.data import SurveillanceDataset, AlertEngine
 """
 
-__version__      = "0.1.0-alpha"
+__version__      = "0.1.0-beta"
 __author__       = "Ariel Shadrac Ouedraogo"
 __email__        = "arielshadrac@gmail.com"
 __organization__ = "Xcept-Health"
 __license__      = "MIT"
 
-# ── Plotly renderer — auto-configure browser for script environments ──────────
+#  Plotly renderer — auto-configure browser for script environments 
 # Prevents raw JSON from being dumped in the terminal when calling fig.show()
 # in a non-notebook context (PowerShell, CMD, terminal).
 # In Jupyter, the renderer is left as-is so inline display works normally.
@@ -68,35 +68,54 @@ try:
 except ImportError:
     pass
 
-# ── Main entry point ──────────────────────────────────────────────────────────
+#  Main entry point 
 from .api.unified  import epi, EpiToolsAPI
 
-# ── Reporting — available directly from epitools ──────────────────────────────
+#  Reporting — available directly from epitools 
 from .api.reporting import EpiReport, report_from_result, report_from_model
 
-# ── Models ────────────────────────────────────────────────────────────────────
-from .models import (
-    SIRModel, SEIRModel, SEIRDModel,
-    SIRParameters, SEIRParameters, SEIRDParameters,
-    SensitivityAnalysis, ModelCalibrator,
-    ScenarioRunner, ScenarioSet,
-)
+#  Models 
 
-# ── Stats ─────────────────────────────────────────────────────────────────────
-from .stats.contingency  import risk_ratio, odds_ratio
-from .stats.descriptive  import proportion_ci, mean_ci
-from .stats.diagnostic   import diagnostic_test_2x2, roc_analysis
-from .stats.samplesize   import sample_size_risk_ratio, sample_size_single_proportion
+#  Stats 
 
-# ── Visualization ─────────────────────────────────────────────────────────────
-from .viz import (
-    set_theme, get_available_themes,
-    plot_epicurve, plot_roc, plot_forest,
-    plot_incidence, plot_doubling,
-)
 
-# ── Surveillance ──────────────────────────────────────────────────────────────
+#  Surveillance 
 from .data.surveillance import SurveillanceDataset, AlertEngine
+
+
+#  Lazy imports (PEP 562) 
+# Heavy modules (scipy, sklearn, plotly, matplotlib) are NOT loaded at startup.
+# They load on first use — `from epitools import risk_ratio` triggers the load,
+# but `from epitools import epi` (the common case) stays fast.
+
+_LAZY = {
+    # stats
+    "risk_ratio": ".stats.contingency",
+    "odds_ratio":  ".stats.contingency",
+    "proportion_ci": ".stats.descriptive",
+    "mean_ci":     ".stats.descriptive",
+    "diagnostic_test_2x2": ".stats.diagnostic",
+    "roc_analysis": ".stats.diagnostic",
+    "sample_size_risk_ratio": ".stats.samplesize",
+    "sample_size_single_proportion": ".stats.samplesize",
+    # viz
+    "set_theme": ".viz.themes.registry",
+    "get_available_themes": ".viz.themes.registry",
+    "plot_epicurve": ".viz.curves",
+    "plot_roc": ".viz.roc",
+    "plot_forest": ".viz.forest",
+}
+
+def __getattr__(name: str):
+    if name in _LAZY:
+        import importlib
+        module = importlib.import_module(_LAZY[name], package=__name__)
+        obj = getattr(module, name)
+        # Cache in module globals so next access is O(1)
+        globals()[name] = obj
+        return obj
+    raise AttributeError(f"module 'epitools' has no attribute {name!r}")
+
 
 __all__ = [
     # Entry point

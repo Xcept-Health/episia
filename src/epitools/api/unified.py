@@ -10,21 +10,21 @@ Usage::
     result = epi.proportion_ci(k=45, n=200)
     result = epi.diagnostic(tp=80, fp=10, fn=20, tn=90)
 
-    # Modélisation
+    # Models
     model  = epi.seir(N=1_000_000, I0=10, E0=50, beta=0.35,
                       sigma=1/5.2, gamma=1/14)
     result = model.run()
     result.plot().show()
 
-    # Données
-    ds = epi.read_csv("cases.csv", date_col="date", cases_col="cas")
+    # Data
+    ds = epi.read_csv("cases.csv", date_col="date", cases_col="cases")
     ds.epicurve().plot().show()
 
-    # Rapport
+    # Reporting
     report = epi.report(result, title="SEIR  Burkina Faso 2024")
-    report.save_html("rapport.html")
+    report.save_html("report.html")
 
-    # Theme
+    # Thème
     epi.set_theme("dark")
 """
 
@@ -158,7 +158,7 @@ class EpiToolsAPI:
 
     def __repr__(self) -> str:
         return (
-            "EpiTools API  v0.1.0-alpha\n"
+            "EpiTools API  v0.1.0\n"
             "  epi.sir() / epi.seir() / epi.seird()\n"
             "  epi.risk_ratio() / epi.odds_ratio() / epi.proportion_ci()\n"
             "  epi.read_csv() / epi.report() / epi.set_theme()"
