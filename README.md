@@ -331,6 +331,7 @@ print("Saved: figure1.html")
 
 ```python
 from epitools.data import SurveillanceDataset, AlertEngine
+from epitools.viz import plot_epicurve
 
 # Load from CSV (DHIS2-compatible export)
 ds = SurveillanceDataset.from_csv(
