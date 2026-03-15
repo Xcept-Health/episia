@@ -249,46 +249,80 @@ print(ss)
 All plot functions accept `backend="plotly"` (default, interactive) or `backend="matplotlib"` (publication-quality, 300 DPI).
 
 ```python
+
 import numpy as np
 from epitools import epi
-from epitools.viz import (
-    plot_epicurve, plot_roc, plot_forest,
-    plot_incidence, set_theme, get_available_themes,
-)
+from epitools.viz import plot_epicurve, set_theme, get_available_themes
 from epitools.stats.diagnostic import roc_analysis
+from epitools.api.results import TimeSeriesResult
+from epitools.core.utilities import EpiLoader
 
-print(get_available_themes())
+
+#  0. Theme 
+
+with EpiLoader("Loading EpiTools"):
+    from epitools.viz import set_theme, get_available_themes
+
+print("Available themes:", get_available_themes())
 set_theme("dark")
 
-# 1. Build a TimeSeriesResult from a SEIR model
-model  = epi.seir(N=1_000_000, I0=10, E0=50,
-                  beta=0.35, sigma=1/5.2, gamma=1/14)
-result = model.run()   # ModelResult
 
-# Convert to TimeSeriesResult for plot_epicurve
-from epitools.api.results import TimeSeriesResult
-ts_result = TimeSeriesResult(
-    times=result.t,
-    values=result.compartments["I"],
-)
+#  1. SEIR model 
 
-# 2. Build a ROCResult
-y_true  = np.array([1,1,1,0,0,0,1,0,1,0])
-y_score = np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
-roc_result = roc_analysis(y_true, y_score)
+with EpiLoader("Running SEIR model"):
+    model  = epi.seir(N=1_000_000, I0=10, E0=50,
+                      beta=0.35, sigma=1/5.2, gamma=1/14)
+    result = model.run()
 
-# Visualizations
-plot_epicurve(ts_result, animate=True).show()     # epidemic curve
-roc_result.plot().show()                          # ROC curve
-result.plot().show()                              # model trajectories
+print(result)
 
-# Matplotlib export (publication-quality)
-fig = result.plot(backend="matplotlib")
-fig.savefig("figure1.pdf", dpi=300, bbox_inches="tight")
 
-# Interactive HTML export
-fig_plotly = result.plot()
-fig_plotly.write_html("figure1.html")
+#  2. Epidemic curve (animated — capped at 60 frames) 
+
+with EpiLoader("Building epidemic curve"):
+    ts_result = TimeSeriesResult(
+        times=result.t,
+        values=result.compartments["I"],
+    )
+    fig_curve = plot_epicurve(ts_result, animate=True)
+
+fig_curve.show()
+
+
+#  3. ROC curve 
+
+with EpiLoader("Computing ROC curve"):
+    y_true  = np.array([1,1,1,0,0,0,1,0,1,0])
+    y_score = np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
+    roc_result = roc_analysis(y_true, y_score)
+
+roc_result.plot().show()
+
+
+#  4. Model trajectories 
+
+with EpiLoader("Rendering model trajectories"):
+    fig_traj = result.plot()
+
+fig_traj.show()
+
+
+#  5. Matplotlib export 
+
+with EpiLoader("Exporting PDF  figure1.pdf"):
+    fig = result.plot(backend="matplotlib")
+    fig.savefig("figure1.pdf", dpi=300, bbox_inches="tight")
+
+print("Saved: figure1.pdf")
+
+
+#  6. Interactive HTML export 
+
+with EpiLoader("Exporting HTML  figure1.html"):
+    fig_plotly = result.plot()
+    fig_plotly.write_html("figure1.html")
+
+print("Saved: figure1.html")
 ```
 
 ---
