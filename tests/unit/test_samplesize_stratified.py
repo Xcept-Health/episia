@@ -1,6 +1,6 @@
 """
 tests/unit/test_samplesize_stratified.py
-Unit tests for epitools.stats.samplesize and epitools.stats.stratified
+Unit tests for episia.stats.samplesize and episia.stats.stratified
 
 Coverage
 --------
@@ -28,17 +28,17 @@ import math
 import numpy as np
 import pytest
 
-from epitools.stats.samplesize import (
+from episia.stats.samplesize import (
     StudyDesign, TestType, SampleSizeResult,
     sample_size_risk_ratio, sample_size_risk_difference,
     sample_size_odds_ratio, sample_size_single_proportion,
     sample_size_sensitivity_specificity, power_calculation,
     fleiss_correction, design_effect_deff, calculate_sample_size,
 )
-from epitools.stats.stratified import (
+from episia.stats.stratified import (
     StratifiedTable, MantelHaenszelResult, mantel_haenszel_or,
 )
-from epitools.stats.contingency import Table2x2
+from episia.stats.contingency import Table2x2
 
 
 

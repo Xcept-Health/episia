@@ -1,6 +1,6 @@
-# Contributing to epitools
+# Contributing to episia
 
-First off, thank you for considering contributing to epitools! We welcome all forms of contributions, including bug reports, feature suggestions, documentation improvements, code, tests, and more.
+First off, thank you for considering contributing to episia! We welcome all forms of contributions, including bug reports, feature suggestions, documentation improvements, code, tests, and more.
 
 This guide will help you understand how to contribute effectively.
 
@@ -60,5 +60,5 @@ We love pull requests (PRs)! Here’s how to proceed:
 
 1. **Clone your fork**:
    ```bash
-   git clone https://github.com/your-username/epitools.git
-   cd epitools
+   git clone https://github.com/your-username/episia.git
+   cd episia

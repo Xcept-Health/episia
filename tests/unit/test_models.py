@@ -1,6 +1,6 @@
 """
 tests/unit/test_models.py
-Unit tests for epitools.models
+Unit tests for episia.models
     parameters : ModelParameters, SIRParameters, SEIRParameters,
                  SEIRDParameters, ScenarioSet
     solver     : solve_model, estimate_herd_immunity, doubling_time
@@ -13,15 +13,15 @@ import math
 import numpy as np
 import pytest
 
-from epitools.models.parameters import (
+from episia.models.parameters import (
     ModelParameters, SIRParameters, SEIRParameters,
     SEIRDParameters, ScenarioSet,
 )
-from epitools.models.solver import (
+from episia.models.solver import (
     solve_model, estimate_herd_immunity, doubling_time,
 )
-from epitools.models import SIRModel, SEIRModel, SEIRDModel
-from epitools.api.results import ModelResult
+from episia.models import SIRModel, SEIRModel, SEIRDModel
+from episia.api.results import ModelResult
 
 
 

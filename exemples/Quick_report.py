@@ -1,4 +1,4 @@
-from epitools import epi
+from episia import epi
 import webbrowser, os
 
 # Modèle SEIR
@@ -15,5 +15,5 @@ print(rr)
 
 # Rapport  sauvegarde ET ouvre dans le navigateur
 report = epi.report(result, title="SEIR  Burkina Faso")
-path   = report.save_html("rapport.html")
+path   = report.save_html("report.html")
 webbrowser.open(f"file:///{os.path.abspath(path)}")

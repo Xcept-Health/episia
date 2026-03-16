@@ -14,7 +14,7 @@ Unit tests for:
                              get_palette, get_plotly_layout, register_theme
     viz/curves.py          — plot_epicurve (raw arrays + proxy result)
     viz/roc.py             — plot_roc
-    api/unified.py         — EpiToolsAPI (epi singleton) all methods
+    api/unified.py         — EpisiaAPI (epi singleton) all methods
 """
 from __future__ import annotations
 
@@ -27,26 +27,26 @@ import pandas as pd
 import pytest
 
 #  data ─
-from epitools.data.dataset import Dataset
-from epitools.data.io import (
+from episia.data.dataset import Dataset
+from episia.data.io import (
     read_csv, from_pandas, from_dict, from_records,
     detect_format, export_dataset,
 )
-from epitools.data.surveillance import (
+from episia.data.surveillance import (
     SurveillanceDataset, Alert, AlertEngine,
 )
 
 #  viz ─
-from epitools.viz.themes.registry import (
+from episia.viz.themes.registry import (
     set_theme, get_theme, get_available_themes,
     get_palette, get_plotly_layout, register_theme,
     AVAILABLE_THEMES,
 )
-from epitools.viz.curves import plot_epicurve
-from epitools.viz.roc import plot_roc
+from episia.viz.curves import plot_epicurve
+from episia.viz.roc import plot_roc
 
 #  api ─
-from epitools.api.unified import epi, EpiToolsAPI
+from episia.api.unified import epi, EpisiaAPI
 
 
 
@@ -89,7 +89,7 @@ def surv(surveillance_data):
 
 @pytest.fixture
 def roc_result():
-    from epitools.stats.diagnostic import roc_analysis
+    from episia.stats.diagnostic import roc_analysis
     y_true  = np.array([1,1,1,1,1,0,0,0,0,0])
     y_score = np.array([0.9,0.8,0.7,0.6,0.4,0.3,0.2,0.1,0.35,0.45])
     return roc_analysis(y_true, y_score)
@@ -115,19 +115,19 @@ class TestDatasetConstruction:
         assert len(ds) == len(simple_df)
 
     def test_unsupported_type_raises(self):
-        from epitools.core.exceptions import DataError
+        from episia.core.exceptions import DataError
         with pytest.raises(DataError):
             Dataset(42)
 
     def test_missing_file_raises(self):
-        from epitools.core.exceptions import DataError
+        from episia.core.exceptions import DataError
         with pytest.raises(DataError):
             Dataset("/no/such/file.csv")
 
     def test_empty_df_raises(self):
         # validate_dataframe raises ValidationError (from validator module)
         # which is re-raised before DataError wrapping
-        from epitools.core.validator import ValidationError as ValidatorError
+        from episia.core.validator import ValidationError as ValidatorError
         with pytest.raises((Exception,)):
             Dataset(pd.DataFrame(), low_memory=False)
 
@@ -186,7 +186,7 @@ class TestDatasetOperations:
         assert all(filtered.df["exposed"] == 1)
 
     def test_filter_invalid_raises(self, simple_dataset):
-        from epitools.core.exceptions import DataError
+        from episia.core.exceptions import DataError
         with pytest.raises(DataError):
             simple_dataset.filter(42)
 
@@ -223,7 +223,7 @@ class TestDatasetOperations:
     def test_create_2x2_table(self, simple_dataset):
         result = simple_dataset.create_2x2_table("exposed", "outcome")
         assert "table" in result
-        from epitools.stats.contingency import Table2x2
+        from episia.stats.contingency import Table2x2
         assert isinstance(result["table"], Table2x2)
 
     def test_aggregate_by_date(self, tmp_path):
@@ -308,7 +308,7 @@ class TestIOFunctions:
         assert p.exists()
 
     def test_export_unsupported_raises(self, simple_dataset, tmp_path):
-        from epitools.core.exceptions import FileError
+        from episia.core.exceptions import FileError
         p = tmp_path / "export.abc"
         with pytest.raises(FileError):
             export_dataset(simple_dataset, p, format="abc")
@@ -467,7 +467,7 @@ class TestSurveillanceMetrics:
         assert ch["p_low"][0] <= ch["p_mid"][0] <= ch["p_high"][0]
 
     def test_to_timeseries_result(self, surv):
-        from epitools.api.results import TimeSeriesResult
+        from episia.api.results import TimeSeriesResult
         ts = surv.to_timeseries_result()
         assert isinstance(ts, TimeSeriesResult)
         assert len(ts.times) > 0
@@ -649,7 +649,7 @@ class TestPlotEpicurve:
         assert fig is not None
 
     def test_from_epidemic_curve_obj(self):
-        from epitools.stats.time_series import EpidemicCurve
+        from episia.stats.time_series import EpidemicCurve
         dates  = pd.date_range("2024-01-01", periods=10, freq="W").values
         counts = np.ones(10, dtype=float) * 5
         ec = EpidemicCurve(dates=dates, counts=counts, aggregated=False)
@@ -701,30 +701,30 @@ class TestPlotROC:
 
 
 
-# 12. api/unified — EpiToolsAPI (epi singleton)
+# 12. api/unified — EpisiaAPI (epi singleton)
 
 
 class TestEpiSingleton:
     def test_is_instance(self):
-        assert isinstance(epi, EpiToolsAPI)
+        assert isinstance(epi, EpisiaAPI)
 
     def test_repr(self):
         r = repr(epi)
-        assert "EpiTools" in r
+        assert "Episia" in r
 
     #  Stats 
     def test_risk_ratio(self):
-        from epitools.stats.contingency import RiskRatioResult
+        from episia.stats.contingency import RiskRatioResult
         r = epi.risk_ratio(40, 10, 20, 30)
         assert isinstance(r, RiskRatioResult)
 
     def test_odds_ratio(self):
-        from epitools.stats.contingency import OddsRatioResult
+        from episia.stats.contingency import OddsRatioResult
         r = epi.odds_ratio(40, 10, 20, 30)
         assert isinstance(r, OddsRatioResult)
 
     def test_proportion_ci(self):
-        from epitools.stats.descriptive import ProportionResult
+        from episia.stats.descriptive import ProportionResult
         r = epi.proportion_ci(45, 200)
         assert isinstance(r, ProportionResult)
 
@@ -733,39 +733,39 @@ class TestEpiSingleton:
         assert r.proportion == pytest.approx(0.225)
 
     def test_mean_ci(self):
-        from epitools.stats.descriptive import MeanResult
+        from episia.stats.descriptive import MeanResult
         r = epi.mean_ci([1, 2, 3, 4, 5])
         assert isinstance(r, MeanResult)
 
     def test_diagnostic(self):
-        from epitools.stats.diagnostic import DiagnosticResult
+        from episia.stats.diagnostic import DiagnosticResult
         r = epi.diagnostic(tp=80, fp=10, fn=20, tn=90)
         assert isinstance(r, DiagnosticResult)
 
     #  Models 
     def test_sir_returns_model(self):
-        from epitools.models import SIRModel
+        from episia.models import SIRModel
         m = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1)
         assert isinstance(m, SIRModel)
 
     def test_seir_returns_model(self):
-        from epitools.models import SEIRModel
+        from episia.models import SEIRModel
         m = epi.seir(N=10_000, I0=1, E0=5, beta=0.35, sigma=0.2, gamma=0.1)
         assert isinstance(m, SEIRModel)
 
     def test_seird_returns_model(self):
-        from epitools.models import SEIRDModel
+        from episia.models import SEIRDModel
         m = epi.seird(N=10_000, I0=1, E0=5,
                       beta=0.35, sigma=0.2, gamma=0.09, mu=0.01)
         assert isinstance(m, SEIRDModel)
 
     def test_sir_run(self):
-        from epitools.api.results import ModelResult
+        from episia.api.results import ModelResult
         result = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1).run()
         assert isinstance(result, ModelResult)
 
     def test_seir_run(self):
-        from epitools.api.results import ModelResult
+        from episia.api.results import ModelResult
         result = epi.seir(N=10_000, I0=1, E0=5,
                           beta=0.35, sigma=0.2, gamma=0.1).run()
         assert isinstance(result, ModelResult)
@@ -787,13 +787,13 @@ class TestEpiSingleton:
 
     #  Reporting 
     def test_report_from_model_result(self):
-        from epitools.api.reporting import EpiReport
+        from episia.api.reporting import EpiReport
         result = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1).run()
         report = epi.report(result, title="Test Report")
         assert isinstance(report, EpiReport)
 
     def test_report_from_association_result(self):
-        from epitools.api.reporting import EpiReport
+        from episia.api.reporting import EpiReport
         result = epi.risk_ratio(40, 10, 20, 30)
         report = epi.report(result, title="RR Report")
         assert isinstance(report, EpiReport)
@@ -817,7 +817,7 @@ class TestEpiSingleton:
 
     #  Sample size 
     def test_sample_size(self):
-        from epitools.stats.samplesize import SampleSizeResult
+        from episia.stats.samplesize import SampleSizeResult
         r = epi.sample_size(
             "cohort",
             {"risk_unexposed": 0.1, "risk_ratio": 2.0}

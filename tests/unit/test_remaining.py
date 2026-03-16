@@ -23,7 +23,7 @@ import pandas as pd
 import pytest
 
 # ── api.results ───────────────────────────────────────────────────────────────
-from epitools.api.results import (
+from episia.api.results import (
     EpiResult, ConfidenceInterval,
     AssociationResult, ProportionResult, DiagnosticResult,
     ROCResult, ModelResult, TimeSeriesResult,
@@ -31,7 +31,7 @@ from epitools.api.results import (
 )
 
 # ── stats.time_series ─────────────────────────────────────────────────────────
-from epitools.stats.time_series import (
+from episia.stats.time_series import (
     EpidemicCurve, TimeAggregation,
     calculate_incidence, calculate_attack_rate, epidemic_curve,
     moving_average, exponential_growth_rate,
@@ -40,7 +40,7 @@ from epitools.stats.time_series import (
 )
 
 # ── stats.regression ──────────────────────────────────────────────────────────
-from epitools.stats.regression import (
+from episia.stats.regression import (
     RegressionResult, logistic_regression, poisson_regression,
     likelihood_ratio_test, hosmer_lemeshow_test, calculate_vif,
 )

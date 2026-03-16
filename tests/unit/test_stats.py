@@ -1,6 +1,6 @@
 """
 tests/unit/test_stats.py
-Unit tests for epitools.stats
+Unit tests for episia.stats
     contingency  : Table2x2, risk_ratio, odds_ratio, from_dataframe
     descriptive  : proportion_ci, mean_ci, incidence_rate, attack_rate
     diagnostic   : diagnostic_test_2x2, roc_analysis
@@ -11,16 +11,16 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from epitools.stats.contingency import (
+from episia.stats.contingency import (
     Table2x2, RiskRatioResult, OddsRatioResult,
     ConfidenceMethod, risk_ratio, odds_ratio, from_dataframe,
 )
-from epitools.stats.descriptive import (
+from episia.stats.descriptive import (
     CI_Method, ProportionResult, MeanResult,
     proportion_ci, mean_ci, incidence_rate, attack_rate, prevalence,
     interquartile_range,
 )
-from epitools.stats.diagnostic import (
+from episia.stats.diagnostic import (
     DiagnosticResult, ROCResult,
     diagnostic_test_2x2, roc_analysis,
 )

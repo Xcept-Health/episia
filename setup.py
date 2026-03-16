@@ -1,7 +1,7 @@
 """
-setup.py - EpiTools package configuration.
+setup.py - Episia package configuration.
 
-Project layout: src/epitools/
+Project layout: src/episia/
 
 Installation
 ------------
@@ -21,7 +21,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8") \
 
 #  Read version — regex only, no exec() 
 # exec() would run the relative imports in __init__.py and crash during build.
-_init_path = here / "src" / "epitools" / "__init__.py"
+_init_path = here / "src" / "episia" / "__init__.py"
 _init_text  = _init_path.read_text(encoding="utf-8") if _init_path.exists() else ""
 _match      = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', _init_text, re.M)
 __version__ = _match.group(1) if _match else "0.1.0"
@@ -87,7 +87,7 @@ EXTRAS_REQUIRE["all"] = list({
 #  Package setup 
 
 setup(
-    name="epitools",
+    name="episia",
     version=__version__,
     author="Fildouindé Ariel Shadrac Ouedraogo",
     author_email="arielshadrac@gmail.com",
@@ -105,11 +105,11 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
 
-    url="https://github.com/Xcept-Health/epitools",
+    url="https://github.com/Xcept-Health/episia",
     project_urls={
-        "Bug Tracker":   "https://github.com/Xcept-Health/epitools/issues",
-        "Documentation": "https://github.com/Xcept-Health/epitools#readme",
-        "Source Code":   "https://github.com/Xcept-Health/epitools",
+        "Bug Tracker":   "https://github.com/Xcept-Health/episia/issues",
+        "Documentation": "https://github.com/Xcept-Health/episia#readme",
+        "Source Code":   "https://github.com/Xcept-Health/episia",
         "Organization":  "https://xcept-health.com",
     },
 
@@ -123,8 +123,8 @@ setup(
     ),
 
     package_data={
-        "epitools.viz": ["themes/*.mplstyle"],
-        "epitools":     ["*.md", "*.txt", "*.yaml"],
+        "episia.viz": ["themes/*.mplstyle"],
+        "episia":     ["*.md", "*.txt", "*.yaml"],
     },
     include_package_data=True,
 

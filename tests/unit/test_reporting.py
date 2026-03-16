@@ -1,6 +1,6 @@
 """
 tests/unit/test_reporting.py
-Unit tests for epitools.api.reporting
+Unit tests for episia.api.reporting
 
 Coverage
 --------
@@ -27,7 +27,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 # ── Import target ─────────────────────────────────────────────────────────────
-from epitools.api.reporting import (
+from episia.api.reporting import (
     EpiReport,
     ReportSection,
     _esc,
@@ -230,25 +230,25 @@ class TestAddFigure:
         fig = MagicMock()
         fig.savefig = MagicMock()
 
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>fig</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>fig</div>"):
             empty_report.add_figure(fig, title="My Figure")
 
         assert len(empty_report.sections) == 1
 
     def test_section_kind(self, empty_report):
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>fig</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>fig</div>"):
             empty_report.add_figure(MagicMock(), title="Fig")
         assert empty_report.sections[0].kind == "figure"
 
     def test_title_and_caption_stored(self, empty_report):
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>fig</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>fig</div>"):
             empty_report.add_figure(MagicMock(), title="T", caption="C")
         sec = empty_report.sections[0]
         assert sec.title == "T"
         assert sec.caption == "C"
 
     def test_returns_self(self, empty_report):
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>fig</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>fig</div>"):
             result = empty_report.add_figure(MagicMock())
         assert result is empty_report
 
@@ -324,7 +324,7 @@ class TestToMarkdown:
 
     def test_figure_placeholder(self):
         r = EpiReport(title="T")
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>fig</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>fig</div>"):
             r.add_figure(MagicMock())
         md = r.to_markdown()
         assert "Figure" in md or "figure" in md
@@ -428,7 +428,7 @@ class TestToHtml:
 
     def test_caption_rendered(self):
         r = EpiReport(title="T")
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             r.add_figure(MagicMock(), caption="My caption")
         html = r.to_html()
         assert "My caption" in html
@@ -500,7 +500,7 @@ class TestToJson:
 
     def test_figure_omitted_in_json(self):
         r = EpiReport(title="T")
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             r.add_figure(MagicMock(), title="Fig")
         parsed = json.loads(r.to_json())
         fig_sec = parsed["sections"][0]
@@ -701,31 +701,31 @@ class TestReportFromResult:
 
     def test_returns_epireport(self):
         result = self._make_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_result(result)
         assert isinstance(report, EpiReport)
 
     def test_has_sections(self):
         result = self._make_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_result(result)
         assert len(report.sections) > 0
 
     def test_custom_title(self):
         result = self._make_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_result(result, title="My Title")
         assert report.title == "My Title"
 
     def test_custom_author(self):
         result = self._make_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_result(result, author="Dr. Test")
         assert report.author == "Dr. Test"
 
     def test_default_title_uses_class_name(self):
         result = self._make_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_result(result)
         assert "MockResult" in report.title
 
@@ -759,25 +759,25 @@ class TestReportFromModel:
 
     def test_returns_epireport(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         assert isinstance(report, EpiReport)
 
     def test_model_type_in_title(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         assert "SEIR" in report.title
 
     def test_custom_title(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr, title="Custom Title")
         assert report.title == "Custom Title"
 
     def test_author_and_institution_set(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(
                 mr, author="Dr. A", institution="Xcept-Health"
             )
@@ -786,13 +786,13 @@ class TestReportFromModel:
 
     def test_has_multiple_sections(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         assert len(report.sections) >= 3
 
     def test_r0_present_in_metrics(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         all_content = " ".join(
             str(s.content) for s in report.sections if s.kind == "metrics"
@@ -801,14 +801,14 @@ class TestReportFromModel:
 
     def test_html_is_valid(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         html = report.to_html()
         assert "<!DOCTYPE html>" in html
 
     def test_json_is_valid(self):
         mr = self._make_model_result()
-        with patch("epitools.api.reporting._figure_to_html", return_value="<div>f</div>"):
+        with patch("episia.api.reporting._figure_to_html", return_value="<div>f</div>"):
             report = report_from_model(mr)
         data = json.loads(report.to_json())
         assert data["title"] is not None

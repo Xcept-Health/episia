@@ -1,4 +1,4 @@
-epitools/                                  # 📦 PACKAGE PRINCIPAL
+episia/                                  # 📦 PACKAGE PRINCIPAL
 │
 ├── 📄 __init__.py                        # Interface principale exportant `epi`
 │
@@ -6,7 +6,7 @@ epitools/                                  # 📦 PACKAGE PRINCIPAL
 │   ├── __init__.py
 │   ├── calculator.py                     # Calculateurs optimisés avec cache
 │   ├── validator.py                      # Validation données et paramètres
-│   ├── exceptions.py                     # EpiToolsError, ValidationError
+│   ├── exceptions.py                     # EpisiaError, ValidationError
 │   ├── constants.py                      # Méthodes IC, seuils, constantes
 │   └── utilities.py                      # Formateurs, helpers, décorateurs
 │
@@ -79,6 +79,6 @@ epitools/                                  # 📦 PACKAGE PRINCIPAL
 │
 └── 📁 compatibility/                     # 🔗 COMPATIBILITÉ
     ├── __init__.py
-    ├── openepi.py                        # Conversion OpenEpi → EpiTools
-    ├── repitools.py                      # Compatibilité R-epitools
+    ├── openepi.py                        # Conversion OpenEpi → Episia
+    ├── repisia.py                      # Compatibilité R-episia
     └── common_formats.py                 // Formats données standard

@@ -1,6 +1,6 @@
 """
 tests/unit/test_core.py
-Unit tests for epitools.core.calculator, core.validator, core.exceptions
+Unit tests for episia.core.calculator, core.validator, core.exceptions
 """
 from __future__ import annotations
 import math
@@ -8,19 +8,19 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from epitools.core.calculator import (
+from episia.core.calculator import (
     BaseCalculator, CalculationStats, CacheStrategy,
     EpidemiologicalCalculator, MatrixCalculator,
     cached_function, epi_calculator, matrix_calculator,
 )
-from epitools.core.validator import (
+from episia.core.validator import (
     ValidationError,
     check_convergence, validate_2x2_table, validate_binary_variable,
     validate_confidence_level, validate_dataframe, validate_numeric_array,
     validate_positive, validate_proportion, validate_sample_size,
 )
-from epitools.core.exceptions import (
-    EpiToolsError, ConvergenceError, ConfigurationError, DataError,
+from episia.core.exceptions import (
+    EpisiaError, ConvergenceError, ConfigurationError, DataError,
     ModelError, StatisticalError, DimensionError, ParameterError,
     ComputationError, FileError, PlotError,
 )
@@ -513,21 +513,21 @@ class TestCheckConvergence:
 
 class TestExceptions:
     def test_base_raises(self):
-        with pytest.raises(EpiToolsError): raise EpiToolsError("test")
+        with pytest.raises(EpisiaError): raise EpisiaError("test")
 
     def test_default_message(self):
-        assert len(EpiToolsError().message) > 0
+        assert len(EpisiaError().message) > 0
 
     def test_custom_message(self):
-        assert EpiToolsError("hello").message == "hello"
+        assert EpisiaError("hello").message == "hello"
 
     @pytest.mark.parametrize("cls", [
         ConvergenceError, ConfigurationError, DataError, ModelError,
         StatisticalError, DimensionError, ParameterError,
         ComputationError, FileError, PlotError,
     ])
-    def test_inherits_epitools_error(self, cls):
-        assert isinstance(cls(), EpiToolsError)
+    def test_inherits_episia_error(self, cls):
+        assert isinstance(cls(), EpisiaError)
         assert isinstance(cls(), Exception)
 
     @pytest.mark.parametrize("cls", [
@@ -536,12 +536,12 @@ class TestExceptions:
         ComputationError, FileError, PlotError,
     ])
     def test_catchable_as_base(self, cls):
-        with pytest.raises(EpiToolsError): raise cls("test")
+        with pytest.raises(EpisiaError): raise cls("test")
 
     def test_validator_validation_error_is_value_error(self):
-        from epitools.core.validator import ValidationError as VE
+        from episia.core.validator import ValidationError as VE
         with pytest.raises(ValueError): raise VE("bad value")
 
-    def test_exceptions_validation_error_is_epitools_error(self):
-        from epitools.core.exceptions import ValidationError as EVE
-        with pytest.raises(EpiToolsError): raise EVE("bad value")
+    def test_exceptions_validation_error_is_episia_error(self):
+        from episia.core.exceptions import ValidationError as EVE
+        with pytest.raises(EpisiaError): raise EVE("bad value")
