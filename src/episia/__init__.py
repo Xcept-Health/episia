@@ -45,7 +45,7 @@ Advanced usage (direct imports)::
 """
 
 __version__      = "0.1.0"
-__author__       = "Ariel Shadrac Ouedraogo"
+__author__       = "Fidlouindé Ariel Shadrac Ouedraogo"
 __email__        = "arielshadrac@gmail.com"
 __organization__ = "Xcept-Health"
 __license__      = "MIT"

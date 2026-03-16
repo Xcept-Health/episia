@@ -388,7 +388,7 @@ model_result = SEIRModel(params).run()
 report = report_from_model(
     model_result,
     title="SEIR Analysis - Burkina Faso 2024",
-    author="Dr. Ariel Shadrac Ouedraogo",
+    author="Dr. F. Ariel Shadrac Ouedraogo",
     institution="Xcept-Health",
 )
 path = report.save_html("report.html")
