@@ -48,8 +48,10 @@ class SampleSizeResult:
             return f"Sample size: {self.n_per_group:.0f} per group (total: {self.n_total:.0f})"
         elif self.n_cases is not None:
             return f"Sample size: {self.n_cases:.0f} cases, {self.n_controls:.0f} controls"
-        else:
+        elif self.power is not None:
             return f"Power: {self.power:.3f}"
+        else:
+            return f"Sample size: {self.n_total:.0f} subjects"
     
     def to_dict(self) -> Dict:
         """Convert result to dictionary."""
