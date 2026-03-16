@@ -1,4 +1,7 @@
-<h1 align="center" style="font-size: 10rem;">Epi<span style="color:#2997ff;">sia</span>..</h1>
+<div align="center">
+$$\definecolor{epiblue}{HTML}{2997ff}
+\Huge \text{Epi}\color{epiblue}{sia}..$$
+</div>
 
 **Open-source epidemiology & biostatistics for Python**
 
