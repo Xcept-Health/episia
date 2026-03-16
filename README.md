@@ -17,6 +17,7 @@
 [![Status](https://img.shields.io/badge/Status-Stable-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 [![Tests](https://img.shields.io/badge/Tests-896%20passed-brightgreen?style=flat-square)](#)
+[![Validation notebook](https://img.shields.io/badge/Validation-OpenEpi-brightgreen?style=flat-square)](examples/episia_vs_openepi.ipynb)
 
 *epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
 
@@ -46,6 +47,17 @@ Built on the scientific foundation of [OpenEpi](https://openepi.com), Episia ext
 - Terminal loader animation for long-running operations (`EpiLoader`)
 
 ---
+
+## Validation
+
+Episia is systematically validated against [OpenEpi](https://openepi.com), the reference in epidemiology. All results from core functions (risk ratio, odds ratio, confidence intervals, χ² tests, etc.) have been compared and agree with OpenEpi on standard datasets.
+
+**[Check out the full validation notebook](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)** 
+
+This notebook reproduces OpenEpi’s calculations step by step and demonstrates the concordance.
+
+---
+
 
 ## Installation
 
