@@ -710,17 +710,6 @@ class TestLogisticRegression:
 # 15. poisson_regression
 
 
-# ── BUG DOCUMENTED ─────────────────────────────────────────────────────────
-# poisson_regression() uses np.math.factorial which was removed in NumPy 2.x.
-# All tests are marked xfail until the source is fixed:
-#   regression.py line ~450: replace np.math.factorial with math.factorial
-# ────────────────────────────────────────────────────────────────────────────
-
-@pytest.mark.xfail(
-    reason="BUG: regression.py uses np.math.factorial removed in NumPy >= 2.0. "
-           "Fix: replace np.math.factorial with math.factorial",
-    strict=True,
-)
 class TestPoissonRegression:
     def test_returns_result(self, poisson_data):
         X, y = poisson_data
@@ -879,9 +868,7 @@ class TestCalculateVIF:
         assert max(result.values()) > 10
 
 
-
 # 19. Cross-module mathematical checks
-
 
 class TestMathCrossChecks:
     def test_aic_penalizes_extra_params(self, logistic_data):
@@ -916,14 +903,12 @@ class TestMathCrossChecks:
         # Intercept should be near 0 (log-odds ≈ 0 for 50% prevalence)
         assert abs(r.coefficients[0]) < 0.3
 
-    @pytest.mark.xfail(
-        reason="BUG: poisson_regression uses np.math.factorial removed in NumPy 2.x",
-        strict=True,
-    )
     def test_poisson_rate_ratio_direction(self, rng):
         """Positive coefficient → rate ratio > 1."""
-        n = 100
+        n = 200
         X = rng.normal(0, 1, (n, 1))
-        y = rng.poisson(np.exp(0 + 2.0 * X[:, 0])).astype(float)
+        # Use a moderate coefficient (0.5) to avoid numerical overflow in exp()
+        y = rng.poisson(np.exp(1.0 + 0.5 * X[:, 0])).astype(float)
         r = poisson_regression(X, y, variable_names=["x"])
+        # Positive true coefficient → estimated rate ratio should be > 1
         assert r.odds_ratios[1] > 1.0

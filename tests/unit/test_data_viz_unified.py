@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-# ── data ─────────────────────────────────────────────────────────────────────
+#  data ─
 from epitools.data.dataset import Dataset
 from epitools.data.io import (
     read_csv, from_pandas, from_dict, from_records,
@@ -36,7 +36,7 @@ from epitools.data.surveillance import (
     SurveillanceDataset, Alert, AlertEngine,
 )
 
-# ── viz ───────────────────────────────────────────────────────────────────────
+#  viz ─
 from epitools.viz.themes.registry import (
     set_theme, get_theme, get_available_themes,
     get_palette, get_plotly_layout, register_theme,
@@ -45,7 +45,7 @@ from epitools.viz.themes.registry import (
 from epitools.viz.curves import plot_epicurve
 from epitools.viz.roc import plot_roc
 
-# ── api ───────────────────────────────────────────────────────────────────────
+#  api ─
 from epitools.api.unified import epi, EpiToolsAPI
 
 
@@ -667,11 +667,6 @@ class TestPlotEpicurve:
         fig = plot_epicurve(times=times, values=values, title="Test title")
         assert fig is not None
 
-    @pytest.mark.xfail(
-        reason="BUG: .mplstyle file in source repo has malformed content "
-               "(unclosed quote). Matplotlib raises ValueError when loading it.",
-        strict=True,
-    )
     def test_matplotlib_backend(self):
         import matplotlib
         matplotlib.use("Agg")
@@ -696,11 +691,6 @@ class TestPlotROC:
         fig = plot_roc(roc_result, title="Malaria RDT ROC")
         assert fig is not None
 
-    @pytest.mark.xfail(
-        reason="BUG: .mplstyle file in source repo has malformed content "
-               "(unclosed quote). Matplotlib raises ValueError when loading it.",
-        strict=True,
-    )
     def test_matplotlib_backend(self, roc_result):
         import matplotlib
         matplotlib.use("Agg")
@@ -722,7 +712,7 @@ class TestEpiSingleton:
         r = repr(epi)
         assert "EpiTools" in r
 
-    # ── Stats ──
+    #  Stats 
     def test_risk_ratio(self):
         from epitools.stats.contingency import RiskRatioResult
         r = epi.risk_ratio(40, 10, 20, 30)
@@ -752,7 +742,7 @@ class TestEpiSingleton:
         r = epi.diagnostic(tp=80, fp=10, fn=20, tn=90)
         assert isinstance(r, DiagnosticResult)
 
-    # ── Models ──
+    #  Models 
     def test_sir_returns_model(self):
         from epitools.models import SIRModel
         m = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1)
@@ -780,7 +770,7 @@ class TestEpiSingleton:
                           beta=0.35, sigma=0.2, gamma=0.1).run()
         assert isinstance(result, ModelResult)
 
-    # ── Data ──
+    #  Data 
     def test_read_csv(self, tmp_path):
         df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
         p  = tmp_path / "data.csv"
@@ -795,7 +785,7 @@ class TestEpiSingleton:
                                         cases_col="cases")
         assert isinstance(ds, SurveillanceDataset)
 
-    # ── Reporting ──
+    #  Reporting 
     def test_report_from_model_result(self):
         from epitools.api.reporting import EpiReport
         result = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1).run()
@@ -808,7 +798,7 @@ class TestEpiSingleton:
         report = epi.report(result, title="RR Report")
         assert isinstance(report, EpiReport)
 
-    # ── Viz / Theme ──
+    #  Viz / Theme 
     def test_set_theme(self):
         epi.set_theme("dark")
         assert get_theme() == "dark"
@@ -825,7 +815,7 @@ class TestEpiSingleton:
         fig = epi.plot_epicurve(times=times, values=values)
         assert fig is not None
 
-    # ── Sample size ──
+    #  Sample size 
     def test_sample_size(self):
         from epitools.stats.samplesize import SampleSizeResult
         r = epi.sample_size(

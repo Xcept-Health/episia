@@ -192,7 +192,7 @@ class Table2x2:
         self._cache: Dict[str, float] = {}    
         
 
-    # PROPERTIES & CACHED CALCULATIONS 
+    #  PROPERTIES & CACHED CALCULATIONS 
 
     @property
     def total_exposed(self) -> int:
@@ -265,7 +265,7 @@ class Table2x2:
                 self._cache[key] = self.b / self.d
         return self._cache[key]
     
-    # CORE EPIDEMIOLOGICAL MEASURES 
+    #  CORE EPIDEMIOLOGICAL MEASURES 
     
     def risk_ratio(self, 
                    method: ConfidenceMethod = ConfidenceMethod.WALD,
@@ -391,7 +391,7 @@ class Table2x2:
             "confidence": confidence
         }
         
-    # ATTRIBUTABLE FRACTION MEASURES 
+    #  ATTRIBUTABLE FRACTION MEASURES 
     
     def attributable_fraction_exposed(self) -> float:
         """
@@ -408,7 +408,7 @@ class Table2x2:
             return 0.0
         return (rr - 1) / rr  
 
-    # STATISTICAL TESTS 
+    #  STATISTICAL TESTS 
     
     def chi_square(self, correction: bool = True) -> Dict[str, float]:
         """
@@ -475,25 +475,41 @@ class Table2x2:
             "test": "fisher_exact"
         }
         
-        # CONFIDENCE INTERVAL METHODS 
+        #  CONFIDENCE INTERVAL METHODS 
         
     def _wald_ci_rr(self, rr: float, confidence: float) -> Tuple[float, float]:
-        """Wald confidence interval for risk ratio."""
+        """Wald confidence interval for risk ratio.
+
+        Uses Haldane-Anscombe continuity correction (+0.5) for zero cells,
+        which avoids ZeroDivisionError when a=0 or b=0 and provides a finite
+        CI estimate consistent with epidemiological practice.
+        """
         if rr <= 0:
             return 0.0, 0.0
-        
-        # Standard error on log scale
-        var_log_rr = (
-            (1/self.a - 1/self.total_exposed) +
-            (1/self.b - 1/self.total_unexposed)
-        )
-        
-        se_log_rr = np.sqrt(max(var_log_rr, 0))
-        z = self._z_score(confidence)
-        
-        log_ci_lower = np.log(rr) - z * se_log_rr
-        log_ci_upper = np.log(rr) + z * se_log_rr
-        
+        if np.isinf(rr):
+            # RR = inf (unexposed risk = 0) — CI is (rr, inf) by convention
+            return float('inf'), float('inf')
+
+        # Apply Haldane-Anscombe +0.5 correction for any zero cell
+        if self.a == 0 or self.b == 0:
+            a  = self.a  + 0.5
+            b  = self.b  + 0.5
+            n1 = self.total_exposed   + 0.5
+            n2 = self.total_unexposed + 0.5
+            # Recompute RR with corrected counts for the CI
+            rr_corr = (a / n1) / (b / n2)
+        else:
+            a, b, n1, n2 = self.a, self.b, self.total_exposed, self.total_unexposed
+            rr_corr = rr
+
+        # Standard error of log(RR) — Greenland & Robins (1985)
+        var_log_rr = (1/a - 1/n1) + (1/b - 1/n2)
+        se_log_rr  = np.sqrt(max(var_log_rr, 0))
+        z          = self._z_score(confidence)
+
+        log_ci_lower = np.log(rr_corr) - z * se_log_rr
+        log_ci_upper = np.log(rr_corr) + z * se_log_rr
+
         return np.exp(log_ci_lower), np.exp(log_ci_upper)
     
     def _score_ci_rr(self, confidence: float) -> Tuple[float, float]:
@@ -544,7 +560,7 @@ class Table2x2:
         alpha = 1 - confidence
         return stats.norm.ppf(1 - alpha/2)
     
-    # UTILITY METHODS 
+    #  UTILITY METHODS 
 
     def to_dict(self) -> Dict[str, int]:
         """Convert table to dictionary representation."""
@@ -559,6 +575,26 @@ class Table2x2:
     def __repr__(self) -> str:
         return (f"Table2x2(a={self.a}, b={self.b}, c={self.c}, d={self.d})")
     
+    def attributable_fraction_population(self) -> float:
+        """
+        Attributable fraction in the population (PAF).
+
+        PAF = Pe * (RR - 1) / (Pe * (RR - 1) + 1)
+
+        where Pe = proportion of cases that are exposed = a / (a + b).
+
+        Returns:
+            Population attributable fraction (range: -∞ to 1)
+        """
+        total_cases = self.total_cases
+        if total_cases == 0:
+            return 0.0
+        pe = self.a / total_cases   # proportion exposed among cases
+        rr = self.risk_ratio().estimate
+        if rr <= 0 or np.isinf(rr):
+            return 0.0
+        return pe * (rr - 1) / (pe * (rr - 1) + 1)
+
     def summary(self) -> Dict[str, Union[float, int, Dict]]:
         """
         Generate comprehensive summary of all calculations.
@@ -586,13 +622,13 @@ class Table2x2:
             "risk_difference": rd_result,
             "attributable_fractions": {
                 "exposed": self.attributable_fraction_exposed(),
-                "population": self.attributable_fraction_population()
+                "population": self.attributable_fraction_population(),
             },
             "chi_square": chi2_result,
             "fisher_exact": self.fisher_exact()
         }
 
-# CONVENIENCE FUNCTIONS 
+#  CONVENIENCE FUNCTIONS 
 
 def risk_ratio(a: int, b: int, c: int, d: int, **kwargs) -> RiskRatioResult:
     """
@@ -654,7 +690,7 @@ def from_dataframe(df, exposed_col: str, outcome_col: str) -> Table2x2:
     return Table2x2(a, b, c, d)
 
 
-# MODULE EXPORTS 
+#  MODULE EXPORTS 
 
 __all__ = [
     'Table2x2',

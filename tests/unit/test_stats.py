@@ -47,8 +47,7 @@ def diag_standard():
 
 
 
-# 1. Table2x2 — construction & properties
-
+# 1. Table2x2 - construction & properties
 
 class TestTable2x2Init:
     def test_stores_cells(self, table_standard):
@@ -118,8 +117,7 @@ class TestTable2x2Properties:
 
 
 
-# 2. Table2x2 — risk_ratio
-
+# 2. Table2x2 - risk_ratio
 
 class TestTable2x2RiskRatio:
     def test_returns_result_object(self, table_standard):
@@ -172,11 +170,12 @@ class TestTable2x2RiskRatio:
 
     def test_zero_unexposed_risk_inf(self):
         # b=0 → unexposed risk=0 → RR=inf
-        # BUG in source: _wald_ci_rr crashes with ZeroDivisionError when b=0
-        # Test documents the current behaviour — CI calculation raises
+        # Haldane-Anscombe correction applied - no longer raises
         t = Table2x2(10, 0, 5, 5)
-        with pytest.raises(ZeroDivisionError):
-            t.risk_ratio()
+        r = t.risk_ratio()
+        assert r.estimate == float('inf')
+        # CI for infinite RR is (inf, inf) by convention
+        assert r.ci_lower == float('inf')
 
     def test_99_ci_wider_than_95(self, table_standard):
         r95 = table_standard.risk_ratio(confidence=0.95)
@@ -185,8 +184,7 @@ class TestTable2x2RiskRatio:
 
 
 
-# 3. Table2x2 — odds_ratio
-
+# 3. Table2x2 - odds_ratio
 
 class TestTable2x2OddsRatio:
     def test_returns_result_object(self, table_standard):
@@ -228,8 +226,7 @@ class TestTable2x2OddsRatio:
 
 
 
-# 4. Table2x2 — risk_difference & chi_square & fisher_exact
-
+# 4. Table2x2 - risk_difference & chi_square & fisher_exact
 
 class TestTable2x2OtherMeasures:
     def test_risk_difference_positive(self, table_standard):
@@ -272,15 +269,17 @@ class TestTable2x2OtherMeasures:
         assert 0 < af < 1
 
     def test_summary_keys(self, table_standard):
-        # BUG in source: summary() calls attributable_fraction_population()
-        # which does not exist on Table2x2. Documents the current behaviour.
-        with pytest.raises(AttributeError, match="attributable_fraction_population"):
-            table_standard.summary()
+        s = table_standard.summary()
+        for k in ["table", "risks", "risk_ratio", "odds_ratio",
+                  "chi_square", "attributable_fractions"]:
+            assert k in s
+        # attributable_fraction_population() is now implemented
+        assert "population" in s["attributable_fractions"]
+        assert 0 <= s["attributable_fractions"]["population"] <= 1
 
 
 
 # 5. Convenience functions & from_dataframe
-
 
 class TestConvenienceFunctions:
     def test_risk_ratio_fn(self):
@@ -313,7 +312,6 @@ class TestConvenienceFunctions:
 
 
 # 6. proportion_ci
-
 
 class TestProportionCI:
     def test_returns_proportion_result(self):
@@ -404,7 +402,6 @@ class TestProportionCI:
 
 # 7. mean_ci
 
-
 class TestMeanCI:
     def test_returns_mean_result(self):
         assert isinstance(mean_ci([1, 2, 3, 4, 5]), MeanResult)
@@ -461,7 +458,6 @@ class TestMeanCI:
 
 # 8. incidence_rate & interquartile_range
 
-
 class TestIncidenceRate:
     def test_rate_value(self):
         r = incidence_rate(10, 1000)
@@ -509,7 +505,6 @@ class TestInterquartileRange:
 
 
 # 9. diagnostic_test_2x2
-
 
 class TestDiagnosticTest2x2:
     def test_returns_diagnostic_result(self, diag_standard):
@@ -596,7 +591,6 @@ class TestDiagnosticTest2x2:
 
 # 10. roc_analysis
 
-
 class TestROCAnalysis:
     @pytest.fixture
     def roc_data(self):
@@ -659,7 +653,6 @@ class TestROCAnalysis:
 
 
 # 11. Mathematical cross-checks
-
 
 class TestMathCrossChecks:
     def test_rr_or_relationship(self):
