@@ -391,10 +391,7 @@ class SurveillanceDataset:
             f"{start} → {end})"
         )
 
-
-
 # AlertEngine
-
 @dataclass
 class Alert:
     """A single surveillance alert."""
@@ -406,7 +403,6 @@ class Alert:
     district:   Optional[str] = None
     disease:    Optional[str] = None
     message:    str = ""
-
 
 class AlertEngine:
     """
@@ -525,8 +521,6 @@ class AlertEngine:
             "first_alert":    str(alerts[0].period),
             "last_alert":     str(alerts[-1].period),
         }
-
-
 
 # Module-level convenience functions
 

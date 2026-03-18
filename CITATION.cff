@@ -1,0 +1,18 @@
+# .zenodo.json ou CITATION.cff
+cff-version: 1.2.0
+title: "Episia: Open-source epidemiology and biostatistics for Python"
+authors:
+  - family-names: "Ouedraogo"
+    given-names: "Fildouindé Ariel Shadrac"
+    affiliation: "Xcept-Health"
+    orcid: "https://orcid.org/0009-0003-3419-5985X"
+version: 0.1.0
+date-released: yyyy-mm-dd
+repository-code: "https://github.com/Xcept-Health/episia"
+license: MIT
+keywords:
+  - epidemiology
+  - biostatistics
+  - public-health
+  - africa
+  - python
