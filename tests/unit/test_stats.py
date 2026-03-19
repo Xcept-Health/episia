@@ -26,9 +26,7 @@ from episia.stats.diagnostic import (
 )
 
 
-
 # Fixtures
-
 
 @pytest.fixture
 def table_standard():
