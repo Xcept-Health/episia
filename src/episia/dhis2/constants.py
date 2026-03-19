@@ -1,3 +1,34 @@
+"""
+Constants for DHIS2 integration.
+
+This module provides endpoint definitions, field mappings, and preset
+data element UIDs for common WHO/AFRO notifiable diseases.
+
+API Endpoints
+-------------
+
+.. autodata:: ENDPOINTS
+   :annotation:
+
+Standard field mappings
+-----------------------
+
+.. autodata:: ANALYTICS_FIELDS
+   :annotation:
+
+Period type mappings
+--------------------
+
+.. autodata:: PERIOD_TYPES
+   :annotation:
+
+WHO/AFRO data elements
+----------------------
+
+.. autodata:: WHO_AFRO_ELEMENTS
+   :annotation:
+"""
+
 ENDPOINTS = {
     "analytics":     "/api/analytics",
     "data_values":   "/api/dataValueSets",

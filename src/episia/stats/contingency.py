@@ -149,13 +149,13 @@ class Table2x2:
     2x2 contingency table for epidemiological calculations.
     
     Represents a standard 2x2 table layout:
-        +-----------+-----------+
-        | Exposed   | Unexposed |
-    +---+-----------+-----------+
-    | Cases |     a     |     b     |
-    +-------+-----------+-----------+
-    | Non-cases |     c     |     d     |
-    +-------+-----------+-----------+
+    +----------------+-----------+-----------+
+    |                | Exposed   | Unexposed |
+    +================+===========+===========+
+    | Cases          |     a     |     b     |
+    +----------------+-----------+-----------+
+    | Non-cases      |     c     |     d     |
+    +----------------+-----------+-----------+
     
     Attributes:
         a (int): Exposed cases
