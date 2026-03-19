@@ -8,21 +8,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════════════
-       THEME TOKENS
-    ═══════════════════════════════════════════════ */
     :root {
       --teal:      #2997ff;
       --teal-dim:  rgba(41,151,255,0.10);
       --teal-glow: rgba(41,151,255,0.35);
       --amber:     #f5a623;
       --red:       #e05c5c;
+      --green:     #00c8b4;
       --mono: 'IBM Plex Mono', monospace;
       --sans: 'Sora', sans-serif;
       --serif: 'Instrument Serif', serif;
       --radius: 10px;
     }
-
     [data-theme="dark"] {
       --bg:          #03080f;
       --bg2:         #070f1a;
@@ -44,7 +41,6 @@
       --nm:  #f5a623;
       --glow-hero: rgba(41,151,255,0.07);
     }
-
     [data-theme="light"] {
       --bg:          #f7f9fc;
       --bg2:         #ffffff;
@@ -69,10 +65,8 @@
       --teal-dim: rgba(0,119,230,0.08);
       --teal-glow: rgba(0,119,230,0.25);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
       font-family: var(--sans);
       background: var(--bg);
@@ -81,12 +75,7 @@
       -webkit-font-smoothing: antialiased;
       transition: background 0.35s ease, color 0.35s ease;
     }
-
-
-
-    /* ═══════════════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════════════ */
+    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -96,26 +85,8 @@
       border-bottom: 1px solid var(--border);
       transition: background 0.35s, border-color 0.35s;
     }
-
-    nav::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.022;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-
-
-    .nav-logo {
-      font-family: var(--mono);
-      font-size: 1.05rem; font-weight: 600;
-      color: var(--text);
-    }
-    .nav-logo-text { color: var(--text); }
+    .nav-logo { font-family: var(--mono); font-size: 1.05rem; font-weight: 600; color: var(--text); }
     .nav-logo span { color: var(--teal); }
-  
     .nav-center {
       display: flex; gap: 2rem; list-style: none;
       position: absolute; left: 50%; transform: translateX(-50%);
@@ -129,29 +100,19 @@
       border-bottom: 1px solid transparent;
     }
     .nav-center a:hover { color: var(--teal); border-bottom-color: var(--teal); }
-
     .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-
-    /* Theme toggle */
     .theme-toggle {
       width: 36px; height: 20px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      cursor: pointer;
-      position: relative;
-      transition: background 0.3s;
-      flex-shrink: 0;
+      background: var(--border); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; position: relative; transition: background 0.3s;
     }
     .theme-toggle::after {
-      content: '';
-      position: absolute; top: 2px; left: 2px;
+      content: ''; position: absolute; top: 2px; left: 2px;
       width: 14px; height: 14px; border-radius: 50%;
       background: var(--teal);
-      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+      transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
     }
     [data-theme="light"] .theme-toggle::after { transform: translateX(16px); }
-
     .nav-github {
       display: flex; align-items: center; gap: 0.45rem;
       font-family: var(--mono); font-size: 0.75rem;
@@ -161,22 +122,14 @@
       transition: box-shadow 0.2s, opacity 0.2s;
     }
     .nav-github:hover { box-shadow: 0 0 16px var(--teal-glow); opacity: 0.9; }
-
-    /* ═══════════════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════════════ */
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
       padding: 7rem 2rem 4rem;
-      position: relative; overflow: hidden;
-      z-index: 1;
+      position: relative; overflow: hidden; z-index: 1;
     }
-
-
-
-    /* Radial glow */
     .hero-glow {
       position: absolute; top: 40%; left: 50%;
       transform: translate(-50%,-50%);
@@ -184,80 +137,49 @@
       background: radial-gradient(ellipse, var(--glow-hero) 0%, transparent 65%);
       pointer-events: none;
     }
-
-
-
     .hero-badge {
-      font-family: var(--mono); font-size: 0.7rem;
-      color: var(--teal);
-      border: 1px solid var(--border);
-      padding: 0.3rem 0.9rem; border-radius: 2rem;
-      margin-bottom: 2rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      background: var(--teal-dim);
-      animation: fadeUp 0.6s ease both;
+      font-family: var(--mono); font-size: 0.7rem; color: var(--teal);
+      border: 1px solid var(--border); padding: 0.3rem 0.9rem; border-radius: 2rem;
+      margin-bottom: 2rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--teal-dim); animation: fadeUp 0.6s ease both;
       display: flex; align-items: center; gap: 0.5rem;
     }
-
-    /* Hero title  */
     .hero-title {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 800;
-      text-align: center;
-      letter-spacing: -0.04em;
-      line-height: 1.0;
-      margin-bottom: 1.5rem;
-      animation: fadeUp 0.7s 0.1s ease both;
+      font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 800;
+      text-align: center; letter-spacing: -0.04em; line-height: 1.0;
+      margin-bottom: 1.5rem; animation: fadeUp 0.7s 0.1s ease both;
       position: relative; z-index: 1;
     }
     .hero-title .accent { color: var(--teal); }
-
-
     .hero-sub {
-      font-size: 1.05rem; color: var(--text-dim);
-      text-align: center; max-width: 540px;
-      line-height: 1.75; margin-bottom: 2.5rem;
-      font-weight: 300;
-      animation: fadeUp 0.7s 0.2s ease both;
-      position: relative; z-index: 1;
+      font-size: 1.05rem; color: var(--text-dim); text-align: center;
+      max-width: 540px; line-height: 1.75; margin-bottom: 2.5rem; font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both; position: relative; z-index: 1;
     }
-
-    /* Stat row */
     .hero-stats {
-      display: flex; gap: 2.5rem;
-      margin-bottom: 2.5rem;
-      animation: fadeUp 0.7s 0.25s ease both;
-      position: relative; z-index: 1;
+      display: flex; gap: 2.5rem; margin-bottom: 2.5rem;
+      animation: fadeUp 0.7s 0.25s ease both; position: relative; z-index: 1;
     }
     .hero-stat { text-align: center; }
     .hero-stat-n {
       font-family: var(--mono); font-size: 1.6rem; font-weight: 600;
-      color: var(--teal); line-height: 1;
-      display: block; margin-bottom: 0.25rem;
+      color: var(--teal); line-height: 1; display: block; margin-bottom: 0.25rem;
     }
-    .hero-stat-l { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; text-transform: lowercase; }
+    .hero-stat-l { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; }
     .hero-stat-sep { width: 1px; background: var(--border); align-self: stretch; }
-
     .hero-actions {
-      display: flex; gap: 0.85rem; flex-wrap: wrap;
-      justify-content: center; margin-bottom: 4rem;
-      animation: fadeUp 0.7s 0.3s ease both;
+      display: flex; gap: 0.85rem; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 4rem; animation: fadeUp 0.7s 0.3s ease both;
       position: relative; z-index: 1;
     }
-
-    /* ═══════════════════════════════════════════════
-       BUTTONS
-    ═══════════════════════════════════════════════ */
     .btn-primary {
       display: inline-flex; align-items: center; gap: 0.5rem;
       background: var(--teal); color: var(--bg);
       font-family: var(--mono); font-size: 0.82rem; font-weight: 600;
-      padding: 0.8rem 1.6rem; border-radius: 5px;
-      text-decoration: none;
+      padding: 0.8rem 1.6rem; border-radius: 5px; text-decoration: none;
       transition: box-shadow 0.2s, transform 0.15s;
     }
     .btn-primary:hover { box-shadow: 0 0 24px var(--teal-glow); transform: translateY(-1px); }
-
     .btn-secondary {
       display: inline-flex; align-items: center; gap: 0.5rem;
       border: 1px solid var(--border); color: var(--text);
@@ -267,22 +189,16 @@
       transition: border-color 0.2s, background 0.2s;
     }
     .btn-secondary:hover { border-color: var(--teal); background: rgba(41,151,255,0.15); }
-
-    /* ═══════════════════════════════════════════════
-       HERO CHART
-    ═══════════════════════════════════════════════ */
+    /* HERO CHART */
     .hero-chart {
       width: 100%; max-width: 840px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--surface); border: 1px solid var(--border);
       border-radius: 14px; padding: 1.25rem;
-      position: relative; z-index: 1;
-      animation: fadeUp 0.8s 0.4s ease both;
+      position: relative; z-index: 1; animation: fadeUp 0.8s 0.4s ease both;
       box-shadow: 0 0 80px rgba(41,151,255,0.05), 0 32px 80px rgba(0,0,0,0.35);
-      transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
+      transition: background 0.35s, border-color 0.35s;
     }
     [data-theme="light"] .hero-chart { box-shadow: 0 0 40px rgba(41,151,255,0.04), 0 8px 40px rgba(0,0,0,0.08); }
-
     .chart-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
     .chart-dots { display: flex; gap: 5px; }
     .chart-dots span { width: 10px; height: 10px; border-radius: 50%; }
@@ -292,17 +208,12 @@
     .legend-item { display: flex; align-items: center; gap: 0.35rem; font-family: var(--mono); font-size: 0.68rem; color: var(--text-dim); }
     .legend-dot { width: 7px; height: 7px; border-radius: 50%; }
     canvas#seir-canvas { width: 100%; height: 200px; display: block; }
-
-    /* ═══════════════════════════════════════════════
-       INSTALL STRIP
-    ═══════════════════════════════════════════════ */
+    /* INSTALL STRIP */
     .install-strip {
       background: var(--surface);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
       padding: 0.9rem 0; overflow: hidden; white-space: nowrap;
-      position: relative; z-index: 1;
-      transition: background 0.35s;
+      position: relative; z-index: 1; transition: background 0.35s;
     }
     .install-inner {
       display: inline-flex; align-items: center; gap: 2.5rem;
@@ -312,10 +223,7 @@
     .install-inner .hi { color: var(--teal); }
     .install-inner .sep { color: var(--border); }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-
-    /* ═══════════════════════════════════════════════
-       LAYOUT
-    ═══════════════════════════════════════════════ */
+    /* LAYOUT */
     .section { padding: 6rem 2rem; position: relative; z-index: 1; }
     .container { max-width: 1080px; margin: 0 auto; }
     .section-label {
@@ -326,111 +234,67 @@
       font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700;
       letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 1rem;
     }
-
     .section-sub { font-size: 0.95rem; color: var(--text-dim); line-height: 1.75; max-width: 520px; font-weight: 300; }
     .divider { width: 40px; height: 2px; background: var(--teal); margin: 1.25rem 0; }
-
-    /* ═══════════════════════════════════════════════
-       FEATURES  asymmetric bento grid
-    ═══════════════════════════════════════════════ */
+    /* BENTO */
     .bento {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: auto;
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-top: 3.5rem;
+      display: grid; grid-template-columns: repeat(12, 1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+      border-radius: 14px; overflow: hidden; margin-top: 3.5rem;
     }
-
     .bento-card {
-      background: var(--surface);
-      padding: 2rem 1.75rem;
-      transition: background 0.25s;
-      position: relative; overflow: hidden;
+      background: var(--surface); padding: 2rem 1.75rem;
+      transition: background 0.25s; position: relative; overflow: hidden;
     }
     .bento-card::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 1.5px;
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1.5px;
       background: linear-gradient(90deg, transparent, var(--teal), transparent);
       opacity: 0; transition: opacity 0.3s;
     }
     .bento-card:hover { background: var(--card-hover); }
     .bento-card:hover::after { opacity: 1; }
-
     .bc-1  { grid-column: span 5; }
     .bc-2  { grid-column: span 7; }
     .bc-3  { grid-column: span 4; }
     .bc-4  { grid-column: span 4; }
     .bc-5  { grid-column: span 4; }
     .bc-6  { grid-column: span 12; }
-
-    .bento-num {
-      font-family: var(--mono); font-size: 0.65rem;
-      color: var(--teal); letter-spacing: 0.1em;
-      margin-bottom: 1rem; opacity: 0.7;
-    }
+    .bento-num { font-family: var(--mono); font-size: 0.65rem; color: var(--teal); letter-spacing: 0.1em; margin-bottom: 1rem; opacity: 0.7; }
     .bento-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
     .bento-desc { font-size: 0.83rem; color: var(--text-dim); line-height: 1.65; font-weight: 300; }
     .bento-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1rem; }
     .tag {
-      font-family: var(--mono); font-size: 0.65rem;
-      color: var(--teal); border: 1px solid var(--border);
-      padding: 0.15rem 0.5rem; border-radius: 3px;
+      font-family: var(--mono); font-size: 0.65rem; color: var(--teal);
+      border: 1px solid var(--border); padding: 0.15rem 0.5rem; border-radius: 3px;
       background: var(--teal-dim);
     }
-
-    /* Large card with mini inline chart */
     .bento-mini-chart { width: 100%; height: 60px; display: block; margin-top: 1rem; }
-
-    /* Africa card with flag-inspired accent */
-    .bc-africa {
-      background: linear-gradient(135deg, var(--surface) 0%, rgba(41,151,255,0.03) 100%);
-    }
-    .africa-flag {
-      display: flex; gap: 3px; margin-bottom: 1rem;
-    }
+    .bc-africa { background: linear-gradient(135deg, var(--surface) 0%, rgba(41,151,255,0.03) 100%); }
+    .africa-flag { display: flex; gap: 3px; margin-bottom: 1rem; }
     .africa-flag span { width: 14px; height: 4px; border-radius: 1px; }
-
-    /* ═══════════════════════════════════════════════
-       JUPYTER
-    ═══════════════════════════════════════════════ */
+    /* JUPYTER */
     .jupyter-section {
       background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
       transition: background 0.35s;
     }
-
     .two-col { display: grid; grid-template-columns: 1.15fr 1fr; gap: 5rem; align-items: center; }
-
     .nb-wrap {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px; overflow: hidden;
-      font-family: var(--mono); font-size: 0.75rem;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
-      transition: background 0.35s, border-color 0.35s;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; font-family: var(--mono); font-size: 0.75rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2); transition: background 0.35s, border-color 0.35s;
     }
     [data-theme="light"] .nb-wrap { box-shadow: 0 4px 30px rgba(0,0,0,0.06); }
-
     .nb-topbar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-      background: var(--nb-cell);
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); background: var(--nb-cell);
     }
     .nb-filename { font-size: 0.68rem; color: var(--text-dim); }
-
     .nb-cell { display: flex; border-bottom: 1px solid var(--border-soft); }
     .nb-ln {
       padding: 0.7rem 0.6rem; color: var(--text-dim); font-size: 0.65rem;
-      min-width: 36px; text-align: right;
-      background: var(--nb-cell); user-select: none; flex-shrink: 0;
-      border-right: 1px solid var(--border-soft);
+      min-width: 36px; text-align: right; background: var(--nb-cell);
+      user-select: none; flex-shrink: 0; border-right: 1px solid var(--border-soft);
     }
     .nb-cell pre, .nb-out pre {
       padding: 0.7rem 0.9rem; flex: 1; overflow-x: auto; margin: 0;
@@ -439,68 +303,66 @@
     .nb-out { display: flex; border-bottom: 1px solid var(--border-soft); background: var(--nb-out); }
     .nb-out pre { font-size: 0.72rem; color: var(--text-dim); }
     .nb-out .nb-ln { background: var(--nb-out); }
-
-    /* Syntax */
-    .kw  { color: var(--kw); }
-    .fn  { color: var(--fn); }
-    .st  { color: var(--st); }
-    .cm  { color: var(--cm); }
-    .nm  { color: var(--nm); }
-    .op  { color: var(--teal); }
-    .hi  { color: var(--teal); }
-
-    .nb-df {
-      padding: 0.5rem 0.9rem;
-      overflow-x: auto;
-    }
-    .nb-df table {
-      font-size: 0.68rem; border-collapse: collapse; width: 100%;
-    }
-    .nb-df th {
-      padding: 0.3rem 0.6rem; color: var(--text-dim);
-      border-bottom: 1px solid var(--border); text-align: left; font-weight: 500;
-    }
+    .kw{color:var(--kw);} .fn{color:var(--fn);} .st{color:var(--st);}
+    .cm{color:var(--cm);} .nm{color:var(--nm);} .op{color:var(--teal);} .hi{color:var(--teal);}
+    .nb-df { padding: 0.5rem 0.9rem; overflow-x: auto; }
+    .nb-df table { font-size: 0.68rem; border-collapse: collapse; width: 100%; }
+    .nb-df th { padding: 0.3rem 0.6rem; color: var(--text-dim); border-bottom: 1px solid var(--border); text-align: left; font-weight: 500; }
     .nb-df td { padding: 0.28rem 0.6rem; }
     .r0-red{color:var(--red)} .r0-amber{color:var(--amber)} .r0-teal{color:var(--teal)}
-
-    /* Feature bullets */
     .feature-list { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.75rem; }
     .feature-row { display: flex; gap: 0.85rem; align-items: flex-start; }
     .feature-icon-box {
       width: 26px; height: 26px; border-radius: 4px;
       background: var(--teal-dim); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .feature-row-title { font-size: 0.86rem; font-weight: 600; margin-bottom: 0.2rem; }
-    .feature-row-desc  { font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; }
-
-    /* ═══════════════════════════════════════════════
-       QUICKSTART
-    ═══════════════════════════════════════════════ */
+    .feature-row-desc { font-size: 0.8rem; color: var(--text-dim); line-height: 1.6; }
+    /* CODE BLOCK */
     .code-block {
-      background: var(--bg);
-      border: 1px solid var(--border);
+      background: var(--bg); border: 1px solid var(--border);
       border-radius: 10px; overflow: hidden;
       font-family: var(--mono); font-size: 0.78rem; line-height: 1.8;
       transition: background 0.35s, border-color 0.35s;
     }
     .code-topbar {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border);
-      background: var(--nb-cell);
+      padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); background: var(--nb-cell);
     }
     .code-filename { font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.04em; }
     pre { padding: 1.25rem 1rem; overflow-x: auto; color: var(--text); }
-
-    /* ═══════════════════════════════════════════════
-       MODELS TABLE
-    ═══════════════════════════════════════════════ */
+    /* COMPARISON TABLE */
+    .compare-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .compare-wrap { overflow-x: auto; margin-top: 2.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .compare-table th {
+      font-family: var(--mono); font-size: 0.67rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-dim); text-align: left;
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+    }
+    .compare-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr.episia-row td { background: rgba(41,151,255,0.05); }
+    .compare-table tr:not(.episia-row):hover td { background: var(--teal-dim); }
+    .pkg-name { font-family: var(--mono); font-weight: 600; font-size: 0.85rem; }
+    .pkg-name.episia { color: var(--teal); }
+    .lang-badge {
+      font-family: var(--mono); font-size: 0.62rem; font-weight: 600;
+      padding: 0.15rem 0.45rem; border-radius: 3px; border: 1px solid;
+      margin-left: 0.4rem; vertical-align: middle;
+    }
+    .lang-python { color: #82aaff; border-color: rgba(130,170,255,0.3); }
+    .lang-r      { color: #c792ea; border-color: rgba(199,146,234,0.3); }
+    .check { color: var(--green); font-weight: 600; }
+    .partial { color: var(--amber); font-weight: 600; }
+    .none-val { color: var(--text-dim); opacity: 0.4; }
+    .episia-val { color: var(--teal); font-family: var(--mono); font-weight: 600; }
+    /* MODELS TABLE */
     .models-table { width: 100%; border-collapse: collapse; margin-top: 2.5rem; font-size: 0.86rem; }
     .models-table th {
-      font-family: var(--mono); font-size: 0.67rem;
-      text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--text-dim); text-align: left;
+      font-family: var(--mono); font-size: 0.67rem; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--text-dim); text-align: left;
       padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
     }
     .models-table td { padding: 0.9rem 1rem; border-bottom: 1px solid var(--border-soft); vertical-align: middle; }
@@ -508,95 +370,77 @@
     .model-name { font-family: var(--mono); font-weight: 600; color: var(--teal); }
     .model-comp { font-family: var(--mono); font-size: 0.73rem; color: var(--text-dim); }
     .pill {
-      display: inline-block;
-      background: var(--teal-dim); border: 1px solid var(--border);
+      display: inline-block; background: var(--teal-dim); border: 1px solid var(--border);
       border-radius: 3px; font-family: var(--mono); font-size: 0.65rem;
-      color: var(--teal); padding: 0.12rem 0.45rem;
-      margin: 0.1rem 0.1rem 0 0;
+      color: var(--teal); padding: 0.12rem 0.45rem; margin: 0.1rem 0.1rem 0 0;
     }
-
-    /* ═══════════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════════ */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 3rem 2rem; text-align: center;
-      position: relative; z-index: 1;
-    }
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; position: relative; z-index: 1; }
     .footer-logo { font-family: var(--mono); font-size: 1.2rem; font-weight: 600; color: var(--teal); margin-bottom: 0.6rem; }
     .footer-logo span { color: var(--text); }
     .footer-sub { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 1.5rem; font-weight: 300; }
     .footer-links { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
     .footer-links a {
-      font-family: var(--mono); font-size: 0.72rem;
-      color: var(--text-dim); text-decoration: none;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      transition: color 0.2s;
+      font-family: var(--mono); font-size: 0.72rem; color: var(--text-dim);
+      text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s;
     }
     .footer-links a:hover { color: var(--teal); }
     .footer-copy { margin-top: 2rem; font-family: var(--mono); font-size: 0.65rem; color: var(--text-dim); opacity: 0.6; }
-
-    /* ═══════════════════════════════════════════════
-       ANIMATIONS
-    ═══════════════════════════════════════════════ */
-    @keyframes fadeUp {
-      from { opacity:0; transform:translateY(22px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
+    /* ANIMATIONS */
+    @keyframes fadeUp { from{opacity:0;transform:translateY(22px);} to{opacity:1;transform:translateY(0);} }
     .reveal { opacity:0; transform:translateY(26px); transition:opacity 0.65s ease, transform 0.65s ease; }
     .reveal.on { opacity:1; transform:translateY(0); }
     .reveal-d1 { transition-delay: 0.08s; }
     .reveal-d2 { transition-delay: 0.16s; }
     .reveal-d3 { transition-delay: 0.24s; }
-
-    /* ═══════════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════════ */
+    /* RESPONSIVE */
     @media (max-width: 1024px) {
-      .bc-1 { grid-column: span 6; }
-      .bc-2 { grid-column: span 6; }
-      .bc-3, .bc-4, .bc-5 { grid-column: span 6; }
-      .two-col { grid-template-columns: 1fr; gap: 3rem; }
+      .bc-1{grid-column:span 6;} .bc-2{grid-column:span 6;}
+      .bc-3,.bc-4,.bc-5{grid-column:span 6;}
+      .two-col{grid-template-columns:1fr;gap:3rem;}
     }
     @media (max-width: 768px) {
-      nav { padding: 0.85rem 1.25rem; }
-      .nav-center { display: none; }
-      .hero { padding: 5.5rem 1.25rem 3rem; }
-      .hero-stats { gap: 1.5rem; }
-      .hero-stat-n { font-size: 1.3rem; }
-      canvas#seir-canvas { height: 160px; }
-      .chart-label { display: none; }
-      .bento { grid-template-columns: repeat(6, 1fr); }
-      .bc-1,.bc-2 { grid-column: span 6; }
-      .bc-3,.bc-4,.bc-5 { grid-column: span 6; }
-      .bc-6 { grid-column: span 6; }
-      .section { padding: 4rem 1.25rem; }
-      .jupyter-section .section { padding: 4rem 1.25rem; }
-      .models-table th:nth-child(3), .models-table td:nth-child(3) { display: none; }
+      nav{padding:0.85rem 1.25rem;}
+      .nav-center{display:none;}
+      .hero{padding:5.5rem 1.25rem 3rem;}
+      .hero-stats{gap:1.5rem;}
+      .hero-stat-n{font-size:1.3rem;}
+      canvas#seir-canvas{height:160px;}
+      .chart-label{display:none;}
+      .bento{grid-template-columns:repeat(6,1fr);}
+      .bc-1,.bc-2{grid-column:span 6;}
+      .bc-3,.bc-4,.bc-5{grid-column:span 6;}
+      .bc-6{grid-column:span 6;}
+      .section{padding:4rem 1.25rem;}
+      .jupyter-section .section{padding:4rem 1.25rem;}
+      .models-table th:nth-child(3),.models-table td:nth-child(3){display:none;}
+      .compare-table th:nth-child(4),.compare-table td:nth-child(4),
+      .compare-table th:nth-child(7),.compare-table td:nth-child(7){display:none;}
     }
     @media (max-width: 480px) {
-      .hero-title { font-size: 2.4rem; }
-      .hero-sub { font-size: 0.92rem; }
-      .hero-stats { flex-wrap: wrap; gap: 1rem; }
-      .hero-stat-sep { display: none; }
-      .hero-actions { flex-direction: column; }
-      .btn-primary, .btn-secondary { justify-content: center; }
-      .bento { grid-template-columns: 1fr; }
-      .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6 { grid-column: span 1; }
-      .chart-legend { display: none; }
-      canvas#seir-canvas { height: 130px; }
-      .footer-links { gap: 1rem; }
+      .hero-title{font-size:2.4rem;}
+      .hero-sub{font-size:0.92rem;}
+      .hero-stats{flex-wrap:wrap;gap:1rem;}
+      .hero-stat-sep{display:none;}
+      .hero-actions{flex-direction:column;}
+      .btn-primary,.btn-secondary{justify-content:center;}
+      .bento{grid-template-columns:1fr;}
+      .bc-1,.bc-2,.bc-3,.bc-4,.bc-5,.bc-6{grid-column:span 1;}
+      .chart-legend{display:none;}
+      canvas#seir-canvas{height:130px;}
+      .footer-links{gap:1rem;}
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">Epi<span>sia</span>..</div>
   <ul class="nav-center">
     <li><a href="#features">Features</a></li>
     <li><a href="#jupyter">Jupyter</a></li>
+    <li><a href="#dhis2">DHIS2</a></li>
+    <li><a href="#compare">Compare</a></li>
     <li><a href="#quickstart">Quickstart</a></li>
     <li><a href="#models">Models</a></li>
   </ul>
@@ -611,29 +455,20 @@
 
 <!-- HERO -->
 <section class="hero">
-
+  <div class="hero-glow"></div>
   <div class="hero-badge">
-    <div class="badge-dot"></div>
-    v0.1.0 &nbsp;&middot;&nbsp; Open Source &nbsp;&middot;&nbsp; MIT &nbsp;&middot;&nbsp; OpenEpi Validated
+    v0.1.0a1 &nbsp;&middot;&nbsp; Open Source &nbsp;&middot;&nbsp; MIT &nbsp;&middot;&nbsp; OpenEpi Validated
   </div>
-
   <h1 class="hero-title">
     Epidemic modelling<br>
-    for the<span class="accent">real world</span>
+    for the<span class="accent"> real world</span>
   </h1>
-
   <p class="hero-sub">
-    A Python toolkit for compartmental models, sensitivity analysis, interactive visualisations, and automated reports  built for low-resource health contexts in Africa.
+    A Python toolkit for compartmental models, sensitivity analysis, interactive visualisations, and automated reports &mdash; built for low-resource health contexts in Africa.
   </p>
-
   <div class="hero-stats">
     <div class="hero-stat">
-      <span class="hero-stat-n" id="count-tests">896</span>
-      <span class="hero-stat-l">tests passing</span>
-    </div>
-    <div class="hero-stat-sep"></div>
-    <div class="hero-stat">
-      <span class="hero-stat-n">9</span>
+      <span class="hero-stat-n">48</span>
       <span class="hero-stat-l">modules</span>
     </div>
     <div class="hero-stat-sep"></div>
@@ -643,23 +478,17 @@
     </div>
     <div class="hero-stat-sep"></div>
     <div class="hero-stat">
-      <span class="hero-stat-n">Pypi</span>
+      <span class="hero-stat-n">PyPI</span>
       <span class="hero-stat-l">pip install episia</span>
     </div>
   </div>
-
   <div class="hero-actions">
     <a class="btn-primary" href="#quickstart">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       Get started
     </a>
-    <a class="btn-secondary" href="https://github.com/Xcept-Health/episia/blob/main/exemples/validation/episia_vs_openepi.ipynb">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <rect x="4" y="4" width="16" height="16" rx="2" ry="2" stroke="currentColor" fill="none" />
-        <line x1="8" y1="8" x2="16" y2="8" stroke="currentColor" />
-        <line x1="8" y1="12" x2="16" y2="12" stroke="currentColor" />
-        <line x1="8" y1="16" x2="14" y2="16" stroke="currentColor" />
-      </svg>
+    <a class="btn-secondary" href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2" fill="none"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="14" y2="16"/></svg>
       Validation notebook
     </a>
     <a class="btn-secondary" href="https://github.com/Xcept-Health/episia" target="_blank">
@@ -667,7 +496,6 @@
       View on GitHub
     </a>
   </div>
-
   <div class="hero-chart">
     <div class="chart-topbar">
       <div class="chart-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
@@ -688,16 +516,18 @@
   <div class="install-inner">
     <span class="hi">pip install episia</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.models import SEIRModel</span><span class="sep">&nbsp;&middot;&nbsp;</span>
+    <span>from episia.dhis2 import DHIS2Client</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia import EpiReport</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.viz import plot_epicurve</span><span class="sep">&nbsp;&middot;&nbsp;</span>
-    <span>from episia.core.utilities import EpiLoader</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.stats.contingency import risk_ratio</span><span class="sep">&nbsp;&middot;&nbsp;</span>
-    <span class="hi">pip install episia</span><span class="sep">&nbsp;&middot;&nbsp;</span>
+    <span>from episia.models import SensitivityAnalysis</span><span class="sep">&nbsp;&middot;&nbsp;</span>
+    <span class="hi">pip install episia[dhis2]</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.models import SEIRModel</span><span class="sep">&nbsp;&middot;&nbsp;</span>
+    <span>from episia.dhis2 import DHIS2Client</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia import EpiReport</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.viz import plot_epicurve</span><span class="sep">&nbsp;&middot;&nbsp;</span>
-    <span>from episia.core.utilities import EpiLoader</span><span class="sep">&nbsp;&middot;&nbsp;</span>
     <span>from episia.stats.contingency import risk_ratio</span><span class="sep">&nbsp;&middot;&nbsp;</span>
+    <span>from episia.models import SensitivityAnalysis</span><span class="sep">&nbsp;&middot;&nbsp;</span>
   </div>
 </div>
 
@@ -708,51 +538,44 @@
       <div class="section-label">Capabilities</div>
       <h2 class="section-title">Everything you need<br>to model an outbreak</h2>
       <div class="divider"></div>
-      <p class="section-sub">From ODE integration to publication-ready reports  in a single coherent API designed for field epidemiologists.</p>
+      <p class="section-sub">From ODE integration to publication-ready reports in a single coherent API designed for field epidemiologists.</p>
     </div>
-
     <div class="bento reveal reveal-d1">
-
       <div class="bento-card bc-1">
         <div class="bento-num">01</div>
         <div class="bento-title">Compartmental Models</div>
-        <div class="bento-desc">SIR, SEIR, SEIRD with a unified <code>.run()</code> API. Returns structured <code>ModelResult</code> with R0, peak, final size, and Plotly/Matplotlib plots.</div>
+        <div class="bento-desc">SIR, SEIR, SEIRD with a unified <code>.run()</code> API. Returns structured <code>ModelResult</code> with R0, peak, final size, and Plotly/Matplotlib plots. Monte Carlo sensitivity analysis with uniform, normal, and triangular distributions.</div>
         <canvas class="bento-mini-chart" id="mini-seir"></canvas>
         <div class="bento-tags">
-          <span class="tag">SIRModel</span><span class="tag">SEIRModel</span><span class="tag">SEIRDModel</span>
+          <span class="tag">SIRModel</span><span class="tag">SEIRModel</span><span class="tag">SEIRDModel</span><span class="tag">SensitivityAnalysis</span><span class="tag">ModelCalibrator</span>
         </div>
       </div>
-
       <div class="bento-card bc-2">
         <div class="bento-num">02</div>
         <div class="bento-title">Biostatistics</div>
-        <div class="bento-desc">Risk ratio, odds ratio, proportion CI (5 methods), diagnostic test evaluation, ROC analysis, Mantel-Haenszel stratified OR, logistic &amp; Poisson regression. Every function returns a rich, serializable result object with CI, p-value, and <code>.plot()</code>.</div>
+        <div class="bento-desc">Risk ratio, odds ratio, proportion CI (5 methods), diagnostic test evaluation, ROC analysis with AUC and optimal threshold (Youden, F1), Mantel-Haenszel stratified OR, logistic and Poisson regression, VIF, Hosmer-Lemeshow, Fagan nomogram, direct and indirect standardization. Every function returns a rich serializable result object with CI, p-value, and <code>.plot()</code>.</div>
         <div class="bento-tags">
-          <span class="tag">risk_ratio</span><span class="tag">roc_analysis</span><span class="tag">Table2x2</span><span class="tag">mantel_haenszel</span>
+          <span class="tag">risk_ratio</span><span class="tag">roc_analysis</span><span class="tag">Table2x2</span><span class="tag">mantel_haenszel</span><span class="tag">logistic_regression</span>
         </div>
       </div>
-
       <div class="bento-card bc-3">
         <div class="bento-num">03</div>
         <div class="bento-title">Interactive Viz</div>
-        <div class="bento-desc">Plotly (interactive) and Matplotlib (300 DPI) backends. 4 built-in themes: scientific, minimal, dark, colorblind.</div>
-        <div class="bento-tags"><span class="tag">plot_epicurve</span><span class="tag">plot_roc</span></div>
+        <div class="bento-desc">Plotly (interactive) and Matplotlib (300 DPI) backends. 4 built-in themes: scientific, minimal, dark, colorblind. ROC curves, forest plots, epidemic curves, incidence rates.</div>
+        <div class="bento-tags"><span class="tag">plot_epicurve</span><span class="tag">plot_roc</span><span class="tag">plot_forest</span></div>
       </div>
-
       <div class="bento-card bc-4">
         <div class="bento-num">04</div>
-        <div class="bento-title">Sensitivity Analysis</div>
-        <div class="bento-desc">Monte Carlo sweeps with uniform, normal, and triangular distributions. Percentile envelopes (5&ndash;95%) and metric distributions.</div>
-        <div class="bento-tags"><span class="tag">SensitivityAnalysis</span></div>
+        <div class="bento-title">Surveillance Data</div>
+        <div class="bento-desc">DHIS2 native client and CSV import. Alert detection via threshold, z-score, and endemic channel. Weekly aggregation, attack rate, and district-level breakdown.</div>
+        <div class="bento-tags"><span class="tag">SurveillanceDataset</span><span class="tag">AlertEngine</span><span class="tag">DHIS2Client</span></div>
       </div>
-
       <div class="bento-card bc-5">
         <div class="bento-num">05</div>
-        <div class="bento-title">Surveillance Data</div>
-        <div class="bento-desc">DHIS2-compatible CSV import. Alert detection via threshold, z-score, and endemic channel. Weekly aggregation and attack rate.</div>
-        <div class="bento-tags"><span class="tag">SurveillanceDataset</span><span class="tag">AlertEngine</span></div>
+        <div class="bento-title">Automated Reports</div>
+        <div class="bento-desc">Self-contained HTML reports with dark/light mode toggle, embedded figures and tables. Generated in a single call with zero external dependencies at runtime.</div>
+        <div class="bento-tags"><span class="tag">EpiReport</span><span class="tag">save_html</span><span class="tag">save_markdown</span></div>
       </div>
-
       <div class="bento-card bc-6 bc-africa">
         <div class="africa-flag">
           <span style="background:#ef2b2d"></span>
@@ -763,15 +586,13 @@
           <div style="flex:1;min-width:220px;">
             <div class="bento-num">06</div>
             <div class="bento-title">Built for African Public Health</div>
-            <div class="bento-desc">Designed for low-resource health systems. 100% offline, no cloud dependencies at runtime</div>
+            <div class="bento-desc">Designed for low-resource health systems. 100% offline, no cloud dependencies at runtime. DHIS2 native integration for the 15 ECOWAS member states using WHO AFRO standard data elements. Validated on Burkina Faso meningitis surveillance data.</div>
           </div>
-          
         </div>
         <div class="bento-tags" style="margin-top:1rem;">
-          <span class="tag">Xcept-Health</span><span class="tag">Burkina Faso</span><span class="tag">offline-ready</span><span class="tag">DHIS2-compatible</span>
+          <span class="tag">Xcept-Health</span><span class="tag">Burkina Faso</span><span class="tag">offline-ready</span><span class="tag">DHIS2-compatible</span><span class="tag">WHO AFRO</span><span class="tag">ECOWAS</span>
         </div>
       </div>
-
     </div>
   </div>
 </section>
@@ -781,13 +602,11 @@
   <div class="section">
     <div class="container">
       <div class="two-col">
-
         <div class="nb-wrap reveal">
           <div class="nb-topbar">
             <span class="nb-filename">episia_demo.ipynb</span>
             <div class="chart-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
           </div>
-
           <div class="nb-cell">
             <div class="nb-ln">[1]</div>
             <pre><span class="kw">from</span> episia <span class="kw">import</span> epi
@@ -803,19 +622,32 @@ result = epi.<span class="fn">seir</span>(N=<span class="nm">1_000_000</span>, I
   Peak infected : <span class="hi">331,751</span>  at t=84.5
   Final size    : <span class="hi">99.2%</span></pre>
           </div>
-
           <div class="nb-cell">
             <div class="nb-ln">[2]</div>
-            <pre><span class="cm"># Interactive chart renders inline</span>
-result.<span class="fn">plot</span>().<span class="fn">show</span>()</pre>
+            <pre><span class="cm"># Sensitivity analysis 200 Monte Carlo runs</span>
+<span class="kw">from</span> episia.models <span class="kw">import</span> SEIRModel, SensitivityAnalysis
+<span class="kw">from</span> episia.models.parameters <span class="kw">import</span> SEIRParameters
+sa = <span class="fn">SensitivityAnalysis</span>(SEIRModel, SEIRParameters,
+    fixed=<span class="fn">dict</span>(N=<span class="nm">1_000_000</span>, I0=<span class="nm">10</span>, E0=<span class="nm">50</span>, t_span=(<span class="nm">0</span>,<span class="nm">200</span>)),
+    distributions={
+        <span class="st">'beta'</span>:  (<span class="st">'uniform'</span>,  <span class="nm">0.20</span>, <span class="nm">0.50</span>),
+        <span class="st">'gamma'</span>: (<span class="st">'normal'</span>,   <span class="nm">0.07</span>, <span class="nm">0.02</span>),
+        <span class="st">'sigma'</span>: (<span class="st">'triangular'</span>,<span class="nm">0.15</span>, <span class="nm">0.19</span>, <span class="nm">0.25</span>),
+    }, n_samples=<span class="nm">200</span>, seed=<span class="nm">42</span>)
+sar = sa.<span class="fn">run</span>()
+sar.<span class="fn">to_dataframe</span>().<span class="fn">head</span>(<span class="nm">3</span>)</pre>
           </div>
           <div class="nb-out">
             <div class="nb-ln"></div>
-            <div style="padding:0.4rem 0.9rem;">
-              <canvas id="nb-mini" style="width:100%;height:70px;display:block;"></canvas>
+            <div class="nb-df">
+              <table>
+                <tr><th>r0</th><th>peak_infected</th><th>peak_time</th><th>final_size</th></tr>
+                <tr><td class="hi">4.12</td><td>289,441</td><td>78.2</td><td class="r0-red">98.1%</td></tr>
+                <tr><td class="hi">2.87</td><td>174,208</td><td>92.5</td><td class="r0-amber">84.7%</td></tr>
+                <tr><td class="hi">1.64</td><td>48,392</td><td>141.0</td><td class="r0-teal">47.3%</td></tr>
+              </table>
             </div>
           </div>
-
           <div class="nb-cell">
             <div class="nb-ln">[3]</div>
             <pre><span class="kw">from</span> episia.stats.contingency <span class="kw">import</span> risk_ratio
@@ -826,7 +658,6 @@ rr = <span class="fn">risk_ratio</span>(a=<span class="nm">40</span>, b=<span cl
             <div class="nb-ln"></div>
             <pre>Risk Ratio: <span class="hi">2.667</span>  (1.514&ndash;4.696)  p=0.0003  *</pre>
           </div>
-
           <div class="nb-cell">
             <div class="nb-ln">[4]</div>
             <pre><span class="cm"># Scenario comparison</span>
@@ -844,13 +675,11 @@ sr.<span class="fn">to_dataframe</span>()</pre>
             </div>
           </div>
         </div>
-
         <div class="reveal reveal-d1">
           <div class="section-label">Jupyter</div>
           <h2 class="section-title">Works natively<br>in Jupyter</h2>
           <div class="divider"></div>
           <p class="section-sub">Every Episia result renders inline  interactive Plotly charts, DataFrames, and HTML reports without leaving the notebook.</p>
-
           <div class="feature-list">
             <div class="feature-row">
               <div class="feature-icon-box">
@@ -867,7 +696,16 @@ sr.<span class="fn">to_dataframe</span>()</pre>
               </div>
               <div>
                 <div class="feature-row-title">Results as DataFrames</div>
-                <div class="feature-row-desc">Scenarios and sensitivity sweeps export to pandas via <code style="font-family:var(--mono);color:var(--teal);font-size:0.76rem;">.to_dataframe()</code>.</div>
+                <div class="feature-row-desc">Sensitivity sweeps and scenario comparisons export to pandas via <code style="font-family:var(--mono);color:var(--teal);font-size:0.76rem;">.to_dataframe()</code>.</div>
+              </div>
+            </div>
+            <div class="feature-row">
+              <div class="feature-icon-box">
+                <svg width="12" height="12" fill="none" stroke="var(--teal)" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <div class="feature-row-title">Animated terminal loader</div>
+                <div class="feature-row-desc">Long operations display a gradient progress bar via <code style="font-family:var(--mono);color:var(--teal);font-size:0.76rem;">EpiLoader</code> &mdash; silent in CI and non-TTY environments.</div>
               </div>
             </div>
             <div class="feature-row">
@@ -876,20 +714,228 @@ sr.<span class="fn">to_dataframe</span>()</pre>
               </div>
               <div>
                 <div class="feature-row-title">11-section demo notebook</div>
-                <div class="feature-row-desc">Models, biostatistics, ROC, surveillance, Mantel-Haenszel, automated reports  ready to run.</div>
+                <div class="feature-row-desc">Models, biostatistics, ROC, surveillance, Mantel-Haenszel, automated reports &mdash; ready to run.</div>
               </div>
             </div>
           </div>
-
           <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <a class="btn-primary" href="https://github.com/Xcept-Health/episia/blob/main/exemples/episia_demo.ipynb" target="_blank">
+            <a class="btn-primary" href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_demo.ipynb" target="_blank">
               <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download notebook
+              Demo notebook
             </a>
             <a class="btn-secondary" href="https://github.com/Xcept-Health/episia" target="_blank">View on GitHub</a>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- DHIS2 -->
+<section class="section" id="dhis2">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">DHIS2 Integration</div>
+      <h2 class="section-title">Native DHIS2 support<br>out of the box</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Pull surveillance data directly from any DHIS2 instance. Episia handles authentication, period parsing, and conversion to a ready-to-analyse <code style="color:var(--teal);font-family:var(--mono);font-size:0.85rem">SurveillanceDataset</code> in a single call.</p>
+    </div>
+    <div class="two-col reveal reveal-d1" style="margin-top:3rem;">
+      <div>
+        <div class="code-block">
+          <div class="code-topbar">
+            <span class="code-filename">dhis2_surveillance.py</span>
+            <div class="chart-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          </div>
+<pre><span class="kw">from</span> episia.dhis2 <span class="kw">import</span> DHIS2Client
+
+<span class="cm"># Connect to any DHIS2 instance</span>
+client = <span class="fn">DHIS2Client</span>(
+    url      = <span class="st">"https://dhis2.sante.gov.bf"</span>,
+    username = <span class="st">"admin"</span>,
+    password = <span class="st">"district"</span>,
+)
+<span class="fn">print</span>(client.<span class="fn">ping</span>())
+<span class="cm"># True</span>
+
+<span class="cm"># List available org units and data elements</span>
+ous = client.<span class="fn">list_org_units</span>(level=<span class="nm">3</span>)
+des = client.<span class="fn">list_data_elements</span>()
+<span class="fn">print</span>(<span class="nm">len</span>(des), <span class="st">"data elements available"</span>)
+
+<span class="cm"># Pull meningitis cases from last 52 weeks</span>
+ds = client.<span class="fn">to_dataset</span>(
+    data_element = <span class="st">"meningite_cases"</span>,
+    period       = <span class="st">"LAST_52_WEEKS"</span>,
+    org_unit     = ous[<span class="nm">0</span>][<span class="st">"id"</span>],
+)
+<span class="fn">print</span>(ds)
+<span class="cm"># SurveillanceDataset(n=52, cases=1847, 2024W01 -> 2024W52)</span>
+
+<span class="cm"># Run epidemic alert detection</span>
+<span class="kw">from</span> episia.data.surveillance <span class="kw">import</span> AlertEngine
+engine = <span class="fn">AlertEngine</span>(ds)
+alerts = engine.<span class="fn">run</span>(threshold=<span class="nm">20</span>, zscore_threshold=<span class="nm">2.0</span>)
+<span class="fn">print</span>(<span class="nm">len</span>(alerts), <span class="st">"alerts detected"</span>)
+<span class="kw">for</span> a <span class="kw">in</span> alerts[:<span class="nm">3</span>]:
+    <span class="fn">print</span>(<span class="st">f"[{a.severity}]"</span>, a.period, <span class="st">"|"</span>, a.message)</pre>
+        </div>
+      </div>
+      <div>
+        <div class="code-block">
+          <div class="code-topbar">
+            <span class="code-filename">dhis2_adapter.py</span>
+            <div class="chart-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
+          </div>
+<pre><span class="cm"># Use DHIS2Adapter standalone</span>
+<span class="cm"># to convert already-fetched JSON</span>
+<span class="kw">from</span> episia.dhis2 <span class="kw">import</span> DHIS2Adapter
+
+adapter = <span class="fn">DHIS2Adapter</span>()
+
+<span class="cm"># Convert analytics API response</span>
+ds = adapter.<span class="fn">from_analytics_response</span>(
+    response       = raw_json,
+    cases_element  = <span class="st">"FTRrcoaog83"</span>,
+    deaths_element = <span class="st">"deaths_uid"</span>,
+)
+<span class="fn">print</span>(ds)
+
+<span class="cm"># Period types supported:</span>
+<span class="cm">#   2024W01   ISO week</span>
+<span class="cm">#   202401    month YYYYMM</span>
+<span class="cm">#   2024Q1    quarter</span>
+<span class="cm">#   2024      year</span>
+
+<span class="cm"># Install with DHIS2 extras</span>
+<span class="cm"># pip install episia[dhis2]</span>
+
+<span class="cm"># Works with PAT token auth too</span>
+client2 = <span class="fn">DHIS2Client</span>(
+    url   = <span class="st">"https://your-instance/dhis"</span>,
+    token = <span class="st">"d2pat_xxxxxxxxxxxx"</span>,
+)</pre>
+        </div>
+        <div style="margin-top:1.25rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+          <div style="font-family:var(--mono);font-size:0.68rem;color:var(--teal);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.6rem;">Supported</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+            <span class="tag">Basic Auth</span>
+            <span class="tag">PAT token</span>
+            <span class="tag">ISO week</span>
+            <span class="tag">Monthly</span>
+            <span class="tag">Quarterly</span>
+            <span class="tag">DESCENDANTS</span>
+            <span class="tag">WHO AFRO elements</span>
+            <span class="tag">39 tests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section" id="compare">
+  <div class="section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Comparison</div>
+        <h2 class="section-title">How Episia compares</h2>
+        <div class="divider"></div>
+        <p class="section-sub">Episia fills a gap no other Python library addresses &mdash; full biostatistics, epidemic modelling, DHIS2 integration, and automated reporting in a single validated package built for African public health.</p>
+      </div>
+      <div class="compare-wrap reveal reveal-d1">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Package</th>
+              <th>Language</th>
+              <th>Biostatistics</th>
+              <th>Epidemic models</th>
+              <th>DHIS2</th>
+              <th>Visualization</th>
+              <th>Reports</th>
+              <th>Validated</th>
+              <th>Tests</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="episia-row">
+              <td><span class="pkg-name episia">Episia</span></td>
+              <td><span class="lang-badge lang-python">Python</span></td>
+              <td><span class="check">Yes</span> - full</td>
+              <td><span class="check">Yes</span> - SIR / SEIR / SEIRD + calibration + sensitivity</td>
+              <td><span class="check">Yes</span> - native</td>
+              <td><span class="check">Yes</span> - Plotly + Matplotlib</td>
+              <td><span class="check">Yes</span> - HTML</td>
+              <td><span class="check">Yes</span> - OpenEpi 45/45</td>
+              <td class="episia-val">1390</td>
+              <td class="episia-val">2026</td>
+            </tr>
+            <tr>
+              <td><span class="pkg-name">epiR</span></td>
+              <td><span class="lang-badge lang-r">R</span></td>
+              <td><span class="check">Yes</span> - full</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - Base R</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="check">Yes</span></td>
+              <td>~300</td>
+              <td>2024</td>
+            </tr>
+            <tr>
+              <td><span class="pkg-name">EpiEstim</span></td>
+              <td><span class="lang-badge lang-r">R</span></td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - R(t) only</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - ggplot2</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="check">Yes</span></td>
+              <td>-</td>
+              <td>2023</td>
+            </tr>
+            <tr>
+              <td><span class="pkg-name">EpiPy</span></td>
+              <td><span class="lang-badge lang-python">Python</span></td>
+              <td><span class="partial">Partial</span> - basic</td>
+              <td><span class="partial">Partial</span> - SIR / SEIR</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - Matplotlib</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="none-val">-</span></td>
+              <td>~200</td>
+              <td>2021</td>
+            </tr>
+            <tr>
+              <td><span class="pkg-name">PyEpiLib</span></td>
+              <td><span class="lang-badge lang-python">Python</span></td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - SIR only</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - Matplotlib</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="none-val">-</span></td>
+              <td>&lt;100</td>
+              <td>2022</td>
+            </tr>
+            <tr>
+              <td><span class="pkg-name">Statsmodels</span></td>
+              <td><span class="lang-badge lang-python">Python</span></td>
+              <td><span class="partial">Partial</span> - general stats</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="partial">Partial</span> - Matplotlib</td>
+              <td><span class="none-val">-</span></td>
+              <td><span class="check">Yes</span></td>
+              <td>5000+</td>
+              <td>2024</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="font-size:0.7rem;color:var(--text-dim);font-family:var(--mono);margin-top:0.75rem;">Partial = limited scope or single backend. Yes = full coverage of that capability.</p>
       </div>
     </div>
   </div>
@@ -903,7 +949,7 @@ sr.<span class="fn">to_dataframe</span>()</pre>
         <div class="section-label">Quick start</div>
         <h2 class="section-title">From zero to epidemic report<br>in 10 lines</h2>
         <div class="divider"></div>
-        <p class="section-sub">No configuration required  sane defaults throughout. The simplest case is always the cleanest.</p>
+        <p class="section-sub">No configuration required - sane defaults throughout. The simplest case is always the cleanest.</p>
         <br>
         <a class="btn-primary" href="https://github.com/Xcept-Health/episia" target="_blank">Full documentation &rarr;</a>
       </div>
@@ -913,7 +959,7 @@ sr.<span class="fn">to_dataframe</span>()</pre>
             <span class="code-filename">quickstart.py</span>
             <div class="chart-dots"><span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span></div>
           </div>
-          <pre><span class="kw">from</span> episia.models <span class="kw">import</span> SEIRModel
+<pre><span class="kw">from</span> episia.models <span class="kw">import</span> SEIRModel
 <span class="kw">from</span> episia.models.parameters <span class="kw">import</span> SEIRParameters
 <span class="kw">from</span> episia <span class="kw">import</span> report_from_model
 
@@ -935,7 +981,8 @@ report.<span class="fn">save_markdown</span>(<span class="st">"report.md"</span>
         </div>
         <div class="code-block" style="margin-top:0.85rem;">
           <div class="code-topbar"><span class="code-filename">terminal</span></div>
-          <pre><span class="op">$</span> pip install episia</pre>
+          <pre><span class="op">$</span> pip install episia
+<span class="op">$</span> pip install episia[dhis2]   <span class="cm"># with DHIS2 support</span></pre>
         </div>
       </div>
     </div>
@@ -949,7 +996,7 @@ report.<span class="fn">save_markdown</span>(<span class="st">"report.md"</span>
       <div class="section-label">Models</div>
       <h2 class="section-title">Supported epidemic models</h2>
       <div class="divider"></div>
-      <p class="section-sub">Each model shares the same <code>ModelResult</code> output format  consistent API, consistent plots.</p>
+      <p class="section-sub">Each model shares the same <code>ModelResult</code> output format &mdash; consistent API, consistent plots.</p>
     </div>
     <table class="models-table reveal reveal-d1">
       <thead>
@@ -979,21 +1026,20 @@ report.<span class="fn">save_markdown</span>(<span class="st">"report.md"</span>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo"><span>Epi</span>sia<span>..</span></div>
   <p class="footer-sub">A project by <strong>Xcept-Health</strong> &middot; Built for low-resource epidemiology in Africa</p>
   <div class="footer-links">
     <a href="https://github.com/Xcept-Health/episia" target="_blank">GitHub</a>
     <a href="https://github.com/Xcept-Health/episia/issues" target="_blank">Issues</a>
+    <a href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb" target="_blank">Validation</a>
     <a href="https://github.com/Xcept-Health/episia/blob/main/LICENSE" target="_blank">MIT License</a>
     <a href="https://xcept-health.org" target="_blank">Xcept-Health</a>
   </div>
-  <p class="footer-copy">&copy; 2026 Xcept-Health &middot; Ouagadougou, Burkina Faso</p>
+  <p class="footer-copy">&copy; 2026 Xcept-Health &middot; Ouagadougou, Burkina Faso &middot; v0.1.0a1</p>
 </footer>
 
 <script>
-/* ═══ THEME TOGGLE ═══ */
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 toggle.addEventListener('click', () => {
@@ -1004,7 +1050,6 @@ toggle.addEventListener('click', () => {
 const saved = localStorage.getItem('episia-theme');
 if (saved) root.setAttribute('data-theme', saved);
 
-/* ═══ SEIR SOLVER ═══ */
 function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
   let S = N-E0-I0, E = E0, I = I0, R = 0;
   const dt = 0.5, res = {S:[],E:[],I:[],R:[]};
@@ -1016,7 +1061,6 @@ function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
   return res;
 }
 
-/* ═══ HERO CHART ═══ */
 (function(){
   const canvas = document.getElementById('seir-canvas');
   if (!canvas) return;
@@ -1024,35 +1068,28 @@ function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
   const N = 22100000;
   const data = solveSEIR(N, 10, 1, 0.35, 1/5.2, 1/14, 365);
   const days = data.S.length;
-  let progress = 0, animId;
-
+  let progress = 0;
   function resize(){
     const dpr = devicePixelRatio||1;
     const r = canvas.getBoundingClientRect();
     canvas.width = r.width*dpr; canvas.height = r.height*dpr;
     ctx.scale(dpr,dpr);
   }
-
   function draw(p) {
     const r = canvas.getBoundingClientRect();
     const W = r.width, H = r.height;
     const pad = {t:8,r:8,b:28,l:44};
     const pw = W-pad.l-pad.r, ph = H-pad.t-pad.b;
     ctx.clearRect(0,0,W,H);
-
     const n = Math.max(2, Math.floor(p*days));
     const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
     const colors = { S:'#a0c4f8', E:'#f5a623', I:'#2997ff', R:'#e05c5c' };
-
-    // Grid
     ctx.strokeStyle = isDark ? 'rgba(41,151,255,0.06)' : 'rgba(0,80,180,0.05)';
     ctx.lineWidth = 1;
     for (let g=0;g<=4;g++){
       const y = pad.t+(g/4)*ph;
       ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+pw,y); ctx.stroke();
     }
-
-    // Labels
     ctx.fillStyle = isDark ? '#546e7a' : '#94a3b8';
     ctx.font = '9.5px IBM Plex Mono, monospace';
     ctx.textAlign = 'right';
@@ -1061,14 +1098,9 @@ function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
       ctx.fillText(v+'M', pad.l-5, pad.t+(g/4)*ph+3);
     }
     ctx.textAlign='center';
-    for (let d=0;d<=365;d+=90){
-      ctx.fillText('d'+d, pad.l+(d/364)*pw, H-5);
-    }
-
+    for (let d=0;d<=365;d+=90){ ctx.fillText('d'+d, pad.l+(d/364)*pw, H-5); }
     const xOf = i => pad.l + (i/(days-1))*pw;
     const yOf = v => pad.t + ph - (v/N)*ph;
-
-    // Curves
     ['R','S','E','I'].forEach(k => {
       ctx.beginPath();
       ctx.strokeStyle = colors[k];
@@ -1081,22 +1113,18 @@ function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
       }
       ctx.stroke(); ctx.shadowBlur=0;
     });
-
-    // Peak dot
     if (n>10){
       const pi = data.I.slice(0,n).indexOf(Math.max(...data.I.slice(0,n)));
       ctx.beginPath(); ctx.arc(xOf(pi),yOf(data.I[pi]),4,0,Math.PI*2);
       ctx.fillStyle='#2997ff'; ctx.fill();
     }
   }
-
   function animate(){
     progress += 0.013;
     if (progress>=1){ progress=1; draw(1); return; }
     draw(progress);
-    animId = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
   }
-
   const obs = new IntersectionObserver(e=>{
     if(e[0].isIntersecting){ resize(); progress=0; animate(); obs.disconnect(); }
   },{threshold:0.3});
@@ -1104,7 +1132,6 @@ function solveSEIR(N, E0, I0, beta, sigma, gamma, days) {
   window.addEventListener('resize',()=>{ resize(); draw(progress); });
 })();
 
-/* ═══ MINI CHARTS ═══ */
 function drawMiniChart(id, N, b, s, g, colors){
   const canvas = document.getElementById(id);
   if (!canvas) return;
@@ -1128,7 +1155,6 @@ function drawMiniChart(id, N, b, s, g, colors){
   });
 }
 
-// Bento mini SEIR
 const obs2 = new IntersectionObserver(e=>{
   if(e[0].isIntersecting){
     drawMiniChart('mini-seir', 1e6, 0.35, 1/5.2, 1/14,
@@ -1139,26 +1165,11 @@ const obs2 = new IntersectionObserver(e=>{
 const ms = document.getElementById('mini-seir');
 if(ms) obs2.observe(ms);
 
-// Jupyter mini
-const obs3 = new IntersectionObserver(e=>{
-  if(e[0].isIntersecting){
-    drawMiniChart('nb-mini', 1e6, 0.35, 1/5.2, 1/14,
-      {S:'rgba(160,196,248,0.4)',E:'rgba(245,166,35,0.5)',I:'#2997ff',R:'rgba(224,92,92,0.5)'});
-    obs3.disconnect();
-  }
-},{threshold:0.1});
-const nm = document.getElementById('nb-mini');
-if(nm) obs3.observe(nm);
-
-// Redraw on theme change
 new MutationObserver(()=>{
-  ['mini-seir','nb-mini'].forEach(id=>{
-    const c = {S:'rgba(160,196,248,0.5)',E:'rgba(245,166,35,0.6)',I:'#2997ff',R:'rgba(224,92,92,0.5)'};
-    drawMiniChart(id, 1e6, 0.35, 1/5.2, 1/14, c);
-  });
+  drawMiniChart('mini-seir', 1e6, 0.35, 1/5.2, 1/14,
+    {S:'rgba(160,196,248,0.5)',E:'rgba(245,166,35,0.6)',I:'#2997ff',R:'rgba(224,92,92,0.5)'});
 }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 
-/* ═══ SCROLL REVEALS ═══ */
 const reveals = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
