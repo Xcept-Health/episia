@@ -44,7 +44,6 @@ def diag_standard():
     return diagnostic_test_2x2(80, 10, 20, 90)
 
 
-
 # 1. Table2x2 - construction & properties
 
 class TestTable2x2Init:
