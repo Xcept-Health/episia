@@ -7,8 +7,8 @@ authors:
     orcid: "https://orcid.org/0009-0003-3419-5985"
 title: "Episia: Open-source epidemiology and biostatistics for Python"
 version: 0.1.0
-date-released: 2026-03-19
-url: "https://github.com/Xcept-Health/episia"
+date-released: yyyy-mm-dd
+repository-code: "https://github.com/Xcept-Health/episia"
 license: MIT
 keywords:
   - epidemiology
