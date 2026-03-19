@@ -416,6 +416,16 @@
       .models-table th:nth-child(3),.models-table td:nth-child(3){display:none;}
       .compare-table th:nth-child(4),.compare-table td:nth-child(4),
       .compare-table th:nth-child(7),.compare-table td:nth-child(7){display:none;}
+      /* fix overflow code blocks on tablet */
+      .code-block, .nb-wrap { max-width: 100%; overflow: hidden; }
+      .code-block pre, .nb-cell pre, .nb-out pre {
+        font-size: 0.7rem;
+        overflow-x: auto;
+        max-width: calc(100vw - 3rem);
+        white-space: pre;
+        word-break: normal;
+      }
+      .nb-df table { font-size: 0.62rem; }
     }
     @media (max-width: 480px) {
       .hero-title{font-size:2.4rem;}
@@ -429,6 +439,32 @@
       .chart-legend{display:none;}
       canvas#seir-canvas{height:130px;}
       .footer-links{gap:1rem;}
+      /* fix overflow code blocks on mobile */
+      .code-block, .nb-wrap { max-width: 100%; overflow: hidden; }
+      .code-block pre, .nb-cell pre, .nb-out pre {
+        font-size: 0.65rem;
+        line-height: 1.55;
+        overflow-x: auto;
+        max-width: calc(100vw - 2.5rem);
+        white-space: pre;
+        word-break: normal;
+        -webkit-overflow-scrolling: touch;
+      }
+      .code-topbar, .nb-topbar { flex-wrap: wrap; gap: 0.4rem; }
+      .code-filename { font-size: 0.62rem; }
+      .nb-df table { font-size: 0.58rem; }
+      .nb-df th, .nb-df td { padding: 0.2rem 0.4rem; }
+      /* DHIS2 two-col code blocks */
+      .two-col { gap: 2rem; }
+      /* compare table scroll */
+      .compare-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .compare-table { min-width: 600px; }
+      /* hero chart */
+      .hero-chart { padding: 0.85rem; }
+      .chart-topbar { gap: 0.4rem; }
+      /* bento tags */
+      .bento-tags { gap: 0.25rem; }
+      .tag { font-size: 0.6rem; padding: 0.1rem 0.35rem; }
     }
   </style>
 </head>
