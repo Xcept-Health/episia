@@ -19,6 +19,7 @@
 [![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)](#test-coverage)
 [![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)](#test-coverage)
 [![Validation](https://img.shields.io/badge/Validation-OpenEpi-brightgreen?style=flat-square)](examples/episia_vs_openepi.ipynb)
+[![Website](https://img.shields.io/badge/Website-xcept--health.github.io/episia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
 
 *epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
 
