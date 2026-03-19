@@ -14,7 +14,7 @@ from episia.stats.regression import (
 )
 
 
-# ── Fixtures ──────────────────────────────────────────────────────────────────
+#  Fixtures 
 
 @pytest.fixture
 def weekly_counts():
@@ -35,7 +35,7 @@ def logistic_result(logistic_data):
     return logistic_regression(X, y, variable_names=['age','exposure'], add_intercept=True)
 
 
-# ── Time series ───────────────────────────────────────────────────────────────
+#  Time series 
 
 class TestCalculateIncidence:
 
@@ -124,7 +124,7 @@ class TestCumulativeCurve:
         assert abs(result[0] - weekly_counts[0]) < 1e-9
 
 
-# ── Logistic regression ───────────────────────────────────────────────────────
+#  Logistic regression 
 
 class TestLogisticRegression:
 

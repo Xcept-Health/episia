@@ -80,7 +80,7 @@ class TestConstants:
             assert len(uid) == 11, f"{k}: DHIS2 UIDs must be 11 chars"
 
 
-#  DHIS2Adapter: from_analytics_response ─
+#  DHIS2Adapter: from_analytics_response 
 
 class TestAdapterAnalytics:
 
@@ -236,7 +236,7 @@ class TestAdapterDataValueSets:
         assert len(df) == 0
 
 
-#  DHIS2Client (offline) ─
+#  DHIS2Client (offline) 
 
 class TestDHIS2ClientOffline:
 

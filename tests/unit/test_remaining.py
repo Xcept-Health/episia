@@ -22,7 +22,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-# ── api.results ───────────────────────────────────────────────────────────────
+#  api.results 
 from episia.api.results import (
     EpiResult, ConfidenceInterval,
     AssociationResult, ProportionResult, DiagnosticResult,
@@ -30,7 +30,7 @@ from episia.api.results import (
     make_ci, make_association, make_proportion,
 )
 
-# ── stats.time_series ─────────────────────────────────────────────────────────
+#  stats.time_series 
 from episia.stats.time_series import (
     EpidemicCurve, TimeAggregation,
     calculate_incidence, calculate_attack_rate, epidemic_curve,
@@ -39,7 +39,7 @@ from episia.stats.time_series import (
     reproductive_number,
 )
 
-# ── stats.regression ──────────────────────────────────────────────────────────
+#  stats.regression 
 from episia.stats.regression import (
     RegressionResult, logistic_regression, poisson_regression,
     likelihood_ratio_test, hosmer_lemeshow_test, calculate_vif,
