@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>plotly_plotter Module &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'viz/plotters/plotly_plotter';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Plotter Submodules:</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="base_plotter.html">base_plotter Module</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">plotly_plotter Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mpl_plotter.html">mpl_plotter Module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="browser_plotter.html">browser_plotter Module</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">plotly_plotter Module</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="plotly-plotter-module">
+<h1>plotly_plotter Module<a class="headerlink" href="#plotly-plotter-module" title="Link to this heading">#</a></h1>
+<p>Plotly rendering backend for Episia.</p>
+<p>This is the default backend, producing interactive HTML figures suitable for
+notebooks, web applications, and standalone HTML exports.</p>
+<section id="class">
+<h2>Class<a class="headerlink" href="#class" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">episia.viz.plotters.plotly_plotter.</span></span><span class="sig-name descname"><span class="pre">PlotlyPlotter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter" title="episia.viz.plotters.base_plotter.BasePlotter"><code class="xref py py-class docutils literal notranslate"><span class="pre">BasePlotter</span></code></a></p>
+<p>Plotly rendering backend.</p>
+<p>Returns plotly.graph_objects.Figure objects.
+Call .show() to display, .to_json() to serialize for React/JS.</p>
+<p>Animations supported
+–
+FRAME_BY_FRAME : plot_epicurve, plot_forest, plot_diagnostic
+CONTINUOUS     : plot_model, plot_roc
+PLAY_PAUSE     : plot_epicurve, plot_model
+SLIDER         : plot_model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.BACKEND_NAME">
+<span class="sig-name descname"><span class="pre">BACKEND_NAME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'plotly'</span></em><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.BACKEND_NAME" title="Link to this definition">#</a></dt>
+<dd><p>Human-readable backend name used in error messages.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.SUPPORTED_ANIMATIONS">
+<span class="sig-name descname"><span class="pre">SUPPORTED_ANIMATIONS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.14)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.AnimationType" title="episia.viz.plotters.base_plotter.AnimationType"><span class="pre">AnimationType</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(AnimationType.FRAME_BY_FRAME,</span> <span class="pre">AnimationType.CONTINUOUS,</span> <span class="pre">AnimationType.PLAY_PAUSE,</span> <span class="pre">AnimationType.SLIDER)</span></em><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.SUPPORTED_ANIMATIONS" title="Link to this definition">#</a></dt>
+<dd><p>AnimationTypes this backend can handle.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_association">
+<span class="sig-name descname"><span class="pre">plot_association</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_association"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_association" title="Link to this definition">#</a></dt>
+<dd><p>Single association measure  horizontal CI plot with reference line.
+Static (no animation by design).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_contingency">
+<span class="sig-name descname"><span class="pre">plot_contingency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_contingency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_contingency" title="Link to this definition">#</a></dt>
+<dd><p>2x2 contingency table  annotated heatmap with risk summary.
+Static (no animation by design).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_diagnostic">
+<span class="sig-name descname"><span class="pre">plot_diagnostic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_diagnostic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_diagnostic" title="Link to this definition">#</a></dt>
+<dd><p>Diagnostic test dashboard: confusion matrix heatmap + metrics bars.</p>
+<dl class="simple">
+<dt>Animation (FRAME_BY_FRAME):</dt><dd><p>Metric bars fill in one by one.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_epicurve">
+<span class="sig-name descname"><span class="pre">plot_epicurve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_epicurve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_epicurve" title="Link to this definition">#</a></dt>
+<dd><p>Epidemic curve  bar chart of cases over time.</p>
+<dl class="simple">
+<dt>Animation (FRAME_BY_FRAME / PLAY_PAUSE):</dt><dd><p>Bars build up period by period from left to right.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_forest">
+<span class="sig-name descname"><span class="pre">plot_forest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_forest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_forest" title="Link to this definition">#</a></dt>
+<dd><p>Forest plot for stratified (MH) or regression results.</p>
+<dl class="simple">
+<dt>Animation (FRAME_BY_FRAME):</dt><dd><p>Rows appear one by one from top to bottom.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_model">
+<span class="sig-name descname"><span class="pre">plot_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_model" title="Link to this definition">#</a></dt>
+<dd><p>Compartmental model trajectories (SIR / SEIR / SEIRD…).</p>
+<dl class="simple">
+<dt>Animation (CONTINUOUS / PLAY_PAUSE / SLIDER):</dt><dd><p>Lines draw from t=0 forward, one frame per time step.
+SLIDER adds an interactive time scrubber.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_roc">
+<span class="sig-name descname"><span class="pre">plot_roc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.plot_roc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_roc" title="Link to this definition">#</a></dt>
+<dd><p>ROC curve with AUC annotation and optimal threshold marker.</p>
+<dl class="simple">
+<dt>Animation (CONTINUOUS):</dt><dd><p>The curve traces itself from (0,0) to (1,1) point by point,
+simulating a threshold sweep from high to low.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig" title="episia.viz.plotters.base_plotter.PlotConfig"><em>PlotConfig</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="episia.viz.plotters.plotly_plotter.PlotlyPlotter.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fmt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">OutputFormat.PNG</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">150</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/episia/viz/plotters/plotly_plotter.html#PlotlyPlotter.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.save" title="Link to this definition">#</a></dt>
+<dd><p>Save a Plotly figure to disk.</p>
+<p>Supports: PNG, SVG, PDF (via kaleido), HTML, JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fig</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.14)"><em>Any</em></a>)</p></li>
+<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>fmt</strong> (<a class="reference internal" href="base_plotter.html#episia.viz.plotters.base_plotter.OutputFormat" title="episia.viz.plotters.base_plotter.OutputFormat"><em>OutputFormat</em></a>)</p></li>
+<li><p><strong>dpi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="animation-support">
+<h2>Animation Support<a class="headerlink" href="#animation-support" title="Link to this heading">#</a></h2>
+<p>The Plotly backend supports:</p>
+<ul class="simple">
+<li><p><strong>FRAME_BY_FRAME</strong>: Bars/build-up for epidemic curves and forest plots</p></li>
+<li><p><strong>CONTINUOUS</strong>: Smooth line drawing for model trajectories and ROC curves</p></li>
+<li><p><strong>PLAY_PAUSE</strong>: Auto-play with controls</p></li>
+<li><p><strong>SLIDER</strong>: Interactive time slider for model simulations</p></li>
+</ul>
+</section>
+<section id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>Basic usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">episia.viz.plotters</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_plotter</span>
+
+<span class="c1"># Get Plotly backend (default)</span>
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">get_plotter</span><span class="p">(</span><span class="s2">&quot;plotly&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot with default settings</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_epicurve</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot with custom configuration</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">episia.viz.plotters.base_plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlotConfig</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">PlotConfig</span><span class="o">.</span><span class="n">dark</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Ebola Outbreak 2014&quot;</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Animated plots:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">episia.viz.plotters.base_plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">AnimationConfig</span>
+
+<span class="c1"># Create animated epidemic curve</span>
+<span class="n">anim_config</span> <span class="o">=</span> <span class="n">PlotConfig</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Weekly Cases Buildup&quot;</span><span class="p">,</span>
+    <span class="n">animation</span><span class="o">=</span><span class="n">AnimationConfig</span><span class="o">.</span><span class="n">frame_buildup</span><span class="p">(</span><span class="n">n_frames</span><span class="o">=</span><span class="mi">52</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_epicurve</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">anim_config</span><span class="p">)</span>
+
+<span class="c1"># Smooth trajectory animation</span>
+<span class="n">smooth_config</span> <span class="o">=</span> <span class="n">PlotConfig</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;SEIR Model Simulation&quot;</span><span class="p">,</span>
+    <span class="n">animation</span><span class="o">=</span><span class="n">AnimationConfig</span><span class="o">.</span><span class="n">smooth</span><span class="p">(</span><span class="n">duration_ms</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plotter</span><span class="o">.</span><span class="n">plot_model</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="n">smooth_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Saving figures:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">episia.viz.plotters.base_plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">OutputFormat</span>
+
+<span class="c1"># Save as interactive HTML</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;output.html&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">OutputFormat</span><span class="o">.</span><span class="n">HTML</span><span class="p">)</span>
+
+<span class="c1"># Save as static image (requires kaleido)</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="s2">&quot;figure&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="n">OutputFormat</span><span class="o">.</span><span class="n">PNG</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Web integration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Serialize for React/JavaScript</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="n">fig_json</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+
+<span class="c1"># Or use browser utilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">episia.viz.plotters.browser_plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_react_props</span>
+
+<span class="n">props</span> <span class="o">=</span> <span class="n">to_react_props</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<span class="c1"># Pass props[&#39;data&#39;] and props[&#39;layout&#39;] to react-plotly.js</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#class">Class</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.BACKEND_NAME"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.BACKEND_NAME</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.SUPPORTED_ANIMATIONS"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.SUPPORTED_ANIMATIONS</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_association"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_association()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_contingency"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_contingency()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_diagnostic"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_diagnostic()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_epicurve"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_epicurve()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_forest"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_forest()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_model"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_model()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.plot_roc"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.plot_roc()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#episia.viz.plotters.plotly_plotter.PlotlyPlotter.save"><code class="docutils literal notranslate"><span class="pre">PlotlyPlotter.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#animation-support">Animation Support</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">Examples</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item">
+
+  
+  <div class="tocsection editthispage">
+    <a href="https://github.com/Xcept-Health/episia/edit/main/docs/source/viz/plotters/plotly_plotter.rst">
+      <i class="fa-solid fa-pencil"></i>
+      
+      
+        
+          Edit on GitHub
+        
+      
+    </a>
+  </div>
+</div>
+
+  <div class="sidebar-secondary-item">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/viz/plotters/plotly_plotter.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

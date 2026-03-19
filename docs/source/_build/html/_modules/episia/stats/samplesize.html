@@ -1,0 +1,1145 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.stats.samplesize &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/stats/samplesize';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.stats.samplesize</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.stats.samplesize</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functions for calculating required sample sizes</span>
+<span class="sd">and statistical power for common epidemiological study designs:</span>
+<span class="sd">- Cohort studies (risk ratio, risk difference)</span>
+<span class="sd">- Case-control studies (odds ratio)</span>
+<span class="sd">- Cross-sectional studies (proportions)</span>
+<span class="sd">- Diagnostic test studies (sensitivity, specificity)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+
+<div class="viewcode-block" id="StudyDesign">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.StudyDesign">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StudyDesign</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Types of epidemiological study designs.&quot;&quot;&quot;</span>
+    <span class="n">COHORT</span> <span class="o">=</span> <span class="s2">&quot;cohort&quot;</span>
+    <span class="n">CASE_CONTROL</span> <span class="o">=</span> <span class="s2">&quot;case_control&quot;</span>
+    <span class="n">CROSS_SECTIONAL</span> <span class="o">=</span> <span class="s2">&quot;cross_sectional&quot;</span>
+    <span class="n">DIAGNOSTIC</span> <span class="o">=</span> <span class="s2">&quot;diagnostic&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="TestType">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.TestType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">TestType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Types of statistical tests.&quot;&quot;&quot;</span>
+    <span class="n">TWO_SIDED</span> <span class="o">=</span> <span class="s2">&quot;two_sided&quot;</span>
+    <span class="n">ONE_SIDED</span> <span class="o">=</span> <span class="s2">&quot;one_sided&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="SampleSizeResult">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.SampleSizeResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rich result object for sample size calculations.&quot;&quot;&quot;</span>
+    <span class="n">n_per_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_total</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_cases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">power</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">effect_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span>
+    <span class="n">design</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">assumptions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+<div class="viewcode-block" id="SampleSizeResult.__repr__">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.SampleSizeResult.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Sample size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> per group (total: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_total</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Sample size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> cases, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_controls</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> controls&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Power: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Sample size: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_total</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2"> subjects&quot;</span></div>
+
+    
+<div class="viewcode-block" id="SampleSizeResult.to_dict">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.SampleSizeResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert result to dictionary.&quot;&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="s2">&quot;power&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">,</span>
+            <span class="s2">&quot;design&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;n_per_group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;n_total&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_total</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;n_cases&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;n_controls&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_controls</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;effect_size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect_size</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">assumptions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">&quot;assumptions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">assumptions</span>
+        
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="sample_size_risk_ratio">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.sample_size_risk_ratio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_size_risk_ratio</span><span class="p">(</span>
+    <span class="n">risk_unexposed</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">risk_ratio</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">design_effect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">p0</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rr_expected</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+    <span class="c1"># Aliases: p0 → risk_unexposed, rr_expected → risk_ratio</span>
+    <span class="k">if</span> <span class="n">risk_unexposed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">p0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">risk_unexposed</span> <span class="o">=</span> <span class="n">p0</span>
+    <span class="k">if</span> <span class="n">risk_ratio</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">rr_expected</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">risk_ratio</span> <span class="o">=</span> <span class="n">rr_expected</span>
+    <span class="k">if</span> <span class="n">risk_unexposed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">risk_ratio</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;sample_size_risk_ratio() requires risk_unexposed and risk_ratio. &quot;</span>
+            <span class="s2">&quot;Use sample_size_risk_ratio(0.10, 2.0) or &quot;</span>
+            <span class="s2">&quot;sample_size_risk_ratio(p0=0.10, rr_expected=2.0).&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">_sample_size_rr_impl</span><span class="p">(</span>
+        <span class="n">risk_unexposed</span><span class="p">,</span> <span class="n">risk_ratio</span><span class="p">,</span> <span class="n">power</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">test_type</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">design_effect</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_sample_size_rr_impl</span><span class="p">(</span>
+    <span class="n">risk_unexposed</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">risk_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">design_effect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate sample size for cohort study comparing two proportions (risk ratio).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        risk_unexposed: Risk (proportion) in unexposed group</span>
+<span class="sd">        risk_ratio: Expected risk ratio (exposed/unexposed)</span>
+<span class="sd">        power: Desired statistical power (default: 0.8)</span>
+<span class="sd">        alpha: Type I error rate (default: 0.05)</span>
+<span class="sd">        test_type: &#39;two_sided&#39; or &#39;one_sided&#39; test</span>
+<span class="sd">        r: Ratio of unexposed to exposed (default: 1.0 = equal groups)</span>
+<span class="sd">        design_effect: Cluster design effect (default: 1.0 = no clustering)</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # How many participants to detect RR=2.0 with baseline risk=0.1?</span>
+<span class="sd">        &gt;&gt;&gt; result = sample_size_risk_ratio(risk_unexposed=0.1, risk_ratio=2.0)</span>
+<span class="sd">        &gt;&gt;&gt; print(result.n_per_group)</span>
+<span class="sd">        199  # per group</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">risk_unexposed</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;risk_unexposed must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">risk_ratio</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;risk_ratio must be positive&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">power</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;power must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">alpha</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;alpha must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;r must be positive&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate risk in exposed group</span>
+    <span class="n">risk_exposed</span> <span class="o">=</span> <span class="n">risk_unexposed</span> <span class="o">*</span> <span class="n">risk_ratio</span>
+    
+    <span class="c1"># Ensure risks are valid probabilities</span>
+    <span class="k">if</span> <span class="n">risk_exposed</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Risk in exposed group would be </span><span class="si">{</span><span class="n">risk_exposed</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (&gt;1). &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;Consider using risk difference instead.&quot;</span><span class="p">)</span>
+        <span class="n">risk_exposed</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">risk_exposed</span><span class="p">,</span> <span class="mf">0.99</span><span class="p">)</span>
+    
+    <span class="c1"># Get z-scores</span>
+    <span class="n">z_alpha</span> <span class="o">=</span> <span class="n">_z_score</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">test_type</span><span class="p">)</span>
+    <span class="n">z_beta</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+    
+    <span class="c1"># Average risk</span>
+    <span class="n">p_bar</span> <span class="o">=</span> <span class="p">(</span><span class="n">risk_exposed</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">risk_unexposed</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span>
+    
+    <span class="c1"># Sample size formula for comparing two proportions (risk ratio)</span>
+    <span class="n">numerator</span> <span class="o">=</span> <span class="p">(</span><span class="n">z_alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_bar</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_bar</span><span class="p">))</span> <span class="o">+</span> 
+                <span class="n">z_beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">risk_exposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">risk_exposed</span><span class="p">)</span> <span class="o">+</span> 
+                                <span class="p">(</span><span class="n">risk_unexposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">risk_unexposed</span><span class="p">))</span><span class="o">/</span><span class="n">r</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="p">(</span><span class="n">risk_exposed</span> <span class="o">-</span> <span class="n">risk_unexposed</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="n">n_exposed</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+    <span class="n">n_unexposed</span> <span class="o">=</span> <span class="n">n_exposed</span> <span class="o">*</span> <span class="n">r</span>
+    
+    <span class="c1"># Apply design effect for clustered studies</span>
+    <span class="n">n_exposed</span> <span class="o">*=</span> <span class="n">design_effect</span>
+    <span class="n">n_unexposed</span> <span class="o">*=</span> <span class="n">design_effect</span>
+    
+    <span class="c1"># Round up to nearest integer</span>
+    <span class="n">n_exposed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_exposed</span><span class="p">)</span>
+    <span class="n">n_unexposed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_unexposed</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">SampleSizeResult</span><span class="p">(</span>
+        <span class="n">n_per_group</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_exposed</span><span class="p">),</span>
+        <span class="n">n_total</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_exposed</span> <span class="o">+</span> <span class="n">n_unexposed</span><span class="p">),</span>
+        <span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">,</span>
+        <span class="n">effect_size</span><span class="o">=</span><span class="n">risk_ratio</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">design</span><span class="o">=</span><span class="n">StudyDesign</span><span class="o">.</span><span class="n">COHORT</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;risk_ratio&quot;</span><span class="p">,</span>
+        <span class="n">assumptions</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;risk_unexposed&quot;</span><span class="p">:</span> <span class="n">risk_unexposed</span><span class="p">,</span>
+            <span class="s2">&quot;risk_exposed&quot;</span><span class="p">:</span> <span class="n">risk_exposed</span><span class="p">,</span>
+            <span class="s2">&quot;exposure_ratio&quot;</span><span class="p">:</span> <span class="n">r</span><span class="p">,</span>
+            <span class="s2">&quot;design_effect&quot;</span><span class="p">:</span> <span class="n">design_effect</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="sample_size_risk_difference">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.sample_size_risk_difference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_size_risk_difference</span><span class="p">(</span>
+    <span class="n">risk_unexposed</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">risk_difference</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate sample size for cohort study based on risk difference.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        risk_unexposed: Risk in unexposed group</span>
+<span class="sd">        risk_difference: Expected risk difference (exposed - unexposed)</span>
+<span class="sd">        power: Desired statistical power</span>
+<span class="sd">        alpha: Type I error rate</span>
+<span class="sd">        test_type: &#39;two_sided&#39; or &#39;one_sided&#39; test</span>
+<span class="sd">        r: Ratio of unexposed to exposed</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Calculate risk in exposed group</span>
+    <span class="n">risk_exposed</span> <span class="o">=</span> <span class="n">risk_unexposed</span> <span class="o">+</span> <span class="n">risk_difference</span>
+    
+    <span class="c1"># Use the same formula as for risk ratio (different effect measure)</span>
+    <span class="k">return</span> <span class="n">sample_size_risk_ratio</span><span class="p">(</span>
+        <span class="n">risk_unexposed</span><span class="o">=</span><span class="n">risk_unexposed</span><span class="p">,</span>
+        <span class="n">risk_ratio</span><span class="o">=</span><span class="n">risk_exposed</span> <span class="o">/</span> <span class="n">risk_unexposed</span> <span class="k">if</span> <span class="n">risk_unexposed</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
+        <span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">test_type</span><span class="o">=</span><span class="n">test_type</span><span class="p">,</span>
+        <span class="n">r</span><span class="o">=</span><span class="n">r</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="sample_size_odds_ratio">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.sample_size_odds_ratio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_size_odds_ratio</span><span class="p">(</span>
+    <span class="n">proportion_exposed_controls</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">odds_ratio</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate sample size for case-control study (odds ratio).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        proportion_exposed_controls: Proportion exposed in controls</span>
+<span class="sd">        odds_ratio: Expected odds ratio</span>
+<span class="sd">        power: Desired statistical power</span>
+<span class="sd">        alpha: Type I error rate</span>
+<span class="sd">        test_type: &#39;two_sided&#39; or &#39;one_sided&#39; test</span>
+<span class="sd">        r: Ratio of controls to cases (default: 1.0)</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Case-control study: OR=2.0, 30% exposure in controls</span>
+<span class="sd">        &gt;&gt;&gt; result = sample_size_odds_ratio(0.3, 2.0)</span>
+<span class="sd">        &gt;&gt;&gt; print(result.n_cases)</span>
+<span class="sd">        146  # cases needed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">proportion_exposed_controls</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;proportion_exposed_controls must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">odds_ratio</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;odds_ratio must be positive&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate proportion exposed in cases</span>
+    <span class="n">p0</span> <span class="o">=</span> <span class="n">proportion_exposed_controls</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">odds_ratio</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span> <span class="o">+</span> <span class="n">odds_ratio</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span>
+    
+    <span class="c1"># Get z-scores</span>
+    <span class="n">z_alpha</span> <span class="o">=</span> <span class="n">_z_score</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">test_type</span><span class="p">)</span>
+    <span class="n">z_beta</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="n">power</span><span class="p">)</span>
+    
+    <span class="c1"># Average proportion exposed</span>
+    <span class="n">p_bar</span> <span class="o">=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">q_bar</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_bar</span>
+    
+    <span class="c1"># Sample size for cases</span>
+    <span class="n">n_cases</span> <span class="o">=</span> <span class="p">(</span><span class="n">z_alpha</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="n">p_bar</span> <span class="o">*</span> <span class="n">q_bar</span><span class="p">)</span> <span class="o">+</span> 
+               <span class="n">z_beta</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">p0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">))</span><span class="o">/</span><span class="n">r</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">n_cases</span> <span class="o">/=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="n">n_controls</span> <span class="o">=</span> <span class="n">n_cases</span> <span class="o">*</span> <span class="n">r</span>
+    
+    <span class="c1"># Round up</span>
+    <span class="n">n_cases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_cases</span><span class="p">)</span>
+    <span class="n">n_controls</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_controls</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">SampleSizeResult</span><span class="p">(</span>
+        <span class="n">n_cases</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_cases</span><span class="p">),</span>
+        <span class="n">n_controls</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_controls</span><span class="p">),</span>
+        <span class="n">n_total</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_cases</span> <span class="o">+</span> <span class="n">n_controls</span><span class="p">),</span>
+        <span class="n">power</span><span class="o">=</span><span class="n">power</span><span class="p">,</span>
+        <span class="n">effect_size</span><span class="o">=</span><span class="n">odds_ratio</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">design</span><span class="o">=</span><span class="n">StudyDesign</span><span class="o">.</span><span class="n">CASE_CONTROL</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">,</span>
+        <span class="n">assumptions</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;proportion_exposed_controls&quot;</span><span class="p">:</span> <span class="n">proportion_exposed_controls</span><span class="p">,</span>
+            <span class="s2">&quot;proportion_exposed_cases&quot;</span><span class="p">:</span> <span class="n">p1</span><span class="p">,</span>
+            <span class="s2">&quot;control_case_ratio&quot;</span><span class="p">:</span> <span class="n">r</span>
+        <span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="sample_size_sensitivity_specificity">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.sample_size_sensitivity_specificity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_size_sensitivity_specificity</span><span class="p">(</span>
+    <span class="n">expected_sens</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">expected_spec</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">prevalence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">which</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate sample size for diagnostic test studies.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        expected_sens: Expected sensitivity</span>
+<span class="sd">        expected_spec: Expected specificity</span>
+<span class="sd">        precision: Desired width of confidence interval (half-width)</span>
+<span class="sd">        alpha: Type I error rate</span>
+<span class="sd">        prevalence: Disease prevalence (required for sensitivity/specificity)</span>
+<span class="sd">        which: &#39;sensitivity&#39;, &#39;specificity&#39;, or &#39;both&#39;</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Validate test with sens=0.9, spec=0.85, CI width ±0.05</span>
+<span class="sd">        &gt;&gt;&gt; result = sample_size_sensitivity_specificity(0.9, 0.85, 0.05, prevalence=0.1)</span>
+<span class="sd">        &gt;&gt;&gt; print(result.n_total)</span>
+<span class="sd">        246  # total subjects needed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Input validation</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">expected_sens</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;expected_sens must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">expected_spec</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;expected_spec must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">precision</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;precision must be positive&quot;</span><span class="p">)</span>
+    
+    <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    
+    <span class="k">if</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">prevalence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;prevalence is required for sensitivity calculation&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Sample size for sensitivity</span>
+        <span class="n">n_diseased</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expected_sens</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">expected_sens</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        
+        <span class="c1"># Total sample size based on prevalence</span>
+        <span class="n">n_total_sens</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_diseased</span> <span class="o">/</span> <span class="n">prevalence</span><span class="p">)</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;n_diseased&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_diseased</span><span class="p">)),</span>
+            <span class="s2">&quot;n_total&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_total_sens</span><span class="p">)</span>
+        <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="n">which</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;specificity&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">prevalence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;prevalence is required for specificity calculation&quot;</span><span class="p">)</span>
+        
+        <span class="c1"># Sample size for specificity</span>
+        <span class="n">n_non_diseased</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expected_spec</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">expected_spec</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        
+        <span class="c1"># Total sample size based on prevalence</span>
+        <span class="n">n_total_spec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_non_diseased</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prevalence</span><span class="p">))</span>
+        <span class="n">results</span><span class="p">[</span><span class="s2">&quot;specificity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;n_non_diseased&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_non_diseased</span><span class="p">)),</span>
+            <span class="s2">&quot;n_total&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_total_spec</span><span class="p">)</span>
+        <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;both&quot;</span><span class="p">:</span>
+        <span class="c1"># Take the maximum of the two</span>
+        <span class="n">n_total</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">][</span><span class="s2">&quot;n_total&quot;</span><span class="p">],</span> 
+                     <span class="n">results</span><span class="p">[</span><span class="s2">&quot;specificity&quot;</span><span class="p">][</span><span class="s2">&quot;n_total&quot;</span><span class="p">])</span>
+        <span class="n">n_diseased</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="n">prevalence</span><span class="p">)</span>
+        <span class="n">n_non_diseased</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prevalence</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;sensitivity&quot;</span><span class="p">:</span>
+        <span class="n">n_total</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">][</span><span class="s2">&quot;n_total&quot;</span><span class="p">]</span>
+        <span class="n">n_diseased</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">][</span><span class="s2">&quot;n_diseased&quot;</span><span class="p">]</span>
+        <span class="n">n_non_diseased</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">prevalence</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># specificity</span>
+        <span class="n">n_total</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;specificity&quot;</span><span class="p">][</span><span class="s2">&quot;n_total&quot;</span><span class="p">]</span>
+        <span class="n">n_non_diseased</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="s2">&quot;specificity&quot;</span><span class="p">][</span><span class="s2">&quot;n_non_diseased&quot;</span><span class="p">]</span>
+        <span class="n">n_diseased</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_total</span> <span class="o">*</span> <span class="n">prevalence</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">SampleSizeResult</span><span class="p">(</span>
+        <span class="n">n_total</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n_total</span><span class="p">),</span>
+        <span class="n">power</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Not applicable for precision-based calculation</span>
+        <span class="n">effect_size</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">design</span><span class="o">=</span><span class="n">StudyDesign</span><span class="o">.</span><span class="n">DIAGNOSTIC</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;diagnostic_precision&quot;</span><span class="p">,</span>
+        <span class="n">assumptions</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;expected_sensitivity&quot;</span><span class="p">:</span> <span class="n">expected_sens</span><span class="p">,</span>
+            <span class="s2">&quot;expected_specificity&quot;</span><span class="p">:</span> <span class="n">expected_spec</span><span class="p">,</span>
+            <span class="s2">&quot;precision&quot;</span><span class="p">:</span> <span class="n">precision</span><span class="p">,</span>
+            <span class="s2">&quot;prevalence&quot;</span><span class="p">:</span> <span class="n">prevalence</span><span class="p">,</span>
+            <span class="s2">&quot;which_parameter&quot;</span><span class="p">:</span> <span class="n">which</span>
+        <span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="sample_size_single_proportion">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.sample_size_single_proportion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">sample_size_single_proportion</span><span class="p">(</span>
+    <span class="n">expected_proportion</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">design_effect</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate sample size for estimating a single proportion.</span>
+<span class="sd">    </span>
+<span class="sd">    Used for cross-sectional studies, prevalence surveys, etc.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        expected_proportion: Expected proportion</span>
+<span class="sd">        precision: Desired precision (half-width of CI)</span>
+<span class="sd">        alpha: Type I error rate</span>
+<span class="sd">        design_effect: Cluster design effect</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">expected_proportion</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;expected_proportion must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">precision</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;precision must be positive&quot;</span><span class="p">)</span>
+    
+    <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Conservative estimate (p=0.5 gives maximum variance)</span>
+    <span class="k">if</span> <span class="n">expected_proportion</span> <span class="o">==</span> <span class="mf">0.5</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">0.25</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="n">z</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">expected_proportion</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">expected_proportion</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Apply design effect</span>
+    <span class="n">n</span> <span class="o">*=</span> <span class="n">design_effect</span>
+    
+    <span class="c1"># Round up</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">SampleSizeResult</span><span class="p">(</span>
+        <span class="n">n_total</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>
+        <span class="n">power</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">effect_size</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">design</span><span class="o">=</span><span class="n">StudyDesign</span><span class="o">.</span><span class="n">CROSS_SECTIONAL</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;single_proportion&quot;</span><span class="p">,</span>
+        <span class="n">assumptions</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;expected_proportion&quot;</span><span class="p">:</span> <span class="n">expected_proportion</span><span class="p">,</span>
+            <span class="s2">&quot;design_effect&quot;</span><span class="p">:</span> <span class="n">design_effect</span>
+        <span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="power_calculation">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.power_calculation">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">power_calculation</span><span class="p">(</span>
+    <span class="n">n_per_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_cases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">risk_unexposed</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">risk_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">odds_ratio</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">proportion_exposed_controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span>
+    <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">,</span>
+    <span class="n">r</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">design</span><span class="p">:</span> <span class="n">StudyDesign</span> <span class="o">=</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">COHORT</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate statistical power for a given sample size.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        n_per_group: Sample size per group (for cohort studies)</span>
+<span class="sd">        n_cases: Number of cases (for case-control)</span>
+<span class="sd">        n_controls: Number of controls (for case-control)</span>
+<span class="sd">        risk_unexposed: Risk in unexposed group</span>
+<span class="sd">        risk_ratio: Expected risk ratio</span>
+<span class="sd">        odds_ratio: Expected odds ratio</span>
+<span class="sd">        proportion_exposed_controls: Proportion exposed in controls</span>
+<span class="sd">        alpha: Type I error rate</span>
+<span class="sd">        test_type: &#39;two_sided&#39; or &#39;one_sided&#39; test</span>
+<span class="sd">        r: Group ratio</span>
+<span class="sd">        design: Study design</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object with calculated power</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">z_alpha</span> <span class="o">=</span> <span class="n">_z_score</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">test_type</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">COHORT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">risk_unexposed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">risk_ratio</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;risk_unexposed and risk_ratio required for cohort design&quot;</span><span class="p">)</span>
+        
+        <span class="n">risk_exposed</span> <span class="o">=</span> <span class="n">risk_unexposed</span> <span class="o">*</span> <span class="n">risk_ratio</span>
+        <span class="n">p_bar</span> <span class="o">=</span> <span class="p">(</span><span class="n">risk_exposed</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">risk_unexposed</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span>
+        
+        <span class="c1"># Standard error under null</span>
+        <span class="n">se_null</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_bar</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p_bar</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_per_group</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">n_per_group</span> <span class="o">*</span> <span class="n">r</span><span class="p">)))</span>
+        
+        <span class="c1"># Standard error under alternative</span>
+        <span class="n">se_alt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">risk_exposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">risk_exposed</span><span class="p">)</span><span class="o">/</span><span class="n">n_per_group</span> <span class="o">+</span> 
+                        <span class="n">risk_unexposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">risk_unexposed</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n_per_group</span> <span class="o">*</span> <span class="n">r</span><span class="p">))</span>
+        
+        <span class="n">effect_size</span> <span class="o">=</span> <span class="n">risk_exposed</span> <span class="o">-</span> <span class="n">risk_unexposed</span>
+        <span class="n">z_beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">effect_size</span> <span class="o">-</span> <span class="n">z_alpha</span> <span class="o">*</span> <span class="n">se_null</span><span class="p">)</span> <span class="o">/</span> <span class="n">se_alt</span>
+        
+    <span class="k">elif</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">CASE_CONTROL</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">proportion_exposed_controls</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">odds_ratio</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> 
+            <span class="n">n_cases</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing required parameters for case-control design&quot;</span><span class="p">)</span>
+        
+        <span class="n">p0</span> <span class="o">=</span> <span class="n">proportion_exposed_controls</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="p">(</span><span class="n">odds_ratio</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span> <span class="o">+</span> <span class="n">odds_ratio</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">n_controls</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">n_controls</span> <span class="o">=</span> <span class="n">n_cases</span> <span class="o">*</span> <span class="n">r</span>
+        
+        <span class="n">p_bar</span> <span class="o">=</span> <span class="p">(</span><span class="n">p1</span> <span class="o">+</span> <span class="n">r</span> <span class="o">*</span> <span class="n">p0</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">q_bar</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">p_bar</span>
+        
+        <span class="n">se_null</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p_bar</span> <span class="o">*</span> <span class="n">q_bar</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_cases</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">n_controls</span><span class="p">))</span>
+        <span class="n">se_alt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">p1</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p1</span><span class="p">)</span><span class="o">/</span><span class="n">n_cases</span> <span class="o">+</span> <span class="n">p0</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p0</span><span class="p">)</span><span class="o">/</span><span class="n">n_controls</span><span class="p">)</span>
+        
+        <span class="n">effect_size</span> <span class="o">=</span> <span class="n">p1</span> <span class="o">-</span> <span class="n">p0</span>
+        <span class="n">z_beta</span> <span class="o">=</span> <span class="p">(</span><span class="n">effect_size</span> <span class="o">-</span> <span class="n">z_alpha</span> <span class="o">*</span> <span class="n">se_null</span><span class="p">)</span> <span class="o">/</span> <span class="n">se_alt</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Power calculation not implemented for </span><span class="si">{</span><span class="n">design</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="n">power</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z_beta</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">SampleSizeResult</span><span class="p">(</span>
+        <span class="n">n_per_group</span><span class="o">=</span><span class="n">n_per_group</span><span class="p">,</span>
+        <span class="n">n_cases</span><span class="o">=</span><span class="n">n_cases</span><span class="p">,</span>
+        <span class="n">n_controls</span><span class="o">=</span><span class="n">n_controls</span><span class="p">,</span>
+        <span class="n">power</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">power</span><span class="p">),</span>
+        <span class="n">effect_size</span><span class="o">=</span><span class="n">risk_ratio</span> <span class="ow">or</span> <span class="n">odds_ratio</span><span class="p">,</span>
+        <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
+        <span class="n">design</span><span class="o">=</span><span class="n">design</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;power_calculation&quot;</span><span class="p">,</span>
+        <span class="n">assumptions</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;test_type&quot;</span><span class="p">:</span> <span class="n">test_type</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">&quot;group_ratio&quot;</span><span class="p">:</span> <span class="n">r</span>
+        <span class="p">}</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="fleiss_correction">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.fleiss_correction">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">fleiss_correction</span><span class="p">(</span>
+    <span class="n">n_uncorrected</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">continuity_correction</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply Fleiss continuity correction to sample size.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        n_uncorrected: Sample size without correction</span>
+<span class="sd">        continuity_correction: Apply correction if True</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Corrected sample size</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">continuity_correction</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">n_uncorrected</span>
+    
+    <span class="c1"># Fleiss&#39; recommended correction</span>
+    <span class="n">correction</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">n_uncorrected</span><span class="p">)</span>
+    <span class="n">n_corrected</span> <span class="o">=</span> <span class="n">n_uncorrected</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">correction</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">4</span>
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">n_corrected</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="design_effect_deff">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.design_effect_deff">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">design_effect_deff</span><span class="p">(</span>
+    <span class="n">intraclass_correlation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">average_cluster_size</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate design effect for cluster randomized trials.</span>
+<span class="sd">    </span>
+<span class="sd">    DEFF = 1 + (m - 1) * ρ</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        intraclass_correlation: ICC (ρ)</span>
+<span class="sd">        average_cluster_size: Average subjects per cluster (m)</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Design effect</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">intraclass_correlation</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;intraclass_correlation must be between 0 and 1&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">average_cluster_size</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;average_cluster_size must be ≥ 1&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">average_cluster_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">intraclass_correlation</span></div>
+
+
+
+<span class="c1">#  HELPER FUNCTIONS </span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_z_score</span><span class="p">(</span><span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">test_type</span><span class="p">:</span> <span class="n">TestType</span> <span class="o">=</span> <span class="n">TestType</span><span class="o">.</span><span class="n">TWO_SIDED</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get z-score for given alpha and test type.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">test_type</span> <span class="o">==</span> <span class="n">TestType</span><span class="o">.</span><span class="n">ONE_SIDED</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># TWO_SIDED</span>
+        <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_validate_probability</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Validate that a value is a valid probability.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> must be between 0 and 1&quot;</span><span class="p">)</span>
+
+
+<span class="c1">#  COMPREHENSIVE SAMPLE SIZE FUNCTION </span>
+
+<div class="viewcode-block" id="calculate_sample_size">
+<a class="viewcode-back" href="../../../stats/samplesize.html#episia.stats.samplesize.calculate_sample_size">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_sample_size</span><span class="p">(</span>
+    <span class="n">design</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">StudyDesign</span><span class="p">],</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SampleSizeResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Comprehensive sample size calculation function.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        design: Study design (&#39;cohort&#39;, &#39;case_control&#39;, etc.)</span>
+<span class="sd">        parameters: Dictionary of parameters specific to the design</span>
+<span class="sd">        **kwargs: Additional arguments passed to specific functions</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        SampleSizeResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; params = {</span>
+<span class="sd">        ...     &#39;risk_unexposed&#39;: 0.1,</span>
+<span class="sd">        ...     &#39;risk_ratio&#39;: 2.0,</span>
+<span class="sd">        ...     &#39;power&#39;: 0.8,</span>
+<span class="sd">        ...     &#39;alpha&#39;: 0.05</span>
+<span class="sd">        ... }</span>
+<span class="sd">        &gt;&gt;&gt; result = calculate_sample_size(&#39;cohort&#39;, params)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">design</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">design</span> <span class="o">=</span> <span class="n">StudyDesign</span><span class="p">(</span><span class="n">design</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+    
+    <span class="k">if</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">COHORT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;risk_difference&#39;</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sample_size_risk_difference</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">sample_size_risk_ratio</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">CASE_CONTROL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sample_size_odds_ratio</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">CROSS_SECTIONAL</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sample_size_single_proportion</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">elif</span> <span class="n">design</span> <span class="o">==</span> <span class="n">StudyDesign</span><span class="o">.</span><span class="n">DIAGNOSTIC</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sample_size_sensitivity_specificity</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unsupported study design: </span><span class="si">{</span><span class="n">design</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#  MODULE EXPORTS </span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;StudyDesign&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;TestType&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;SampleSizeResult&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sample_size_risk_ratio&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sample_size_risk_difference&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sample_size_odds_ratio&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sample_size_sensitivity_specificity&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;sample_size_single_proportion&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;power_calculation&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;fleiss_correction&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;design_effect_deff&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;calculate_sample_size&#39;</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+/* * Episia Documentation Framework - Professional Glassmorphic Suite
+ * Inspired by high-end automotive and tech interfaces (Polestar, Apple, SpaceX)
+ */
+
+ :root {
+    /* Color Palette - Neutrals & Sophisticated Accents */
+    --bg-main: #fbfbfd;
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --accent-blue: #0071e3;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --code-bg: #f5f5f7;
+    
+    /* Effects & Spacing */
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --blur-strength: 15px;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --premium-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: -apple-system, "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* * Code Blocks: Minimalist with a focus on legibility
+ */
+div.highlight {
+    border-radius: var(--radius-md);
+    background: var(--code-bg) !important;
+    border: 1px solid var(--glass-border);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    transition: var(--transition-smooth);
+}
+
+div.highlight:hover {
+    box-shadow: var(--premium-shadow);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* * Version Badge: Clean Pill Shape
+ */
+.version-badge {
+    padding: 4px 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: white;
+    background: var(--text-primary);
+    border-radius: 100px;
+    text-transform: uppercase;
+}
+
+/* * Admonitions: Floating Surface Style
+ */
+div.admonition {
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-strength));
+    -webkit-backdrop-filter: blur(var(--blur-strength));
+    margin: 2rem 0;
+    padding: 1.5rem;
+    box-shadow: var(--premium-shadow);
+}
+
+div.admonition-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+}
+
+/* Status Accents */
+div.admonition.note { border-left: 5px solid var(--accent-blue); }
+div.admonition.tip { border-left: 5px solid #34c759; }
+div.admonition.warning { border-left: 5px solid #ff9500; }
+
+/* * API Reference: Structured & Elegant
+ */
+dl.class, dl.function {
+    background: white;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    transition: var(--transition-smooth);
+}
+
+dl.class:hover, dl.function:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+}
+
+dl dt {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+}
+
+/* * Navigation & Links
+ */
+a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    border-bottom: 1px solid transparent;
+}
+
+a:hover {
+    border-bottom-color: var(--accent-blue);
+}
+
+.toctree-wrapper {
+    border-left: 1px solid var(--glass-border);
+    padding-left: 1.5rem;
+    margin: 2rem 0;
+}
+
+/* * Inline Code: Subtle Highlight
+ */
+code {
+    background: rgba(0, 0, 0, 0.04);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    font-size: 0.9em;
+    color: #c11b17; /* Professional Dark Red */
+}

@@ -1,0 +1,1139 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.viz.plotters.mpl_plotter &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/viz/plotters/mpl_plotter';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.viz.plotters.mpl_plotter</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.viz.plotters.mpl_plotter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">viz/plotters/mpl_plotter.py - Matplotlib rendering backend for Episia.</span>
+
+<span class="sd">Purpose: publication-quality static figures only.</span>
+<span class="sd">    - No animations (use PlotlyPlotter for interactive / animated output)</span>
+<span class="sd">    - Respects .mplstyle theme files</span>
+<span class="sd">    - Returns matplotlib Figure objects  saveable at any DPI</span>
+<span class="sd">    - Suitable for journal submissions, theses, reports</span>
+
+<span class="sd">Supported output formats: PNG, SVG, PDF (via fig.savefig)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base_plotter</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AnimationConfig</span><span class="p">,</span>
+    <span class="n">AnimationType</span><span class="p">,</span>
+    <span class="n">BasePlotter</span><span class="p">,</span>
+    <span class="n">OutputFormat</span><span class="p">,</span>
+    <span class="n">PlotConfig</span><span class="p">,</span>
+    <span class="n">UnsupportedAnimationError</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+
+<span class="c1"># Theme helpers</span>
+
+<span class="c1"># Colour palettes mirroring plotly_plotter for consistency</span>
+<span class="n">_PALETTES</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;scientific&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;#1f77b4&quot;</span><span class="p">,</span> <span class="s2">&quot;#d62728&quot;</span><span class="p">,</span> <span class="s2">&quot;#2ca02c&quot;</span><span class="p">,</span> <span class="s2">&quot;#ff7f0e&quot;</span><span class="p">,</span> <span class="s2">&quot;#9467bd&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;#8c564b&quot;</span><span class="p">,</span> <span class="s2">&quot;#e377c2&quot;</span><span class="p">,</span> <span class="s2">&quot;#7f7f7f&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;minimal&quot;</span><span class="p">:</span>     <span class="p">[</span><span class="s2">&quot;#333333&quot;</span><span class="p">,</span> <span class="s2">&quot;#888888&quot;</span><span class="p">,</span> <span class="s2">&quot;#bbbbbb&quot;</span><span class="p">,</span> <span class="s2">&quot;#555555&quot;</span><span class="p">,</span> <span class="s2">&quot;#aaaaaa&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;dark&quot;</span><span class="p">:</span>        <span class="p">[</span><span class="s2">&quot;#64b5f6&quot;</span><span class="p">,</span> <span class="s2">&quot;#ef5350&quot;</span><span class="p">,</span> <span class="s2">&quot;#66bb6a&quot;</span><span class="p">,</span> <span class="s2">&quot;#ffa726&quot;</span><span class="p">,</span> <span class="s2">&quot;#ab47bc&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;#26c6da&quot;</span><span class="p">,</span> <span class="s2">&quot;#d4e157&quot;</span><span class="p">,</span> <span class="s2">&quot;#ff7043&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;colorblind&quot;</span><span class="p">:</span>  <span class="p">[</span><span class="s2">&quot;#0072B2&quot;</span><span class="p">,</span> <span class="s2">&quot;#E69F00&quot;</span><span class="p">,</span> <span class="s2">&quot;#56B4E9&quot;</span><span class="p">,</span> <span class="s2">&quot;#009E73&quot;</span><span class="p">,</span> <span class="s2">&quot;#F0E442&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;#D55E00&quot;</span><span class="p">,</span> <span class="s2">&quot;#CC79A7&quot;</span><span class="p">,</span> <span class="s2">&quot;#999999&quot;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">_BG</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;scientific&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;minimal&quot;</span><span class="p">:</span>    <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dark&quot;</span><span class="p">:</span>       <span class="s2">&quot;#1e1e2e&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;colorblind&quot;</span><span class="p">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">_FONT_COLOR</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;scientific&quot;</span><span class="p">:</span> <span class="s2">&quot;#222222&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;minimal&quot;</span><span class="p">:</span>    <span class="s2">&quot;#333333&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dark&quot;</span><span class="p">:</span>       <span class="s2">&quot;#eeeeee&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;colorblind&quot;</span><span class="p">:</span> <span class="s2">&quot;#222222&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Path to theme files relative to this file</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_os</span>
+<span class="n">_THEME_DIR</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;..&quot;</span><span class="p">,</span> <span class="s2">&quot;themes&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_apply_theme</span><span class="p">(</span><span class="n">theme</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply .mplstyle file if it exists, else use a safe built-in fallback.&quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+    <span class="n">style_path</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_THEME_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">theme</span><span class="si">}</span><span class="s2">.mplstyle&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">style_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">style_path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">style_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Safe fallback for empty/missing style files</span>
+        <span class="n">fallback</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;scientific&quot;</span><span class="p">:</span> <span class="s2">&quot;seaborn-v0_8-paper&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;minimal&quot;</span><span class="p">:</span>    <span class="s2">&quot;seaborn-v0_8-whitegrid&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;dark&quot;</span><span class="p">:</span>       <span class="s2">&quot;dark_background&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;colorblind&quot;</span><span class="p">:</span> <span class="s2">&quot;seaborn-v0_8-colorblind&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">fallback</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">mpl</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">PlotConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="n">cfg</span><span class="o">.</span><span class="n">palette</span> <span class="ow">or</span> <span class="n">_PALETTES</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">_PALETTES</span><span class="p">[</span><span class="s2">&quot;scientific&quot;</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_px_to_in</span><span class="p">(</span><span class="n">px</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">px</span> <span class="o">/</span> <span class="n">dpi</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">:</span> <span class="n">PlotConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply common axes styling.&quot;&quot;&quot;</span>
+    <span class="n">fc</span> <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">spine</span><span class="o">.</span><span class="n">set_edgecolor</span><span class="p">(</span><span class="s2">&quot;#cccccc&quot;</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">theme</span> <span class="o">!=</span> <span class="s2">&quot;dark&quot;</span> <span class="k">else</span> <span class="s2">&quot;#444466&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">cfg</span><span class="o">.</span><span class="n">show_grid</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#dddddd&quot;</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">theme</span> <span class="o">!=</span> <span class="s2">&quot;dark&quot;</span> <span class="k">else</span> <span class="s2">&quot;#333355&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_axisbelow</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+
+
+<span class="c1"># MatplotlibPlotter</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MatplotlibPlotter</span><span class="p">(</span><span class="n">BasePlotter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Matplotlib rendering backend  static, publication-quality figures.</span>
+
+<span class="sd">    Returns matplotlib.figure.Figure objects.</span>
+
+<span class="sd">    No animations are supported. Use PlotlyPlotter for animated output.</span>
+<span class="sd">    Call .save() or fig.savefig(path, dpi=300) to export.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">BACKEND_NAME</span> <span class="o">=</span> <span class="s2">&quot;matplotlib&quot;</span>
+    <span class="n">SUPPORTED_ANIMATIONS</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">AnimationType</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>   <span class="c1"># none</span>
+
+    <span class="c1">#  epicurve</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_epicurve">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_epicurve">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_epicurve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Epidemic curve  bar chart suitable for publication.</span>
+<span class="sd">        Trend line overlaid if available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>   <span class="c1"># raises if animation requested</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">height</span><span class="p">)),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">times</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">times</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+               <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Cases&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">trend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">times</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">trend</span><span class="p">),</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">trend_method</span> <span class="ow">or</span> <span class="s2">&quot;Trend&quot;</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">xlabel</span> <span class="ow">or</span> <span class="s2">&quot;Period&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">ylabel</span> <span class="ow">or</span> <span class="s2">&quot;Cases&quot;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>
+                         <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">subtitle</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">cfg</span><span class="o">.</span><span class="n">subtitle</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                         <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">show_legend</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">trend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  model</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_model">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compartmental model trajectories  clean multi-line plot.</span>
+<span class="sd">        R₀ and peak annotations included.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">height</span><span class="p">)),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">t</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">arr</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">compartments</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">arr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">pal</span><span class="p">)],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.2</span><span class="p">,</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># Peak annotation</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">peak_infected</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">peak_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">peak_time</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#999999&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Peak: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">peak_infected</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="se">\n</span><span class="s2">t=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">peak_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">peak_time</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">peak_infected</span><span class="p">),</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">peak_time</span> <span class="o">+</span> <span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.04</span><span class="p">,</span>
+                        <span class="n">result</span><span class="o">.</span><span class="n">peak_infected</span> <span class="o">*</span> <span class="mf">0.92</span><span class="p">),</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-&gt;&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#999999&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># R0 box</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">r0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;R₀ = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">r0</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">verticalalignment</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round,pad=0.3&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span>
+                          <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;#cccccc&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">xlabel</span> <span class="ow">or</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span>       <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">ylabel</span> <span class="ow">or</span> <span class="s2">&quot;Population&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2"> Model&quot;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">show_legend</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  ROC</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_roc">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_roc">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_roc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ROC curve  square axes, AUC annotation, optimal threshold marker.</span>
+<span class="sd">        Publication-ready with equal aspect ratio.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+
+        <span class="n">size</span> <span class="o">=</span> <span class="n">_px_to_in</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">size</span><span class="p">),</span>
+                               <span class="n">facecolor</span><span class="o">=</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">))</span>
+
+        <span class="c1"># Fill under curve</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">fpr</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">tpr</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">fpr</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">tpr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;AUC = </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Reference diagonal</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#aaaaaa&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Random&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Optimal threshold</span>
+        <span class="n">opt_fpr</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">result</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specificity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">opt_tpr</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">([</span><span class="n">opt_fpr</span><span class="p">],</span> <span class="p">[</span><span class="n">opt_tpr</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+                   <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Optimal (t=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">optimal_threshold</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;  Sens=</span><span class="si">{</span><span class="n">opt_tpr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">  Spec=</span><span class="si">{</span><span class="mi">1</span><span class="o">-</span><span class="n">opt_fpr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">opt_fpr</span><span class="p">,</span> <span class="n">opt_tpr</span><span class="p">),</span>
+            <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="n">opt_fpr</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">opt_tpr</span> <span class="o">-</span> <span class="mf">0.07</span><span class="p">),</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.02</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">xlabel</span> <span class="ow">or</span> <span class="s2">&quot;False Positive Rate (1 − Specificity)&quot;</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">ylabel</span> <span class="ow">or</span> <span class="s2">&quot;True Positive Rate (Sensitivity)&quot;</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;ROC Curve&quot;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">show_legend</span><span class="p">:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;lower right&quot;</span><span class="p">,</span>
+                      <span class="n">framealpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  forest</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_forest">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_forest">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_forest</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Forest plot  horizontal CI lines, suitable for meta-analysis tables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpatches</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Collect rows (same logic as PlotlyPlotter)</span>
+        <span class="n">rows</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;stratum_results&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">stratum_results</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">stratum_results</span><span class="p">:</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;label&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">measure</span><span class="p">),</span>
+                    <span class="n">est</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span> <span class="n">lo</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+                    <span class="n">p</span><span class="o">=</span><span class="n">s</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span> <span class="n">pooled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">))</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pooled (MH)&quot;</span><span class="p">,</span> <span class="n">est</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">mh_estimate</span><span class="p">,</span>
+                <span class="n">lo</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span> <span class="n">pooled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;coefficients&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">coefficients</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">ci_table</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="p">(</span><span class="n">coef</span><span class="p">,</span> <span class="n">coef</span><span class="p">))</span>
+                <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">label</span><span class="o">=</span><span class="n">var</span><span class="p">,</span> <span class="n">est</span><span class="o">=</span><span class="n">coef</span><span class="p">,</span> <span class="n">lo</span><span class="o">=</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="n">hi</span><span class="p">,</span>
+                    <span class="n">p</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">p_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="p">),</span> <span class="n">pooled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+                <span class="n">label</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;measure&quot;</span><span class="p">,</span> <span class="s2">&quot;estimate&quot;</span><span class="p">),</span>
+                <span class="n">est</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+                <span class="n">lo</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">hi</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+                <span class="n">p</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span> <span class="n">pooled</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="p">))</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+        <span class="n">row_height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.45</span><span class="p">,</span> <span class="mf">4.5</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">fig_h</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">3.5</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">row_height</span> <span class="o">+</span> <span class="mf">1.2</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="n">fig_h</span><span class="p">),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">null_val</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;est&quot;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.01</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">)</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">null_val</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#999999&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                   <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rows</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span>
+            <span class="n">color</span>  <span class="o">=</span> <span class="n">pal</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;pooled&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="n">pal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="s2">&quot;D&quot;</span> <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;pooled&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;s&quot;</span>
+            <span class="n">ms</span>     <span class="o">=</span> <span class="mi">9</span>  <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;pooled&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="mi">7</span>
+
+            <span class="c1"># CI whisker</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;lo&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;hi&quot;</span><span class="p">]],</span> <span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">y</span><span class="p">],</span>
+                    <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.8</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)</span>
+            <span class="c1"># Point estimate</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;est&quot;</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+                    <span class="n">markersize</span><span class="o">=</span><span class="n">ms</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+            <span class="c1"># Separator before pooled</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;pooled&quot;</span><span class="p">]:</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#cccccc&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                           <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+
+            <span class="c1"># p-value text</span>
+            <span class="k">if</span> <span class="n">row</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">pv</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">]</span>
+                <span class="n">p_str</span> <span class="o">=</span> <span class="s2">&quot;p&lt;0.001&quot;</span> <span class="k">if</span> <span class="n">pv</span> <span class="o">&lt;</span> <span class="mf">0.001</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;p=</span><span class="si">{</span><span class="n">pv</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;hi&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.02</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">p_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">r</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">rows</span><span class="p">)],</span>
+                           <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">xlabel</span> <span class="ow">or</span> <span class="s2">&quot;Estimate&quot;</span><span class="p">,</span>
+                      <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="s2">&quot;Forest Plot&quot;</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">)</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  association</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_association">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_association">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_association</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Single association measure  horizontal CI with reference line.</span>
+<span class="sd">        Compact figure, suitable as an inline element in a report.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+        <span class="n">cfg</span>   <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span>   <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>    <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">measure</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="mf">1.8</span><span class="p">),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># CI whisker</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">solid_capstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">)</span>
+        <span class="c1"># Point estimate</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">pal</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="n">markersize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+        <span class="c1"># Null reference</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#999999&quot;</span><span class="p">,</span>
+                   <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Annotation</span>
+        <span class="n">p_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">p_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">p_str</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;p&lt;0.001&quot;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.001</span>
+                     <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;p=</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">ci_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">confidence</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s2">% CI &quot;</span>
+                  <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s2">&quot;Significant&quot;</span> <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">significant</span> <span class="k">else</span> <span class="s2">&quot;NS&quot;</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.99</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">ci_str</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">p_str</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">sig</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">xlabel</span> <span class="ow">or</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span> <span class="ow">or</span> <span class="n">label</span><span class="p">,</span>
+                     <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="s2">&quot;right&quot;</span><span class="p">]:</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">spine</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  diagnostic</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_diagnostic">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_diagnostic">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_diagnostic</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Diagnostic dashboard: confusion matrix heatmap + metrics bar chart.</span>
+<span class="sd">        Two-panel layout, publication-ready.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+        <span class="n">bg</span>  <span class="o">=</span> <span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">height</span><span class="p">)),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">bg</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">],</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">)</span>
+        <span class="n">ax_cm</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax_bar</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">bg</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">bg</span><span class="p">)</span>
+
+        <span class="c1">#  Confusion matrix heatmap </span>
+        <span class="n">cm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">tn</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">fp</span><span class="p">],</span>
+            <span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">tp</span><span class="p">],</span>
+        <span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="n">im</span> <span class="o">=</span> <span class="n">ax_cm</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+
+        <span class="n">labels</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;TN&quot;</span><span class="p">,</span> <span class="s2">&quot;FP&quot;</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;FN&quot;</span><span class="p">,</span> <span class="s2">&quot;TP&quot;</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">ax_cm</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">labels</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                           <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                           <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">,</span>
+                           <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.6</span> <span class="k">else</span> <span class="n">fc</span><span class="p">)</span>
+
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Pred Neg&quot;</span><span class="p">,</span> <span class="s2">&quot;Pred Pos&quot;</span><span class="p">],</span>
+                               <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s2">&quot;Actual Neg&quot;</span><span class="p">,</span> <span class="s2">&quot;Actual Pos&quot;</span><span class="p">],</span>
+                               <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Confusion Matrix&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                         <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="n">ax_cm</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+
+        <span class="c1">#  Metrics bar chart </span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Sensitivity&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">,</span>
+            <span class="s2">&quot;Specificity&quot;</span><span class="p">:</span> <span class="n">result</span><span class="o">.</span><span class="n">specificity</span><span class="p">,</span>
+            <span class="s2">&quot;PPV&quot;</span><span class="p">:</span>         <span class="n">result</span><span class="o">.</span><span class="n">ppv</span><span class="p">,</span>
+            <span class="s2">&quot;NPV&quot;</span><span class="p">:</span>         <span class="n">result</span><span class="o">.</span><span class="n">npv</span><span class="p">,</span>
+            <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span>    <span class="n">result</span><span class="o">.</span><span class="n">accuracy</span><span class="p">,</span>
+            <span class="s2">&quot;Youden J&quot;</span><span class="p">:</span>    <span class="n">result</span><span class="o">.</span><span class="n">youden</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">m_labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">m_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">metrics</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">colors</span>   <span class="o">=</span> <span class="p">[</span><span class="n">pal</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">pal</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">m_labels</span><span class="p">))]</span>
+
+        <span class="n">bars</span> <span class="o">=</span> <span class="n">ax_bar</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">m_labels</span><span class="p">,</span> <span class="n">m_values</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span>
+                           <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">m_values</span><span class="p">):</span>
+            <span class="n">ax_bar</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                <span class="nb">min</span><span class="p">(</span><span class="n">val</span> <span class="o">+</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">),</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_y</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.15</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Performance Metrics&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                          <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+
+        <span class="n">_style_axes</span><span class="p">(</span><span class="n">ax_bar</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">ax_bar</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+                         <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  contingency</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.plot_contingency">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.plot_contingency">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_contingency</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        2x2 contingency table  annotated heatmap with summary table.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_animation</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">_apply_theme</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+        <span class="n">pal</span> <span class="o">=</span> <span class="n">_palette</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+        <span class="n">fc</span>  <span class="o">=</span> <span class="n">_FONT_COLOR</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;#222222&quot;</span><span class="p">)</span>
+        <span class="n">bg</span>  <span class="o">=</span> <span class="n">_BG</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="s2">&quot;table&quot;</span><span class="p">):</span>
+            <span class="n">tbl</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">table</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tbl</span> <span class="o">=</span> <span class="n">result</span>
+
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">tbl</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">tbl</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">tbl</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">d</span>
+
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span>
+            <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">width</span><span class="p">),</span> <span class="n">_px_to_in</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">height</span><span class="p">)),</span>
+            <span class="n">facecolor</span><span class="o">=</span><span class="n">bg</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">gridspec</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="n">figure</span><span class="o">=</span><span class="n">fig</span><span class="p">,</span>
+                               <span class="n">wspace</span><span class="o">=</span><span class="mf">0.35</span><span class="p">)</span>
+        <span class="n">ax_tbl</span>  <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax_text</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Heatmap</span>
+        <span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">d</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">cell_labels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;TN (d)</span><span class="se">\n</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">d</span><span class="o">/</span><span class="n">total</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Exp Non-cases (c)</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">c</span><span class="o">/</span><span class="n">total</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+            <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Unexp Cases (b)</span><span class="se">\n</span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">b</span><span class="o">/</span><span class="n">total</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Exp Cases (a)</span><span class="se">\n</span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">a</span><span class="o">/</span><span class="n">total</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+        <span class="p">]</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                <span class="n">ax_tbl</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">cell_labels</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">col</span><span class="p">],</span>
+                            <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span>
+                            <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span>
+                            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cells</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cells</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.6</span> <span class="k">else</span> <span class="n">fc</span><span class="p">)</span>
+
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s2">&quot;Unexposed&quot;</span><span class="p">,</span> <span class="s2">&quot;Exposed&quot;</span><span class="p">],</span>
+                                <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="s2">&quot;Non-cases&quot;</span><span class="p">,</span> <span class="s2">&quot;Cases&quot;</span><span class="p">],</span>
+                                <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;2×2 Table&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                          <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+        <span class="n">ax_tbl</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="n">fc</span><span class="p">)</span>
+
+        <span class="c1"># Summary text panel</span>
+        <span class="n">rr</span>  <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">()</span>
+        <span class="n">or_</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">odds_ratio</span><span class="p">()</span>
+        <span class="n">chi</span> <span class="o">=</span> <span class="n">tbl</span><span class="o">.</span><span class="n">chi_square</span><span class="p">()</span>
+
+        <span class="n">summary_lines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;Risk (exposed)&quot;</span><span class="p">,</span>   <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tbl</span><span class="o">.</span><span class="n">risk_exposed</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Risk (unexposed)&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">tbl</span><span class="o">.</span><span class="n">risk_unexposed</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Risk Ratio&quot;</span><span class="p">,</span>
+             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rr</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  [</span><span class="si">{</span><span class="n">rr</span><span class="o">.</span><span class="n">ci_lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">rr</span><span class="o">.</span><span class="n">ci_upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Odds Ratio&quot;</span><span class="p">,</span>
+             <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">or_</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  [</span><span class="si">{</span><span class="n">or_</span><span class="o">.</span><span class="n">ci_lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">–</span><span class="si">{</span><span class="n">or_</span><span class="o">.</span><span class="n">ci_upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;χ² p-value&quot;</span><span class="p">,</span>      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chi</span><span class="p">[</span><span class="s1">&#39;p_value&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;N total&quot;</span><span class="p">,</span>         <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">total</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">ax_text</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">ax_text</span><span class="o">.</span><span class="n">set_facecolor</span><span class="p">(</span><span class="n">bg</span><span class="p">)</span>
+
+        <span class="n">y_start</span> <span class="o">=</span> <span class="mf">0.92</span>
+        <span class="n">line_h</span>  <span class="o">=</span> <span class="mf">0.13</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">summary_lines</span><span class="p">):</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y_start</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="n">line_h</span>
+            <span class="n">ax_text</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax_text</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                         <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#888888&quot;</span><span class="p">,</span>
+                         <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">)</span>
+            <span class="n">ax_text</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax_text</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                         <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                         <span class="n">va</span><span class="o">=</span><span class="s2">&quot;top&quot;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+        <span class="n">ax_text</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Summary&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span>
+                           <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">cfg</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">cfg</span><span class="o">.</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span>
+                         <span class="n">fontweight</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">fc</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="c1">#  save</span>
+
+<div class="viewcode-block" id="MatplotlibPlotter.save">
+<a class="viewcode-back" href="../../../../viz/plotters/mpl_plotter.html#episia.viz.plotters.mpl_plotter.MatplotlibPlotter.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fig</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fmt</span><span class="p">:</span> <span class="n">OutputFormat</span> <span class="o">=</span> <span class="n">OutputFormat</span><span class="o">.</span><span class="n">PNG</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">300</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save a Matplotlib figure at publication quality.</span>
+
+<span class="sd">        Default DPI is 300 (journal standard).</span>
+<span class="sd">        Supports PNG, SVG, PDF.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+        <span class="k">if</span> <span class="n">fmt</span> <span class="ow">in</span> <span class="p">(</span><span class="n">OutputFormat</span><span class="o">.</span><span class="n">HTML</span><span class="p">,</span> <span class="n">OutputFormat</span><span class="o">.</span><span class="n">JSON</span><span class="p">,</span>
+                   <span class="n">OutputFormat</span><span class="o">.</span><span class="n">GIF</span><span class="p">,</span> <span class="n">OutputFormat</span><span class="o">.</span><span class="n">MP4</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">UnsupportedAnimationError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;MatplotlibPlotter.save() does not support </span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="s2">&quot;Use PlotlyPlotter for HTML/JSON output.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">ext</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;.</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="n">ext</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+        <span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="n">dpi</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span>
+                    <span class="n">facecolor</span><span class="o">=</span><span class="n">fig</span><span class="o">.</span><span class="n">get_facecolor</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">path</span></div>
+</div>
+
+
+
+
+<span class="c1"># Exports</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;MatplotlibPlotter&quot;</span><span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1185 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.stats.contingency &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/stats/contingency';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.stats.contingency</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.stats.contingency</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Contingency Core 2x2 contingency table calculations for epidemiology.</span>
+
+<span class="sd">This module provides the Table2x2 class for performing epidemiological</span>
+<span class="sd">calculations on 2x2 contingency tables, including risk ratios, odds ratios,</span>
+<span class="sd">risk differences, and various confidence intervals.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+
+<div class="viewcode-block" id="ConfidenceMethod">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.ConfidenceMethod">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConfidenceMethod</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Methods for calculating confidence intervals.&quot;&quot;&quot;</span>
+    
+    <span class="n">WALD</span> <span class="o">=</span> <span class="s2">&quot;wald&quot;</span>
+    <span class="n">DELTA</span> <span class="o">=</span> <span class="s2">&quot;delta&quot;</span>
+    <span class="n">SCORE</span> <span class="o">=</span> <span class="s2">&quot;score&quot;</span>
+    <span class="n">EXACT</span> <span class="o">=</span> <span class="s2">&quot;exact&quot;</span></div>
+
+    
+<div class="viewcode-block" id="RiskRatioResult">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.RiskRatioResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RiskRatioResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Result object for Risk Ratio calculations.&quot;&quot;&quot;</span>
+    <span class="n">estimate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci_lower</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci_upper</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">table</span><span class="p">:</span> <span class="s2">&quot;Table2x2&quot;</span>
+    <span class="n">null_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<div class="viewcode-block" id="RiskRatioResult.__repr__">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.RiskRatioResult.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s2">&quot; *&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">significant</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Risk Ratio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)</span><span class="si">{</span><span class="n">sig</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">significant</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if the 95% CI does not contain the null value (1.0).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">null_value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Approximate two-sided p-value from the CI (Wald method).&quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span> <span class="k">as</span> <span class="n">_stats</span>
+            <span class="n">se</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">)</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">se</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">))</span> <span class="o">/</span> <span class="n">se</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="RiskRatioResult.to_dict">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.RiskRatioResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a JSON-serializable dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;measure&quot;</span><span class="p">:</span>   <span class="s2">&quot;risk_ratio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;estimate&quot;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span>  <span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span>    <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;significant&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">significant</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span>   <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;null_value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span>
+            <span class="s2">&quot;table&quot;</span><span class="p">:</span>     <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="RiskRatioResult.plot">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.RiskRatioResult.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forest-style plot for this risk ratio.&quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">api.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_ci</span><span class="p">,</span> <span class="n">make_association</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">make_association</span><span class="p">(</span>
+            <span class="n">measure</span><span class="o">=</span><span class="s2">&quot;risk_ratio&quot;</span><span class="p">,</span>
+            <span class="n">estimate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+            <span class="n">ci_lower</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="n">ci_upper</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="n">p_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="n">null_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+        
+<div class="viewcode-block" id="OddsRatioResult">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.OddsRatioResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OddsRatioResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Result object for Odds Ratio calculations.&quot;&quot;&quot;</span>
+    <span class="n">estimate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci_lower</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci_upper</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">table</span><span class="p">:</span> <span class="s2">&quot;Table2x2&quot;</span>
+    <span class="n">null_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<div class="viewcode-block" id="OddsRatioResult.__repr__">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.OddsRatioResult.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s2">&quot; *&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">significant</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Odds Ratio: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)</span><span class="si">{</span><span class="n">sig</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">significant</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if the 95% CI does not contain the null value (1.0).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">null_value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">p_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Approximate two-sided p-value from the CI.&quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span> <span class="k">as</span> <span class="n">_stats</span>
+            <span class="n">se</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">)</span> <span class="o">-</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mf">1.96</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">se</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">))</span> <span class="o">/</span> <span class="n">se</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">z</span><span class="p">)))</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OddsRatioResult.to_dict">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.OddsRatioResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a JSON-serializable dictionary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;measure&quot;</span><span class="p">:</span>    <span class="s2">&quot;odds_ratio&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;estimate&quot;</span><span class="p">:</span>   <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span>   <span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span>   <span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span>     <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;significant&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">significant</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span>    <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;null_value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span>
+            <span class="s2">&quot;table&quot;</span><span class="p">:</span>      <span class="bp">self</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="OddsRatioResult.plot">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.OddsRatioResult.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Forest-style plot for this odds ratio.&quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">api.results</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_association</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">make_association</span><span class="p">(</span>
+            <span class="n">measure</span><span class="o">=</span><span class="s2">&quot;odds_ratio&quot;</span><span class="p">,</span>
+            <span class="n">estimate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+            <span class="n">ci_lower</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="n">ci_upper</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="n">p_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="n">null_value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+        
+
+<div class="viewcode-block" id="Table2x2">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Table2x2</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    2x2 contingency table for epidemiological calculations.</span>
+<span class="sd">    </span>
+<span class="sd">    Represents a standard 2x2 table layout:</span>
+<span class="sd">    +----------------+-----------+-----------+</span>
+<span class="sd">    |                | Exposed   | Unexposed |</span>
+<span class="sd">    +================+===========+===========+</span>
+<span class="sd">    | Cases          |     a     |     b     |</span>
+<span class="sd">    +----------------+-----------+-----------+</span>
+<span class="sd">    | Non-cases      |     c     |     d     |</span>
+<span class="sd">    +----------------+-----------+-----------+</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        a (int): Exposed cases</span>
+<span class="sd">        b (int): Unexposed cases  </span>
+<span class="sd">        c (int): Exposed non-cases</span>
+<span class="sd">        d (int): Unexposed non-cases</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;_cache&#39;</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="Table2x2.__init__">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a 2x2 contingency table.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            a: Exposed cases (cell a)</span>
+<span class="sd">            b: Unexposed cases (cell b)</span>
+<span class="sd">            c: Exposed non-cases (cell c)</span>
+<span class="sd">            d: Unexposed non-cases (cell d)</span>
+<span class="sd">            </span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If any cell value is negative</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Validate inputs</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All cell values must be non-negative&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">d</span>
+        
+        <span class="c1"># Cache for optimized repeated calculations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>    </div>
+
+        
+
+    <span class="c1">#  PROPERTIES &amp; CACHED CALCULATIONS </span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_exposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of exposed individuals (a + c).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_unexposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of unexposed individuals (b + d).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_cases</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of cases (a + b).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total_non_cases</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of non-cases (c + d).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">total</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Total number of individuals (a + b + c + d).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">risk_exposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Risk (incidence proportion) in exposed group: a / (a + c).&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;risk_exposed&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">risk_unexposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Risk (incidence proportion) in unexposed group: b / (b + d).&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;risk_unexposed&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">odds_exposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Odds in exposed group: a / c.&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;odds_exposed&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Handle division by zero</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">odds_unexposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Odds in unexposed group: b / d.&quot;&quot;&quot;</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;odds_unexposed&quot;</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="c1"># Handle division by zero</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    
+    <span class="c1">#  CORE EPIDEMIOLOGICAL MEASURES </span>
+    
+<div class="viewcode-block" id="Table2x2.risk_ratio">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.risk_ratio">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">risk_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                   <span class="n">method</span><span class="p">:</span> <span class="n">ConfidenceMethod</span> <span class="o">=</span> <span class="n">ConfidenceMethod</span><span class="o">.</span><span class="n">WALD</span><span class="p">,</span>
+                   <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RiskRatioResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate risk ratio (relative risk) with confidence interval.</span>
+<span class="sd">        </span>
+<span class="sd">        Risk Ratio = (a/(a+c)) / (b/(b+d))</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            method: Method for confidence interval calculation</span>
+<span class="sd">            confidence: Confidence level (default: 0.95 for 95% CI)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            RiskRatioResult object containing estimate and confidence interval</span>
+<span class="sd">            </span>
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; table = Table2x2(10, 20, 30, 40)</span>
+<span class="sd">            &gt;&gt;&gt; result = table.risk_ratio()</span>
+<span class="sd">            &gt;&gt;&gt; print(result.estimate)</span>
+<span class="sd">            0.6667</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Calculate point estimate</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rr</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span>
+        
+        <span class="c1"># Calculate confidence interval based on method</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="n">ConfidenceMethod</span><span class="o">.</span><span class="n">WALD</span><span class="p">:</span>
+            <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wald_ci_rr</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="n">ConfidenceMethod</span><span class="o">.</span><span class="n">SCORE</span><span class="p">:</span>
+            <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_score_ci_rr</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Default to delta method</span>
+            <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_delta_ci_rr</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">RiskRatioResult</span><span class="p">(</span>
+            <span class="n">estimate</span><span class="o">=</span><span class="n">rr</span><span class="p">,</span>
+            <span class="n">ci_lower</span><span class="o">=</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="n">ci_upper</span><span class="o">=</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="bp">self</span>
+        <span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="Table2x2.odds_ratio">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.odds_ratio">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">odds_ratio</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                   <span class="n">method</span><span class="p">:</span> <span class="n">ConfidenceMethod</span> <span class="o">=</span> <span class="n">ConfidenceMethod</span><span class="o">.</span><span class="n">WALD</span><span class="p">,</span>
+                   <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OddsRatioResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate odds ratio with confidence interval.</span>
+<span class="sd">        </span>
+<span class="sd">        Odds Ratio = (a/c) / (b/d) = (a*d) / (b*c)</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            method: Method for confidence interval calculation</span>
+<span class="sd">            confidence: Confidence level (default: 0.95 for 95% CI)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            OddsRatioResult object containing estimate and confidence interval</span>
+<span class="sd">            </span>
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; table = Table2x2(10, 20, 30, 40)</span>
+<span class="sd">            &gt;&gt;&gt; result = table.odds_ratio()</span>
+<span class="sd">            &gt;&gt;&gt; print(result.estimate)</span>
+<span class="sd">            0.6667</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="c1"># Calculate point estimate</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Handle cases with zero cells</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">or_est</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">or_est</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">or_est</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+        
+        <span class="c1"># Calculate confidence interval</span>
+        <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="n">ConfidenceMethod</span><span class="o">.</span><span class="n">EXACT</span><span class="p">:</span>
+            <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exact_ci_or</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wald_ci_or</span><span class="p">(</span><span class="n">or_est</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">OddsRatioResult</span><span class="p">(</span>
+            <span class="n">estimate</span><span class="o">=</span><span class="n">or_est</span><span class="p">,</span>
+            <span class="n">ci_lower</span><span class="o">=</span><span class="n">ci_lower</span><span class="p">,</span>
+            <span class="n">ci_upper</span><span class="o">=</span><span class="n">ci_upper</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="n">table</span><span class="o">=</span><span class="bp">self</span>
+        <span class="p">)</span></div>
+
+        
+<div class="viewcode-block" id="Table2x2.risk_difference">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.risk_difference">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">risk_difference</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate risk difference (attributable risk) with confidence interval.</span>
+<span class="sd">        </span>
+<span class="sd">        Risk Difference = Risk_exposed - Risk_unexposed</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            confidence: Confidence level (default: 0.95)</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with &#39;estimate&#39;, &#39;ci_lower&#39;, and &#39;ci_upper&#39;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">rd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span>
+        
+        <span class="c1"># Wald-type CI for risk difference</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span><span class="p">)</span> <span class="o">+</span>
+            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span><span class="p">)</span>
+        <span class="p">)</span>
+        
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_score</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+        <span class="n">ci_lower</span> <span class="o">=</span> <span class="n">rd</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+        <span class="n">ci_upper</span> <span class="o">=</span> <span class="n">rd</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;measure&quot;</span><span class="p">:</span> <span class="s2">&quot;risk_difference&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="n">rd</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span> <span class="n">ci_lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span> <span class="n">ci_upper</span><span class="p">,</span>
+            <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">confidence</span>
+        <span class="p">}</span></div>
+
+        
+    <span class="c1">#  ATTRIBUTABLE FRACTION MEASURES </span>
+    
+<div class="viewcode-block" id="Table2x2.attributable_fraction_exposed">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.attributable_fraction_exposed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attributable_fraction_exposed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate attributable fraction among the exposed.</span>
+<span class="sd">        </span>
+<span class="sd">        AF_exposed = (RR - 1) / RR</span>
+<span class="sd">        Represents proportion of cases among exposed attributable to exposure.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Attributable fraction (range: -∞ to 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">()</span><span class="o">.</span><span class="n">estimate</span>
+        <span class="k">if</span> <span class="n">rr</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">rr</span>  </div>
+
+
+    <span class="c1">#  STATISTICAL TESTS </span>
+    
+<div class="viewcode-block" id="Table2x2.chi_square">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.chi_square">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">chi_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate chi-square test for association.</span>
+<span class="sd">        </span>
+<span class="sd">        Args:</span>
+<span class="sd">            correction: Apply Yates&#39; continuity correction if True</span>
+<span class="sd">            </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with &#39;chi2&#39;, &#39;p_value&#39;, and &#39;df&#39; (degrees of freedom)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Expected frequencies</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
+        <span class="n">e_a</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_cases</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+        <span class="n">e_b</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_cases</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+        <span class="n">e_c</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_non_cases</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+        <span class="n">e_d</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">total_non_cases</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span><span class="p">)</span> <span class="o">/</span> <span class="n">total</span>
+        
+        <span class="k">if</span> <span class="n">correction</span><span class="p">:</span>
+            <span class="c1"># Yates&#39; corrected chi-square</span>
+            <span class="n">chi2</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="n">e_a</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_a</span> <span class="o">+</span>
+                <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">e_b</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_b</span> <span class="o">+</span>
+                <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">e_c</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_c</span> <span class="o">+</span>
+                <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">e_d</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_d</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Pearson chi-square</span>
+            <span class="n">chi2</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">-</span> <span class="n">e_a</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_a</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="n">e_b</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_b</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">-</span> <span class="n">e_c</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_c</span> <span class="o">+</span>
+                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">-</span> <span class="n">e_d</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">e_d</span>
+            <span class="p">)</span>
+        
+        <span class="c1"># p-value from chi-square distribution with 1 degree of freedom</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+        <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;chi2&quot;</span><span class="p">:</span> <span class="n">chi2</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot;correction&quot;</span><span class="p">:</span> <span class="s2">&quot;yates&quot;</span> <span class="k">if</span> <span class="n">correction</span> <span class="k">else</span> <span class="s2">&quot;pearson&quot;</span>
+        <span class="p">}</span></div>
+
+        
+<div class="viewcode-block" id="Table2x2.fisher_exact">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.fisher_exact">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fisher_exact</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform Fisher&#39;s exact test (especially for small samples).</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with &#39;odds_ratio&#39;, &#39;p_value&#39; (two-sided)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+        
+        <span class="n">oddsratio</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">fisher_exact</span><span class="p">([</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">],</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">]</span>
+        <span class="p">])</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;odds_ratio&quot;</span><span class="p">:</span> <span class="n">oddsratio</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;fisher_exact&quot;</span>
+        <span class="p">}</span></div>
+
+        
+        <span class="c1">#  CONFIDENCE INTERVAL METHODS </span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="nf">_wald_ci_rr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wald confidence interval for risk ratio.</span>
+
+<span class="sd">        Uses Haldane-Anscombe continuity correction (+0.5) for zero cells,</span>
+<span class="sd">        which avoids ZeroDivisionError when a=0 or b=0 and provides a finite</span>
+<span class="sd">        CI estimate consistent with epidemiological practice.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">rr</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">rr</span><span class="p">):</span>
+            <span class="c1"># RR = inf (unexposed risk = 0) — CI is (rr, inf) by convention</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Apply Haldane-Anscombe +0.5 correction for any zero cell</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span>  <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">b</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>  <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">n1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span>   <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">n2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="c1"># Recompute RR with corrected counts for the CI</span>
+            <span class="n">rr_corr</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">n1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span> <span class="o">/</span> <span class="n">n2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_exposed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_unexposed</span>
+            <span class="n">rr_corr</span> <span class="o">=</span> <span class="n">rr</span>
+
+        <span class="c1"># Standard error of log(RR) — Greenland &amp; Robins (1985)</span>
+        <span class="n">var_log_rr</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">n1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="n">n2</span><span class="p">)</span>
+        <span class="n">se_log_rr</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">var_log_rr</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">z</span>          <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_score</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+
+        <span class="n">log_ci_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rr_corr</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_rr</span>
+        <span class="n">log_ci_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">rr_corr</span><span class="p">)</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_rr</span>
+
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_ci_lower</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_ci_upper</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_score_ci_rr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Score confidence interval for risk ratio.&quot;&quot;&quot;</span>
+        <span class="c1"># This is a simplified version - full implementation would be more complex</span>
+        <span class="n">rr_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">rr_result</span><span class="o">.</span><span class="n">ci_lower</span><span class="p">,</span> <span class="n">rr_result</span><span class="o">.</span><span class="n">ci_upper</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_delta_ci_rr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rr</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delta method confidence interval for risk ratio.&quot;&quot;&quot;</span>
+        <span class="c1"># Similar to Wald but with different variance estimator</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wald_ci_rr</span><span class="p">(</span><span class="n">rr</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_wald_ci_or</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">or_est</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wald confidence interval for odds ratio.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">or_est</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+        
+        <span class="c1"># Standard error on log scale (Woolf&#39;s method)</span>
+        <span class="k">if</span> <span class="mi">0</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">):</span>
+            <span class="c1"># Add 0.5 to all cells for zero-cell correction (Haldane-Anscombe)</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span> <span class="o">+</span> <span class="mf">0.5</span>
+            <span class="n">or_est</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span>
+        
+        <span class="n">var_log_or</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">d</span>
+        <span class="n">se_log_or</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var_log_or</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_z_score</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+        
+        <span class="n">log_ci_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">or_est</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_or</span>
+        <span class="n">log_ci_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">or_est</span><span class="p">)</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_or</span>
+        
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_ci_lower</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_ci_upper</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_exact_ci_or</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Exact (conditional maximum likelihood) CI for odds ratio.&quot;&quot;&quot;</span>
+        <span class="c1"># For now, fall back to Woolf&#39;s method with correction</span>
+        <span class="c1"># Full exact implementation would require more complex computation</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wald_ci_or</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">odds_ratio</span><span class="p">()</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span> <span class="n">confidence</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">_z_score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get z-score for given confidence level.&quot;&quot;&quot;</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span>
+        <span class="k">return</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1">#  UTILITY METHODS </span>
+
+<div class="viewcode-block" id="Table2x2.to_dict">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert table to dictionary representation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span>
+            <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span>
+            <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="p">,</span>
+            <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="p">,</span>
+            <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">total</span>
+        <span class="p">}</span></div>
+
+    
+<div class="viewcode-block" id="Table2x2.__repr__">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Table2x2(a=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="si">}</span><span class="s2">, b=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="si">}</span><span class="s2">, c=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">c</span><span class="si">}</span><span class="s2">, d=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="Table2x2.attributable_fraction_population">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.attributable_fraction_population">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">attributable_fraction_population</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attributable fraction in the population (PAF).</span>
+
+<span class="sd">        PAF = Pe * (RR - 1) / (Pe * (RR - 1) + 1)</span>
+
+<span class="sd">        where Pe = proportion of cases that are exposed = a / (a + b).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Population attributable fraction (range: -∞ to 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">total_cases</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">total_cases</span>
+        <span class="k">if</span> <span class="n">total_cases</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="n">pe</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">/</span> <span class="n">total_cases</span>   <span class="c1"># proportion exposed among cases</span>
+        <span class="n">rr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">()</span><span class="o">.</span><span class="n">estimate</span>
+        <span class="k">if</span> <span class="n">rr</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">rr</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="k">return</span> <span class="n">pe</span> <span class="o">*</span> <span class="p">(</span><span class="n">rr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">pe</span> <span class="o">*</span> <span class="p">(</span><span class="n">rr</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Table2x2.summary">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.Table2x2.summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Dict</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate comprehensive summary of all calculations.</span>
+<span class="sd">        </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary with all epidemiological measures</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rr_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">()</span>
+        <span class="n">or_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">odds_ratio</span><span class="p">()</span>
+        <span class="n">rd_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_difference</span><span class="p">()</span>
+        <span class="n">chi2_result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi_square</span><span class="p">()</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;table&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;risks&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;exposed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_exposed</span><span class="p">,</span>
+                <span class="s2">&quot;unexposed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">risk_unexposed</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;odds&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;exposed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">odds_exposed</span><span class="p">,</span>
+                <span class="s2">&quot;unexposed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">odds_unexposed</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;risk_ratio&quot;</span><span class="p">:</span> <span class="n">rr_result</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;odds_ratio&quot;</span><span class="p">:</span> <span class="n">or_result</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+            <span class="s2">&quot;risk_difference&quot;</span><span class="p">:</span> <span class="n">rd_result</span><span class="p">,</span>
+            <span class="s2">&quot;attributable_fractions&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;exposed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributable_fraction_exposed</span><span class="p">(),</span>
+                <span class="s2">&quot;population&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributable_fraction_population</span><span class="p">(),</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;chi_square&quot;</span><span class="p">:</span> <span class="n">chi2_result</span><span class="p">,</span>
+            <span class="s2">&quot;fisher_exact&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fisher_exact</span><span class="p">()</span>
+        <span class="p">}</span></div>
+</div>
+
+
+<span class="c1">#  CONVENIENCE FUNCTIONS </span>
+
+<div class="viewcode-block" id="risk_ratio">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.risk_ratio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">risk_ratio</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RiskRatioResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to calculate risk ratio from raw counts.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        a, b, c, d: 2x2 table cell counts</span>
+<span class="sd">        **kwargs: Passed to Table2x2.risk_ratio()</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        RiskRatioResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; result = risk_ratio(10, 20, 30, 40)</span>
+<span class="sd">        &gt;&gt;&gt; print(result.estimate)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table2x2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">risk_ratio</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="odds_ratio">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.odds_ratio">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">odds_ratio</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OddsRatioResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convenience function to calculate odds ratio from raw counts.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        a, b, c, d: 2x2 table cell counts</span>
+<span class="sd">        **kwargs: Passed to Table2x2.odds_ratio()</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        OddsRatioResult object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table2x2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span><span class="o">.</span><span class="n">odds_ratio</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="from_dataframe">
+<a class="viewcode-back" href="../../../stats/contingency.html#episia.stats.contingency.from_dataframe">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">from_dataframe</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">exposed_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outcome_col</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table2x2</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create Table2x2 from pandas DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        df: pandas DataFrame</span>
+<span class="sd">        exposed_col: Column name for exposure status (True/False or 1/0)</span>
+<span class="sd">        outcome_col: Column name for outcome status (True/False or 1/0)</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Table2x2 object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Ensure boolean-like columns</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="n">exposed_col</span><span class="p">,</span> <span class="n">outcome_col</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="nb">bool</span><span class="p">:</span>
+            <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate 2x2 counts</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">exposed_col</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">df</span><span class="p">[</span><span class="n">outcome_col</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Exposed cases</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">exposed_col</span><span class="p">]</span> <span class="o">&amp;</span> <span class="n">df</span><span class="p">[</span><span class="n">outcome_col</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Unexposed cases</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">exposed_col</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">outcome_col</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Exposed non-cases</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">exposed_col</span><span class="p">]</span> <span class="o">&amp;</span> <span class="o">~</span><span class="n">df</span><span class="p">[</span><span class="n">outcome_col</span><span class="p">]]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Unexposed non-cases</span>
+    
+    <span class="k">return</span> <span class="n">Table2x2</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#  MODULE EXPORTS </span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Table2x2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RiskRatioResult&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;OddsRatioResult&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ConfidenceMethod&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;risk_ratio&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;odds_ratio&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;from_dataframe&#39;</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+/* Custom CSS for Episia Documentation - Premium Glassmorphic Edition */
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(209, 213, 219, 0.3);
+    --accent-color: #1d1d1f; /* Apple-like Deep Black/Grey */
+    --text-main: #323232;
+    --blur-val: 12px;
+}
+
+body {
+    background-color: #f5f5f7; /* Gris très clair type Apple */
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Effet de bloc de code épuré */
+div.highlight {
+    border-radius: 12px;
+    background: rgba(248, 249, 250, 0.8) !important;
+    backdrop-filter: blur(var(--blur-val));
+    border: 1px solid var(--glass-border);
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+/* Version Badge - Plus discret et moderne */
+.version-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: #fff;
+    border-radius: 20px;
+    background: var(--accent-color);
+    text-transform: uppercase;
+}
+
+/* Admonitions (Notes, Tips, Warnings) - Style Soft */
+div.admonition {
+    border-left: none;
+    border-radius: 16px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-val));
+    border: 1px solid var(--glass-border);
+    margin: 1.5em 0;
+    padding: 1.2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+div.admonition.note { border-top: 3px solid #007aff; }
+div.admonition.warning { border-top: 3px solid #ff9500; }
+div.admonition.tip { border-top: 3px solid #34c759; }
+
+/* Table styling - Minimalist */
+table.docutils {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    margin: 2em 0;
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+table.docutils th {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+table.docutils td {
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Function & Class Signatures - Professional look */
+dl.function, dl.class {
+    margin: 2em 0;
+    padding: 1.5em;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-val));
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+dl.class dt, dl.function dt {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 1.05em;
+    color: var(--accent-color);
+    border-bottom: none;
+}
+
+/* Code "Inline" - Plus doux que le rose par défaut */
+code {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 3px 6px;
+    border-radius: 6px;
+    font-size: 90%;
+    color: #d12; /* Un rouge sombre plus pro */
+}
+
+/* Liens - Pas de soulignement brutal */
+a {
+    color: #007aff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+a:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/* TOC (Table des matières) - L'aspect navigation premium */
+.toctree-wrapper {
+    background: transparent;
+    border-left: 2px solid var(--glass-border);
+    padding-left: 20px;
+}
+
+.toctree-l1 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+}

@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.stats.stratified &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/stats/stratified';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.stats.stratified</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.stats.stratified</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module provides functions for stratified analysis, including</span>
+<span class="sd">Mantel-Haenszel methods for adjusting for confounding variables</span>
+<span class="sd">and testing for effect modification.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.contingency</span><span class="w"> </span><span class="kn">import</span> <span class="n">Table2x2</span>
+
+
+<div class="viewcode-block" id="StratifiedMethod">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedMethod">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">StratifiedMethod</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Methods for stratified analysis.&quot;&quot;&quot;</span>
+    <span class="n">MANTEL_HAENSZEL</span> <span class="o">=</span> <span class="s2">&quot;mantel_haenszel&quot;</span>
+    <span class="n">DIRECT_STANDARDIZATION</span> <span class="o">=</span> <span class="s2">&quot;direct&quot;</span>
+    <span class="n">INDIRECT_STANDARDIZATION</span> <span class="o">=</span> <span class="s2">&quot;indirect&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="StratifiedTable">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedTable">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StratifiedTable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container for stratified 2x2 tables.&quot;&quot;&quot;</span>
+    <span class="n">tables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Table2x2</span><span class="p">]</span>
+    <span class="n">strata_names</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    
+<div class="viewcode-block" id="StratifiedTable.__post_init__">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedTable.__post_init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Validate that all tables have the same structure.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;At least one table is required&quot;</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">strata_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">strata_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Stratum_</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">))]</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strata_names</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Number of stratum names must match number of tables&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="StratifiedTable.__len__">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedTable.__len__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="StratifiedTable.__getitem__">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedTable.__getitem__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+    
+<div class="viewcode-block" id="StratifiedTable.to_dict">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.StratifiedTable.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert to dictionary representation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;n_strata&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">),</span>
+            <span class="s2">&quot;strata_names&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">strata_names</span><span class="p">,</span>
+            <span class="s2">&quot;tables&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">table</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tables</span><span class="p">]</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="MantelHaenszelResult">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.MantelHaenszelResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MantelHaenszelResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Result object for Mantel-Haenszel analysis.&quot;&quot;&quot;</span>
+    <span class="n">common_or</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">common_rr</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">common_rd</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">or_ci</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">rr_ci</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">chi2_mh</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">p_value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">cochran_q</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">q_p_value</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">i_squared</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">tau_squared</span><span class="p">:</span> <span class="nb">float</span>
+    
+<div class="viewcode-block" id="MantelHaenszelResult.__repr__">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.MantelHaenszelResult.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Mantel-Haenszel OR: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">common_or</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">or_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">or_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+    
+<div class="viewcode-block" id="MantelHaenszelResult.summary">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.MantelHaenszelResult.summary">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate text summary.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mantel-Haenszel Analysis:</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;  Common OR: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">common_or</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (95% CI: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">or_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">or_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;  Common RR: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">common_rr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (95% CI: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rr_ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rr_ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;  Common RD: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">common_rd</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;  Test for heterogeneity: χ²=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cochran_q</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, p=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">q_p_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+               <span class="sa">f</span><span class="s2">&quot;  I² = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">i_squared</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%, τ² = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tau_squared</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="DirectStandardizationResult">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.DirectStandardizationResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DirectStandardizationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Result object for direct standardization.&quot;&quot;&quot;</span>
+    <span class="n">crude_rate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">adjusted_rate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">standard_population</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">stratum_specific_rates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">variance</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    
+<div class="viewcode-block" id="DirectStandardizationResult.__repr__">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.DirectStandardizationResult.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Directly Adjusted Rate: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">adjusted_rate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="mantel_haenszel_or">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.mantel_haenszel_or">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mantel_haenszel_or</span><span class="p">(</span>
+    <span class="n">stratified_tables</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">StratifiedTable</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Table2x2</span><span class="p">]],</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MantelHaenszelResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate Mantel-Haenszel pooled odds ratio.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        stratified_tables: StratifiedTable or list of Table2x2 objects</span>
+<span class="sd">        confidence: Confidence level</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        MantelHaenszelResult object</span>
+<span class="sd">        </span>
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; table1 = Table2x2(10, 20, 30, 40)</span>
+<span class="sd">        &gt;&gt;&gt; table2 = Table2x2(15, 25, 35, 45)</span>
+<span class="sd">        &gt;&gt;&gt; result = mantel_haenszel_or([table1, table2])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">stratified_tables</span> <span class="o">=</span> <span class="n">StratifiedTable</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span>
+    
+    <span class="n">n_strata</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span>
+    
+    <span class="c1"># Initialize sums for MH formulas</span>
+    <span class="n">sum_num_or</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_den_or</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_num_rr</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_den_rr</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_rd</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_var</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># For heterogeneity test</span>
+    <span class="n">stratum_or</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stratum_weights</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">stratified_tables</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">total</span>
+        
+        <span class="c1"># MH OR numerator and denominator</span>
+        <span class="n">num_or</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">d</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">den_or</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="n">n</span>
+        
+        <span class="n">sum_num_or</span> <span class="o">+=</span> <span class="n">num_or</span>
+        <span class="n">sum_den_or</span> <span class="o">+=</span> <span class="n">den_or</span>
+        
+        <span class="c1"># MH RR</span>
+        <span class="n">num_rr</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+        <span class="n">den_rr</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span> <span class="o">/</span> <span class="n">n</span>
+        
+        <span class="n">sum_num_rr</span> <span class="o">+=</span> <span class="n">num_rr</span>
+        <span class="n">sum_den_rr</span> <span class="o">+=</span> <span class="n">den_rr</span>
+        
+        <span class="c1"># MH RD</span>
+        <span class="n">sum_rd</span> <span class="o">+=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">-</span> <span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span> <span class="o">/</span> <span class="n">n</span>
+        
+        <span class="c1"># Variance components</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            <span class="n">Q</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span>
+            
+            <span class="n">sum_var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">P</span> <span class="o">*</span> <span class="n">R</span> <span class="o">+</span> <span class="n">Q</span> <span class="o">*</span> <span class="n">S</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+        
+        <span class="c1"># For heterogeneity</span>
+        <span class="k">if</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">stratum_or</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">a</span> <span class="o">*</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">b</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span>
+            <span class="n">stratum_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">d</span><span class="p">))</span>
+    
+    <span class="c1"># Calculate common measures</span>
+    <span class="n">common_or</span> <span class="o">=</span> <span class="n">sum_num_or</span> <span class="o">/</span> <span class="n">sum_den_or</span> <span class="k">if</span> <span class="n">sum_den_or</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">common_rr</span> <span class="o">=</span> <span class="n">sum_num_rr</span> <span class="o">/</span> <span class="n">sum_den_rr</span> <span class="k">if</span> <span class="n">sum_den_rr</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">common_rd</span> <span class="o">=</span> <span class="n">sum_rd</span> <span class="o">/</span> <span class="n">n_strata</span> <span class="k">if</span> <span class="n">n_strata</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># Calculate CI for OR (Robins et al. method)</span>
+    <span class="k">if</span> <span class="n">sum_var</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">log_or</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">common_or</span><span class="p">)</span>
+        <span class="n">se_log_or</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sum_var</span> <span class="o">/</span> <span class="p">(</span><span class="n">sum_num_or</span> <span class="o">*</span> <span class="n">sum_den_or</span><span class="p">))</span>
+        
+        <span class="n">or_ci_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_or</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_or</span><span class="p">)</span>
+        <span class="n">or_ci_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_or</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_or</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">or_ci_lower</span><span class="p">,</span> <span class="n">or_ci_upper</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># CI for RR</span>
+    <span class="n">log_rr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">common_rr</span><span class="p">)</span>
+    <span class="n">var_log_rr</span> <span class="o">=</span> <span class="p">(</span><span class="n">sum_num_rr</span> <span class="o">/</span> <span class="p">(</span><span class="n">sum_num_rr</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">sum_den_rr</span> <span class="o">/</span> <span class="p">(</span><span class="n">sum_den_rr</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">se_log_rr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var_log_rr</span><span class="p">)</span> <span class="k">if</span> <span class="n">var_log_rr</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    
+    <span class="n">rr_ci_lower</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_rr</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_rr</span><span class="p">)</span>
+    <span class="n">rr_ci_upper</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">log_rr</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se_log_rr</span><span class="p">)</span>
+    
+    <span class="c1"># Test for heterogeneity (Cochran&#39;s Q)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">cochran_q</span> <span class="o">=</span> <span class="n">_cochran_q_test</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">,</span> <span class="n">stratum_weights</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">q_p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">cochran_q</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="k">if</span> <span class="n">df</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+        
+        <span class="c1"># I² statistic</span>
+        <span class="k">if</span> <span class="n">cochran_q</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">:</span>
+            <span class="n">i_squared</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">cochran_q</span> <span class="o">-</span> <span class="n">df</span><span class="p">)</span> <span class="o">/</span> <span class="n">cochran_q</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i_squared</span> <span class="o">=</span> <span class="mf">0.0</span>
+        
+        <span class="c1"># Tau² (between-study variance)</span>
+        <span class="k">if</span> <span class="n">cochran_q</span> <span class="o">&gt;</span> <span class="n">df</span><span class="p">:</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stratum_weights</span><span class="p">)</span> <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stratum_weights</span><span class="p">)</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stratum_weights</span><span class="p">)</span>
+            <span class="n">tau_squared</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">cochran_q</span> <span class="o">-</span> <span class="n">df</span><span class="p">)</span> <span class="o">/</span> <span class="n">c</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tau_squared</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cochran_q</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">q_p_value</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">i_squared</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">tau_squared</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># Mantel-Haenszel chi-square test</span>
+    <span class="n">chi2_mh</span> <span class="o">=</span> <span class="n">_mantel_haenszel_chi2</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span>
+    <span class="n">mh_p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi2_mh</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">chi2_mh</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+    
+    <span class="k">return</span> <span class="n">MantelHaenszelResult</span><span class="p">(</span>
+        <span class="n">common_or</span><span class="o">=</span><span class="n">common_or</span><span class="p">,</span>
+        <span class="n">common_rr</span><span class="o">=</span><span class="n">common_rr</span><span class="p">,</span>
+        <span class="n">common_rd</span><span class="o">=</span><span class="n">common_rd</span><span class="p">,</span>
+        <span class="n">or_ci</span><span class="o">=</span><span class="p">(</span><span class="n">or_ci_lower</span><span class="p">,</span> <span class="n">or_ci_upper</span><span class="p">),</span>
+        <span class="n">rr_ci</span><span class="o">=</span><span class="p">(</span><span class="n">rr_ci_lower</span><span class="p">,</span> <span class="n">rr_ci_upper</span><span class="p">),</span>
+        <span class="n">chi2_mh</span><span class="o">=</span><span class="n">chi2_mh</span><span class="p">,</span>
+        <span class="n">p_value</span><span class="o">=</span><span class="n">mh_p_value</span><span class="p">,</span>
+        <span class="n">cochran_q</span><span class="o">=</span><span class="n">cochran_q</span><span class="p">,</span>
+        <span class="n">q_p_value</span><span class="o">=</span><span class="n">q_p_value</span><span class="p">,</span>
+        <span class="n">i_squared</span><span class="o">=</span><span class="n">i_squared</span><span class="p">,</span>
+        <span class="n">tau_squared</span><span class="o">=</span><span class="n">tau_squared</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_cochran_q_test</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">weights</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Cochran&#39;s Q statistic for heterogeneity.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># Inverse variance weights</span>
+    <span class="n">weighted_mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">or_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">or_val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">stratum_or</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    
+    <span class="n">Q</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">or_val</span><span class="p">)</span> <span class="o">-</span> <span class="n">weighted_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">or_val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">stratum_or</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">Q</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mantel_haenszel_chi2</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">:</span> <span class="n">StratifiedTable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Mantel-Haenszel chi-square statistic.&quot;&quot;&quot;</span>
+    <span class="n">sum_num</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sum_var</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">stratified_tables</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="p">,</span> <span class="n">table</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">total</span>
+        
+        <span class="c1"># Expected value of a under null</span>
+        <span class="n">expected_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">/</span> <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span>
+        
+        <span class="n">sum_num</span> <span class="o">+=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">expected_a</span>
+        <span class="n">sum_var</span> <span class="o">+=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span>
+    
+    <span class="k">if</span> <span class="n">sum_var</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">chi2</span> <span class="o">=</span> <span class="n">sum_num</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="n">sum_var</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">chi2</span> <span class="o">=</span> <span class="mf">0.0</span>
+    
+    <span class="k">return</span> <span class="n">chi2</span>
+
+
+<div class="viewcode-block" id="test_effect_modification">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.test_effect_modification">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">test_effect_modification</span><span class="p">(</span>
+    <span class="n">stratified_tables</span><span class="p">:</span> <span class="n">StratifiedTable</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;breslow_day&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test for effect modification (interaction) across strata.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        stratified_tables: StratifiedTable object</span>
+<span class="sd">        method: &#39;breslow_day&#39; or &#39;woolf&#39;</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with test statistics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;statistic&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    
+    <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;woolf&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_woolf_test</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># breslow_day</span>
+        <span class="k">return</span> <span class="n">_breslow_day_test</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_woolf_test</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">:</span> <span class="n">StratifiedTable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Woolf&#39;s test for homogeneity of odds ratios.&quot;&quot;&quot;</span>
+    <span class="n">stratum_or</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">stratum_weights</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">table</span> <span class="ow">in</span> <span class="n">stratified_tables</span><span class="o">.</span><span class="n">tables</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">table</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">table</span><span class="o">.</span><span class="n">c</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">or_val</span> <span class="o">=</span> <span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">a</span> <span class="o">*</span> <span class="n">table</span><span class="o">.</span><span class="n">d</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">b</span> <span class="o">*</span> <span class="n">table</span><span class="o">.</span><span class="n">c</span><span class="p">)</span>
+            <span class="n">stratum_or</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">or_val</span><span class="p">)</span>
+            <span class="c1"># Inverse variance weight</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">b</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">table</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">stratum_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">weight</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;statistic&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    
+    <span class="c1"># Weighted mean of log OR</span>
+    <span class="n">log_or</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">or_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">or_val</span> <span class="ow">in</span> <span class="n">stratum_or</span><span class="p">]</span>
+    <span class="n">weighted_mean</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">val</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stratum_weights</span><span class="p">,</span> <span class="n">log_or</span><span class="p">))</span> <span class="o">/</span> <span class="nb">sum</span><span class="p">(</span><span class="n">stratum_weights</span><span class="p">)</span>
+    
+    <span class="c1"># Woolf&#39;s chi-square</span>
+    <span class="n">chi2</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">val</span> <span class="o">-</span> <span class="n">weighted_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">w</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stratum_weights</span><span class="p">,</span> <span class="n">log_or</span><span class="p">))</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_or</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">p_value</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">chi2</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="k">if</span> <span class="n">df</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.0</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;test&quot;</span><span class="p">:</span> <span class="s2">&quot;woolf&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;statistic&quot;</span><span class="p">:</span> <span class="n">chi2</span><span class="p">,</span>
+        <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+        <span class="s2">&quot;df&quot;</span><span class="p">:</span> <span class="n">df</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_breslow_day_test</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">:</span> <span class="n">StratifiedTable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Breslow-Day test for homogeneity of odds ratios.&quot;&quot;&quot;</span>
+    <span class="c1"># This is a simplified implementation</span>
+    <span class="c1"># Full BD test requires iterative fitting</span>
+    <span class="k">return</span> <span class="n">_woolf_test</span><span class="p">(</span><span class="n">stratified_tables</span><span class="p">)</span>  <span class="c1"># Use Woolf as approximation</span>
+
+
+<div class="viewcode-block" id="direct_standardization">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.direct_standardization">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">direct_standardization</span><span class="p">(</span>
+    <span class="n">stratum_rates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">stratum_populations</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">standard_population</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DirectStandardizationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform direct standardization of rates.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        stratum_rates: Rates in each stratum</span>
+<span class="sd">        stratum_populations: Population in each stratum</span>
+<span class="sd">        standard_population: Standard population distribution</span>
+<span class="sd">        confidence: Confidence level</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        DirectStandardizationResult object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Validate inputs</span>
+    <span class="n">n_strata</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_rates</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stratum_populations</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_strata</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">standard_population</span><span class="p">)</span> <span class="o">!=</span> <span class="n">n_strata</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;All inputs must have same length&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Crude rate</span>
+    <span class="n">crude_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">stratum_rates</span> <span class="o">*</span> <span class="n">stratum_populations</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">stratum_populations</span><span class="p">)</span>
+    
+    <span class="c1"># Directly adjusted rate</span>
+    <span class="n">adjusted_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">stratum_rates</span> <span class="o">*</span> <span class="n">standard_population</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">standard_population</span><span class="p">)</span>
+    
+    <span class="c1"># Variance of adjusted rate</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">standard_population</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">stratum_rates</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">stratum_rates</span><span class="p">))</span> <span class="o">/</span> 
+                     <span class="n">stratum_populations</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">standard_population</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    
+    <span class="c1"># Confidence interval</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
+    <span class="n">ci_lower</span> <span class="o">=</span> <span class="n">adjusted_rate</span> <span class="o">-</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+    <span class="n">ci_upper</span> <span class="o">=</span> <span class="n">adjusted_rate</span> <span class="o">+</span> <span class="n">z</span> <span class="o">*</span> <span class="n">se</span>
+    
+    <span class="k">return</span> <span class="n">DirectStandardizationResult</span><span class="p">(</span>
+        <span class="n">crude_rate</span><span class="o">=</span><span class="n">crude_rate</span><span class="p">,</span>
+        <span class="n">adjusted_rate</span><span class="o">=</span><span class="n">adjusted_rate</span><span class="p">,</span>
+        <span class="n">standard_population</span><span class="o">=</span><span class="n">standard_population</span><span class="p">,</span>
+        <span class="n">stratum_specific_rates</span><span class="o">=</span><span class="n">stratum_rates</span><span class="p">,</span>
+        <span class="n">variance</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+        <span class="n">ci</span><span class="o">=</span><span class="p">(</span><span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span><span class="p">)</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="indirect_standardization">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.indirect_standardization">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">indirect_standardization</span><span class="p">(</span>
+    <span class="n">observed_cases</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">stratum_populations</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">reference_rates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform indirect standardization (SMR calculation).</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        observed_cases: Observed cases in each stratum</span>
+<span class="sd">        stratum_populations: Population in each stratum</span>
+<span class="sd">        reference_rates: Reference rates in each stratum</span>
+<span class="sd">        confidence: Confidence level</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Dictionary with SMR and other statistics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Expected cases using reference rates</span>
+    <span class="n">expected_cases</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">stratum_populations</span> <span class="o">*</span> <span class="n">reference_rates</span><span class="p">)</span>
+    <span class="n">total_observed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">observed_cases</span><span class="p">)</span>
+    
+    <span class="c1"># Standardized Mortality/Morbidity Ratio</span>
+    <span class="n">smr</span> <span class="o">=</span> <span class="n">total_observed</span> <span class="o">/</span> <span class="n">expected_cases</span> <span class="k">if</span> <span class="n">expected_cases</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+    
+    <span class="c1"># Confidence interval for SMR (Byar&#39;s approximation)</span>
+    <span class="k">if</span> <span class="n">total_observed</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">confidence</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ci_lower</span> <span class="o">=</span> <span class="n">total_observed</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="n">total_observed</span><span class="p">)</span> <span class="o">-</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total_observed</span><span class="p">)))</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="n">expected_cases</span>
+        <span class="n">ci_upper</span> <span class="o">=</span> <span class="p">(</span><span class="n">total_observed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="p">(</span><span class="n">total_observed</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">+</span> <span class="n">z</span><span class="o">/</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">total_observed</span><span class="o">+</span><span class="mi">1</span><span class="p">)))</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="n">expected_cases</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Exact Poisson CI</span>
+        <span class="n">ci_lower</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">confidence</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">total_observed</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">expected_cases</span><span class="p">)</span>
+        <span class="n">ci_upper</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">chi2</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">confidence</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">total_observed</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">expected_cases</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;smr&quot;</span><span class="p">:</span> <span class="n">smr</span><span class="p">,</span>
+        <span class="s2">&quot;observed_cases&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">total_observed</span><span class="p">),</span>
+        <span class="s2">&quot;expected_cases&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">expected_cases</span><span class="p">),</span>
+        <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span> <span class="n">ci_lower</span><span class="p">,</span>
+        <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span> <span class="n">ci_upper</span><span class="p">,</span>
+        <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="n">confidence</span>
+    <span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="stratified_by_variable">
+<a class="viewcode-back" href="../../../stats/stratified.html#episia.stats.stratified.stratified_by_variable">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">stratified_by_variable</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">,</span>
+    <span class="n">exposure_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">outcome_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">stratify_var</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">StratifiedTable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create stratified tables from DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Args:</span>
+<span class="sd">        data: pandas DataFrame</span>
+<span class="sd">        exposure_var: Exposure variable name</span>
+<span class="sd">        outcome_var: Outcome variable name</span>
+<span class="sd">        stratify_var: Variable to stratify by</span>
+<span class="sd">        </span>
+<span class="sd">    Returns:</span>
+<span class="sd">        StratifiedTable object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;groupby&#39;</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Data must be a pandas DataFrame or similar&quot;</span><span class="p">)</span>
+    
+    <span class="n">tables</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">strata_names</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">stratum</span><span class="p">,</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">stratify_var</span><span class="p">):</span>
+        <span class="c1"># Create 2x2 table for this stratum</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">Table2x2</span><span class="p">(</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">group</span><span class="p">[(</span><span class="n">group</span><span class="p">[</span><span class="n">exposure_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="n">outcome_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">b</span><span class="o">=</span><span class="n">group</span><span class="p">[(</span><span class="n">group</span><span class="p">[</span><span class="n">exposure_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="n">outcome_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">group</span><span class="p">[(</span><span class="n">group</span><span class="p">[</span><span class="n">exposure_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="n">outcome_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">d</span><span class="o">=</span><span class="n">group</span><span class="p">[(</span><span class="n">group</span><span class="p">[</span><span class="n">exposure_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">group</span><span class="p">[</span><span class="n">outcome_var</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="p">)</span>
+        
+        <span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="n">strata_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stratum</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">StratifiedTable</span><span class="p">(</span><span class="n">tables</span><span class="p">,</span> <span class="n">strata_names</span><span class="p">)</span></div>
+
+
+
+<span class="c1">#  MODULE EXPORTS </span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;StratifiedMethod&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;StratifiedTable&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MantelHaenszelResult&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DirectStandardizationResult&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;mantel_haenszel_or&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;test_effect_modification&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;direct_standardization&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;indirect_standardization&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;stratified_by_variable&#39;</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,937 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.viz.plotters.base_plotter &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/viz/plotters/base_plotter';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.viz.plotters.base_plotter</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.viz.plotters.base_plotter</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">viz/plotters/base_plotter.py - Abstract base class for all Episia plotters.</span>
+
+<span class="sd">Defines the contract every rendering backend (Plotly, Matplotlib, Browser)</span>
+<span class="sd">must satisfy. Also declares the AnimationConfig dataclass used to request</span>
+<span class="sd">animations wherever they make sense (epidemic curves, model simulations,</span>
+<span class="sd">time-series, ROC sweep).</span>
+
+<span class="sd">Design principles:</span>
+<span class="sd">    - Backends are interchangeable: same call, different engine.</span>
+<span class="sd">    - Animations are opt-in via AnimationConfig; backends that do not</span>
+<span class="sd">      support a given animation type raise UnsupportedAnimationError.</span>
+<span class="sd">    - Every plot method returns a native figure object so callers can</span>
+<span class="sd">      post-process (add annotations, save, embed in a dashboard…).</span>
+<span class="sd">    - Themes are resolved here so backends only handle rendering.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+
+
+<span class="c1"># Animation support</span>
+
+
+<div class="viewcode-block" id="AnimationType">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Animation types supported across backends.</span>
+
+<span class="sd">    FRAME_BY_FRAME   discrete frames (e.g. day-by-day epidemic curve buildup).</span>
+<span class="sd">    CONTINUOUS       smooth interpolated transition (e.g. model trajectory).</span>
+<span class="sd">    SLIDER           interactive parameter slider (Plotly only).</span>
+<span class="sd">    PLAY_PAUSE       auto-play with play/pause button (Plotly / Browser).</span>
+<span class="sd">    LOOP             continuous loop, no controls (Matplotlib FuncAnimation).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">FRAME_BY_FRAME</span> <span class="o">=</span> <span class="s2">&quot;frame_by_frame&quot;</span>
+    <span class="n">CONTINUOUS</span>     <span class="o">=</span> <span class="s2">&quot;continuous&quot;</span>
+    <span class="n">SLIDER</span>         <span class="o">=</span> <span class="s2">&quot;slider&quot;</span>
+    <span class="n">PLAY_PAUSE</span>     <span class="o">=</span> <span class="s2">&quot;play_pause&quot;</span>
+    <span class="n">LOOP</span>           <span class="o">=</span> <span class="s2">&quot;loop&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="AnimationConfig">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationConfig">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AnimationConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Configuration for animated plots.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        enabled:       Whether animation is active.</span>
+<span class="sd">        anim_type:     AnimationType  how frames are driven.</span>
+<span class="sd">        duration_ms:   Total animation duration in milliseconds.</span>
+<span class="sd">        frame_ms:      Duration of each frame in milliseconds.</span>
+<span class="sd">        transition_ms: Transition time between frames (Plotly).</span>
+<span class="sd">        loop:          Whether the animation loops automatically.</span>
+<span class="sd">        show_controls: Show play/pause/slider controls in the output.</span>
+<span class="sd">        easing:        CSS/Plotly easing function for transitions.</span>
+<span class="sd">        fps:           Frames per second (Matplotlib backend).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">enabled</span><span class="p">:</span>       <span class="nb">bool</span>          <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">anim_type</span><span class="p">:</span>     <span class="n">AnimationType</span> <span class="o">=</span> <span class="n">AnimationType</span><span class="o">.</span><span class="n">PLAY_PAUSE</span>
+    <span class="n">duration_ms</span><span class="p">:</span>   <span class="nb">int</span>           <span class="o">=</span> <span class="mi">3000</span>
+    <span class="n">frame_ms</span><span class="p">:</span>      <span class="nb">int</span>           <span class="o">=</span> <span class="mi">50</span>
+    <span class="n">transition_ms</span><span class="p">:</span> <span class="nb">int</span>           <span class="o">=</span> <span class="mi">30</span>
+    <span class="n">loop</span><span class="p">:</span>          <span class="nb">bool</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">show_controls</span><span class="p">:</span> <span class="nb">bool</span>          <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">easing</span><span class="p">:</span>        <span class="nb">str</span>           <span class="o">=</span> <span class="s2">&quot;cubic-in-out&quot;</span>
+    <span class="n">fps</span><span class="p">:</span>           <span class="nb">int</span>           <span class="o">=</span> <span class="mi">25</span>
+
+<div class="viewcode-block" id="AnimationConfig.default">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationConfig.default">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">default</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AnimationConfig&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a sensible default config (disabled).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AnimationConfig.smooth">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationConfig.smooth">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">smooth</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">duration_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AnimationConfig&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Smooth continuous animation  good for model trajectories.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">anim_type</span><span class="o">=</span><span class="n">AnimationType</span><span class="o">.</span><span class="n">CONTINUOUS</span><span class="p">,</span>
+            <span class="n">duration_ms</span><span class="o">=</span><span class="n">duration_ms</span><span class="p">,</span>
+            <span class="n">frame_ms</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+            <span class="n">transition_ms</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+            <span class="n">loop</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">easing</span><span class="o">=</span><span class="s2">&quot;cubic-in-out&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># Maximum number of animation frames — above this the browser lags badly</span>
+    <span class="n">MAX_ANIMATION_FRAMES</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span>
+
+<div class="viewcode-block" id="AnimationConfig.frame_buildup">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationConfig.frame_buildup">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">frame_buildup</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">n_frames</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">total_ms</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AnimationConfig&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Frame-by-frame buildup — good for epidemic curves / time-series.</span>
+
+<span class="sd">        Automatically downsamples to at most MAX_ANIMATION_FRAMES (60) frames</span>
+<span class="sd">        so the animation stays smooth regardless of how many data points the</span>
+<span class="sd">        model produced.  A 365-day SEIR run at 10 pts/day = 3 650 points</span>
+<span class="sd">        is reduced to 60 evenly-spaced frames.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Clamp: never generate more than MAX_ANIMATION_FRAMES frames</span>
+        <span class="c1"># Downsampling happens in curves.py before building the proxy object</span>
+        <span class="n">effective_frames</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_frames</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">MAX_ANIMATION_FRAMES</span><span class="p">)</span>
+        <span class="n">frame_ms</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="n">total_ms</span> <span class="o">//</span> <span class="nb">max</span><span class="p">(</span><span class="n">effective_frames</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">anim_type</span><span class="o">=</span><span class="n">AnimationType</span><span class="o">.</span><span class="n">FRAME_BY_FRAME</span><span class="p">,</span>
+            <span class="n">duration_ms</span><span class="o">=</span><span class="n">total_ms</span><span class="p">,</span>
+            <span class="n">frame_ms</span><span class="o">=</span><span class="n">frame_ms</span><span class="p">,</span>
+            <span class="n">transition_ms</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">loop</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">easing</span><span class="o">=</span><span class="s2">&quot;linear&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AnimationConfig.interactive_slider">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.AnimationConfig.interactive_slider">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">interactive_slider</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;AnimationConfig&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interactive parameter slider  Plotly only.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">anim_type</span><span class="o">=</span><span class="n">AnimationType</span><span class="o">.</span><span class="n">SLIDER</span><span class="p">,</span>
+            <span class="n">show_controls</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="UnsupportedAnimationError">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.UnsupportedAnimationError">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UnsupportedAnimationError</span><span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Raised when a backend does not support the requested animation type.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+
+
+<span class="c1"># Plot configuration</span>
+
+
+<div class="viewcode-block" id="PlotConfig">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PlotConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unified plot configuration passed to every plot method.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        title:        Figure title.</span>
+<span class="sd">        subtitle:     Optional subtitle (rendered below title).</span>
+<span class="sd">        xlabel:       X-axis label.</span>
+<span class="sd">        ylabel:       Y-axis label.</span>
+<span class="sd">        width:        Figure width in pixels (Plotly) or inches (Matplotlib).</span>
+<span class="sd">        height:       Figure height in pixels (Plotly) or inches (Matplotlib).</span>
+<span class="sd">        theme:        Theme name  &#39;scientific&#39;, &#39;minimal&#39;, &#39;dark&#39;, &#39;colorblind&#39;.</span>
+<span class="sd">        palette:      List of hex color strings to use in sequence.</span>
+<span class="sd">        show_grid:    Whether to show grid lines.</span>
+<span class="sd">        show_legend:  Whether to show the legend.</span>
+<span class="sd">        font_size:    Base font size.</span>
+<span class="sd">        confidence:   Confidence level for CI bands (e.g. 0.95).</span>
+<span class="sd">        animation:    AnimationConfig object.</span>
+<span class="sd">        extra:        Backend-specific kwargs forwarded as-is.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">title</span><span class="p">:</span>       <span class="nb">str</span>                      <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">subtitle</span><span class="p">:</span>    <span class="nb">str</span>                      <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">xlabel</span><span class="p">:</span>      <span class="nb">str</span>                      <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">ylabel</span><span class="p">:</span>      <span class="nb">str</span>                      <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">width</span><span class="p">:</span>       <span class="nb">int</span>                      <span class="o">=</span> <span class="mi">800</span>
+    <span class="n">height</span><span class="p">:</span>      <span class="nb">int</span>                      <span class="o">=</span> <span class="mi">500</span>
+    <span class="n">theme</span><span class="p">:</span>       <span class="nb">str</span>                      <span class="o">=</span> <span class="s2">&quot;scientific&quot;</span>
+    <span class="n">palette</span><span class="p">:</span>     <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span>      <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">show_grid</span><span class="p">:</span>   <span class="nb">bool</span>                     <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">show_legend</span><span class="p">:</span> <span class="nb">bool</span>                     <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">font_size</span><span class="p">:</span>   <span class="nb">int</span>                      <span class="o">=</span> <span class="mi">13</span>
+    <span class="n">confidence</span><span class="p">:</span>  <span class="nb">float</span>                    <span class="o">=</span> <span class="mf">0.95</span>
+    <span class="n">animation</span><span class="p">:</span>   <span class="n">AnimationConfig</span>          <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">AnimationConfig</span><span class="o">.</span><span class="n">default</span><span class="p">)</span>
+    <span class="n">extra</span><span class="p">:</span>       <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>           <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+<div class="viewcode-block" id="PlotConfig.minimal">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig.minimal">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">minimal</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PlotConfig&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="s2">&quot;minimal&quot;</span><span class="p">,</span> <span class="n">show_grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PlotConfig.dark">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig.dark">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">dark</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PlotConfig&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="s2">&quot;dark&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PlotConfig.publication">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.PlotConfig.publication">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">publication</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PlotConfig&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Suitable for paper figures  no grid, serif fonts, high contrast.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">theme</span><span class="o">=</span><span class="s2">&quot;scientific&quot;</span><span class="p">,</span>
+            <span class="n">show_grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
+            <span class="n">height</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
+
+
+
+
+<span class="c1"># Output type</span>
+
+
+<div class="viewcode-block" id="OutputFormat">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.OutputFormat">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">OutputFormat</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Output format when saving or exporting a figure.&quot;&quot;&quot;</span>
+    <span class="n">PNG</span>    <span class="o">=</span> <span class="s2">&quot;png&quot;</span>
+    <span class="n">SVG</span>    <span class="o">=</span> <span class="s2">&quot;svg&quot;</span>
+    <span class="n">PDF</span>    <span class="o">=</span> <span class="s2">&quot;pdf&quot;</span>
+    <span class="n">HTML</span>   <span class="o">=</span> <span class="s2">&quot;html&quot;</span>
+    <span class="n">JSON</span>   <span class="o">=</span> <span class="s2">&quot;json&quot;</span>   <span class="c1"># Plotly only  serialised figure dict</span>
+    <span class="n">GIF</span>    <span class="o">=</span> <span class="s2">&quot;gif&quot;</span>    <span class="c1"># Animated  Matplotlib only</span>
+    <span class="n">MP4</span>    <span class="o">=</span> <span class="s2">&quot;mp4&quot;</span>    <span class="c1"># Animated  requires ffmpeg</span></div>
+
+
+
+
+<span class="c1"># Abstract base plotter</span>
+
+
+<div class="viewcode-block" id="BasePlotter">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">BasePlotter</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class for Episia rendering backends.</span>
+
+<span class="sd">    Subclasses implement each plot_* method for their engine.</span>
+<span class="sd">    The constructor accepts a PlotConfig that sets defaults for</span>
+<span class="sd">    every figure produced by this instance.</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        plotter = PlotlyPlotter(config=PlotConfig(theme=&quot;dark&quot;))</span>
+<span class="sd">        fig = plotter.plot_epicurve(result, config=PlotConfig(title=&quot;Ebola 2014&quot;))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: Human-readable backend name used in error messages.</span>
+    <span class="n">BACKEND_NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;base&quot;</span>
+
+    <span class="c1">#: AnimationTypes this backend can handle.</span>
+    <span class="n">SUPPORTED_ANIMATIONS</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">AnimationType</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
+
+<div class="viewcode-block" id="BasePlotter.__init__">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span> <span class="o">=</span> <span class="n">config</span> <span class="ow">or</span> <span class="n">PlotConfig</span><span class="p">()</span></div>
+
+
+    <span class="c1">#  helpers</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">override</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">PlotConfig</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Merge per-call override with instance defaults.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">override</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_config</span>
+        <span class="c1"># override wins for every non-default field</span>
+        <span class="k">return</span> <span class="n">override</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_check_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">PlotConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Raise UnsupportedAnimationError if the requested animation type</span>
+<span class="sd">        is not supported by this backend.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">animation</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">atype</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">animation</span><span class="o">.</span><span class="n">anim_type</span>
+        <span class="k">if</span> <span class="n">atype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">SUPPORTED_ANIMATIONS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UnsupportedAnimationError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Backend &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">BACKEND_NAME</span><span class="si">}</span><span class="s2">&#39; does not support &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;AnimationType.</span><span class="si">{</span><span class="n">atype</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Supported: </span><span class="si">{</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">SUPPORTED_ANIMATIONS</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1">#  abstract plot methods</span>
+
+<div class="viewcode-block" id="BasePlotter.plot_epicurve">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_epicurve">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_epicurve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot an epidemic curve (cases over time).</span>
+
+<span class="sd">        Supports animations:</span>
+<span class="sd">            FRAME_BY_FRAME  bars build up day by day.</span>
+<span class="sd">            PLAY_PAUSE      auto-play buildup with controls.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: TimeSeriesResult from stats.time_series.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_model">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_model">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot compartmental model trajectories (SIR / SEIR / SEIRD).</span>
+
+<span class="sd">        Supports animations:</span>
+<span class="sd">            CONTINUOUS   smooth line drawing from t=0 to t=end.</span>
+<span class="sd">            PLAY_PAUSE   play/pause controls over time axis.</span>
+<span class="sd">            SLIDER       interactive time slider (Plotly only).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: ModelResult from models.sir / seir / seird.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_roc">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_roc">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_roc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot ROC curve with AUC annotation.</span>
+
+<span class="sd">        Supports animations:</span>
+<span class="sd">            CONTINUOUS  threshold sweeps from 0 to 1, tracing the curve.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: ROCResult from stats.diagnostic.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_forest">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_forest">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_forest</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot forest plot for stratified or regression results.</span>
+
+<span class="sd">        Supports animations:</span>
+<span class="sd">            FRAME_BY_FRAME  strata / variables appear one by one.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: StratifiedResult or RegressionResult.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_association">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_association">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_association</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot a single association measure (RR / OR / RD) with CI.</span>
+
+<span class="sd">        No animation  static by design.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: AssociationResult.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_diagnostic">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_diagnostic">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_diagnostic</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot diagnostic test performance dashboard</span>
+<span class="sd">        (confusion matrix + metrics bar chart).</span>
+
+<span class="sd">        Supports animations:</span>
+<span class="sd">            FRAME_BY_FRAME  metrics bars fill in sequence.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: DiagnosticResult.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="BasePlotter.plot_contingency">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.plot_contingency">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_contingency</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">result</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">PlotConfig</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Plot 2x2 contingency table with annotated cells and risk summary.</span>
+
+<span class="sd">        No animation  static by design.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result: Table2x2 or AssociationResult with table metadata.</span>
+<span class="sd">            config: Per-call PlotConfig.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Native figure object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+    <span class="c1">#  optional: save</span>
+
+<div class="viewcode-block" id="BasePlotter.save">
+<a class="viewcode-back" href="../../../../viz/plotters/base_plotter.html#episia.viz.plotters.base_plotter.BasePlotter.save">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fig</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+        <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">fmt</span><span class="p">:</span> <span class="n">OutputFormat</span> <span class="o">=</span> <span class="n">OutputFormat</span><span class="o">.</span><span class="n">PNG</span><span class="p">,</span>
+        <span class="n">dpi</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Save a figure to disk.</span>
+
+<span class="sd">        Default implementation raises NotImplementedError.</span>
+<span class="sd">        Subclasses override as needed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fig:  Native figure object returned by a plot_* method.</span>
+<span class="sd">            path: Destination file path (extension appended if missing).</span>
+<span class="sd">            fmt:  OutputFormat enum value.</span>
+<span class="sd">            dpi:  Resolution for raster formats.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Absolute path to the saved file.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Backend &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">BACKEND_NAME</span><span class="si">}</span><span class="s2">&#39; does not implement save().&quot;</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1">#  repr</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;theme=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">default_config</span><span class="o">.</span><span class="n">theme</span><span class="si">!r}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;backend=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">BACKEND_NAME</span><span class="si">!r}</span><span class="s2">)&quot;</span>
+        <span class="p">)</span></div>
+
+
+
+
+<span class="c1"># Exports</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;AnimationType&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AnimationConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UnsupportedAnimationError&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PlotConfig&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OutputFormat&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BasePlotter&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1285 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.api.results &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/api/results';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.api.results</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.api.results</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">api/results.py - Unified rich result classes for Episia public API.</span>
+
+<span class="sd">This module provides a consistent result interface across all Episia modules.</span>
+<span class="sd">Every public function returns a subclass of EpiResult, ensuring:</span>
+<span class="sd">    - Consistent .to_dict() / .to_json() / .to_dataframe() serialization</span>
+<span class="sd">    - Rich __repr__ for notebooks and REPL</span>
+<span class="sd">    - plot() method wired to the viz layer (Plotly by default)</span>
+<span class="sd">    - Metadata (confidence level, method, warnings) always accessible</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+
+<span class="c1"># Base</span>
+
+<div class="viewcode-block" id="EpiResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.EpiResult">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EpiResult</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class for all Episia result objects.</span>
+
+<span class="sd">    All public-API results inherit from this class and share:</span>
+<span class="sd">        - Serialization: to_dict(), to_json(), to_dataframe()</span>
+<span class="sd">        - Metadata: confidence, method, warnings</span>
+<span class="sd">        - Visualization: plot()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_viz_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span> <span class="o">...</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="EpiResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.EpiResult.to_dict">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a JSON-serializable dictionary of all result fields.&quot;&quot;&quot;</span>
+        <span class="o">...</span></div>
+
+
+<div class="viewcode-block" id="EpiResult.to_json">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.EpiResult.to_json">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serialize result to a JSON string.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_json_safe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()),</span> <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EpiResult.to_dataframe">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.EpiResult.to_dataframe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a pandas DataFrame summary of the result.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;pandas is required for to_dataframe(). pip install pandas&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">())])</span></div>
+
+
+<div class="viewcode-block" id="EpiResult.plot">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.EpiResult.plot">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;plotly&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Render a visualization of this result.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            backend: &#39;plotly&#39; (default, interactive) or &#39;matplotlib&#39; (publication).</span>
+<span class="sd">            **kwargs: Passed to the underlying plot function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> does not have an associated plot function.&quot;</span>
+            <span class="p">)</span>
+        <span class="c1"># Import viz dynamically  works regardless of package name</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">episia</span><span class="w"> </span><span class="kn">import</span> <span class="n">viz</span> <span class="k">as</span> <span class="n">_viz</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">viz</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_viz</span>  <span class="c1"># dev / editable install fallback</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                    <span class="s2">&quot;Episia viz module not found. &quot;</span>
+                    <span class="s2">&quot;Make sure the package is installed: pip install -e .&quot;</span>
+                <span class="p">)</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_viz</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_viz_function</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;viz.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_viz_function</span><span class="si">}</span><span class="s2"> not found in episia.viz. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Available: </span><span class="si">{</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">dir</span><span class="p">(</span><span class="n">_viz</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;plot_&#39;</span><span class="p">)]</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="n">backend</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Auto-open in browser for Plotly figures in script context</span>
+        <span class="k">if</span> <span class="n">backend</span> <span class="o">==</span> <span class="s2">&quot;plotly&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
+                <span class="c1"># Only force browser renderer if running as a script (not notebook)</span>
+                <span class="n">_in_notebook</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="kn">from</span><span class="w"> </span><span class="nn">IPython</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_ipython</span>
+                    <span class="n">_in_notebook</span> <span class="o">=</span> <span class="n">get_ipython</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">_in_notebook</span><span class="p">:</span>
+                    <span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">&quot;browser&quot;</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="k">return</span> <span class="n">fig</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_json_safe</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Recursively convert numpy types to native Python.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">EpiResult</span><span class="o">.</span><span class="n">_json_safe</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">EpiResult</span><span class="o">.</span><span class="n">_json_safe</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">EpiResult</span><span class="o">.</span><span class="n">_json_safe</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">obj</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_flatten</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">parent_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten nested dict for DataFrame export.&quot;&quot;&quot;</span>
+        <span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">new_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">parent_key</span><span class="si">}{</span><span class="n">sep</span><span class="si">}{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">parent_key</span> <span class="k">else</span> <span class="n">k</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">EpiResult</span><span class="o">.</span><span class="n">_flatten</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">new_key</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_key</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">digits</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">fmt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">{{</span><span class="s2">:.</span><span class="si">{</span><span class="n">digits</span><span class="si">}</span><span class="s2">f</span><span class="se">}}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lower</span><span class="p">)</span><span class="si">}</span><span class="se">\u2013</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+
+
+
+<span class="c1"># Confidence interval container</span>
+<div class="viewcode-block" id="ConfidenceInterval">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ConfidenceInterval">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ConfidenceInterval</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container for a confidence interval.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        lower:      Lower bound.</span>
+<span class="sd">        upper:      Upper bound.</span>
+<span class="sd">        confidence: Confidence level (e.g. 0.95).</span>
+<span class="sd">        method:     Method used to compute the interval.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">lower</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">upper</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wald&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;CI</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">confidence</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="si">}</span><span class="s2">% [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">] (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<div class="viewcode-block" id="ConfidenceInterval.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ConfidenceInterval.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;lower&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+            <span class="s2">&quot;upper&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+            <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="ConfidenceInterval.contains">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ConfidenceInterval.contains">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">contains</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return True if value falls within the interval.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lower</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">upper</span></div>
+</div>
+
+
+
+
+<span class="c1"># Association measures  (RR, OR, RD, IRR...)</span>
+
+<div class="viewcode-block" id="AssociationResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.AssociationResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">AssociationResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for a single association measure (RR, OR, RD...).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        measure:    Name of the measure (e.g. &#39;risk_ratio&#39;).</span>
+<span class="sd">        estimate:   Point estimate.</span>
+<span class="sd">        ci:         ConfidenceInterval object.</span>
+<span class="sd">        p_value:    P-value for the null hypothesis.</span>
+<span class="sd">        null_value: Null hypothesis value (1.0 for ratios, 0.0 for differences).</span>
+<span class="sd">        method:     Statistical method used.</span>
+<span class="sd">        n_total:    Total sample size.</span>
+<span class="sd">        metadata:   Extra key/value pairs (exposed/unexposed counts, etc.).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">estimate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci</span><span class="p">:</span> <span class="n">ConfidenceInterval</span>
+    <span class="n">p_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">null_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wald&quot;</span>
+    <span class="n">n_total</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_association&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+        <span class="n">sig</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">p_str</span> <span class="o">=</span> <span class="s2">&quot;&lt;0.001&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.001</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;  p=</span><span class="si">{</span><span class="n">p_str</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">label</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}{</span><span class="n">sig</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">significant</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;True if the CI does not contain the null value.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AssociationResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.AssociationResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;measure&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">,</span>
+            <span class="s2">&quot;estimate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+            <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;null_value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">null_value</span><span class="p">,</span>
+            <span class="s2">&quot;significant&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">significant</span><span class="p">,</span>
+            <span class="s2">&quot;n_total&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_total</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Proportion / descriptive</span>
+
+<div class="viewcode-block" id="ProportionResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ProportionResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProportionResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for a proportion or rate with confidence interval.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        proportion:  Point estimate.</span>
+<span class="sd">        ci:          ConfidenceInterval.</span>
+<span class="sd">        numerator:   Event count.</span>
+<span class="sd">        denominator: Population at risk.</span>
+<span class="sd">        label:       Human-readable label (e.g. &#39;attack_rate&#39;).</span>
+<span class="sd">        metadata:    Extra context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">proportion</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci</span><span class="p">:</span> <span class="n">ConfidenceInterval</span>
+    <span class="n">numerator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">denominator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;proportion&quot;</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">denominator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">base</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">numerator</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">denominator</span><span class="si">}</span><span class="s2">]&quot;</span>
+        <span class="k">return</span> <span class="n">base</span>
+
+<div class="viewcode-block" id="ProportionResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ProportionResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="p">,</span>
+            <span class="s2">&quot;proportion&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">proportion</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+            <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;numerator&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">numerator</span><span class="p">,</span>
+            <span class="s2">&quot;denominator&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">denominator</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Sample size &amp; power</span>
+
+<div class="viewcode-block" id="SampleSizeResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.SampleSizeResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SampleSizeResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for a sample size or statistical power calculation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        n_total:      Total required sample size.</span>
+<span class="sd">        n_per_group:  Per-group size for balanced designs.</span>
+<span class="sd">        n_cases:      Cases required (case-control designs).</span>
+<span class="sd">        n_controls:   Controls required.</span>
+<span class="sd">        power:        Achieved or requested power.</span>
+<span class="sd">        alpha:        Significance level.</span>
+<span class="sd">        effect_size:  Effect size used.</span>
+<span class="sd">        design:       Study design name.</span>
+<span class="sd">        method:       Calculation method.</span>
+<span class="sd">        assumptions:  Input parameters for traceability.</span>
+<span class="sd">        note:         Optional interpretive note.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n_total</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_per_group</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_cases</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n_controls</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">power</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span>
+    <span class="n">effect_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">design</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">assumptions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">note</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Sample Size </span><span class="se">\u2014</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Per group : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_total</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total     : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_total</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Cases     : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">  Controls: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_controls</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Power     : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">  </span><span class="se">\u03b1</span><span class="s2">=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">note</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Note      : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">note</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SampleSizeResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.SampleSizeResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;design&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">design</span><span class="p">,</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;n_total&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_total</span><span class="p">,</span>
+            <span class="s2">&quot;n_per_group&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_per_group</span><span class="p">,</span>
+            <span class="s2">&quot;n_cases&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cases</span><span class="p">,</span>
+            <span class="s2">&quot;n_controls&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_controls</span><span class="p">,</span>
+            <span class="s2">&quot;power&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">power</span><span class="p">,</span>
+            <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span>
+            <span class="s2">&quot;effect_size&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect_size</span><span class="p">,</span>
+            <span class="s2">&quot;assumptions&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">assumptions</span><span class="p">,</span>
+            <span class="s2">&quot;note&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">note</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Diagnostic test</span>
+
+<div class="viewcode-block" id="DiagnosticResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.DiagnosticResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DiagnosticResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for a diagnostic test performance evaluation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        sensitivity:    True positive rate.</span>
+<span class="sd">        specificity:    True negative rate.</span>
+<span class="sd">        ppv:            Positive predictive value.</span>
+<span class="sd">        npv:            Negative predictive value.</span>
+<span class="sd">        lr_positive:    Positive likelihood ratio.</span>
+<span class="sd">        lr_negative:    Negative likelihood ratio.</span>
+<span class="sd">        accuracy:       Overall accuracy.</span>
+<span class="sd">        youden:         Youden&#39;s J index.</span>
+<span class="sd">        tp, fp, fn, tn: Confusion matrix counts.</span>
+<span class="sd">        prevalence:     Prevalence used (sample or provided).</span>
+<span class="sd">        ci_sensitivity: CI for sensitivity.</span>
+<span class="sd">        ci_specificity: CI for specificity.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sensitivity</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">specificity</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ppv</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">npv</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">lr_positive</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">lr_negative</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">accuracy</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">youden</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">tp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">fp</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">fn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">tn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">prevalence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ci_sensitivity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConfidenceInterval</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">ci_specificity</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ConfidenceInterval</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_diagnostic&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">sens_ci</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_sensitivity</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">ci_sensitivity</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_sensitivity</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">spec_ci</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci_specificity</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">ci_specificity</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_specificity</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Sensitivity : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">sensitivity</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}{</span><span class="n">sens_ci</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Specificity : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">specificity</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}{</span><span class="n">spec_ci</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;PPV         : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ppv</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   NPV: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">npv</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;LR+         : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lr_positive</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  LR-: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lr_negative</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Accuracy    : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">accuracy</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Youden: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">youden</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="DiagnosticResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.DiagnosticResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;sensitivity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sensitivity</span><span class="p">,</span>
+            <span class="s2">&quot;specificity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">specificity</span><span class="p">,</span>
+            <span class="s2">&quot;ppv&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ppv</span><span class="p">,</span>
+            <span class="s2">&quot;npv&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">npv</span><span class="p">,</span>
+            <span class="s2">&quot;lr_positive&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_positive</span><span class="p">,</span>
+            <span class="s2">&quot;lr_negative&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_negative</span><span class="p">,</span>
+            <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">accuracy</span><span class="p">,</span>
+            <span class="s2">&quot;youden&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">youden</span><span class="p">,</span>
+            <span class="s2">&quot;prevalence&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">prevalence</span><span class="p">,</span>
+            <span class="s2">&quot;confusion_matrix&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;tp&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tp</span><span class="p">,</span> <span class="s2">&quot;fp&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fp</span><span class="p">,</span>
+                <span class="s2">&quot;fn&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="s2">&quot;tn&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">tn</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_sensitivity</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;ci_sensitivity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_sensitivity</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_specificity</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;ci_specificity&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_specificity</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+</div>
+
+
+
+
+<span class="c1"># ROC curve</span>
+
+<div class="viewcode-block" id="ROCResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ROCResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ROCResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for ROC curve analysis.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        fpr:               False positive rates array.</span>
+<span class="sd">        tpr:               True positive rates array.</span>
+<span class="sd">        thresholds:        Threshold values array.</span>
+<span class="sd">        auc:               Area under the curve.</span>
+<span class="sd">        optimal_threshold: Threshold maximising the chosen criterion.</span>
+<span class="sd">        optimal_point:     Dict with sens/spec at optimal threshold.</span>
+<span class="sd">        method:            Criterion for optimal threshold selection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">tpr</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">thresholds</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">auc</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">optimal_threshold</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">optimal_point</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;youden&quot;</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_roc&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">sens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">))</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specificity&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;ROC Curve  AUC: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">auc</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Optimal threshold (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="si">}</span><span class="s2">): </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">optimal_threshold</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;  </span><span class="se">\u2192</span><span class="s2"> Sensitivity: </span><span class="si">{</span><span class="n">sens</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">  Specificity: </span><span class="si">{</span><span class="n">spec</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="ROCResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ROCResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;auc&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">auc</span><span class="p">,</span>
+            <span class="s2">&quot;optimal_threshold&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_threshold</span><span class="p">,</span>
+            <span class="s2">&quot;optimal_sensitivity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;sensitivity&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;optimal_specificity&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_point</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;specificity&quot;</span><span class="p">),</span>
+            <span class="s2">&quot;method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
+            <span class="s2">&quot;n_thresholds&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">thresholds</span><span class="p">),</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Stratified analysis (Mantel-Haenszel)</span>
+
+<div class="viewcode-block" id="StratifiedResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.StratifiedResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StratifiedResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for stratified (Mantel-Haenszel) analysis.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        measure:         &#39;mh_risk_ratio&#39; or &#39;mh_odds_ratio&#39;.</span>
+<span class="sd">        mh_estimate:     Pooled MH estimate.</span>
+<span class="sd">        ci:              CI for pooled estimate.</span>
+<span class="sd">        p_value:         P-value for pooled test.</span>
+<span class="sd">        homogeneity_p:   P-value for Breslow-Day homogeneity test.</span>
+<span class="sd">        effect_modifier: True if homogeneity rejected (p &lt; 0.05).</span>
+<span class="sd">        stratum_results: Per-stratum AssociationResult list.</span>
+<span class="sd">        n_strata:        Number of strata.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">mh_estimate</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ci</span><span class="p">:</span> <span class="n">ConfidenceInterval</span>
+    <span class="n">p_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">homogeneity_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">effect_modifier</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">stratum_results</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">AssociationResult</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">n_strata</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_forest&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">hom</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;  Homogeneity p=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">homogeneity_p</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">homogeneity_p</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">em_flag</span> <span class="o">=</span> <span class="s2">&quot;  [EFFECT MODIFICATION LIKELY]&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect_modifier</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Mantel-Haenszel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;  Pooled : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mh_estimate</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_ci_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;  Strata : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_strata</span><span class="si">}{</span><span class="n">hom</span><span class="si">}{</span><span class="n">em_flag</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="StratifiedResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.StratifiedResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;measure&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">measure</span><span class="p">,</span>
+            <span class="s2">&quot;mh_estimate&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mh_estimate</span><span class="p">,</span>
+            <span class="s2">&quot;ci_lower&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span>
+            <span class="s2">&quot;ci_upper&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span>
+            <span class="s2">&quot;confidence&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci</span><span class="o">.</span><span class="n">confidence</span><span class="p">,</span>
+            <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_value</span><span class="p">,</span>
+            <span class="s2">&quot;homogeneity_p&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">homogeneity_p</span><span class="p">,</span>
+            <span class="s2">&quot;effect_modifier&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">effect_modifier</span><span class="p">,</span>
+            <span class="s2">&quot;n_strata&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_strata</span><span class="p">,</span>
+            <span class="s2">&quot;strata&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">stratum_results</span><span class="p">],</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Epidemic model (SIR / SEIR / SEIRD)</span>
+
+<div class="viewcode-block" id="ModelResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ModelResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ModelResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for a compartmental epidemic model simulation.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        model_type:    &#39;SIR&#39;, &#39;SEIR&#39;, &#39;SEIRD&#39;, etc.</span>
+<span class="sd">        t:             Time array.</span>
+<span class="sd">        compartments:  Dict of compartment name to array.</span>
+<span class="sd">        parameters:    Input parameters (beta, gamma, R0...).</span>
+<span class="sd">        r0:            Basic reproduction number.</span>
+<span class="sd">        peak_infected: Peak infected count.</span>
+<span class="sd">        peak_time:     Time of peak infection.</span>
+<span class="sd">        final_size:    Total proportion infected at end.</span>
+<span class="sd">        metadata:      Extra simulation context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">compartments</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">r0</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">peak_infected</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">peak_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">final_size</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_model&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_type</span><span class="si">}</span><span class="s2"> Model&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">r0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  R</span><span class="se">\u2080</span><span class="s2">          : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">r0</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">peak_infected</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Peak infected : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">peak_infected</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">  at t=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">peak_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Final size    : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="si">:</span><span class="s2">.1%</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Duration      : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="se">\u2013</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ModelResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ModelResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;model_type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span><span class="p">,</span>
+            <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span>
+            <span class="s2">&quot;r0&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">r0</span><span class="p">,</span>
+            <span class="s2">&quot;peak_infected&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">peak_infected</span><span class="p">,</span>
+            <span class="s2">&quot;peak_time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">peak_time</span><span class="p">,</span>
+            <span class="s2">&quot;final_size&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_size</span><span class="p">,</span>
+            <span class="s2">&quot;t_start&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="s2">&quot;t_end&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span>
+            <span class="s2">&quot;n_timepoints&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">),</span>
+            <span class="s2">&quot;compartment_names&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">compartments</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="ModelResult.to_dataframe">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.ModelResult.to_dataframe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return time-series DataFrame with one column per compartment.&quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;pandas is required. pip install pandas&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">compartments</span><span class="p">})</span></div>
+</div>
+
+
+
+
+<span class="c1"># Time series / incidence</span>
+
+<div class="viewcode-block" id="TimeSeriesResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.TimeSeriesResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TimeSeriesResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for temporal epidemiological analysis (incidence, trends).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        times:        Array of time points or period labels.</span>
+<span class="sd">        values:       Observed values (counts or rates).</span>
+<span class="sd">        trend:        Fitted trend values (if computed).</span>
+<span class="sd">        trend_method: Name of trend method used.</span>
+<span class="sd">        doubling_time: Estimated doubling time (if applicable).</span>
+<span class="sd">        metadata:     Additional analysis context.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">times</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span>
+    <span class="n">trend</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">trend_method</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">doubling_time</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">metadata</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_epicurve&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Time Series  n=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">)</span><span class="si">}</span><span class="s2"> periods&quot;</span><span class="p">]</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Total  : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">  Peak: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trend_method</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Trend  : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">trend_method</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">doubling_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Doubling time: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">doubling_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> periods&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TimeSeriesResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.TimeSeriesResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;n_periods&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">),</span>
+            <span class="s2">&quot;total&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+            <span class="s2">&quot;peak&quot;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span>
+            <span class="s2">&quot;trend_method&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">trend_method</span><span class="p">,</span>
+            <span class="s2">&quot;doubling_time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">doubling_time</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="TimeSeriesResult.to_dataframe">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.TimeSeriesResult.to_dataframe">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;pandas is required. pip install pandas&quot;</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trend</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;trend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">trend</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+</div>
+
+
+
+
+<span class="c1"># Regression</span>
+
+<div class="viewcode-block" id="RegressionResult">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.RegressionResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RegressionResult</span><span class="p">(</span><span class="n">EpiResult</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Result for logistic or Poisson regression.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        model_type:   &#39;logistic&#39;, &#39;poisson&#39;, &#39;linear&#39;.</span>
+<span class="sd">        coefficients: Dict of variable to coefficient.</span>
+<span class="sd">        odds_ratios:  Dict of variable to OR (logistic only).</span>
+<span class="sd">        ci_table:     Dict of variable to (lower, upper) CI tuple.</span>
+<span class="sd">        p_values:     Dict of variable to p-value.</span>
+<span class="sd">        aic:          Akaike information criterion.</span>
+<span class="sd">        bic:          Bayesian information criterion.</span>
+<span class="sd">        n:            Sample size.</span>
+<span class="sd">        converged:    Whether optimisation converged.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_type</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">coefficients</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">p_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+    <span class="n">ci_table</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+    <span class="n">odds_ratios</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">aic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">bic</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">converged</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_viz_function</span> <span class="o">=</span> <span class="s2">&quot;plot_forest&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">bic_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bic</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;</span><span class="se">\u2014</span><span class="s2">&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_type</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="si">}</span><span class="s2"> Regression  n=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AIC=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">aic</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  BIC=</span><span class="si">{</span><span class="n">bic_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;  Coefficients (p-value):&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">var</span><span class="p">,</span> <span class="n">coef</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="s2">&quot;nan&quot;</span><span class="p">))</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="s2">&quot;*&quot;</span> <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mf">0.05</span> <span class="k">else</span> <span class="s2">&quot; &quot;</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;    </span><span class="si">{</span><span class="n">sig</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">var</span><span class="si">:</span><span class="s2">30s</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">coef</span><span class="si">:</span><span class="s2">+.4f</span><span class="si">}</span><span class="s2">  p=</span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RegressionResult.to_dict">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.RegressionResult.to_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;model_type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_type</span><span class="p">,</span>
+            <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span>
+            <span class="s2">&quot;aic&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">aic</span><span class="p">,</span>
+            <span class="s2">&quot;bic&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">bic</span><span class="p">,</span>
+            <span class="s2">&quot;converged&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">converged</span><span class="p">,</span>
+            <span class="s2">&quot;coefficients&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">coefficients</span><span class="p">,</span>
+            <span class="s2">&quot;p_values&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_values</span><span class="p">,</span>
+            <span class="s2">&quot;ci_table&quot;</span><span class="p">:</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ci_table</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span>
+            <span class="s2">&quot;odds_ratios&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">odds_ratios</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+
+<span class="c1"># Factory helpers</span>
+
+<div class="viewcode-block" id="make_ci">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.make_ci">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_ci</span><span class="p">(</span>
+    <span class="n">lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wald&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ConfidenceInterval</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience factory for ConfidenceInterval.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ConfidenceInterval</span><span class="p">(</span><span class="n">lower</span><span class="o">=</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="o">=</span><span class="n">upper</span><span class="p">,</span> <span class="n">confidence</span><span class="o">=</span><span class="n">confidence</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="make_association">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.make_association">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_association</span><span class="p">(</span>
+    <span class="n">measure</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">estimate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">ci_lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">ci_upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wald&quot;</span><span class="p">,</span>
+    <span class="n">p_value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">null_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">n_total</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">metadata</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AssociationResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience factory for AssociationResult.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">AssociationResult</span><span class="p">(</span>
+        <span class="n">measure</span><span class="o">=</span><span class="n">measure</span><span class="p">,</span>
+        <span class="n">estimate</span><span class="o">=</span><span class="n">estimate</span><span class="p">,</span>
+        <span class="n">ci</span><span class="o">=</span><span class="n">make_ci</span><span class="p">(</span><span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
+        <span class="n">p_value</span><span class="o">=</span><span class="n">p_value</span><span class="p">,</span>
+        <span class="n">null_value</span><span class="o">=</span><span class="n">null_value</span><span class="p">,</span>
+        <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span>
+        <span class="n">n_total</span><span class="o">=</span><span class="n">n_total</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="n">metadata</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="make_proportion">
+<a class="viewcode-back" href="../../../modules/api/results.html#episia.api.results.make_proportion">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">make_proportion</span><span class="p">(</span>
+    <span class="n">proportion</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">ci_lower</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">ci_upper</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">numerator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">denominator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;proportion&quot;</span><span class="p">,</span>
+    <span class="n">confidence</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span>
+    <span class="n">method</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;wilson&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProportionResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience factory for ProportionResult.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">ProportionResult</span><span class="p">(</span>
+        <span class="n">proportion</span><span class="o">=</span><span class="n">proportion</span><span class="p">,</span>
+        <span class="n">ci</span><span class="o">=</span><span class="n">make_ci</span><span class="p">(</span><span class="n">ci_lower</span><span class="p">,</span> <span class="n">ci_upper</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">method</span><span class="p">),</span>
+        <span class="n">numerator</span><span class="o">=</span><span class="n">numerator</span><span class="p">,</span>
+        <span class="n">denominator</span><span class="o">=</span><span class="n">denominator</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+
+<span class="c1"># Exports</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;EpiResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ConfidenceInterval&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;AssociationResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ProportionResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SampleSizeResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DiagnosticResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ROCResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;StratifiedResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ModelResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TimeSeriesResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RegressionResult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_ci&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_association&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_proportion&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

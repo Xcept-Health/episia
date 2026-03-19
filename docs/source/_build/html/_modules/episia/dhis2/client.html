@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>episia.dhis2.client &#8212; Episia Documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=49b5e7b8"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/episia/dhis2/client';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.1.0a1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Episia Documentation</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../installation.html">
+    Installation
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../quickstart.html">
+    Quick Start
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../api_reference.html">
+    API Reference
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/Xcept-Health/episia" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+       
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">Module code</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">episia.dhis2.client</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for episia.dhis2.client</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">episia.dhis2.client - DHIS2 REST API client.</span>
+
+<span class="sd">Requires: pip install episia[dhis2]   (adds requests dependency)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.adapter</span><span class="w">   </span><span class="kn">import</span> <span class="n">DHIS2Adapter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">ENDPOINTS</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..data.surveillance</span><span class="w"> </span><span class="kn">import</span> <span class="n">SurveillanceDataset</span>
+
+
+<div class="viewcode-block" id="DHIS2Client">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">DHIS2Client</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DHIS2 REST API client for Episia.</span>
+
+<span class="sd">    Connects to any DHIS2 instance and converts data to</span>
+<span class="sd">    SurveillanceDataset for immediate analysis with Episia.</span>
+
+<span class="sd">    Requires ``requests``:  pip install episia[dhis2]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url:      Base URL of the DHIS2 instance (no trailing slash).</span>
+<span class="sd">        username: DHIS2 username.</span>
+<span class="sd">        password: DHIS2 password.</span>
+<span class="sd">        timeout:  HTTP timeout in seconds (default 30).</span>
+<span class="sd">        verify:   SSL certificate verification (default True).</span>
+
+<span class="sd">    Example::</span>
+
+<span class="sd">        from episia.dhis2 import DHIS2Client</span>
+
+<span class="sd">        # Public DHIS2 demo instance</span>
+<span class="sd">        client = DHIS2Client(</span>
+<span class="sd">            url      = &quot;https://play.dhis2.org/40.2.2&quot;,</span>
+<span class="sd">            username = &quot;admin&quot;,</span>
+<span class="sd">            password = &quot;district&quot;,</span>
+<span class="sd">        )</span>
+
+<span class="sd">        # Check connection</span>
+<span class="sd">        client.ping()</span>
+
+<span class="sd">        # Fetch data as SurveillanceDataset</span>
+<span class="sd">        ds = client.to_dataset(</span>
+<span class="sd">            data_element = &quot;FTRrcoaog83&quot;,</span>
+<span class="sd">            period       = &quot;2024W01:2024W52&quot;,</span>
+<span class="sd">            org_unit     = &quot;ImspTQPwCqd&quot;,</span>
+<span class="sd">        )</span>
+<span class="sd">        print(ds)</span>
+<span class="sd">        ds.to_timeseries_result().plot().show()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DHIS2Client.__init__">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">url</span><span class="p">:</span>       <span class="nb">str</span><span class="p">,</span>
+        <span class="n">username</span><span class="p">:</span>  <span class="nb">str</span><span class="p">,</span>
+        <span class="n">password</span><span class="p">:</span>  <span class="nb">str</span><span class="p">,</span>
+        <span class="n">api_token</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">timeout</span><span class="p">:</span>   <span class="nb">int</span>  <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="n">verify</span><span class="p">:</span>    <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            url:       Base URL of the DHIS2 instance.</span>
+<span class="sd">            username:  DHIS2 username (used when api_token is None).</span>
+<span class="sd">            password:  DHIS2 password (used when api_token is None).</span>
+<span class="sd">            api_token: Personal access token (PAT). When provided,</span>
+<span class="sd">                       Basic Auth is not used. Generate one at:</span>
+<span class="sd">                       Profile -&gt; Personal access tokens in DHIS2.</span>
+<span class="sd">            timeout:   HTTP timeout in seconds (default 30).</span>
+<span class="sd">            verify:    SSL certificate verification (default True).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+        <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                <span class="s2">&quot;requests is required for DHIS2 integration.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                <span class="s2">&quot;Install with: pip install episia[dhis2]&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span>       <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span>  <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span>  <span class="o">=</span> <span class="n">password</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span> <span class="o">=</span> <span class="n">api_token</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">timeout</span>   <span class="o">=</span> <span class="n">timeout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify</span>    <span class="o">=</span> <span class="n">verify</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_session</span>  <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">api_token</span><span class="p">:</span>
+            <span class="c1"># PAT authentication -- DHIS2 2.38+</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s2">&quot;Authorization&quot;</span><span class="p">:</span>    <span class="sa">f</span><span class="s2">&quot;ApiToken </span><span class="si">{</span><span class="n">api_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;Accept&quot;</span><span class="p">:</span>           <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;X-Requested-With&quot;</span><span class="p">:</span> <span class="s2">&quot;XMLHttpRequest&quot;</span><span class="p">,</span>
+            <span class="p">})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Basic Auth -- older instances or service accounts</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s2">&quot;Accept&quot;</span><span class="p">:</span>           <span class="s2">&quot;application/json&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;X-Requested-With&quot;</span><span class="p">:</span> <span class="s2">&quot;XMLHttpRequest&quot;</span><span class="p">,</span>
+            <span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adapter</span> <span class="o">=</span> <span class="n">DHIS2Adapter</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Connection</span>
+
+<div class="viewcode-block" id="DHIS2Client.ping">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.ping">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">ping</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Test connection to the DHIS2 instance.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True if connection is successful.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ConnectionError: if the server is unreachable or credentials invalid.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">ENDPOINTS</span><span class="p">[</span><span class="s2">&quot;me&quot;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">r</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DHIS2 connection failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Data fetching</span>
+
+<div class="viewcode-block" id="DHIS2Client.fetch_analytics">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.fetch_analytics">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_analytics</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data_elements</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
+        <span class="n">period</span><span class="p">:</span>        <span class="nb">str</span><span class="p">,</span>
+        <span class="n">org_unit</span><span class="p">:</span>      <span class="nb">str</span><span class="p">,</span>
+        <span class="n">org_unit_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;SELECTED&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch data from the DHIS2 /api/analytics endpoint.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_elements: Data element UID or list of UIDs.</span>
+<span class="sd">            period:        Period expression. Examples:</span>
+<span class="sd">                           - Single week: &#39;2024W01&#39;</span>
+<span class="sd">                           - Range:       &#39;2024W01:2024W52&#39;</span>
+<span class="sd">                           - Last N:      &#39;LAST_12_WEEKS&#39;</span>
+<span class="sd">            org_unit:      Organisation unit UID.</span>
+<span class="sd">            org_unit_mode: SELECTED, CHILDREN, or DESCENDANTS.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Raw DHIS2 analytics JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_elements</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">data_elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_elements</span><span class="p">]</span>
+
+        <span class="n">dx</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_elements</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;dimension&quot;</span><span class="p">:</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;dx:</span><span class="si">{</span><span class="n">dx</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;pe:</span><span class="si">{</span><span class="n">period</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;ou:</span><span class="si">{</span><span class="n">org_unit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;displayProperty&quot;</span><span class="p">:</span> <span class="s2">&quot;NAME&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;outputIdScheme&quot;</span><span class="p">:</span> <span class="s2">&quot;UID&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ignoreLimit&quot;</span><span class="p">:</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="n">org_unit_mode</span> <span class="o">!=</span> <span class="s2">&quot;SELECTED&quot;</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;ouMode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">org_unit_mode</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">ENDPOINTS</span><span class="p">[</span><span class="s2">&quot;analytics&quot;</span><span class="p">],</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DHIS2Client.fetch_data_value_sets">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.fetch_data_value_sets">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_data_value_sets</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data_set</span><span class="p">:</span>  <span class="nb">str</span><span class="p">,</span>
+        <span class="n">period</span><span class="p">:</span>    <span class="nb">str</span><span class="p">,</span>
+        <span class="n">org_unit</span><span class="p">:</span>  <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch raw data values from /api/dataValueSets.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_set:  Data set UID.</span>
+<span class="sd">            period:    Period string (e.g. &#39;2024W01&#39;).</span>
+<span class="sd">            org_unit:  Organisation unit UID.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Raw DHIS2 dataValueSets JSON response.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;dataSet&quot;</span><span class="p">:</span>  <span class="n">data_set</span><span class="p">,</span>
+            <span class="s2">&quot;period&quot;</span><span class="p">:</span>   <span class="n">period</span><span class="p">,</span>
+            <span class="s2">&quot;orgUnit&quot;</span><span class="p">:</span>  <span class="n">org_unit</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">ENDPOINTS</span><span class="p">[</span><span class="s2">&quot;data_values&quot;</span><span class="p">],</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DHIS2Client.list_org_units">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.list_org_units">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_org_units</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">level</span><span class="p">:</span>   <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">parent</span><span class="p">:</span>  <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">fields</span><span class="p">:</span>  <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;id,name,level,shortName&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List organisation units from DHIS2.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            level:   Filter by hierarchy level (1=national, 2=region…).</span>
+<span class="sd">            parent:  Filter by parent UID.</span>
+<span class="sd">            fields:  Comma-separated fields to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of organisation unit dicts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="s2">&quot;paging&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">level</span>
+        <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;parent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">parent</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">ENDPOINTS</span><span class="p">[</span><span class="s2">&quot;org_units&quot;</span><span class="p">],</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;organisationUnits&quot;</span><span class="p">,</span> <span class="p">[])</span></div>
+
+
+<div class="viewcode-block" id="DHIS2Client.list_data_elements">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.list_data_elements">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">list_data_elements</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;id,name,shortName,valueType&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        List available data elements from DHIS2.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            fields: Comma-separated fields to return.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            List of data element dicts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span> <span class="s2">&quot;paging&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span><span class="p">}</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="n">ENDPOINTS</span><span class="p">[</span><span class="s2">&quot;data_elements&quot;</span><span class="p">],</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;dataElements&quot;</span><span class="p">,</span> <span class="p">[])</span></div>
+
+
+    <span class="c1"># High-level convenience</span>
+
+<div class="viewcode-block" id="DHIS2Client.to_dataset">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.to_dataset">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataset</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data_element</span><span class="p">:</span>   <span class="nb">str</span><span class="p">,</span>
+        <span class="n">period</span><span class="p">:</span>         <span class="nb">str</span><span class="p">,</span>
+        <span class="n">org_unit</span><span class="p">:</span>       <span class="nb">str</span><span class="p">,</span>
+        <span class="n">deaths_element</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">org_unit_mode</span><span class="p">:</span>  <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;SELECTED&quot;</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SurveillanceDataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch data from DHIS2 and return a ready-to-use SurveillanceDataset.</span>
+
+<span class="sd">        This is the main entry point for Episia-DHIS2 integration.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            data_element:   UID of the cases data element.</span>
+<span class="sd">            period:         Period expression (e.g. &#39;2024W01:2024W52&#39;).</span>
+<span class="sd">            org_unit:       Organisation unit UID.</span>
+<span class="sd">            deaths_element: UID of deaths data element (optional).</span>
+<span class="sd">            org_unit_mode:  SELECTED, CHILDREN, or DESCENDANTS.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            SurveillanceDataset ready for Episia analysis.</span>
+
+<span class="sd">        Example::</span>
+
+<span class="sd">            ds = client.to_dataset(</span>
+<span class="sd">                data_element = &quot;FTRrcoaog83&quot;,</span>
+<span class="sd">                period       = &quot;LAST_52_WEEKS&quot;,</span>
+<span class="sd">                org_unit     = &quot;ImspTQPwCqd&quot;,</span>
+<span class="sd">            )</span>
+<span class="sd">            engine = AlertEngine(ds)</span>
+<span class="sd">            alerts = engine.run(threshold=15)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="n">data_element</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">deaths_element</span><span class="p">:</span>
+            <span class="n">elements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">deaths_element</span><span class="p">)</span>
+
+        <span class="n">raw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch_analytics</span><span class="p">(</span>
+            <span class="n">data_elements</span> <span class="o">=</span> <span class="n">elements</span><span class="p">,</span>
+            <span class="n">period</span>        <span class="o">=</span> <span class="n">period</span><span class="p">,</span>
+            <span class="n">org_unit</span>      <span class="o">=</span> <span class="n">org_unit</span><span class="p">,</span>
+            <span class="n">org_unit_mode</span> <span class="o">=</span> <span class="n">org_unit_mode</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adapter</span><span class="o">.</span><span class="n">from_analytics_response</span><span class="p">(</span>
+            <span class="n">raw</span><span class="p">,</span>
+            <span class="n">cases_element</span>  <span class="o">=</span> <span class="n">data_element</span><span class="p">,</span>
+            <span class="n">deaths_element</span> <span class="o">=</span> <span class="n">deaths_element</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DHIS2Client.to_dataset_by_district">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.to_dataset_by_district">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dataset_by_district</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">data_element</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">period</span><span class="p">:</span>       <span class="nb">str</span><span class="p">,</span>
+        <span class="n">org_unit</span><span class="p">:</span>     <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SurveillanceDataset</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetch data disaggregated by child org units (districts).</span>
+
+<span class="sd">        Equivalent to to_dataset() with org_unit_mode=&#39;CHILDREN&#39;.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            SurveillanceDataset with district_col=&#39;org_unit&#39;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dataset</span><span class="p">(</span>
+            <span class="n">data_element</span>  <span class="o">=</span> <span class="n">data_element</span><span class="p">,</span>
+            <span class="n">period</span>        <span class="o">=</span> <span class="n">period</span><span class="p">,</span>
+            <span class="n">org_unit</span>      <span class="o">=</span> <span class="n">org_unit</span><span class="p">,</span>
+            <span class="n">org_unit_mode</span> <span class="o">=</span> <span class="s2">&quot;CHILDREN&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+    <span class="c1"># Internal HTTP helper</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">params</span><span class="p">:</span>   <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make a GET request to the DHIS2 API.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            endpoint: API endpoint path (e.g. &#39;/api/analytics&#39;).</span>
+<span class="sd">            params:   Query parameters.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Parsed JSON response.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            requests.HTTPError: on non-2xx responses.</span>
+<span class="sd">            ConnectionError:    on network errors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="n">endpoint</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">timeout</span><span class="p">,</span>
+                <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DHIS2 request failed [</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">]: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="DHIS2Client.__repr__">
+<a class="viewcode-back" href="../../../dhis2/client.html#episia.dhis2.client.DHIS2Client.__repr__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="s2">&quot;token&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">api_token</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;user=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;DHIS2Client(url=&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39;, </span><span class="si">{</span><span class="n">auth</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
