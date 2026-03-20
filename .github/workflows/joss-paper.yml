@@ -1,0 +1,26 @@
+name: "paper"
+on:
+  push:
+    paths:
+      - paper.md
+      - paper.bib
+      - .github/workflows/joss-paper.yml
+  pull_request:
+    paths:
+      - paper.md
+      - paper.bib
+      - .github/workflows/joss-paper.yml
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    name: Paper Draft
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build paper
+        uses: openjournals/openjournals-github-action@master
+        with:
+          journal: joss
+          paper-path: paper.md
