@@ -4,30 +4,19 @@ on:
     paths:
       - paper.md
       - paper.bib
-  pull_request:
-    paths:
-      - paper.md
-      - paper.bib
 
 jobs:
   paper:
     runs-on: ubuntu-latest
-    name: Paper Draft
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Build paper PDF
-        uses: docker://pandoc/core:latest
+      - uses: actions/checkout@v4
+      - uses: docker://pandoc/core:latest
         with:
           args: >-
             --standalone
-            --filter pandoc-citeproc
-            -o paper.pdf
             paper.md
-
-      - name: Upload paper PDF
-        uses: actions/upload-artifact@v3
+            -o paper.pdf
+      - uses: actions/upload-artifact@v4
         with:
           name: paper
           path: paper.pdf
