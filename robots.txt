@@ -1,0 +1,6 @@
+# Robots.txt for Episia project site
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://xcept-health.github.io/episia/sitemap.xml
