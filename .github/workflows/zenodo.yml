@@ -1,0 +1,117 @@
+name: zenodo
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  zenodo-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Upload to Zenodo
+        env:
+          ZENODO_TOKEN: ${{ secrets.ZENODO_TOKEN }}
+          ZENODO_DEPOSITION_ID: ${{ secrets.ZENODO_DEPOSITION_ID }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          TARBALL_URL: ${{ github.event.release.tarball_url }}
+        run: |
+          python - <<'EOF'
+          import os, requests, json, tempfile
+
+          TOKEN = os.environ["ZENODO_TOKEN"]
+          DEP_ID = os.environ.get("ZENODO_DEPOSITION_ID", "")
+          TAG = os.environ["RELEASE_TAG"]
+          TARBALL = os.environ["TARBALL_URL"]
+          HEADERS = {"Authorization": f"Bearer {TOKEN}"}
+          BASE = "https://zenodo.org/api"
+
+          # Create new version if deposition exists, otherwise create first deposit
+          if DEP_ID:
+              r = requests.post(
+                  f"{BASE}/deposit/depositions/{DEP_ID}/actions/newversion",
+                  headers=HEADERS
+              )
+              r.raise_for_status()
+              new_url = r.json()["links"]["latest_draft"]
+              r2 = requests.get(new_url, headers=HEADERS)
+              r2.raise_for_status()
+              dep = r2.json()
+              dep_id_new = dep["id"]
+          else:
+              # First deposit
+              r = requests.post(
+                  f"{BASE}/deposit/depositions",
+                  headers=HEADERS,
+                  json={}
+              )
+              r.raise_for_status()
+              dep = r.json()
+              dep_id_new = dep["id"]
+
+          print(f"Deposition ID: {dep_id_new}")
+
+          # Remove existing files from previous version
+          for f in dep.get("files", []):
+              requests.delete(
+                  f"{BASE}/deposit/depositions/{dep_id_new}/files/{f['id']}",
+                  headers=HEADERS
+              )
+
+          # Download tarball from GitHub release
+          print(f"Downloading tarball: {TARBALL}")
+          r_tar = requests.get(TARBALL, allow_redirects=True)
+          filename = f"episia-{TAG}.tar.gz"
+          with tempfile.NamedTemporaryFile(suffix=".tar.gz", delete=False) as tmp:
+              tmp.write(r_tar.content)
+              tmp_path = tmp.name
+
+          # Upload file to Zenodo bucket
+          bucket_url = dep["links"]["bucket"]
+          with open(tmp_path, "rb") as fh:
+              r_up = requests.put(
+                  f"{bucket_url}/{filename}",
+                  headers=HEADERS,
+                  data=fh
+              )
+          r_up.raise_for_status()
+          print(f"File uploaded: {filename}")
+
+          # Load metadata from .zenodo.json and set version
+          with open(".zenodo.json") as mf:
+              meta = json.load(mf)
+          meta["version"] = TAG
+
+          r_meta = requests.put(
+              f"{BASE}/deposit/depositions/{dep_id_new}",
+              headers=HEADERS,
+              json={"metadata": meta}
+          )
+          r_meta.raise_for_status()
+
+          # Publish the deposition
+          r_pub = requests.post(
+              f"{BASE}/deposit/depositions/{dep_id_new}/actions/publish",
+              headers=HEADERS
+          )
+          r_pub.raise_for_status()
+
+          result = r_pub.json()
+          doi = result["doi"]
+          print(f"Published on Zenodo")
+          print(f"DOI: {doi}")
+          print(f"URL: https://zenodo.org/record/{dep_id_new}")
+          EOF
