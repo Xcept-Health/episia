@@ -16,6 +16,7 @@
 [![Version](https://img.shields.io/badge/Version-0.1.0b1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429374)
 [![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)](#test-coverage)
 [![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)](#test-coverage)
 [![Validation](https://img.shields.io/badge/Validation-OpenEpi-brightgreen?style=flat-square)](examples/episia_vs_openepi.ipynb)
@@ -722,21 +723,28 @@ If you use Episia in your research, please cite it as:
   author = {Ouedraogo, Fildouindé Ariel Shadrac},
   title = {Episia: Open-source epidemiology and biostatistics for {P}ython},
   year = {2026},
-  url = {https://github.com/Xcept-Health/episia},
+  doi = {10.5281/zenodo.19429374},
+  url = {https://doi.org/10.5281/zenodo.19429374},
+  note = {Source code: https://github.com/Xcept-Health/episia},
   version = {0.1.0b1},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
 ```
 
+**Vancouver:**
+```
+Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.0b1. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
+```
+
 **APA:**
 ```
-Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0b1) [Computer software]. Xcept-Health. https://github.com/Xcept-Health/episia
+Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0b1) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
 ```
 
 **MLA:**
 ```
-Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0b1, Xcept-Health, 2026, https://github.com/Xcept-Health/episia.
+Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0b1, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
 ```
 
 ---
@@ -744,6 +752,7 @@ Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and bios
 ## About
 
 **Author:** Fildouindé Ariel Shadrac Ouedraogo  
+**ORCID:** [0009-0003-3419-5985](https://orcid.org/0009-0003-3419-5985)  
 **Organization:** [Xcept-Health](https://xcept-health.com), Ouagadougou, Burkina Faso  
 **Affiliation:** MD Candidate, Université Joseph Ki-Zerbo, Department of Medicine  
 **GitHub:** [@arielshadrac](https://github.com/arielshadrac)
