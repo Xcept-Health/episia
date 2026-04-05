@@ -13,7 +13,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-0.1.0a1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
+[![Version](https://img.shields.io/badge/Version-0.1.0b1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 [![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)](#test-coverage)
@@ -676,7 +676,7 @@ test_datatypes.py             50 tests
 
 ## API Stability
 
-**v0.1.0a1 is an alpha release.** Breaking changes may occur until v1.0.0.
+**v0.1.0b1 is an beta release.** Breaking changes may occur until v1.0.0.
 
 | Module | Status | Notes |
 |--------|--------|-------|
@@ -704,7 +704,7 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 | **0.4.0** | Real-time forecasting, ensemble methods | Q4 2026 | Planned |
 | **1.0.0** | API stable, production-ready | 2027 | Roadmap |
 
-**Known Limitations (v0.1.0a1):**
+**Known Limitations (v0.1.0b1):**
 - Simulation module (networks, spatial) is placeholder
 - DHIS2 client covers POST/GET cases and basic metadata
 - Browser plotter (36% coverage) is experimental; use Plotly or Matplotlib for production
@@ -723,7 +723,7 @@ If you use Episia in your research, please cite it as:
   title = {Episia: Open-source epidemiology and biostatistics for {P}ython},
   year = {2026},
   url = {https://github.com/Xcept-Health/episia},
-  version = {0.1.0a1},
+  version = {0.1.0b1},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
@@ -731,12 +731,12 @@ If you use Episia in your research, please cite it as:
 
 **APA:**
 ```
-Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0a1) [Computer software]. Xcept-Health. https://github.com/Xcept-Health/episia
+Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0b1) [Computer software]. Xcept-Health. https://github.com/Xcept-Health/episia
 ```
 
 **MLA:**
 ```
-Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0a1, Xcept-Health, 2026, https://github.com/Xcept-Health/episia.
+Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0b1, Xcept-Health, 2026, https://github.com/Xcept-Health/episia.
 ```
 
 ---
@@ -835,6 +835,6 @@ Built with precision for African public health · [Xcept-Health](https://xcept-h
 
 ![Status](https://img.shields.io/badge/Made%20with-Python%203.9%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Version](https://img.shields.io/badge/Version-0.1.0a1-orange)
+![Version](https://img.shields.io/badge/Version-0.1.0b1-orange)
 
 </div>

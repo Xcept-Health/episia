@@ -99,7 +99,6 @@ def _render_logo(color: bool) -> str:
 
 
 # Version & metadata
-
 def _get_version():
     try:
         from episia import __version__
@@ -110,7 +109,7 @@ def _get_version():
         import importlib.metadata
         return importlib.metadata.version("episia")
     except Exception:
-        return "0.1.0a1"
+        return "0.1.0b1"
 
 
 def _get_python_version():
@@ -120,7 +119,6 @@ def _get_python_version():
 
 
 # Module catalogue
-
 _MODULES = [
     (
         "episia.models",

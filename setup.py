@@ -24,7 +24,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8") \
 _init_path = here / "src" / "episia" / "__init__.py"
 _init_text  = _init_path.read_text(encoding="utf-8") if _init_path.exists() else ""
 _match      = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', _init_text, re.M)
-__version__ = _match.group(1) if _match else "0.1.0a1"
+__version__ = _match.group(1) if _match else "0.1.0b1"
 
 #  Core dependencies 
 
@@ -133,7 +133,7 @@ setup(
     extras_require=EXTRAS_REQUIRE,
 
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 3 - Beta",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Healthcare Industry",
         "Intended Audience :: Developers",
