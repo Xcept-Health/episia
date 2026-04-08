@@ -109,7 +109,7 @@ def _get_version():
         import importlib.metadata
         return importlib.metadata.version("episia")
     except Exception:
-        return "0.1.0b1"
+        return "0.1.0"
 
 
 def _get_python_version():

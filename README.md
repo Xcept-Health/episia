@@ -13,7 +13,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/Version-0.1.0b1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
+[![Version](https://img.shields.io/badge/Version-0.1.0-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429374)
@@ -677,7 +677,7 @@ test_datatypes.py             50 tests
 
 ## API Stability
 
-**v0.1.0b1 is an beta release.** Breaking changes may occur until v1.0.0.
+**v0.1.0 is the first stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
 
 | Module | Status | Notes |
 |--------|--------|-------|
@@ -726,7 +726,7 @@ If you use Episia in your research, please cite it as:
   doi = {10.5281/zenodo.19429374},
   url = {https://doi.org/10.5281/zenodo.19429374},
   note = {Source code: https://github.com/Xcept-Health/episia},
-  version = {0.1.0b1},
+  version = {0.1.0},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
@@ -734,17 +734,17 @@ If you use Episia in your research, please cite it as:
 
 **Vancouver:**
 ```
-Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.0b1. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
+Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.0. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
 ```
 
 **APA:**
 ```
-Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0b1) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
+Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
 ```
 
 **MLA:**
 ```
-Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0b1, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
+Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
 ```
 
 ---
