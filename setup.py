@@ -133,7 +133,7 @@ setup(
     extras_require=EXTRAS_REQUIRE,
 
     classifiers=[
-        "Development Status :: 3 - Beta",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Science/Research",
         "Intended Audience :: Healthcare Industry",
         "Intended Audience :: Developers",
