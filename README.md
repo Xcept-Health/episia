@@ -1,6 +1,6 @@
 <div align="center">
 
-![wepisiabanner](banner.png)
+![episiabanner](banner.png)
 
 **Open-source epidemiology & biostatistics for Python**
 
