@@ -24,7 +24,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8") \
 _init_path = here / "src" / "episia" / "__init__.py"
 _init_text  = _init_path.read_text(encoding="utf-8") if _init_path.exists() else ""
 _match      = re.search(r'^__version__\s*=\s*["\']([^"\']+)["\']', _init_text, re.M)
-__version__ = _match.group(1) if _match else "0.1.0"
+__version__ = _match.group(1) if _match else "0.1.1"
 
 #  Core dependencies 
 

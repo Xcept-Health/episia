@@ -677,7 +677,7 @@ test_datatypes.py             50 tests
 
 ## API Stability
 
-**v0.1.0 is the first stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
+**v0.1.1 is a stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
 
 | Module | Status | Notes |
 |--------|--------|-------|
@@ -705,7 +705,7 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 | **0.4.0** | Real-time forecasting, ensemble methods | Q4 2026 | Planned |
 | **1.0.0** | API stable, production-ready | 2027 | Roadmap |
 
-**Known Limitations (v0.1.0b1):**
+**Known Limitations (v0.1.1):**
 - Simulation module (networks, spatial) is placeholder
 - DHIS2 client covers POST/GET cases and basic metadata
 - Browser plotter (36% coverage) is experimental; use Plotly or Matplotlib for production
