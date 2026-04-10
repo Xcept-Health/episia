@@ -8,6 +8,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Documentation](https://img.shields.io/badge/Documentation-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
 [![Version](https://img.shields.io/badge/Version-0.1.0-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/episia?period=total&units=ABBREVIATION&left_color=BLACK&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429374)
@@ -15,6 +16,7 @@
 [![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)](#test-coverage)
 [![Validation](https://img.shields.io/badge/Validation-OpenEpi-brightgreen?style=flat-square)](examples/episia_vs_openepi.ipynb)
 [![Website](https://img.shields.io/badge/Website-xcept--health.github.io/episia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
+
 
 *epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
 
