@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Documentation](https://img.shields.io/badge/Documentation-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
-[![Version](https://img.shields.io/badge/Version-0.1.0-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
+[![Version](https://img.shields.io/badge/Version-0.1.1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/episia?period=total&units=ABBREVIATION&left_color=BLACK&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
