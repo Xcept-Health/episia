@@ -4,7 +4,7 @@ authors:
   - family-names: "Ouedraogo"
     given-names: "Fildouindé Ariel Shadrac"
     affiliation: "Xcept-Health"
-    orcid: "hhttps://orcid.org/0009-0003-3419-5985"
+    orcid: "https://orcid.org/0009-0003-3419-5985"
 title: "Episia: Open-source epidemiology and biostatistics for Python"
 version: 0.1.0
 date-released: 2026-03-19
