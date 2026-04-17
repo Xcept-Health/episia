@@ -354,3 +354,105 @@ elif page == "Vaccine Efficacy  MenAfriVac":
                 height=280, **PLOTLY_DARK,
             )
             st.plotly_chart(fig, use_container_width=True)
+            
+
+# CASE 3 : Malaria RDT Evaluation
+
+elif page == "Malaria RDT Evaluation":
+    st.title("Malaria RDT Performance Evaluation with episia & Streamlit")
+    st.markdown('<div class="case-intro">Rapid Diagnostic Tests (RDTs) are the frontline tool for malaria diagnosis in low-resource settings. This analysis evaluates RDT performance against gold-standard microscopy and computes clinical utility (PPV/NPV) at different prevalence levels  critical for district-level decision making in Burkina Faso.</div>', unsafe_allow_html=True)
+    
+    from episia.stats.diagnostic import (
+        diagnostic_test_2x2,
+        predictive_values_from_sens_spec
+    )
+    
+    col_p, col_r = st.columns([1, 2.2])
+    
+    with col_p:
+        st.markdown('<div class="section-header">RDT validation data</div>', unsafe_allow_html=True)
+        st.markdown("*(vs. expert microscopy)*")
+        tp = st.number_input("True Positives",  value=142, min_value=0,
+                              help="RDT+ and Microscopy+")
+        fp = st.number_input("False Positives", value=18, min_value=0,
+                              help="RDT+ but Microscopy-")
+        fn = st.number_input("False Negatives", value=23, min_value=0,
+                              help="RDT- but Microscopy+")
+        tn = st.number_input("True Negatives",  value=317, min_value=0,
+                              help="RDT- and Microscopy-")
+
+        rdt_name = st.text_input("RDT name", value="CareStart HRP2/pLDH")
+        site     = st.text_input("Site", value="CHR Koudougou, Burkina Faso")
+
+        st.markdown('<div class="section-header" style="margin-top:1rem">Clinical context</div>', unsafe_allow_html=True)
+        prev_range = st.slider("Prevalence range to explore (%)", 1, 80, (5, 40))
+        n_patients = st.number_input("Daily patient volume", value=120, min_value=10)
+        
+    with col_r:
+        try:
+            d = diagnostic_test_2x2(tp=tp, fp=fp, fn=fn, tn=tn)
+
+            c1,c2,c3,c4 = st.columns(4)
+            c1.markdown(f'<div class="metric-box"><div class="val">{d.sensitivity*100:.1f}%</div><div class="lbl">Sensitivity</div><div class="sub">True positive rate</div></div>', unsafe_allow_html=True)
+            c2.markdown(f'<div class="metric-box"><div class="val">{d.specificity*100:.1f}%</div><div class="lbl">Specificity</div><div class="sub">True negative rate</div></div>', unsafe_allow_html=True)
+            c3.markdown(f'<div class="metric-box"><div class="val">{d.lr_positive:.1f}</div><div class="lbl">LR+</div><div class="sub">Likelihood ratio</div></div>', unsafe_allow_html=True)
+            c4.markdown(f'<div class="metric-box"><div class="val">{d.lr_negative:.3f}</div><div class="lbl">LR-</div><div class="sub">Likelihood ratio</div></div>', unsafe_allow_html=True)
+
+            # PPV/NPV across prevalence range
+            prevs  = np.linspace(prev_range[0]/100, prev_range[1]/100, 60)
+            ppvs, npvs = [], []
+            for p in prevs:
+                ppv, npv = predictive_values_from_sens_spec(d.sensitivity, d.specificity, p)
+                ppvs.append(ppv*100); npvs.append(npv*100)
+
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=prevs*100, y=ppvs, name="PPV", line=dict(color="#2997ff",width=2.5)))
+            fig.add_trace(go.Scatter(x=prevs*100, y=npvs, name="NPV", line=dict(color="#00c8b4",width=2.5)))
+            fig.add_hline(y=90, line_dash="dot", line_color="#5c7a96", opacity=0.5, annotation_text="90%")
+            fig.update_layout(
+                title=f"PPV & NPV across prevalence  {rdt_name}",
+                xaxis_title="True prevalence (%)",
+                yaxis_title="Predictive value (%)",
+                yaxis=dict(range=[0,105]),
+                height=300, hovermode="x unified",
+                **PLOTLY_DARK,
+                legend=dict(bgcolor="#070f1a"),
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Operational impact
+            st.markdown('<div class="section-header">Operational impact at your site</div>', unsafe_allow_html=True)
+            for prev_pct in [10, 20, 35]:
+                prev_f = prev_pct / 100
+                ppv_v, npv_v = predictive_values_from_sens_spec(d.sensitivity, d.specificity, prev_f)
+                expected_pos = int(n_patients * prev_f)
+                false_neg    = int(expected_pos * (1-d.sensitivity))
+                false_pos    = int((n_patients - expected_pos) * (1-d.specificity))
+                st.markdown(f"""
+                **Prevalence {prev_pct}%** | {expected_pos} expected cases/day
+                 PPV {ppv_v*100:.0f}% · NPV {npv_v*100:.0f}%
+                 ~{false_neg} missed cases · ~{false_pos} false alarms
+                """)
+
+            # Radar
+            cats = ["Sensitivity","Specificity","PPV @ 20%","NPV @ 20%","Accuracy"]
+            ppv20, npv20 = predictive_values_from_sens_spec(d.sensitivity, d.specificity, 0.20)
+            acc = (tp+tn)/(tp+fp+fn+tn)*100
+            vals = [d.sensitivity*100, d.specificity*100, ppv20*100, npv20*100, acc]
+            fig2 = go.Figure(go.Scatterpolar(
+                r=vals+[vals[0]], theta=cats+[cats[0]],
+                fill="toself", fillcolor="rgba(41,151,255,0.12)",
+                line=dict(color="#2997ff",width=2),
+                name=rdt_name,
+            ))
+            fig2.update_layout(
+                polar=dict(radialaxis=dict(range=[0,100]), bgcolor="#070f1a"),
+                plot_bgcolor="#03080f", paper_bgcolor="#03080f", font_color="#eef2f7",
+                title=f"Diagnostic profile  {rdt_name} · {site}",
+                height=340,
+            )
+            st.plotly_chart(fig2, use_container_width=True)
+
+        except Exception as e:
+            st.error(f"Error: {e}")
+        
