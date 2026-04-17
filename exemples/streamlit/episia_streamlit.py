@@ -182,8 +182,6 @@ if page == "Meningitis Outbreak  Burkina Faso":
                            legend=dict(bgcolor="#070f1a", x=0.65, y=0.95))
         st.plotly_chart(fig2, use_container_width=True)
         
-        
-        
         # Summary table
         col_t, col_a = st.columns([2, 1])
         with col_t:
@@ -198,5 +196,161 @@ if page == "Meningitis Outbreak  Burkina Faso":
             st.markdown("**Top alerts**")
             for a in sorted(alerts, key=lambda x: x.severity)[:6]:
                 cls = f"alert-{a.severity}"
-                st.markdown(f'<div class="{cls}"><strong>{a.severity.upper()}</strong><br>{str(a.period)[:10]}<br><small>{a.message[:60]}</small></div>', unsafe_allow_html=True)
+                st.markdown(
+                    f'<div class="{cls}"><strong>{a.severity.upper()}</strong><br>{str(a.period)[:10]}<br><small>{a.message[:60]}</small></div>', 
+                    unsafe_allow_html=True
+                    )
+                
+  
+# CASE 2 : Efficacy of the MenAfriVac vaccine 
 
+elif page == "Vaccine Efficacy  MenAfriVac":
+    st.title("Vaccine Efficacy Analysis MenAfriVac with episia & Streamlit")
+    st.markdown('<div class="case-intro">MenAfriVac (PsA-TT) is the meningococcal conjugate vaccine deployed across the Sahel belt since 2010. This tool computes vaccine efficacy (VE = 1 - RR) from cohort or case-control study data, with confidence intervals validated against OpenEpi.</div>', unsafe_allow_html=True)
+    
+    from episia.stats.contingency import risk_ratio, odds_ratio, Table2x2
+    from episia.stats.stratified import mantel_haenszel_or
+
+    tab_cohort, tab_stratified = st.tabs(["Cohort Analysis", "Age-stratified (Mantel-Haenszel)"])
+
+    with tab_cohort:
+        col_p, col_r = st.columns([1, 2])
+        with col_p:
+            st.markdown('<div class="section-header">Study data</div>', unsafe_allow_html=True)
+            st.markdown("**Vaccinated group**")
+            a = st.number_input("Cases (vaccinated)", value=12, min_value=0, help="Meningitis cases in vaccinated group")
+            b = st.number_input("Non-cases (vaccinated)", value=2988, min_value=0)
+            st.markdown("**Unvaccinated group**")
+            c = st.number_input("Cases (unvaccinated)", value=87, min_value=0)
+            d = st.number_input("Non-cases (unvaccinated)", value=2913, min_value=0)
+
+            study_site = st.text_input("Study site", value="Kaya District, Burkina Faso")
+            study_year = st.text_input("Study period", value="2023–2024")
+                
+
+        with col_r:
+            try:
+                rr  = risk_ratio(a=a, b=b, c=c, d=d)
+                or_ = odds_ratio(a=a, b=b, c=c, d=d)
+
+                ve     = (1 - rr.estimate) * 100
+                ve_lo  = (1 - rr.ci_upper) * 100
+                ve_hi  = (1 - rr.ci_lower) * 100
+                r_vacc = a / (a+b) * 1000
+                r_unv  = c / (c+d) * 1000
+
+                c1, c2, c3, c4 = st.columns(4)
+                c1.markdown(f'<div class="metric-box"><div class="val">{ve:.1f}%</div><div class="lbl">Vaccine Efficacy</div><div class="sub">[{ve_lo:.1f}% – {ve_hi:.1f}%]</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="metric-box"><div class="val">{rr.estimate:.3f}</div><div class="lbl">Risk Ratio</div><div class="sub">p={rr.p_value:.4f}</div></div>', unsafe_allow_html=True)
+                c3.markdown(f'<div class="metric-box"><div class="val">{r_vacc:.1f}</div><div class="lbl">Risk (vaccinated)</div><div class="sub">per 1,000</div></div>', unsafe_allow_html=True)
+                c4.markdown(f'<div class="metric-box"><div class="val">{r_unv:.1f}</div><div class="lbl">Risk (unvaccinated)</div><div class="sub">per 1,000</div></div>', unsafe_allow_html=True)
+
+                # Interpretation
+                if ve > 70 and rr.p_value < 0.05:
+                    st.success(f"**High vaccine efficacy** ({ve:.1f}%)  statistically significant (p={rr.p_value:.4f}). The vaccine provides substantial protection against meningococcal meningitis.")
+                elif ve > 50:
+                    st.warning(f"Moderate vaccine efficacy ({ve:.1f}%). Consider coverage improvements.")
+                elif ve < 0:
+                    st.error(f"Negative VE  possible bias or low vaccine quality. Investigate cold chain.")
+
+                # Risk comparison bar chart
+                fig = go.Figure()
+                fig.add_trace(go.Bar(
+                    x=["Vaccinated", "Unvaccinated"],
+                    y=[r_vacc, r_unv],
+                    marker_color=["#00c8b4", "#e05c5c"],
+                    text=[f"{r_vacc:.1f}/1000", f"{r_unv:.1f}/1000"],
+                    textposition="outside",
+                ))
+                fig.update_layout(
+                    title=f"Meningitis risk comparison  {study_site} ({study_year})",
+                    yaxis_title="Cases per 1,000 person-years",
+                    height=320, **PLOTLY_DARK, showlegend=False,
+                )
+                st.plotly_chart(fig, use_container_width=True)
+
+                # VE across different studies (simulated for comparison)
+                st.markdown('<div class="section-header">VE estimates regional comparison</div>', unsafe_allow_html=True)
+                studies = {
+                    "Mali 2011 (Djibo)":        (94.0, 88.0, 97.0),
+                    "Niger 2012 (Zinder)":      (89.3, 79.4, 94.5),
+                    "Burkina Faso 2012":        (87.6, 72.1, 94.3),
+                    "Chad 2013":                (79.4, 63.1, 88.5),
+                    f"{study_site} ({study_year})": (ve, ve_lo, ve_hi),
+                }
+                fig2 = go.Figure()
+                for i, (name, (est, lo, hi)) in enumerate(studies.items()):
+                    clr = "#2997ff" if study_site.split(",")[0] in name or study_year in name else "#8aa8c4"
+                    fig2.add_trace(go.Scatter(
+                        x=[lo, est, hi], y=[name]*3,
+                        mode="lines+markers",
+                        marker=dict(size=[9, 15, 9], color=clr),
+                        line=dict(color=clr, width=2.5),
+                        showlegend=False,
+                    ))
+                fig2.add_vline(x=0, line_dash="dash", line_color="#5c7a96", opacity=0.5)
+                fig2.update_layout(
+                    title="Vaccine efficacy estimates across sites (Forest plot)",
+                    xaxis_title="Vaccine Efficacy (%)",
+                    xaxis=dict(range=[-20, 105]),
+                    height=300, **PLOTLY_DARK,
+                )
+                st.plotly_chart(fig2, use_container_width=True)
+
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
+    with tab_stratified:
+        st.markdown("Mantel-Haenszel pooled estimate controlling for age group.")
+        col_p, col_r = st.columns([1, 2])
+        
+        with col_p:
+            st.markdown('<div class="section-header">Data by age group</div>', unsafe_allow_html=True)
+            st.markdown("**Children < 5 years**")
+            a1,b1,c1_v,d1 = (st.number_input(f"a1",value=4,key="a1"),st.number_input("b1",value=896,key="b1"),
+                              st.number_input("c1",value=31,key="c1"),st.number_input("d1",value=869,key="d1"))
+            st.markdown("**Children 5–14 years**")
+            a2,b2,c2_v,d2 = (st.number_input("a2",value=5,key="a2"),st.number_input("b2",value=1145,key="b2"),
+                              st.number_input("c2",value=38,key="c2"),st.number_input("d2",value=1112,key="d2"))
+            st.markdown("**Adults 15+ years**")
+            a3,b3,c3_v,d3 = (st.number_input("a3",value=3,key="a3"),st.number_input("b3",value=947,key="b3"),
+                              st.number_input("c3",value=18,key="c3"),st.number_input("d3",value=932,key="d3"))
+            
+        with col_r:
+            from episia.stats.contingency import Table2x2
+            from episia.stats.stratified import mantel_haenszel_or
+            strata = [Table2x2(a1,b1,c1_v,d1), Table2x2(a2,b2,c2_v,d2), Table2x2(a3,b3,c3_v,d3)]
+            mh = mantel_haenszel_or(strata)
+            pooled_ve = (1 - mh.common_or) * 100
+            lo_or, hi_or = mh.or_ci
+            pooled_ve_lo = (1 - hi_or) * 100
+            pooled_ve_hi = (1 - lo_or) * 100
+
+            c1x, c2x, c3x = st.columns(3)
+            c1x.metric("Pooled OR (MH)", f"{mh.common_or:.3f}", f"[{lo_or:.3f} – {hi_or:.3f}]")
+            c2x.metric("Pooled VE", f"{pooled_ve:.1f}%", f"[{pooled_ve_lo:.1f}% – {pooled_ve_hi:.1f}%]")
+            c3x.metric("p heterogeneity", f"{mh.q_p_value:.3f}", "Cochran Q")
+
+            age_labels = ["< 5 years", "5–14 years", "15+ years"]
+            ages_or  = [Table2x2(a1,b1,c1_v,d1).odds_ratio(), Table2x2(a2,b2,c2_v,d2).odds_ratio(), Table2x2(a3,b3,c3_v,d3).odds_ratio()]
+            fig = go.Figure()
+            for i, (lbl, or_res) in enumerate(zip(age_labels, ages_or)):
+                fig.add_trace(go.Scatter(
+                    x=[or_res.ci_lower, or_res.estimate, or_res.ci_upper],
+                    y=[lbl]*3, mode="lines+markers",
+                    marker=dict(size=[9,14,9], color="#2997ff"),
+                    line=dict(color="#2997ff", width=2), showlegend=False,
+                ))
+            fig.add_trace(go.Scatter(
+                x=[lo_or, mh.common_or, hi_or],
+                y=["Pooled (MH)"]*3, mode="lines+markers",
+                marker=dict(size=[10,18,10], symbol=["line-ew","diamond","line-ew"], color="#00c8b4"),
+                line=dict(color="#00c8b4", width=3), showlegend=False,
+            ))
+            fig.add_vline(x=1, line_dash="dash", line_color="#5c7a96")
+            fig.update_layout(
+                title="Stratified OR by age group  Forest plot",
+                xaxis_title="Odds Ratio (log scale)", xaxis_type="log",
+                height=280, **PLOTLY_DARK,
+            )
+            st.plotly_chart(fig, use_container_width=True)
