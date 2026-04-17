@@ -11,7 +11,7 @@
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/episia?period=total&units=ABBREVIATION&left_color=BLACK&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![Organization](https://img.shields.io/badge/Xcept--Health-Burkina%20Faso-purple?style=flat-square)](https://xcept-health.com)
-[![DOI](https://zenodo.org/badge/DOI//10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429373))
+[![DOI](https://zenodo.org/badge/DOI//10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429373)
 [![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)](#test-coverage)
 [![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)](#test-coverage)
 [![Validation](https://img.shields.io/badge/Validation-OpenEpi-brightgreen?style=flat-square)](examples/episia_vs_openepi.ipynb)
