@@ -559,3 +559,148 @@ elif page == "Cholera Outbreak Response":
         except Exception as e:
             st.error(f"Error: {e}")
 
+
+# CASE 5 : Sample Size Calculator
+
+
+elif page == "Sample Size Calculator":
+    st.title("Sample Size Calculator with episia & Streamlit")
+    st.markdown('<div class="case-intro">Plan your epidemiological study with correct sample size estimates. Supports cohort studies (risk ratio), case-control studies (odds ratio), and diagnostic test evaluations  validated against OpenEpi and Fleiss formulas.</div>', unsafe_allow_html=True)
+
+    from episia.stats.samplesize import (sample_size_risk_ratio, sample_size_odds_ratio,
+                                          sample_size_sensitivity_specificity,
+                                          sample_size_single_proportion )
+
+    tab1, tab2, tab3, tab4 = st.tabs(["Cohort  Risk Ratio", "Case-Control  OR", "Diagnostic Test", "Single Proportion"])
+
+    with tab1:
+        col_p, col_r = st.columns([1,2])
+        with col_p:
+            st.markdown('<div class="section-header">Cohort study</div>', unsafe_allow_html=True)
+            p0  = st.slider("Risk in unexposed (%)", 1, 50, 10) / 100
+            rr_exp = st.slider("Expected Risk Ratio", 1.1, 5.0, 2.5, 0.1)
+            pw  = st.select_slider("Power", [0.70,0.80,0.85,0.90,0.95], value=0.80)
+            al  = st.select_slider("Alpha (α)", [0.01,0.05,0.10], value=0.05)
+            ratio_c = st.slider("Control:Case ratio", 1, 5, 1)
+
+        with col_r:
+            try:
+                res = sample_size_risk_ratio(risk_unexposed=p0, risk_ratio=rr_exp,
+                                              power=pw, alpha=al, r=ratio_c)
+                n_cases = int(res.n_per_group) if res.n_per_group else int(res.n_cases or 0)
+                n_ctrl  = int(n_cases * ratio_c)
+
+                c1,c2,c3 = st.columns(3)
+                c1.markdown(f'<div class="metric-box"><div class="val">{n_cases:,}</div><div class="lbl">Cases needed</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="metric-box"><div class="val">{n_ctrl:,}</div><div class="lbl">Controls needed</div></div>', unsafe_allow_html=True)
+                c3.markdown(f'<div class="metric-box"><div class="val">{n_cases+n_ctrl:,}</div><div class="lbl">Total subjects</div></div>', unsafe_allow_html=True)
+
+                # Power curve
+                rrs = np.linspace(1.1, 5.0, 30)
+                ns  = []
+                for rr_v in rrs:
+                    try:
+                        r_v = sample_size_risk_ratio(risk_unexposed=p0, risk_ratio=rr_v, power=pw, alpha=al)
+                        ns.append(int(r_v.n_per_group or 0))
+                    except:
+                        ns.append(None)
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x=rrs, y=ns, line=dict(color="#2997ff",width=2.5)))
+                fig.add_vline(x=rr_exp, line_dash="dash", line_color="#e05c5c",
+                              annotation_text=f"Your RR={rr_exp}", annotation_font_color="#e05c5c")
+                fig.update_layout(
+                    title="Required sample size vs expected Risk Ratio",
+                    xaxis_title="Expected RR", yaxis_title="n per group",
+                    height=300, **PLOTLY_DARK,
+                )
+                st.plotly_chart(fig, use_container_width=True)
+
+                st.info(f"At p₀={p0*100:.0f}%, RR={rr_exp}, α={al}, power={pw*100:.0f}%  you need **{n_cases:,} exposed** and **{n_ctrl:,} unexposed** participants.")
+
+            except Exception as e:
+                st.error(f"Error: {e}")
+                
+    with tab2:
+        col_p, col_r = st.columns([1,2])
+        with col_p:
+            st.markdown('<div class="section-header">Case-Control study</div>', unsafe_allow_html=True)
+            p_ctrl = st.slider("Exposure in controls (%)", 5, 70, 30) / 100
+            or_exp = st.slider("Expected Odds Ratio", 1.2, 6.0, 2.0, 0.1)
+            pw2    = st.select_slider("Power ", [0.70,0.80,0.85,0.90,0.95], value=0.80, key="pw2")
+            al2    = st.select_slider("Alpha ", [0.01,0.05,0.10], value=0.05, key="al2")
+        with col_r:
+            try:
+                res2 = sample_size_odds_ratio(proportion_exposed_controls=p_ctrl,
+                                               odds_ratio=or_exp, power=pw2, alpha=al2)
+                n_c = int(res2.n_cases or 0)
+                n_k = int(res2.n_controls or 0)
+
+                c1,c2,c3 = st.columns(3)
+                c1.markdown(f'<div class="metric-box"><div class="val">{n_c:,}</div><div class="lbl">Cases</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="metric-box"><div class="val">{n_k:,}</div><div class="lbl">Controls</div></div>', unsafe_allow_html=True)
+                c3.markdown(f'<div class="metric-box"><div class="val">{n_c+n_k:,}</div><div class="lbl">Total</div></div>', unsafe_allow_html=True)
+                st.info(f"Case-Control: {n_c:,} cases and {n_k:,} controls to detect OR={or_exp} (power={pw2*100:.0f}%, α={al2}).")
+            except Exception as e:
+                st.error(f"Error: {e}")
+
+    with tab3:
+        col_p, col_r = st.columns([1,2])
+        with col_p:
+            st.markdown('<div class="section-header">Diagnostic test evaluation</div>', unsafe_allow_html=True)
+            exp_sens = st.slider("Expected sensitivity (%)", 50, 99, 85) / 100
+            exp_spec = st.slider("Expected specificity (%)", 50, 99, 92) / 100
+            prec     = st.slider("Precision (half-width CI %)", 3, 15, 7) / 100
+            prev_d   = st.slider("Disease prevalence (%)", 1, 60, 20) / 100
+        with col_r:
+            try:
+                res3 = sample_size_sensitivity_specificity(
+                    expected_sens=exp_sens, expected_spec=exp_spec,
+                    precision=prec, prevalence=prev_d)
+                n_pos = int(res3.n_cases or 0)
+                n_neg = int(res3.n_controls or 0)
+                c1,c2,c3 = st.columns(3)
+                c1.markdown(f'<div class="metric-box"><div class="val">{n_pos:,}</div><div class="lbl">Disease+ subjects</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="metric-box"><div class="val">{n_neg:,}</div><div class="lbl">Disease- subjects</div></div>', unsafe_allow_html=True)
+                c3.markdown(f'<div class="metric-box"><div class="val">{n_pos+n_neg:,}</div><div class="lbl">Total</div></div>', unsafe_allow_html=True)
+                st.info(f"For sens={exp_sens*100:.0f}%, spec={exp_spec*100:.0f}%, precision ±{prec*100:.0f}% at prevalence {prev_d*100:.0f}%.")
+            except Exception as e:
+                st.error(f"Error: {e}")
+
+    with tab4:
+        col_p, col_r = st.columns([1,2])
+        with col_p:
+            st.markdown('<div class="section-header">Single proportion survey</div>', unsafe_allow_html=True)
+            exp_prop = st.slider("Expected proportion (%)", 1, 80, 30) / 100
+            prec4    = st.slider("Precision ±(%)", 2, 15, 5) / 100
+            al4      = st.select_slider("Alpha  ", [0.01,0.05,0.10], value=0.05, key="al4")
+            deff     = st.slider("Design effect (cluster sampling)", 1.0, 3.0, 1.0, 0.1)
+        with col_r:
+            try:
+                res4 = sample_size_single_proportion(
+                    expected_proportion=exp_prop, precision=prec4,
+                    alpha=al4, design_effect=deff)
+                n_req = int(res4.n_per_group or res4.n_total or 0)
+                c1,c2 = st.columns(2)
+                c1.markdown(f'<div class="metric-box"><div class="val">{n_req:,}</div><div class="lbl">Required n</div><div class="sub">Design effect ×{deff}</div></div>', unsafe_allow_html=True)
+                c2.markdown(f'<div class="metric-box"><div class="val">±{prec4*100:.0f}%</div><div class="lbl">Precision</div><div class="sub">95% CI half-width</div></div>', unsafe_allow_html=True)
+
+                # n vs proportion curve
+                props = np.linspace(0.05, 0.70, 40)
+                ns4 = []
+                for pp in props:
+                    try:
+                        r = sample_size_single_proportion(expected_proportion=float(pp), precision=prec4, alpha=al4, design_effect=deff)
+                        ns4.append(int(r.n_per_group or r.n_total or 0))
+                    except:
+                        ns4.append(None)
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x=props*100, y=ns4, line=dict(color="#2997ff",width=2.5)))
+                fig.add_vline(x=exp_prop*100, line_dash="dash", line_color="#e05c5c")
+                fig.update_layout(
+                    title="Required n vs expected proportion",
+                    xaxis_title="Expected proportion (%)", yaxis_title="n required",
+                    height=280, **PLOTLY_DARK,
+                )
+                st.plotly_chart(fig, use_container_width=True)
+            except Exception as e:
+                st.error(f"Error: {e}")
