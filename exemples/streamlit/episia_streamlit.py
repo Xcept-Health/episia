@@ -455,4 +455,107 @@ elif page == "Malaria RDT Evaluation":
 
         except Exception as e:
             st.error(f"Error: {e}")
+            
+# CASE 4 : Cholera Outbreak Response
         
+elif page == "Cholera Outbreak Response":
+    st.title("Cholera Outbreak Response Simulation with episia & Streamlit")
+    st.markdown('<div class="case-intro">Cholera remains a major public health threat in West Africa. This tool uses a SEIRD model to simulate the epidemic trajectory and project the impact of WASH interventions (water, sanitation, hygiene) and oral cholera vaccine (OCV) deployment on case fatalities.</div>', unsafe_allow_html=True)
+
+    from episia.models import SEIRDModel
+    from episia.models.parameters import SEIRDParameters, ScenarioSet
+    from episia.models.scenarios import ScenarioRunner
+
+    col_p, col_r = st.columns([1, 2.3])
+
+    with col_p:
+        st.markdown('<div class="section-header">Outbreak settings</div>', unsafe_allow_html=True)
+        location = st.selectbox("Location", ["Niamey (Niger)", "Ndjamena (Chad)", "Tahoua (Niger)", "Maradi (Niger)"])
+        N     = st.number_input("At-risk population", value=180_000, step=10_000)
+        I0    = st.number_input("Initial cases", value=12, min_value=1)
+        E0    = st.number_input("Initial exposed", value=40, min_value=0)
+        t_end = st.slider("Simulation (days)", 30, 180, 90)
+
+        st.markdown('<div class="section-header" style="margin-top:1rem">Disease parameters</div>', unsafe_allow_html=True)
+        beta  = st.slider("β (transmission)", 0.10, 1.0, 0.55, 0.01,
+                           help="Cholera: high in poor WASH settings (0.4–0.8)")
+        sigma = st.slider("σ (1/incubation)", 0.3, 2.0, 0.5, 0.05,
+                           help="Incubation 0.5–5 days")
+        gamma = st.slider("γ (1/infectious period)", 0.1, 0.5, 0.25, 0.01)
+        mu    = st.slider("μ (case fatality rate)", 0.001, 0.05, 0.015, 0.001,
+                           help="CFR 0.2–5% with treatment, up to 50% untreated")
+
+        st.markdown('<div class="section-header" style="margin-top:1rem">Interventions</div>', unsafe_allow_html=True)
+        wash_eff = st.slider("WASH effectiveness (%)", 0, 80, 40,
+                              help="β reduction from water/sanitation")
+        ocv_cov  = st.slider("OCV coverage (%)", 0, 90, 50,
+                              help="Oral cholera vaccine  2-dose regimen")
+        ocv_eff  = st.slider("OCV efficacy (%)", 50, 90, 76,
+                              help="76% protective efficacy in outbreaks")
+
+    with col_r:
+        try:
+            wash_b = beta * (1 - wash_eff/100)
+            ocv_N  = int(N * (1 - ocv_cov/100 * ocv_eff/100))
+
+            scenarios = ScenarioSet([
+                ("No intervention",     SEIRDParameters(N=N, I0=I0, E0=E0, beta=beta, sigma=sigma, gamma=gamma, mu=mu, t_span=(0,t_end))),
+                ("WASH only",           SEIRDParameters(N=N, I0=I0, E0=E0, beta=wash_b, sigma=sigma, gamma=gamma, mu=mu*0.6, t_span=(0,t_end))),
+                ("OCV only",            SEIRDParameters(N=ocv_N, I0=I0, E0=E0, beta=beta, sigma=sigma, gamma=gamma, mu=mu, t_span=(0,t_end))),
+                ("WASH + OCV",          SEIRDParameters(N=ocv_N, I0=I0, E0=E0, beta=wash_b, sigma=sigma, gamma=gamma, mu=mu*0.6, t_span=(0,t_end))),
+            ])
+
+            runner = ScenarioRunner(SEIRDModel)
+            res    = runner.run(scenarios)
+            df_sc  = res.to_dataframe()
+
+            colors = ["#e05c5c","#f5a623","#2997ff","#00c8b4"]
+            fig = go.Figure()
+            for (name, params), color in zip(scenarios, colors):
+                r = SEIRDModel(params).run()
+                deaths = r.compartments.get("D", [0])[-1]
+                fig.add_trace(go.Scatter(
+                    x=r.t, y=r.compartments["I"],
+                    name=f"{name} ({int(deaths):,} deaths)",
+                    line=dict(color=color, width=2.2),
+                ))
+            fig.update_layout(
+                title=f"Cholera cases over time  {location}",
+                xaxis_title="Days", yaxis_title="Active cases",
+                height=340, hovermode="x unified",
+                **PLOTLY_DARK,
+                legend=dict(bgcolor="#070f1a", font_size=11),
+            )
+            st.plotly_chart(fig, use_container_width=True)
+
+            # Deaths comparison
+            deaths_by_scenario = {}
+            for name, params in scenarios:
+                r = SEIRDModel(params).run()
+                deaths_by_scenario[name] = int(r.compartments.get("D",[0])[-1])
+
+            fig2 = go.Figure(go.Bar(
+                x=list(deaths_by_scenario.keys()),
+                y=list(deaths_by_scenario.values()),
+                marker_color=colors,
+                text=[f"{v:,}" for v in deaths_by_scenario.values()],
+                textposition="outside",
+            ))
+            baseline_d = deaths_by_scenario["No intervention"]
+            combined_d = deaths_by_scenario["WASH + OCV"]
+            lives_saved = baseline_d - combined_d
+
+            fig2.update_layout(
+                title=f"Projected deaths by scenario  {lives_saved:,} lives saved with combined intervention",
+                yaxis_title="Deaths",
+                height=300, **PLOTLY_DARK, showlegend=False,
+            )
+            st.plotly_chart(fig2, use_container_width=True)
+
+            # Key message
+            pct_reduction = (1 - combined_d/baseline_d)*100 if baseline_d > 0 else 0
+            st.success(f"Combined WASH + OCV reduces mortality by **{pct_reduction:.0f}%**  saving an estimated **{lives_saved:,} lives** in {location} over {t_end} days.")
+
+        except Exception as e:
+            st.error(f"Error: {e}")
+
