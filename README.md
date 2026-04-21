@@ -712,9 +712,28 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 
 ## Citation
 
+A preprint describing Episia is available on medRxiv:
+
+> Ouedraogo FAS. *Episia: An Open-Source Python Library for Epidemiological Surveillance, Modeling, and Biostatistics in Resource-Limited Settings.* medRxiv 2026. https://doi.org/10.64898/2026.04.17.26350337
+
 If you use Episia in your research, please cite it as:
 
+
 **BibTeX:**
+
+```bibtex
+@article{ouedraogo2026episia_preprint,
+  author  = {Ouedraogo, Fildouind{\'e} Ariel Shadrac},
+  title   = {Episia: An Open-Source Python Library for Epidemiological
+             Surveillance, Modeling, and Biostatistics in Resource-Limited Settings},
+  journal = {medRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.04.17.26350337},
+  url     = {https://doi.org/10.64898/2026.04.17.26350337},
+  note    = {Preprint}
+}
+```
+
 ```bibtex
 @software{ouedraogo2026episia,
   author = {Ouedraogo, Fildouindé Ariel Shadrac},
@@ -723,7 +742,7 @@ If you use Episia in your research, please cite it as:
   doi = {10.5281/zenodo.19429374},
   url = {https://doi.org/10.5281/zenodo.19429374},
   note = {Source code: https://github.com/Xcept-Health/episia},
-  version = {0.1.0},
+  version = {0.1.1},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
@@ -841,6 +860,6 @@ Built with precision for African public health · [Xcept-Health](https://xcept-h
 
 ![Status](https://img.shields.io/badge/Made%20with-Python%203.9%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Version](https://img.shields.io/badge/Version-0.1.0b1-orange)
+![Version](https://img.shields.io/badge/Version-0.1.1-orange)
 
 </div>
