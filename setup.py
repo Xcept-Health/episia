@@ -96,7 +96,7 @@ setup(
 
     description=(
         "Open-source Python epidemiology and biostatistics toolbox. "
-        "Based on OpenEpi algorithms — risk ratios, odds ratios, sample size, "
+        "Based on OpenEpi algorithms risk ratios, odds ratios, sample size, "
         "diagnostic test evaluation, compartmental epidemic models (SIR/SEIR/SEIRD), "
         "Monte Carlo sensitivity analysis, surveillance data tools, and "
         "automated report generation. Built for the francophone African "
