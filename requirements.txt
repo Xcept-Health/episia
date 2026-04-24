@@ -1,3 +1,4 @@
 episia
 streamlit
 pandas
+plotly

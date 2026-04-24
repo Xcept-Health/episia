@@ -573,11 +573,11 @@ if page == "Disease Burden Globe":
         all_country_names = sorted(africa_countries.values())
         explore = st.selectbox(
             "Select country",
-            ["— select a country —"] + all_country_names,
+            [" select a country "] + all_country_names,
             label_visibility="collapsed"
         )
 
-        if explore != "— select a country —":
+        if explore != " select a country ":
             iso_sel = name_to_iso.get(explore, "")
             data_sel = disease_data.get(disease, {})
             idx_val  = data_sel.get(iso_sel, 0)
@@ -585,18 +585,14 @@ if page == "Disease Burden Globe":
             
             analysis_badge = f"&nbsp;·&nbsp;<span style='color:{ACC2}'>Analysis available</span>" if has_page else ""
 
+            border_color = ACC if has_page else T_MUT
             st.markdown(
-                f"""
-                <div style="background:{CARD_BG};border:1px solid {BORDER};
-                border-left:3px solid {ACC if has_page else T_MUT};
-                border-radius:8px;padding:.7rem .9rem;margin:.3rem 0">
-                    <div style="font-size:.82rem;font-weight:600;color:{T_PRI}">{explore}</div>
-                    <div style="font-family:IBM Plex Mono,monospace;font-size:.7rem;color:{T_SEC};margin-top:.2rem">
-                        Burden index: <span style="color:{ACC};font-weight:600">{idx_val}</span>/100
-                        {analysis_badge}
-                    </div>
-                </div>
-                """,
+                f'<div style="background:{CARD_BG};border:1px solid {BORDER};'
+                f'border-left:3px solid {border_color};border-radius:8px;padding:.7rem .9rem;margin:.3rem 0">'
+                f'<div style="font-size:.82rem;font-weight:600;color:{T_PRI}">{explore}</div>'
+                f'<div style="font-family:IBM Plex Mono,monospace;font-size:.7rem;color:{T_SEC};margin-top:.2rem">'
+                f'Burden index: <span style="color:{ACC};font-weight:600">{idx_val}</span>/100{analysis_badge}'
+                f'</div></div>',
                 unsafe_allow_html=True
             )
 
@@ -630,7 +626,7 @@ if page == "Disease Burden Globe":
             v = data.get(iso, 0)
             val_list.append(v)
             name_list.append(name)
-            pop_str  = country_pop.get(iso, "—")
+            pop_str  = country_pop.get(iso, "-")
             alert_str = " HIGH ALERT" if iso in active_alerts else ""
             nav_str   = " · Analysis available" if name in COUNTRY_PAGES else ""
             hover_list.append(
@@ -987,11 +983,11 @@ elif page == "Vaccine Efficacy · MenAfriVac":
                 c4.markdown(card(f"{r_unv:.1f}", "Risk unvaccinated", "per 1,000"), unsafe_allow_html=True)
 
                 if ve > 70 and rr.p_value < 0.05:
-                    st.success(f"High vaccine efficacy ({ve:.1f}%) — statistically significant (p={rr.p_value:.4f}).")
+                    st.success(f"High vaccine efficacy ({ve:.1f}%)  statistically significant (p={rr.p_value:.6f}).")
                 elif ve > 50:
                     st.warning(f"Moderate vaccine efficacy ({ve:.1f}%). Consider coverage improvements.")
                 elif ve < 0:
-                    st.error("Negative VE — investigate cold chain or selection bias.")
+                    st.error("Negative VE  investigate cold chain or selection bias.")
 
                 fig = go.Figure()
                 fig.add_trace(go.Bar(
@@ -1028,7 +1024,6 @@ elif page == "Vaccine Efficacy · MenAfriVac":
                 fig2.update_layout(
                     title="Forest plot · VE across sites",
                     xaxis_title="Vaccine Efficacy (%)",
-                    xaxis=dict(range=[-20, 105]),
                     height=290, **PLOTLY_THEME,
                 )
                 st.plotly_chart(fig2, use_container_width=True)
@@ -1094,7 +1089,7 @@ elif page == "Malaria RDT Evaluation":
     st.markdown(intro(
         "RDTs are the frontline diagnostic tool in low-resource settings. "
         "This analysis evaluates RDT performance against gold-standard microscopy "
-        "and computes clinical utility (PPV/NPV) across prevalence levels — "
+        "and computes clinical utility (PPV/NPV) across prevalence levels  "
         "critical for district-level decision making in Burkina Faso."
     ), unsafe_allow_html=True)
 
@@ -1138,9 +1133,10 @@ elif page == "Malaria RDT Evaluation":
             fig.update_layout(
                 title=f"PPV & NPV across prevalence · {rdt_name}",
                 xaxis_title="True prevalence (%)", yaxis_title="Predictive value (%)",
-                yaxis=dict(range=[0, 105]), height=290, hovermode="x unified",
+                height=290, hovermode="x unified",
                 **PLOTLY_THEME, legend=dict(bgcolor=PLT_BG),
             )
+            fig.update_yaxes(range=[0, 105])
             st.plotly_chart(fig, use_container_width=True)
 
             st.markdown(sec("Operational impact at your site"), unsafe_allow_html=True)
@@ -1278,7 +1274,7 @@ elif page == "Cholera Outbreak Response":
             )
             st.plotly_chart(fig2, use_container_width=True)
             st.success(
-                f"Combined WASH + OCV reduces mortality by **{pct_reduction:.0f}%** — "
+                f"Combined WASH + OCV reduces mortality by **{pct_reduction:.0f}%**  "
                 f"saving **{lives_saved:,} lives** in {location} over {t_end} days."
             )
         except Exception as e:
@@ -1365,7 +1361,7 @@ elif page == "HIV Treatment Cascade":
         ))
         fig.add_trace(go.Bar(
             name="Target", x=stages, y=targets_bar,
-            marker_color=["transparent"]*4,
+            marker_color=["rgba(0,0,0,0)"]*4,
             marker_line_color=[T_MUT]*4,
             marker_line_width=2,
             opacity=0.6,
@@ -1428,7 +1424,7 @@ elif page == "HIV Treatment Cascade":
 
         st.info(
             f"Reaching {target_1}-{target_2}-{target_3} targets in {country} would bring "
-            f"**{t_supp:,}** people to viral suppression — "
+            f"**{t_supp:,}** people to viral suppression  "
             f"**{t_supp - n_supp:,} additional** compared to current ({n_supp:,})."
         )
 
@@ -1564,13 +1560,13 @@ elif page == "Child Malnutrition · MUAC":
                 elif cas / cap > 0.8:
                     st.markdown(
                         f'<div class="al-warn"><strong>{prog}</strong>: '
-                        f'{cas}/{cap} — near saturation ({cas/cap*100:.0f}%). Monitor closely.</div>',
+                        f'{cas}/{cap}  near saturation ({cas/cap*100:.0f}%). Monitor closely.</div>',
                         unsafe_allow_html=True
                     )
                 else:
                     st.markdown(
                         f'<div class="al-info"><strong>{prog}</strong>: '
-                        f'{cas}/{cap} — adequate capacity ({cas/cap*100:.0f}%).</div>',
+                        f'{cas}/{cap}  adequate capacity ({cas/cap*100:.0f}%).</div>',
                         unsafe_allow_html=True
                     )
             monthly_cost = (int(n_sam*0.15)*85 + int(n_sam*0.85)*45 + n_mam*18)
@@ -1588,7 +1584,7 @@ elif page == "Sample Size Calculator":
     st.markdown(intro(
         "Plan your epidemiological study with correct sample size estimates. "
         "Supports cohort studies (risk ratio), case-control (odds ratio), "
-        "diagnostic test evaluations, and single proportion surveys — "
+        "diagnostic test evaluations, and single proportion surveys  "
         "validated against OpenEpi and Fleiss formulas."
     ), unsafe_allow_html=True)
 
