@@ -412,6 +412,17 @@ def navigate_to(page_name):
         st.session_state.page_idx = PAGES.index(page_name)
         st.rerun()
 
+# P value format
+
+def fmt_p(p: float) -> str:
+    """P-value formatted according to standard epidemiological conventions."""
+    if p < 0.0001:
+        return "<0.0001"
+    elif p < 0.001:
+        return f"{p:.4f}"
+    else:
+        return f"{p:.3f}"
+
 #  Sidebar 
 with st.sidebar:
     st.markdown("""
@@ -978,12 +989,12 @@ elif page == "Vaccine Efficacy · MenAfriVac":
 
                 c1, c2, c3, c4 = st.columns(4)
                 c1.markdown(card(f"{ve:.1f}%", "Vaccine Efficacy", f"[{ve_lo:.1f}% – {ve_hi:.1f}%]"), unsafe_allow_html=True)
-                c2.markdown(card(f"{rr.estimate:.3f}", "Risk Ratio", f"p={rr.p_value:.4f}"), unsafe_allow_html=True)
+                c2.markdown(card(f"{rr.estimate:.3f}", "Risk Ratio", f"p={fmt_p(rr.p_value)}"), unsafe_allow_html=True)
                 c3.markdown(card(f"{r_vacc:.1f}", "Risk vaccinated", "per 1,000"), unsafe_allow_html=True)
                 c4.markdown(card(f"{r_unv:.1f}", "Risk unvaccinated", "per 1,000"), unsafe_allow_html=True)
 
                 if ve > 70 and rr.p_value < 0.05:
-                    st.success(f"High vaccine efficacy ({ve:.1f}%)  statistically significant (p={rr.p_value:.6f}).")
+                    st.success(f"High vaccine efficacy ({ve:.1f}%)  statistically significant (p={fmt_p(rr.p_value)}).")
                 elif ve > 50:
                     st.warning(f"Moderate vaccine efficacy ({ve:.1f}%). Consider coverage improvements.")
                 elif ve < 0:
