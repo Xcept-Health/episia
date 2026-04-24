@@ -13,6 +13,7 @@ st.set_page_config(
 
 #  Pages list (shared) 
 PAGES = [
+    "Home",
     "Disease Burden Globe",
     "Meningitis · Burkina Faso",
     "Vaccine Efficacy · MenAfriVac",
@@ -455,6 +456,317 @@ with st.sidebar:
     )
 
 
+# PAGE : Home
+
+#  Session state
+if "lang" not in st.session_state:
+    st.session_state.lang = "en"
+
+if page == "Home":
+    st.title("Episia · Open Epidemiology for Africa")
+
+    #  Toggle langue 
+    col_lang, _ = st.columns([1, 4])
+    with col_lang:
+        lang_label = "Passer en français" if st.session_state.lang == "en" else "Switch to English"
+        if st.button(lang_label, use_container_width=True):
+            st.session_state.lang = "fr" if st.session_state.lang == "en" else "en"
+            st.rerun()
+
+    L = st.session_state.lang
+
+    #  Contenu bilingue 
+    content = {
+        "intro": {
+            "en": (
+                "Episia is an open source Python library that ports OpenEpi algorithms "
+                "to an African context. This interactive dashboard lets you explore its "
+                "capabilities without writing a single line of code."
+            ),
+            "fr": (
+                "Episia est une bibliothèque Python open source qui porte les algorithmes d'OpenEpi "
+                "dans un contexte africain. Ce tableau de bord interactif permet d'explorer ses "
+                "capacités sans écrire une seule ligne de code."
+            ),
+        },
+        "what_title": {"en": "What is Episia?", "fr": "Qu'est-ce qu'Episia ?"},
+        "what_body": {
+            "en": (
+                "Episia is a tool for <strong style='color:{T_PRI}'>epidemiologists, "
+                "public health officers, and researchers</strong> working in sub-Saharan Africa. "
+                "It automates the most common statistical computations in epidemic surveillance: "
+                "attack rates, vaccine efficacy, diagnostic test performance, sample size, "
+                "and outbreak modelling."
+                "<br><br>All formulas are validated against "
+                "<strong style='color:{ACC}'>OpenEpi</strong> (WHO reference tool) "
+                "and <strong style='color:{ACC}'>WHO/UNICEF</strong> guidelines."
+            ),
+            "fr": (
+                "Episia est un outil pour les <strong style='color:{T_PRI}'>épidémiologistes, "
+                "agents de santé publique et chercheurs</strong> qui travaillent en Afrique "
+                "sub-saharienne. Il automatise les calculs statistiques les plus courants en "
+                "surveillance épidémiologique : taux d'attaque, efficacité vaccinale, performance "
+                "des tests diagnostiques, taille d'échantillon, et modélisation d'épidémies."
+                "<br><br>Toutes les formules sont validées contre "
+                "<strong style='color:{ACC}'>OpenEpi</strong> "
+                "(l'outil de référence de l'OMS) et les recommandations "
+                "<strong style='color:{ACC}'>WHO/UNICEF</strong>."
+            ),
+        },
+        "modules_title": {
+            "en": "The 7 dashboard modules",
+            "fr": "Les 7 modules du tableau de bord",
+        },
+        "concepts_title": {
+            "en": "Key concepts — glossary",
+            "fr": "Concepts clés — glossaire",
+        },
+        "access_title": {"en": "Access & source code", "fr": "Accès & code source"},
+    }
+
+    #  Intro 
+    st.markdown(intro(content["intro"][L]), unsafe_allow_html=True)
+
+    #  Qu'est-ce qu'Episia ? 
+    st.markdown(sec(content["what_title"][L]), unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background:{CARD_BG};border:1px solid {BORDER};border-radius:10px;'
+        f'padding:1.1rem 1.4rem;font-size:.84rem;color:{T_SEC};line-height:1.75">'
+        + content["what_body"][L].format(T_PRI=T_PRI, ACC=ACC) +
+        f'</div>',
+        unsafe_allow_html=True
+    )
+
+    #  Modules 
+    st.markdown(sec(content["modules_title"][L]), unsafe_allow_html=True)
+
+    modules = [
+        (
+            "Disease Burden Globe", ACC,
+            {"en": "Disease burden map",           "fr": "Carte de charge de morbidité"},
+            {
+                "en": "Interactive geographic visualization of 5 disease burdens "
+                      "(meningitis, malaria, cholera, HIV, malnutrition) across 47 African countries. "
+                      "Toggle between 3D globe and flat map. Select a country to open its dedicated analysis.",
+                "fr": "Visualisation géographique interactive du fardeau de 5 maladies "
+                      "(méningite, paludisme, choléra, VIH, malnutrition) dans 47 pays africains. "
+                      "Basculez entre vue 3D et carte plate. Sélectionnez un pays pour ouvrir son analyse dédiée.",
+            },
+            {
+                "en": "Used by: public health planners, journalists, donors.",
+                "fr": "Qui l'utilise : planificateurs santé publique, journalistes, bailleurs de fonds.",
+            },
+        ),
+        (
+            "Meningitis · Burkina Faso", ACC3,
+            {"en": "Weekly epidemic surveillance",  "fr": "Surveillance épidémique hebdomadaire"},
+            {
+                "en": "Simulates the SNIS/DHIS2 surveillance system of the Burkina Faso Ministry of Health. "
+                      "Detects epidemic weeks, generates alerts, and projects the impact of 4 intervention "
+                      "scenarios (none, mass vaccination, ring, combined).",
+                "fr": "Simule le système de surveillance SNIS/DHIS2 du Ministère de la Santé du Burkina Faso. "
+                      "Détecte les semaines épidémiques, génère des alertes, et projette l'impact de "
+                      "4 scénarios d'intervention (aucune, vaccination de masse, anneau, combinée).",
+            },
+            {
+                "en": "Used by: district epidemiologists, outbreak response teams.",
+                "fr": "Qui l'utilise : épidémiologistes districts, équipes de riposte.",
+            },
+        ),
+        (
+            "Vaccine Efficacy · MenAfriVac", ACC4,
+            {"en": "Vaccine efficacy",              "fr": "Efficacité vaccinale"},
+            {
+                "en": "Computes VE = 1 − Risk Ratio from cohort or case-control data. "
+                      "Includes a comparative forest plot with published MenAfriVac studies in the Sahel "
+                      "and Mantel-Haenszel age-stratified adjustment.",
+                "fr": "Calcule VE = 1 − Risque Relatif à partir de données de cohorte ou cas-témoin. "
+                      "Inclut un forest plot comparatif avec les études publiées sur MenAfriVac au Sahel "
+                      "et un ajustement de Mantel-Haenszel par tranche d'âge.",
+            },
+            {
+                "en": "Used by: vaccinology researchers, programme evaluators.",
+                "fr": "Qui l'utilise : chercheurs vaccinologie, évaluateurs de programmes.",
+            },
+        ),
+        (
+            "Malaria RDT Evaluation", ACC2,
+            {"en": "Rapid diagnostic test performance", "fr": "Performance des tests diagnostiques rapides"},
+            {
+                "en": "Evaluates a malaria RDT against expert microscopy. Computes sensitivity, "
+                      "specificity, LR+, LR−, PPV and NPV by local prevalence. "
+                      "Projects daily missed cases and false alarms at your site.",
+                "fr": "Évalue un TDR paludisme contre la microscopie experte. Calcule sensibilité, "
+                      "spécificité, LR+, LR−, PPV et NPV selon la prévalence locale. "
+                      "Projette le nombre de cas manqués et fausses alarmes par jour dans votre site.",
+            },
+            {
+                "en": "Used by: lab managers, biologists, district health officers.",
+                "fr": "Qui l'utilise : biologistes, responsables laboratoire, DSP.",
+            },
+        ),
+        (
+            "Cholera Outbreak Response", ACC,
+            {"en": "SEIRD outbreak simulation",     "fr": "Simulation de réponse épidémique SEIRD"},
+            {
+                "en": "Compartmental SEIRD model (Susceptible → Exposed → Infected → Recovered → Dead). "
+                      "Compares 4 scenarios: none, WASH only, oral cholera vaccine (OCV) only, combined. "
+                      "Calculates lives saved and mortality reduction.",
+                "fr": "Modèle compartimental SEIRD (Susceptible → Exposé → Infecté → Rétabli → Décédé). "
+                      "Compare 4 scénarios : aucun, WASH seul, vaccin oral (OCV) seul, combiné. "
+                      "Calcule le nombre de vies sauvées et la réduction de mortalité.",
+            },
+            {
+                "en": "Used by: emergency coordinators, MSF/WHO/UNICEF teams.",
+                "fr": "Qui l'utilise : coordinateurs urgences, équipes MSF/OMS/UNICEF.",
+            },
+        ),
+        (
+            "HIV Treatment Cascade", ACC3,
+            {"en": "HIV cascade · 90-90-90 targets", "fr": "Cascade de traitement VIH · cibles 90-90-90"},
+            {
+                "en": "Analyses attrition across the cascade: testing → ART initiation → viral suppression. "
+                      "Compares current situation to UNAIDS 90-90-90 targets. "
+                      "Quantifies unmet need at each stage.",
+                "fr": "Analyse l'attrition dans la cascade : dépistage → mise sous ARV → suppression virale. "
+                      "Compare la situation actuelle aux cibles ONUSIDA 90-90-90. "
+                      "Quantifie le besoin non couvert à chaque étape.",
+            },
+            {
+                "en": "Used by: national HIV programmes, PEPFAR, Global Fund.",
+                "fr": "Qui l'utilise : programmes nationaux VIH, PEPFAR, Global Fund.",
+            },
+        ),
+        (
+            "Child Malnutrition · MUAC", ACC4,
+            {"en": "Acute malnutrition screening (MUAC)", "fr": "Dépistage malnutrition aiguë (MUAC)"},
+            {
+                "en": "Simulates a MUAC distribution by season and automatically classifies "
+                      "SAM/MAM/Normal according to WHO thresholds. "
+                      "Compares caseload to ITFC/OTP/TSFP programme capacity.",
+                "fr": "Simule une distribution de MUAC selon la saison et génère automatiquement "
+                      "les classifications SAM/MAM/Normal selon les seuils OMS. "
+                      "Compare la charge de cas à la capacité des programmes ITFC/OTP/TSFP.",
+            },
+            {
+                "en": "Used by: nutritionists, ACF/NRC, community health workers.",
+                "fr": "Qui l'utilise : nutritionnistes, ACF/NRC, agents communautaires.",
+            },
+        ),
+        (
+            "Sample Size Calculator", ACC2,
+            {"en": "Sample size calculation",       "fr": "Calcul de taille d'échantillon"},
+            {
+                "en": "4 methods validated against OpenEpi and Fleiss: cohort (RR), case-control (OR), "
+                      "diagnostic test evaluation (sensitivity/specificity), and single proportion survey. "
+                      "Includes design effect (DEFF) for cluster surveys.",
+                "fr": "4 méthodes validées contre OpenEpi et Fleiss : cohorte (RR), cas-témoin (OR), "
+                      "évaluation de test diagnostique (sensibilité/spécificité), et enquête de proportion. "
+                      "Inclut le facteur de grappe (DEFF) pour les sondages en grappes.",
+            },
+            {
+                "en": "Used by: researchers, MSc/PhD students, ethics committees.",
+                "fr": "Qui l'utilise : chercheurs, étudiants master/doctorat, comités éthiques.",
+            },
+        ),
+    ]
+
+    for mod_name, color, subtitle_d, desc_d, users_d in modules:
+        st.markdown(
+            f'<div style="background:{CARD_BG};border:1px solid {BORDER};'
+            f'border-left:4px solid {color};border-radius:10px;'
+            f'padding:1rem 1.25rem;margin-bottom:.7rem">'
+            f'<div style="display:flex;align-items:baseline;gap:.7rem;margin-bottom:.35rem">'
+            f'<span style="font-size:.82rem;font-weight:700;color:{T_PRI}">{mod_name}</span>'
+            f'<span style="font-size:.65rem;color:{color};font-family:IBM Plex Mono,monospace;'
+            f'background:rgba(41,151,255,.07);border:1px solid {color}33;'
+            f'border-radius:4px;padding:.1rem .45rem">{subtitle_d[L]}</span>'
+            f'</div>'
+            f'<div style="font-size:.79rem;color:{T_SEC};line-height:1.65;margin-bottom:.4rem">'
+            f'{desc_d[L]}</div>'
+            f'<div style="font-size:.67rem;color:{T_MUT};font-family:IBM Plex Mono,monospace">'
+            f'{users_d[L]}</div>'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+
+    #  Glossaire 
+    st.markdown(sec(content["concepts_title"][L]), unsafe_allow_html=True)
+
+    concepts = {
+        "RR · Risk Ratio / Risque Relatif": {
+            "en": "Ratio of disease risk between exposed and unexposed. RR=1 → no association. RR=2 → exposed have twice the risk.",
+            "fr": "Rapport du risque de maladie entre exposés et non-exposés. RR=1 → pas d'association. RR=2 → les exposés ont 2× plus de risque.",
+        },
+        "OR · Odds Ratio": {
+            "en": "Used in case-control studies. Approximates RR when disease is rare. OR>1 → risk factor. OR<1 → protective factor.",
+            "fr": "Utilisé dans les études cas-témoin. Approxime le RR quand la maladie est rare. OR>1 → facteur de risque. OR<1 → facteur protecteur.",
+        },
+        "VE · Vaccine Efficacy / Efficacité Vaccinale": {
+            "en": "VE = (1 − RR) × 100%. VE=76% → vaccine reduces risk by 76% compared to unvaccinated.",
+            "fr": "VE = (1 − RR) × 100%. VE=76% → le vaccin réduit le risque de 76% par rapport aux non-vaccinés.",
+        },
+        "Sensitivity / Sensibilité — Specificity / Spécificité": {
+            "en": "Sensitivity = % of true cases correctly detected. Specificity = % of healthy subjects correctly negative.",
+            "fr": "Sensibilité = % de vrais malades correctement détectés. Spécificité = % de sujets sains correctement négatifs.",
+        },
+        "PPV / NPV": {
+            "en": "Positive/Negative Predictive Value: accounts for real prevalence. A highly sensitive test yields a high NPV.",
+            "fr": "Valeur prédictive positive/négative : tient compte de la prévalence réelle. Un test très sensible a un NPV élevé.",
+        },
+        "SEIR / SEIRD": {
+            "en": "Compartmental models: S=Susceptible, E=Exposed, I=Infected, R=Recovered, D=Dead. Simulate epidemic dynamics.",
+            "fr": "Modèles compartimentaux : S=Susceptible, E=Exposé, I=Infecté, R=Rétabli, D=Décédé. Simulent la dynamique d'une épidémie.",
+        },
+        "R₀ · Basic Reproduction Number": {
+            "en": "Average secondary cases generated by one index case. R₀ > 1 → epidemic grows. R₀ < 1 → epidemic dies out.",
+            "fr": "Nombre moyen de cas secondaires générés par un cas index. R₀ > 1 → épidémie s'étend. R₀ < 1 → épidémie s'éteint.",
+        },
+        "MUAC": {
+            "en": "Mid-Upper Arm Circumference. < 115mm = severe acute malnutrition (SAM). 115–125mm = moderate (MAM).",
+            "fr": "Périmètre brachial. < 115mm = malnutrition aiguë sévère (MAS). 115–125mm = modérée (MAM).",
+        },
+        "DEFF · Design Effect": {
+            "en": "Correction factor for cluster surveys. DEFF=1.5 → multiply sample size by 1.5 vs simple random sampling.",
+            "fr": "Facteur correctif pour les sondages en grappes. DEFF=1,5 → taille d'échantillon à multiplier par 1,5 vs sondage aléatoire simple.",
+        },
+        "90-90-90 UNAIDS / ONUSIDA": {
+            "en": "HIV targets: 90% of PLHIV know status · 90% on ART · 90% virally suppressed. Equals 73% overall suppression.",
+            "fr": "Cibles VIH : 90% des PVVIH connaissent leur statut · 90% sous ARV · 90% en suppression virale. Équivaut à 73% de suppression globale.",
+        },
+    }
+
+    col_a, col_b = st.columns(2)
+    items = list(concepts.items())
+    for i, (term, def_d) in enumerate(items):
+        target_col = col_a if i % 2 == 0 else col_b
+        with target_col:
+            st.markdown(
+                f'<div style="background:{CARD_BG};border:1px solid {BORDER};border-radius:8px;'
+                f'padding:.65rem .9rem;margin-bottom:.4rem">'
+                f'<div style="font-size:.72rem;font-weight:600;color:{ACC};'
+                f'font-family:IBM Plex Mono,monospace;margin-bottom:.25rem">{term}</div>'
+                f'<div style="font-size:.76rem;color:{T_SEC};line-height:1.6">{def_d[L]}</div>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
+
+    #  Accès & code source 
+    st.markdown(sec(content["access_title"][L]), unsafe_allow_html=True)
+    st.markdown(
+        f'<div style="background:{CARD_BG};border:1px solid {BORDER};border-radius:10px;'
+        f'padding:1rem 1.25rem;display:flex;gap:2rem;align-items:center">'
+        f'<div><div style="font-size:.72rem;color:{T_MUT};font-family:IBM Plex Mono,monospace">DASHBOARD</div>'
+        f'<div style="font-size:.9rem;font-weight:600;color:{ACC};margin-top:.2rem">episia-dashboard.streamlit.app</div></div>'
+        f'<div style="width:1px;background:{BORDER};height:40px"></div>'
+        f'<div><div style="font-size:.72rem;color:{T_MUT};font-family:IBM Plex Mono,monospace">PYPI</div>'
+        f'<div style="font-size:.9rem;font-weight:600;color:{ACC2};margin-top:.2rem">pip install episia</div></div>'
+        f'<div style="width:1px;background:{BORDER};height:40px"></div>'
+        f'<div><div style="font-size:.72rem;color:{T_MUT};font-family:IBM Plex Mono,monospace">GITHUB</div>'
+        f'<div style="font-size:.9rem;font-weight:600;color:{T_PRI};margin-top:.2rem">Xcept-Health/episia · MIT</div></div>'
+        f'</div>',
+        unsafe_allow_html=True
+    )
 
 # PAGE : Disease Burden Globe
 
