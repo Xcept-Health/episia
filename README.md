@@ -695,7 +695,7 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 | Version | Focus | Target | Status |
 |---------|-------|--------|--------|
 | **0.1.0** | Core models, stats, viz, DHIS2 adapter | March 2026 |  Complete |
-| **0.1.1** | Bug fixes, docs | April 2026 | Planning |
+| **0.1.1** | Bug fixes, docs | April 2026 | complete |
 | **0.2.0** | Stochastic models, expanded DHIS2 | Q2 2026 | Planned |
 | **0.3.0** | Spatial epidemiology, Bayesian methods | Q3 2026 | Planned |
 | **0.4.0** | Real-time forecasting, ensemble methods | Q4 2026 | Planned |
