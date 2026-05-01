@@ -1,0 +1,337 @@
+# Episia
+> Open-source Python library for epidemiological surveillance, modeling, and biostatistics.
+> Designed for resource-limited settings, particularly sub-Saharan Africa.
+> Validated against OpenEpi (gold standard in epidemiology).
+
+- Source: https://github.com/Xcept-Health/episia
+- Docs: https://episia.readthedocs.io
+- PyPI: https://pypi.org/project/episia/
+- Preprint: https://doi.org/10.64898/2026.04.17.26350337
+- DOI (software): https://doi.org/10.5281/zenodo.19429374
+- License: MIT
+- Python: 3.9+
+- Version: 0.1.1
+
+## Installation
+
+```bash
+pip install episia
+pip install episia[full]   # with all optional dependencies
+pip install episia[jupyter] # Jupyter + interactive widgets
+pip install episia[export]  # PNG/SVG/PDF export via kaleido
+```
+
+## Entry point
+
+```python
+from episia import epi  # unified convenience singleton
+```
+
+## Epidemic modeling — episia.models
+
+Classes: SIRModel, SEIRModel, SEIRDModel, ModelCalibrator, SensitivityAnalysis, ScenarioRunner
+
+```python
+from episia.models import SEIRModel
+from episia.models.parameters import SEIRParameters
+
+params = SEIRParameters(
+    N=1_000_000, I0=10, E0=50,
+    beta=0.35,
+    sigma=1/5.2,   # 1 / incubation period (days)
+    gamma=1/14,    # 1 / infectious period (days)
+    t_span=(0, 365),
+)
+result = SEIRModel(params).run()
+print(result.r0)                          # basic reproduction number
+print(result.peak_infected)               # peak infected count
+result.plot().show()                      # interactive Plotly figure
+result.plot(backend="matplotlib")         # publication-quality figure
+
+# via unified API
+result = epi.seir(N=1_000_000, I0=10, E0=50, beta=0.35, sigma=1/5.2, gamma=1/14).run()
+```
+
+```python
+# SEIRD (with mortality)
+from episia.models import SEIRDModel
+from episia.models.parameters import SEIRDParameters
+
+params = SEIRDParameters(N=1_000_000, I0=1, E0=10, beta=0.35, sigma=1/5.2, gamma=0.09, mu=0.01)
+result = SEIRDModel(params).run()
+print(result.compartments["D"][-1])       # total deaths
+```
+
+```python
+# Monte Carlo sensitivity analysis
+from episia.models import SensitivityAnalysis
+
+sa = SensitivityAnalysis(
+    model_class=SEIRModel,
+    param_class=SEIRParameters,
+    fixed=dict(N=1_000_000, I0=10, E0=50, t_span=(0, 365)),
+    distributions={
+        "beta":  ("uniform",    0.25, 0.50),
+        "sigma": ("normal",     1/5.2, 0.02),
+        "gamma": ("triangular", 1/21, 1/14, 1/7),
+    },
+    n_samples=500,
+    seed=42,
+)
+sa_result = sa.run()
+sa_result.plot("I").show()
+print(sa_result.summary())
+```
+
+```python
+# Multi-scenario comparison
+from episia.models.parameters import SEIRParameters, ScenarioSet
+from episia.models import ScenarioRunner
+
+scenarios = ScenarioSet([
+    ("No intervention", SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.35, sigma=1/5.2, gamma=1/14)),
+    ("50% reduction",   SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.18, sigma=1/5.2, gamma=1/14)),
+    ("70% reduction",   SEIRParameters(N=1_000_000, I0=10, E0=50, beta=0.11, sigma=1/5.2, gamma=1/14)),
+])
+sr = ScenarioRunner(SEIRModel).run(scenarios)
+sr.plot(compartment="I").show()
+```
+
+```python
+# Model calibration on observed data
+from episia.models import ModelCalibrator
+
+calibrator = ModelCalibrator(
+    model_class=SEIRModel,
+    observed_data=df,           # pandas DataFrame with a "cases" column
+    target_column="cases",
+)
+fitted_params = calibrator.fit(
+    initial_params=SEIRParameters(N=1_500_000, beta=0.3, sigma=1/5.2, gamma=1/14),
+    bounds={"beta": (0.1, 0.8), "gamma": (1/21, 1/7)},
+)
+print(fitted_params.r0)
+```
+
+## Biostatistics — episia.stats
+
+Functions: risk_ratio, odds_ratio, proportion_ci, mean_ci, incidence_rate,
+diagnostic_test_2x2, roc_analysis, sample_size_risk_ratio,
+sample_size_single_proportion, mantel_haenszel_or,
+logistic_regression, poisson_regression
+
+```python
+from episia.stats import risk_ratio, odds_ratio, proportion_ci, diagnostic_test_2x2, roc_analysis, sample_size_risk_ratio
+
+# 2x2 contingency table: a=exposed+case, b=exposed+control, c=unexposed+case, d=unexposed+control
+rr = risk_ratio(a=40, b=10, c=20, d=30)
+print(rr)               # Risk Ratio: 2.667 (1.514-4.696)
+print(rr.significant)   # True
+print(rr.p_value)
+
+or_ = odds_ratio(a=40, b=10, c=20, d=30)
+print(or_)              # Odds Ratio: 6.000 (2.453-14.678)
+
+# Proportion confidence intervals (5 methods: wilson, wald, jeffreys, clopper-pearson, agresti-coull)
+p = proportion_ci(k=45, n=200, method="wilson")
+print(p)                # Proportion: 0.2250 (0.1714-0.2888)
+
+# Diagnostic test evaluation
+diag = diagnostic_test_2x2(tp=80, fp=10, fn=20, tn=90)
+print(diag.sensitivity)   # 0.800
+print(diag.specificity)   # 0.900
+print(diag.ppv)           # 0.889
+print(diag.npv)           # 0.818
+print(diag.lr_plus)       # 8.000
+print(diag.youden)        # 0.700
+
+# ROC curve and AUC
+import numpy as np
+roc = roc_analysis(
+    y_true=np.array([1,1,1,0,0,0,1,0,1,0]),
+    y_score=np.array([0.9,0.8,0.7,0.3,0.2,0.1,0.6,0.4,0.85,0.35])
+)
+print(roc.auc)
+roc.plot().show()
+
+# Sample size for cohort study (risk ratio)
+ss = sample_size_risk_ratio(rr_expected=2.0, p0=0.10, alpha=0.05, power=0.80)
+print(ss.per_group)     # 199
+print(ss.total)         # 398
+
+# Stratified Mantel-Haenszel analysis
+from episia.stats.stratified import mantel_haenszel_or
+from episia.stats.contingency import Table2x2
+
+strata = [Table2x2(15, 5, 25, 20), Table2x2(30, 10, 40, 35), Table2x2(20, 8, 30, 25)]
+mh = mantel_haenszel_or(strata)
+print(mh)  # pooled OR, Cochran Q, I²
+```
+
+## Visualization — episia.viz
+
+Backends: plotly (default, interactive) or matplotlib (publication-quality, 300 DPI)
+Themes: scientific, minimal, dark, colorblind
+
+```python
+from episia.viz import plot_epicurve, set_theme
+
+set_theme("dark")   # or "scientific", "minimal", "colorblind"
+
+# Epidemic curve
+from episia.api.results import TimeSeriesResult
+ts = TimeSeriesResult(times=result.t, values=result.compartments["I"])
+plot_epicurve(ts, animate=True).show()
+
+# Export
+fig = result.plot(backend="matplotlib")
+fig.savefig("figure1.pdf", dpi=300, bbox_inches="tight")
+result.plot().write_html("figure1.html")
+```
+
+## Surveillance data — episia.data
+
+Classes: SurveillanceDataset, AlertEngine
+
+```python
+from episia.data import SurveillanceDataset, AlertEngine
+
+# Load from CSV (DHIS2-compatible)
+ds = SurveillanceDataset.from_csv(
+    "cases.csv",
+    date_col="date", cases_col="cases",
+    deaths_col="deaths", district_col="district",
+    population_col="population",
+)
+print(ds.total_cases)
+print(ds.total_deaths)
+
+ar = ds.attack_rate(population=500_000, per=100_000)
+weekly = ds.aggregate(freq="W")
+channel = ds.endemic_channel(percentiles=(25, 50, 75))
+
+# Alert detection (threshold, z-score, endemic channel)
+engine = AlertEngine(ds)
+alerts = engine.run(threshold=15, zscore_threshold=2.0, use_endemic_channel=True)
+summary = engine.alert_summary(alerts)
+print(summary["n_alerts"], summary["severity_counts"])
+```
+
+## DHIS2 integration — episia.dhis2
+
+Classes: DHIS2Client, DHIS2Adapter
+
+```python
+from episia.dhis2 import DHIS2Client, DHIS2Adapter
+
+client = DHIS2Client(
+    base_url="https://dhis2.moh.gov.bf",
+    username="epi_officer",
+    password="...",
+)
+print(client.about())
+
+cases_data = client.get_data_values(
+    data_element="rQLFQyPSmie",
+    period="202401:202412",
+    org_units="ImspD0yaksKo",
+)
+
+adapter = DHIS2Adapter()
+ds = adapter.to_surveillance_dataset(cases_data, date_col="period", cases_col="value")
+```
+
+## Report generation — episia.api.reporting
+
+Classes: EpiReport, report_from_model
+
+```python
+from episia import EpiReport, report_from_model
+import webbrowser, os
+
+# Auto-generate from model result
+report = report_from_model(
+    model_result,
+    title="SEIR Analysis - Burkina Faso 2024",
+    author="Dr. F. A. S. Ouedraogo",
+    institution="Xcept-Health",
+)
+path = report.save_html("report.html")
+webbrowser.open(f"file:///{os.path.abspath(path)}")
+
+# Custom epidemiological bulletin
+report = EpiReport(title="Weekly Bulletin - Week 12", author="MOH", institution="Ministry of Health")
+report.add_text("Summary text here.", title="Summary")
+report.add_metrics({"Cases": 42, "Deaths": 3, "CFR": "7.1%"})
+report.add_figure(fig, title="Epidemic curve", caption="Centre Region, 2024.")
+report.add_divider()
+
+# Multiple export formats
+report.save_html("bulletin.html")
+report.save_markdown("bulletin.md")
+report.save_json("bulletin.json")
+
+# via unified API
+report = epi.report(result, title="SEIR Burkina Faso 2024")
+report.save_html("report.html")
+```
+
+## Terminal loader for long operations
+
+```python
+from episia.core.utilities import EpiLoader
+
+with EpiLoader("Running SEIR model"):
+    result = model.run()
+```
+
+## Terminal quick reference
+
+```bash
+python -m episia
+```
+
+## Module structure
+
+- episia.api — unified epi singleton, result objects, reporting
+- episia.models — SIR, SEIR, SEIRD, calibration, scenarios, Monte Carlo
+- episia.stats — contingency, descriptive, diagnostic, sample size, stratified, regression
+- episia.viz — Plotly + Matplotlib backends, themes, epicurve, ROC, forest plots
+- episia.data — SurveillanceDataset, AlertEngine, endemic channel
+- episia.dhis2 — DHIS2Client, DHIS2Adapter
+- episia.core — validator, calculator, exceptions, EpiLoader, constants
+
+## Key design principles
+
+- Every function returns a rich, serializable result object (EpiResult subclass)
+- Dual visualization backend: plotly (interactive) and matplotlib (publication-quality)
+- 100% offline — zero network dependencies at runtime
+- Validated against OpenEpi reference implementation
+- Self-contained HTML reports with dark/light mode toggle
+
+## Citation
+
+```bibtex
+@article{ouedraogo2026episia_preprint,
+  author  = {Ouedraogo, Fildouind{\'e} Ariel Shadrac},
+  title   = {Episia: An Open-Source Python Library for Epidemiological
+             Surveillance, Modeling, and Biostatistics in Resource-Limited Settings},
+  journal = {medRxiv},
+  year    = {2026},
+  doi     = {10.64898/2026.04.17.26350337},
+}
+
+@software{ouedraogo2026episia,
+  author  = {Ouedraogo, Fildouindé Ariel Shadrac},
+  title   = {Episia: Open-source epidemiology and biostatistics for Python},
+  year    = {2026},
+  doi     = {10.5281/zenodo.19429374},
+  version = {0.1.1},
+}
+```
+
+## Author
+
+Fildouindé Ariel Shadrac Ouedraogo
+ORCID: 0009-0003-3419-5985
+Organization: Xcept-Health, Ouagadougou, Burkina Faso
