@@ -211,7 +211,7 @@ sr.to_dataframe()
 | `odds_ratio(a, b, c, d)` | `AssociationResult` | Odds ratio with CI |
 | `proportion_ci(k, n)` | `ProportionResult` | ProportionWilson, Wald, Jeffreys, Clopper-Pearson, Agresti-Coull |
 | `mean_ci(data)` | `MeanResult` | Mean with t / normal CI |
-| `incidence_rate(cases, person_time)` | `dict` | Incidence rateByar + exact Poisson CI |
+| `incidence_rate(cases, person_time)` | IncidenceRateResult | Incidence rateByar + exact Poisson CI |
 | `diagnostic_test_2x2(tp, fp, fn, tn)` | `DiagnosticResult` | Sensitivity, specificity, PPV, NPV, LR+/- |
 | `roc_analysis(y_true, y_score)` | `ROCResult` | Full ROC curve, AUC, optimal threshold (Youden) |
 | `sample_size_risk_ratio(...)` | `SampleSizeResult` | Sample size for cohort study |
