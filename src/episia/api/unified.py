@@ -71,6 +71,21 @@ class EpisiaAPI:
     def diagnostic(*args, **kwargs):
         from ..stats.diagnostic import diagnostic_test_2x2
         return diagnostic_test_2x2(*args, **kwargs)
+    
+        @staticmethod
+    def prevalence(*args, **kwargs):
+        from ..stats.descriptive import prevalence
+        return prevalence(*args, **kwargs)
+
+    @staticmethod
+    def cumulative_incidence(*args, **kwargs):
+        from ..stats.descriptive import cumulative_incidence
+        return cumulative_incidence(*args, **kwargs)
+
+    @staticmethod
+    def incidence_rate(*args, **kwargs):
+        from ..stats.descriptive import incidence_rate
+        return incidence_rate(*args, **kwargs)
 
     #  Models 
 
@@ -164,20 +179,6 @@ class EpisiaAPI:
             "  epi.read_csv() / epi.report() / epi.set_theme()"
         )
 
-    @staticmethod
-    def prevalence(*args, **kwargs):
-        from ..stats.descriptive import prevalence
-        return prevalence(*args, **kwargs)
-
-    @staticmethod
-    def cumulative_incidence(*args, **kwargs):
-        from ..stats.descriptive import cumulative_incidence
-        return cumulative_incidence(*args, **kwargs)
-
-    @staticmethod
-    def incidence_rate(*args, **kwargs):
-        from ..stats.descriptive import incidence_rate
-        return incidence_rate(*args, **kwargs)
 
 # Singleton exporté
 epi = EpisiaAPI()
