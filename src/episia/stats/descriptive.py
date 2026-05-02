@@ -76,6 +76,39 @@ class MeanResult:
             "method": self.method
         }
 
+@dataclass
+class IncidenceRateResult:
+    """Rich result object for incidence rate calculations."""
+    rate: float
+    ci_lower: float
+    ci_upper: float
+    cases: int
+    person_time: float
+    multiplier: int
+    confidence: float
+    method: str
+    
+    def __repr__(self) -> str:
+        unit = f"per {self.multiplier:,} person-time" if self.multiplier != 1 else "per person-time"
+        scaled = self.rate * self.multiplier
+        lo = self.ci_lower * self.multiplier
+        hi = self.ci_upper * self.multiplier
+        return f"Rate: {scaled:.4f} ({lo:.4f}-{hi:.4f}) {unit}"
+    
+    def to_dict(self) -> Dict:
+        """Convert result to dictionary."""
+        return {
+            "measure": "incidence_rate",
+            "rate": self.rate,
+            "ci_lower": self.ci_lower,
+            "ci_upper": self.ci_upper,
+            "cases": self.cases,
+            "person_time": self.person_time,
+            "multiplier": self.multiplier,
+            "confidence": self.confidence,
+            "method": self.method
+        }
+
 
 def proportion_ci(
     numerator: int = None,
@@ -309,20 +342,28 @@ def attack_rate(
 def prevalence(
     cases: int,
     population: int,
-    confidence: float = 0.95
+    confidence: float = 0.95,
+    method: CI_Method = CI_Method.WILSON,
 ) -> ProportionResult:
     """
-    Calculate point prevalence with CI.
-    
+    Calculate point prevalence with confidence interval.
+ 
     Args:
-        cases: Number of prevalent cases
-        population: Total population
-        confidence: Confidence level
-        
+        cases: Number of prevalent cases (existing cases at time T).
+        population: Total population examined.
+        confidence: Confidence level (default 0.95).
+        method: CI method (default Wilson).
+ 
     Returns:
-        ProportionResult object
+        ProportionResult
+ 
+    Example:
+        >>> # HTA survey, Burkina Faso STEPS 2013
+        >>> result = prevalence(1056, 4800)
+        >>> print(result)
+        Proportion: 0.2200 (0.2085-0.2319)
     """
-    return proportion_ci(cases, population, confidence=confidence)
+    return _proportion_ci_impl(cases, population, method, confidence)
 
 
 #  CONFIDENCE INTERVAL METHODS 
