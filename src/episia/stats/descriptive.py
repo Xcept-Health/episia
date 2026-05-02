@@ -141,12 +141,6 @@ def _proportion_ci_impl(
     confidence: float = 0.95,
     **kwargs
 ) -> ProportionResult:
-    # Accept string method names e.g. method="wilson"
-    if isinstance(method, str):
-        try:
-            method = CI_Method(method.lower())
-        except ValueError:
-            method = CI_Method.WILSON
     """
     Calculate proportion with confidence interval.
     
@@ -169,6 +163,13 @@ def _proportion_ci_impl(
         >>> print(result.proportion)
         0.45
     """
+    # Accept string method names e.g. method="wilson"
+    if isinstance(method, str):
+        try:
+            method = CI_Method(method.lower())
+        except ValueError:
+            method = CI_Method.WILSON
+    
     # Input validation
     if denominator <= 0:
         raise ValueError("Denominator must be positive")
@@ -275,50 +276,99 @@ def mean_ci(
 def incidence_rate(
     cases: int,
     person_time: float,
-    confidence: float = 0.95
-) -> Dict[str, float]:
+    confidence: float = 0.95,
+    multiplier: int = 1, 
+) -> IncidenceRateResult:
     """
-    Calculate incidence rate (cases per person-time) with CI.
-    
+    Calculate person-time incidence rate with confidence interval.
+ 
+    Uses Byar's approximation when cases >= 10, exact Poisson (chi-squared)
+    otherwise consistent with OpenEpi and Rothman & Greenland.
+ 
     Args:
-        cases: Number of incident cases
-        person_time: Total person-time at risk
-        confidence: Confidence level
-        
+        cases: Number of incident cases.
+        person_time: Total person-time at risk (any unit: years, months, days).
+        confidence: Confidence level (default 0.95).
+        multiplier: Scale factor for display, e.g. 100, 1_000, 100_000.
+                    Does not affect stored rate — only __repr__ scaling.
+ 
     Returns:
-        Dictionary with rate, CI, and other statistics
-        
+        IncidenceRateResult
+ 
     Example:
-        >>> result = incidence_rate(10, 1000)
-        >>> print(result['rate'])
-        0.01  # 10 cases per 1000 person-time units
+        >>> # HIV seroconversion cohort, 20 cases / 500 person-years
+        >>> result = incidence_rate(20, 500, multiplier=100)
+        >>> print(result)
+        Rate: 4.0000 (2.4423-6.1780) per 100 person-time
     """
     if person_time <= 0:
         raise ValueError("Person-time must be positive")
+    if cases < 0:
+        raise ValueError("cases must be non-negative.")
     
     rate = cases / person_time
+    z = _z_score(confidence)
     
     # Byar's approximation (good for cases >= 10)
     if cases >= 10:
-        z = _z_score(confidence)
-        ci_lower = cases * (1 - 1/(9*cases) - z/(3*np.sqrt(cases)))**3 / person_time
-        ci_upper = (cases + 1) * (1 - 1/(9*(cases+1)) + z/(3*np.sqrt(cases+1)))**3 / person_time
+        # Byar's approximation
+        ci_lower = (
+            cases * (1 - 1 / (9 * cases) - z / (3 * np.sqrt(cases))) ** 3
+            / person_time
+        )
+        ci_upper = (
+            (cases + 1)
+            * (1 - 1 / (9 * (cases + 1)) + z / (3 * np.sqrt(cases + 1))) ** 3
+            / person_time
+        )
+        method = "byar"
     else:
-        # Exact Poisson CI for small numbers
-        from scipy import stats
-        ci_lower = stats.chi2.ppf((1-confidence)/2, 2*cases) / (2*person_time)
-        ci_upper = stats.chi2.ppf(1-(1-confidence)/2, 2*(cases+1)) / (2*person_time)
+        # Exact Poisson via chi-squared quantiles
+        from scipy import stats as _stats
+        alpha = 1 - confidence
+        ci_lower = _stats.chi2.ppf(alpha / 2, 2 * cases) / (2 * person_time)
+        ci_upper = _stats.chi2.ppf(1 - alpha / 2, 2 * (cases + 1)) / (2 * person_time)
+        method = "exact_poisson"
     
-    return {
-        "measure": "incidence_rate",
-        "rate": rate,
-        "ci_lower": ci_lower,
-        "ci_upper": ci_upper,
-        "cases": cases,
-        "person_time": person_time,
-        "confidence": confidence
-    }
-
+    return IncidenceRateResult(
+        rate=rate,
+        ci_lower=ci_lower,
+        ci_upper=ci_upper,
+        cases=cases,
+        person_time=person_time,
+        multiplier=multiplier,
+        confidence=confidence,
+        method=method,
+    )
+    
+def cumulative_incidence(
+    cases: int,
+    population_at_risk: int,
+    confidence: float = 0.95,
+    method: CI_Method = CI_Method.WILSON,
+) -> ProportionResult:
+    """
+    Calculate cumulative incidence (attack rate / risk) with confidence interval.
+ 
+    The denominator must be the disease-free population at the start of
+    the observation period, not the total population.
+ 
+    Args:
+        cases: Number of new cases over the period.
+        population_at_risk: Disease-free population at period start.
+        confidence: Confidence level (default 0.95).
+        method: CI method (default Wilson).
+ 
+    Returns:
+        ProportionResult
+ 
+    Example:
+        >>> # Malaria cohort, rainy season, Sahel
+        >>> result = cumulative_incidence(120, 500)
+        >>> print(result)
+        Proportion: 0.2400 (0.2046-0.2793)
+    """
+    return _proportion_ci_impl(cases, population_at_risk, method, confidence)
 
 def attack_rate(
     cases: int,
@@ -336,7 +386,7 @@ def attack_rate(
     Returns:
         ProportionResult object
     """
-    return proportion_ci(cases, population, confidence=confidence)
+    return cumulative_incidence(cases, population, confidence=confidence)
 
 
 def prevalence(
@@ -638,9 +688,11 @@ __all__ = [
     'CI_Method',
     'ProportionResult',
     'MeanResult',
+    'IncidenceRateResult',
     'proportion_ci',
     'mean_ci',
     'incidence_rate',
+    'cumulative_incidence',
     'attack_rate',
     'prevalence',
     'median_ci',
