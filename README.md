@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Documentation](https://img.shields.io/badge/Documentation-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
-[![Version](https://img.shields.io/badge/Version-0.1.1-orange?style=flat-square)](https://github.com/Xcept-Health/episia)
+[![PyPI version](https://fury.io)](https://fury.io)
 [![PyPI Downloads](https://static.pepy.tech/personalized-badge/episia?period=total&units=ABBREVIATION&left_color=BLACK&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/episia)
 [![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
 [![DOI](https://zenodo.org/badge/DOI//10.5281/zenodo.19429374.svg)](https://doi.org/10.5281/zenodo.19429373)
@@ -209,15 +209,17 @@ sr.to_dataframe()
 |---|---|---|
 | `risk_ratio(a, b, c, d)` | `AssociationResult` | Risk ratio with CI |
 | `odds_ratio(a, b, c, d)` | `AssociationResult` | Odds ratio with CI |
-| `proportion_ci(k, n)` | `ProportionResult` | ProportionWilson, Wald, Jeffreys, Clopper-Pearson, Agresti-Coull |
+| `proportion_ci(k, n)` | `ProportionResult` | Proportion? Wilson, Wald, Jeffreys, Clopper-Pearson, Agresti-Coull |
+| `prevalence(cases, population)` | `ProportionResult` | Point prevalence with CI |
+| `cumulative_incidence(cases, population_at_risk)` | `ProportionResult` | Cumulative incidence (attack rate / risk) with CI |
+| `incidence_rate(cases, person_time)` | `IncidenceRateResult` | Person-time incidence rate — Byar + exact Poisson CI |
 | `mean_ci(data)` | `MeanResult` | Mean with t / normal CI |
-| `incidence_rate(cases, person_time)` | IncidenceRateResult | Incidence rateByar + exact Poisson CI |
 | `diagnostic_test_2x2(tp, fp, fn, tn)` | `DiagnosticResult` | Sensitivity, specificity, PPV, NPV, LR+/- |
 | `roc_analysis(y_true, y_score)` | `ROCResult` | Full ROC curve, AUC, optimal threshold (Youden) |
 | `sample_size_risk_ratio(...)` | `SampleSizeResult` | Sample size for cohort study |
 | `sample_size_single_proportion(...)` | `SampleSizeResult` | Sample size for prevalence survey |
 | `mantel_haenszel_or(strata)` | `StratifiedResult` | Pooled OR/RR with Cochran Q, I² |
-| `logistic_regression(X, y)` | `RegressionResult` | Logistic regressionIRLS |
+| `logistic_regression(X, y)` | `RegressionResult` | Logistic regression, IRLS |
 | `poisson_regression(X, y)` | `RegressionResult` | Poisson regression with offset support |
 
 ```python
@@ -673,7 +675,7 @@ test_datatypes.py             50 tests
 
 ## API Stability
 
-**v0.1.1 is a stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
+**v0.1.2 is a stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
 
 | Module | Status | Notes |
 |--------|--------|-------|
@@ -701,7 +703,7 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 | **0.4.0** | Real-time forecasting, ensemble methods | Q4 2026 | Planned |
 | **1.0.0** | API stable, production-ready | 2027 | Roadmap |
 
-**Known Limitations (v0.1.1):**
+**Known Limitations (v0.1.2):**
 - Simulation module (networks, spatial) is placeholder
 - DHIS2 client covers POST/GET cases and basic metadata
 - Browser plotter (36% coverage) is experimental; use Plotly or Matplotlib for production
@@ -741,7 +743,7 @@ If you use Episia in your research, please cite it as:
   doi = {10.5281/zenodo.19429374},
   url = {https://doi.org/10.5281/zenodo.19429374},
   note = {Source code: https://github.com/Xcept-Health/episia},
-  version = {0.1.1},
+  version = {0.1.2},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
@@ -749,17 +751,17 @@ If you use Episia in your research, please cite it as:
 
 **Vancouver:**
 ```
-Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.0. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
+Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.2. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
 ```
 
 **APA:**
 ```
-Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.0) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
+Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.2) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
 ```
 
 **MLA:**
 ```
-Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.0, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
+Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.2, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
 ```
 
 ---
@@ -859,6 +861,6 @@ Built with precision for African public health · [Xcept-Health](https://xcept-h
 
 ![Status](https://img.shields.io/badge/Made%20with-Python%203.9%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Version](https://img.shields.io/badge/Version-0.1.1-orange)
+![Version](https://img.shields.io/badge/Version-0.1.2-orange)
 
 </div>

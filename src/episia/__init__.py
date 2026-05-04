@@ -44,7 +44,7 @@ Advanced usage (direct imports)::
     from episia.data import SurveillanceDataset, AlertEngine
 """
 
-__version__      = "0.1.1"
+__version__      = "0.1.2"
 __author__       = "Fidlouindé Ariel Shadrac Ouedraogo"
 __email__        = "arielshadrac@gmail.com"
 __organization__ = "Xcept-Health"

@@ -24,7 +24,7 @@ Usage::
     report = epi.report(result, title="SEIR  Burkina Faso 2024")
     report.save_html("report.html")
 
-    # Thème
+    # Theme
     epi.set_theme("dark")
 """
 
@@ -36,7 +36,6 @@ from typing import Any, Optional
 class EpisiaAPI:
     """
     Unified Episia API  single entry point for all functionality.
-
     Instantiated as the module-level `epi` singleton.
     """
 
@@ -56,6 +55,21 @@ class EpisiaAPI:
     def proportion_ci(*args, **kwargs):
         from ..stats.descriptive import proportion_ci
         return proportion_ci(*args, **kwargs)
+    
+    @staticmethod
+    def prevalence(*args, **kwargs):
+        from ..stats.descriptive import prevalence
+        return prevalence(*args, **kwargs)
+
+    @staticmethod
+    def cumulative_incidence(*args, **kwargs):
+        from ..stats.descriptive import cumulative_incidence
+        return cumulative_incidence(*args, **kwargs)
+
+    @staticmethod
+    def incidence_rate(*args, **kwargs):
+        from ..stats.descriptive import incidence_rate
+        return incidence_rate(*args, **kwargs)
 
     @staticmethod
     def mean_ci(*args, **kwargs):
@@ -72,20 +86,6 @@ class EpisiaAPI:
         from ..stats.diagnostic import diagnostic_test_2x2
         return diagnostic_test_2x2(*args, **kwargs)
     
-        @staticmethod
-    def prevalence(*args, **kwargs):
-        from ..stats.descriptive import prevalence
-        return prevalence(*args, **kwargs)
-
-    @staticmethod
-    def cumulative_incidence(*args, **kwargs):
-        from ..stats.descriptive import cumulative_incidence
-        return cumulative_incidence(*args, **kwargs)
-
-    @staticmethod
-    def incidence_rate(*args, **kwargs):
-        from ..stats.descriptive import incidence_rate
-        return incidence_rate(*args, **kwargs)
 
     #  Models 
 
@@ -173,14 +173,15 @@ class EpisiaAPI:
 
     def __repr__(self) -> str:
         return (
-            "Episia API  v0.1.1\n"
+            "Episia API  v0.1.2\n"
             "  epi.sir() / epi.seir() / epi.seird()\n"
             "  epi.risk_ratio() / epi.odds_ratio() / epi.proportion_ci()\n"
+            "  epi.prevalence() / epi.cumulative_incidence() / epi.incidence_rate()\n"
             "  epi.read_csv() / epi.report() / epi.set_theme()"
         )
 
 
-# Singleton exporté
+# Exported singleton
 epi = EpisiaAPI()
 
 __all__ = ["EpisiaAPI", "epi"]
