@@ -857,6 +857,6 @@ A: Python 3.9, 3.10, 3.11, 3.12. See [pyproject.toml](pyproject.toml).
 
 <div align="center">
 
-Built with precision for African public health · [Xcept-Health](https://xcept-health.com) · Burkina Faso
+Built with precision for African public health · Xcept-Health · Burkina Faso
 
 </div>
