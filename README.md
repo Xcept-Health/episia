@@ -859,8 +859,4 @@ A: Python 3.9, 3.10, 3.11, 3.12. See [pyproject.toml](pyproject.toml).
 
 Built with precision for African public health · [Xcept-Health](https://xcept-health.com) · Burkina Faso
 
-![Status](https://img.shields.io/badge/Made%20with-Python%203.9%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Version](https://img.shields.io/badge/Version-0.1.2-orange)
-
 </div>
