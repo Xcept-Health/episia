@@ -6,7 +6,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)
 [![PyPI version](https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/episia/)
-[![PyPI Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
+[![Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)
 ![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)
