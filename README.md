@@ -845,7 +845,7 @@ A: Core modules (models, stats) are production-ready (80% coverage). See [API St
 A: Fork, create a feature branch, add tests, and submit a PR. See [Contributing](#contributing) section.
 
 **Q: Is there a GUI?**  
-A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [examples/](examples/).
+A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [examples/](https://github.com/Xcept-Health/episia/blob/main/exemples).
 
 **Q: Does it work offline?**  
 A: Yes. Episia has zero runtime network dependencies. DHIS2 integration requires connection only during data fetch.
