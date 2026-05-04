@@ -804,7 +804,7 @@ pytest tests/ -v
 
 ## Support
 
-- **Documentation:** [Full docs](https://docs.episia.io)
+- **Documentation:** [Full docs](https://episia.readthedocs.io/en/latest/)
 - **Examples:** [Examples directory](https://github.com/Xcept-Health/episia/tree/main/exemples/)
 - **Validation:** [OpenEpi comparison notebook](https://github.com/Xcept-Health/episia/tree/main/exemples/episia_vs_openepi.ipynb)
 - **Issues:** [GitHub Issues](https://github.com/Xcept-Health/episia/issues)
@@ -827,7 +827,7 @@ pytest tests/ -v
 
 ## License
 
-MIT Licensesee [LICENSE](LICENSE) for details.
+MIT Licensesee [LICENSE](LICENSE.txt) for details.
 
 Copyright © 2026 Xcept-Health
 
