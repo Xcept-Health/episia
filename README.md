@@ -770,7 +770,7 @@ Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and bios
 
 **Author:** Fildouindé Ariel Shadrac Ouedraogo  
 **ORCID:** [0009-0003-3419-5985](https://orcid.org/0009-0003-3419-5985)  
-**Organization:** [Xcept-Health](https://xcept-health.com), Ouagadougou, Burkina Faso  
+**Organization:** Xcept-Health, Ouagadougou, Burkina Faso  
 **Affiliation:** MD Candidate, Université Joseph Ki-Zerbo, Department of Medicine  
 **GitHub:** [@arielshadrac](https://github.com/arielshadrac)
 
