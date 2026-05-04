@@ -15,7 +15,7 @@
 [![Website](https://img.shields.io/badge/Website-xcept--health.github.io%2Fepisia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19429373-blue?style=flat-square)](https://doi.org/10.5281/zenodo.19429373)
 [![Preprint](https://img.shields.io/badge/Preprint-medRxiv-B31B1B?style=flat-square)](https://doi.org/10.64898/2026.04.17.26350337)
-[![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
+![Status](https://img.shields.io/badge/Status-Beta-blue?style=flat-square)
 
 
 *epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
