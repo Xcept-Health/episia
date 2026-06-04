@@ -13,15 +13,14 @@ from __future__ import annotations
 
 import json
 import warnings
+from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple, Union
-from abc import ABC, abstractmethod
 
 import numpy as np
 
-
-
 # Base
+
 
 class EpiResult(ABC):
     """
@@ -55,7 +54,8 @@ class EpiResult(ABC):
         try:
             import pandas as pd
         except ImportError:
-            raise ImportError("pandas is required for to_dataframe(). pip install pandas")
+            raise ImportError(
+                "pandas is required for to_dataframe(). pip install pandas")
         return pd.DataFrame([self._flatten(self.to_dict())])
 
     def plot(self, backend: str = "plotly", **kwargs):
@@ -93,6 +93,7 @@ class EpiResult(ABC):
         if backend == "plotly":
             try:
                 import plotly.io as pio
+
                 # Only force browser renderer if running as a script (not notebook)
                 _in_notebook = False
                 try:
@@ -141,7 +142,6 @@ class EpiResult(ABC):
         return f"({fmt.format(lower)}\u2013{fmt.format(upper)})"
 
 
-
 # Confidence interval container
 @dataclass
 class ConfidenceInterval:
@@ -173,7 +173,6 @@ class ConfidenceInterval:
     def contains(self, value: float) -> bool:
         """Return True if value falls within the interval."""
         return self.lower <= value <= self.upper
-
 
 
 # Association measures  (RR, OR, RD, IRR...)
@@ -233,7 +232,6 @@ class AssociationResult(EpiResult):
         }
 
 
-
 # Proportion / descriptive
 
 @dataclass
@@ -279,7 +277,6 @@ class ProportionResult(EpiResult):
         }
 
 
-
 # Sample size & power
 
 @dataclass
@@ -319,9 +316,11 @@ class SampleSizeResult(EpiResult):
         if self.n_total is not None:
             lines.append(f"  Total     : {self.n_total:,}")
         if self.n_cases is not None:
-            lines.append(f"  Cases     : {self.n_cases:,}  Controls: {self.n_controls:,}")
+            lines.append(
+                f"  Cases     : {self.n_cases:,}  Controls: {self.n_controls:,}")
         if self.power is not None:
-            lines.append(f"  Power     : {self.power:.1%}  \u03b1={self.alpha}")
+            lines.append(
+                f"  Power     : {self.power:.1%}  \u03b1={self.alpha}")
         if self.note:
             lines.append(f"  Note      : {self.note}")
         return "\n".join(lines)
@@ -340,7 +339,6 @@ class SampleSizeResult(EpiResult):
             "assumptions": self.assumptions,
             "note": self.note,
         }
-
 
 
 # Diagnostic test
@@ -422,7 +420,6 @@ class DiagnosticResult(EpiResult):
         return d
 
 
-
 # ROC curve
 
 @dataclass
@@ -467,7 +464,6 @@ class ROCResult(EpiResult):
             "method": self.method,
             "n_thresholds": len(self.thresholds),
         }
-
 
 
 # Stratified analysis (Mantel-Haenszel)
@@ -525,7 +521,6 @@ class StratifiedResult(EpiResult):
         }
 
 
-
 # Epidemic model (SIR / SEIR / SEIRD)
 
 @dataclass
@@ -561,10 +556,12 @@ class ModelResult(EpiResult):
         if self.r0 is not None:
             lines.append(f"  R\u2080          : {self.r0:.3f}")
         if self.peak_infected is not None:
-            lines.append(f"  Peak infected : {self.peak_infected:,.0f}  at t={self.peak_time:.1f}")
+            lines.append(
+                f"  Peak infected : {self.peak_infected:,.0f}  at t={self.peak_time:.1f}")
         if self.final_size is not None:
             lines.append(f"  Final size    : {self.final_size:.1%}")
-        lines.append(f"  Duration      : {self.t[0]:.0f}\u2013{self.t[-1]:.0f}")
+        lines.append(
+            f"  Duration      : {self.t[0]:.0f}\u2013{self.t[-1]:.0f}")
         return "\n".join(lines)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -589,7 +586,6 @@ class ModelResult(EpiResult):
         except ImportError:
             raise ImportError("pandas is required. pip install pandas")
         return pd.DataFrame({"t": self.t, **self.compartments})
-
 
 
 # Time series / incidence
@@ -618,7 +614,8 @@ class TimeSeriesResult(EpiResult):
 
     def __repr__(self) -> str:
         lines = [f"Time Series  n={len(self.times)} periods"]
-        lines.append(f"  Total  : {self.values.sum():.0f}  Peak: {self.values.max():.0f}")
+        lines.append(
+            f"  Total  : {self.values.sum():.0f}  Peak: {self.values.max():.0f}")
         if self.trend_method:
             lines.append(f"  Trend  : {self.trend_method}")
         if self.doubling_time is not None:
@@ -644,7 +641,6 @@ class TimeSeriesResult(EpiResult):
         if self.trend is not None:
             data["trend"] = self.trend
         return pd.DataFrame(data)
-
 
 
 # Regression
@@ -701,7 +697,6 @@ class RegressionResult(EpiResult):
             "ci_table": {k: list(v) for k, v in self.ci_table.items()},
             "odds_ratios": self.odds_ratios,
         }
-
 
 
 # Factory helpers
@@ -761,9 +756,7 @@ def make_proportion(
     )
 
 
-
 # Exports
-
 __all__ = [
     "EpiResult",
     "ConfidenceInterval",

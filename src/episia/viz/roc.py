@@ -14,12 +14,11 @@ from typing import Any, Dict, List, Optional
 
 import numpy as np
 
-from .plotters import get_plotter, PlotConfig, AnimationConfig
+from .plotters import AnimationConfig, PlotConfig, get_plotter
 from .themes.registry import get_palette
 
-
-
 # plot_roc
+
 
 def plot_roc(
     result: Any,
@@ -74,7 +73,6 @@ def plot_roc(
     return get_plotter(backend).plot_roc(result, config=config)
 
 
-
 # plot_roc_compare
 
 def plot_roc_compare(
@@ -111,13 +109,14 @@ def plot_roc_compare(
         raise ValueError("results list is empty.")
 
     labels = labels or [f"Model {i+1}" for i in range(len(results))]
-    pal    = get_palette(theme)
+    pal = get_palette(theme)
 
     if config is None:
         config = PlotConfig(title=title, theme=theme)
 
     if backend == "plotly":
         import plotly.graph_objects as go
+
         from .plotters.plotly_plotter import _layout
 
         fig = go.Figure()
@@ -149,6 +148,7 @@ def plot_roc_compare(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -174,7 +174,6 @@ def plot_roc_compare(
         ax.legend(fontsize=config.font_size - 1, loc="lower right")
         fig.tight_layout()
         return fig
-
 
 
 # plot_precision_recall
@@ -206,9 +205,9 @@ def plot_precision_recall(
     Returns:
         Figure object.
     """
-    from sklearn.metrics import precision_recall_curve, average_precision_score
+    from sklearn.metrics import average_precision_score, precision_recall_curve
 
-    y_true  = np.asarray(y_true)
+    y_true = np.asarray(y_true)
     y_score = np.asarray(y_score)
 
     precision, recall, _ = precision_recall_curve(y_true, y_score)
@@ -222,6 +221,7 @@ def plot_precision_recall(
 
     if backend == "plotly":
         import plotly.graph_objects as go
+
         from .plotters.plotly_plotter import _layout
 
         fig = go.Figure()
@@ -245,7 +245,8 @@ def plot_precision_recall(
 
         fig.update_layout(_layout(
             config,
-            xaxis=dict(title="Recall", range=[0, 1], showgrid=config.show_grid),
+            xaxis=dict(title="Recall", range=[
+                       0, 1], showgrid=config.show_grid),
             yaxis=dict(title="Precision", range=[0, 1.02],
                        showgrid=config.show_grid),
             annotations=[dict(
@@ -261,6 +262,7 @@ def plot_precision_recall(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -292,7 +294,7 @@ def plot_precision_recall(
 
 def _hex_to_rgb(h: str) -> str:
     h = h.lstrip("#")
-    return f"{int(h[0:2],16)},{int(h[2:4],16)},{int(h[4:6],16)}"
+    return f"{int(h[0:2], 16)},{int(h[2:4], 16)},{int(h[4:6], 16)}"
 
 
 __all__ = ["plot_roc", "plot_roc_compare", "plot_precision_recall"]

@@ -8,24 +8,24 @@ Modules
     results    : Unified result classes (EpiResult, ModelResult, ROCResult…)
 """
 
-from .reporting import EpiReport, report_from_result, report_from_model
-from .results   import (
-    EpiResult,
-    ConfidenceInterval,
+from .reporting import EpiReport, report_from_model, report_from_result
+from .results import (
     AssociationResult,
-    ProportionResult,
-    SampleSizeResult,
+    ConfidenceInterval,
     DiagnosticResult,
-    ROCResult,
-    StratifiedResult,
+    EpiResult,
     ModelResult,
-    TimeSeriesResult,
+    ProportionResult,
     RegressionResult,
-    make_ci,
+    ROCResult,
+    SampleSizeResult,
+    StratifiedResult,
+    TimeSeriesResult,
     make_association,
+    make_ci,
     make_proportion,
 )
-from .unified import epi, EpisiaAPI
+from .unified import EpisiaAPI, epi
 
 __all__ = [
     # Reporting

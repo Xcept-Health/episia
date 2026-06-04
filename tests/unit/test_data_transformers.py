@@ -1,22 +1,29 @@
 """
 tests/test_data_transformers.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
-import pandas as pd
+import sys
+
 import numpy as np
+import pandas as pd
+import pytest
+
 from episia.data.transformers import (
-    DateTransformer, CategoricalTransformer,
-    OutlierTransformer, FeatureEngineer, create_pipeline,
+    CategoricalTransformer,
+    DateTransformer,
+    FeatureEngineer,
+    OutlierTransformer,
+    create_pipeline,
 )
+
+sys.path.insert(0, '/tmp')
 
 
 @pytest.fixture
 def sample_df():
     return pd.DataFrame({
-        'date':     ['2024-01-01','2024-01-08','2024-01-15','2024-01-22'],
-        'region':   ['A','B','A','C'],
-        'disease':  ['malaria','measles','malaria','cholera'],
+        'date':     ['2024-01-01', '2024-01-08', '2024-01-15', '2024-01-22'],
+        'region':   ['A', 'B', 'A', 'C'],
+        'disease':  ['malaria', 'measles', 'malaria', 'cholera'],
         'cases':    [10, 20, 15, 5],
         'deaths':   [1, 2, 1, 0],
         'value':    [1.0, 2.0, 1.5, 100.0],  # 100.0 is an outlier
@@ -85,20 +92,23 @@ class TestCategoricalTransformer:
         assert isinstance(result, pd.DataFrame)
 
     def test_onehot_creates_binary_columns(self, sample_df):
-        ct = CategoricalTransformer(categorical_columns=['region'], encoding='onehot')
+        ct = CategoricalTransformer(
+            categorical_columns=['region'], encoding='onehot')
         result = ct.fit_transform(sample_df.copy())
         onehot_cols = [c for c in result.columns if c.startswith('region_')]
         assert len(onehot_cols) > 0
 
     def test_onehot_binary_values(self, sample_df):
-        ct = CategoricalTransformer(categorical_columns=['region'], encoding='onehot')
+        ct = CategoricalTransformer(
+            categorical_columns=['region'], encoding='onehot')
         result = ct.fit_transform(sample_df.copy())
         onehot_cols = [c for c in result.columns if c.startswith('region_')]
         for col in onehot_cols:
             assert set(result[col].unique()).issubset({0, 1})
 
     def test_original_col_removed_onehot(self, sample_df):
-        ct = CategoricalTransformer(categorical_columns=['region'], encoding='onehot')
+        ct = CategoricalTransformer(
+            categorical_columns=['region'], encoding='onehot')
         result = ct.fit_transform(sample_df.copy())
         assert 'region' not in result.columns
 
@@ -122,7 +132,8 @@ class TestOutlierTransformer:
         assert isinstance(result, pd.DataFrame)
 
     def test_clip_action_reduces_outlier(self, sample_df):
-        ot = OutlierTransformer(numeric_columns=['value'], method='iqr', action='clip')
+        ot = OutlierTransformer(
+            numeric_columns=['value'], method='iqr', action='clip')
         result = ot.fit_transform(sample_df.copy())
         assert result['value'].max() < 100.0
 

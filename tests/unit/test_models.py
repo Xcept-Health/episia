@@ -9,21 +9,26 @@ Unit tests for episia.models
     SEIRDModel : construction, run, compartments, mortality metrics
 """
 from __future__ import annotations
+
 import math
+
 import numpy as np
 import pytest
 
+from episia.api.results import ModelResult
+from episia.models import SEIRDModel, SEIRModel, SIRModel
 from episia.models.parameters import (
-    ModelParameters, SIRParameters, SEIRParameters,
-    SEIRDParameters, ScenarioSet,
+    ModelParameters,
+    ScenarioSet,
+    SEIRDParameters,
+    SEIRParameters,
+    SIRParameters,
 )
 from episia.models.solver import (
-    solve_model, estimate_herd_immunity, doubling_time,
+    doubling_time,
+    estimate_herd_immunity,
+    solve_model,
 )
-from episia.models import SIRModel, SEIRModel, SEIRDModel
-from episia.api.results import ModelResult
-
-
 
 # Fixtures
 
@@ -31,6 +36,7 @@ from episia.api.results import ModelResult
 @pytest.fixture
 def sir_params():
     return SIRParameters(N=100_000, I0=10, beta=0.3, gamma=0.1, t_span=(0, 160))
+
 
 @pytest.fixture
 def seir_params():
@@ -40,6 +46,7 @@ def seir_params():
         t_span=(0, 200),
     )
 
+
 @pytest.fixture
 def seird_params():
     return SEIRDParameters(
@@ -48,18 +55,20 @@ def seird_params():
         t_span=(0, 200),
     )
 
+
 @pytest.fixture
 def sir_result(sir_params):
     return SIRModel(sir_params).run()
+
 
 @pytest.fixture
 def seir_result(seir_params):
     return SEIRModel(seir_params).run()
 
+
 @pytest.fixture
 def seird_result(seird_params):
     return SEIRDModel(seird_params).run()
-
 
 
 # 1. ModelParameters (base)
@@ -109,7 +118,6 @@ class TestModelParameters:
             assert k in d
 
 
-
 # 2. SIRParameters
 
 
@@ -142,7 +150,6 @@ class TestSIRParameters:
         assert sir_params.S0 == pytest.approx(100_000 - 10)
 
 
-
 # 3. SEIRParameters
 
 
@@ -169,7 +176,6 @@ class TestSEIRParameters:
 
     def test_s0_accounts_for_e0(self, seir_params):
         assert seir_params.S0 == pytest.approx(100_000 - 1 - 10)
-
 
 
 # 4. SEIRDParameters
@@ -200,7 +206,6 @@ class TestSEIRDParameters:
 
     def test_to_dict_has_cfr(self, seird_params):
         assert "cfr" in seird_params.to_dict()
-
 
 
 # 5. ScenarioSet
@@ -240,7 +245,6 @@ class TestScenarioSet:
         s = ScenarioSet([("X", sir_params)])
         assert "ScenarioSet" in repr(s)
         assert "1" in repr(s)
-
 
 
 # 6. solver utilities
@@ -303,7 +307,6 @@ class TestSolverUtils:
         # S + I + R should stay ≈ N
         total = sol.sum(axis=0)
         assert np.allclose(total, sir_params.N, rtol=1e-3)
-
 
 
 # 7. SIRModel
@@ -402,10 +405,10 @@ class TestSIRModel:
         assert sir_result.peak_infected < sir_params.N
 
     def test_high_r0_large_final_size(self):
-        p = SIRParameters(N=100_000, I0=10, beta=0.9, gamma=0.1, t_span=(0, 200))
+        p = SIRParameters(N=100_000, I0=10, beta=0.9,
+                          gamma=0.1, t_span=(0, 200))
         r = SIRModel(p).run()
         assert r.final_size > 0.8   # R0=9, most of population infected
-
 
 
 # 8. SEIRModel
@@ -462,10 +465,10 @@ class TestSEIRModel:
     def test_peak_time_later_than_sir(self):
         """SEIR peak comes later than SIR due to incubation delay."""
         sir_p = SIRParameters(N=100_000, I0=10, beta=0.3, gamma=0.1,
-                               t_span=(0, 300))
+                              t_span=(0, 300))
         seir_p = SEIRParameters(N=100_000, I0=10, E0=0, beta=0.3,
-                                 sigma=0.2, gamma=0.1, t_span=(0, 300))
-        sir_r  = SIRModel(sir_p).run()
+                                sigma=0.2, gamma=0.1, t_span=(0, 300))
+        sir_r = SIRModel(sir_p).run()
         seir_r = SEIRModel(seir_p).run()
         assert seir_r.peak_time > sir_r.peak_time
 
@@ -481,7 +484,6 @@ class TestSEIRModel:
         assert 0 < hit < 1
 
 
-
 # 9. SEIRDModel
 
 
@@ -494,7 +496,8 @@ class TestSEIRDModel:
         assert isinstance(SEIRDModel(seird_params).run(), ModelResult)
 
     def test_compartment_names(self, seird_params):
-        assert SEIRDModel(seird_params).compartment_names == ["S","E","I","R","D"]
+        assert SEIRDModel(seird_params).compartment_names == [
+            "S", "E", "I", "R", "D"]
 
     def test_compartments_in_result(self, seird_result):
         for c in ["S", "E", "I", "R", "D"]:
@@ -535,22 +538,21 @@ class TestSEIRDModel:
 
     def test_mu_zero_no_deaths(self):
         p = SEIRDParameters(N=100_000, I0=1, E0=5,
-                             beta=0.35, sigma=1/5.2, gamma=0.09, mu=0.0,
-                             t_span=(0, 200))
+                            beta=0.35, sigma=1/5.2, gamma=0.09, mu=0.0,
+                            t_span=(0, 200))
         r = SEIRDModel(p).run()
         assert r.compartments["D"][-1] == pytest.approx(0.0, abs=1.0)
 
     def test_higher_mu_more_deaths(self, seird_params):
-        p_low  = SEIRDParameters(N=100_000, I0=1, E0=5,
-                                  beta=0.35, sigma=1/5.2,
-                                  gamma=0.09, mu=0.005, t_span=(0, 200))
+        p_low = SEIRDParameters(N=100_000, I0=1, E0=5,
+                                beta=0.35, sigma=1/5.2,
+                                gamma=0.09, mu=0.005, t_span=(0, 200))
         p_high = SEIRDParameters(N=100_000, I0=1, E0=5,
-                                  beta=0.35, sigma=1/5.2,
-                                  gamma=0.09, mu=0.05,  t_span=(0, 200))
-        d_low  = SEIRDModel(p_low).run().compartments["D"][-1]
+                                 beta=0.35, sigma=1/5.2,
+                                 gamma=0.09, mu=0.05,  t_span=(0, 200))
+        d_low = SEIRDModel(p_low).run().compartments["D"][-1]
         d_high = SEIRDModel(p_high).run().compartments["D"][-1]
         assert d_high > d_low
-
 
 
 # 10. Cross-model epidemiological properties
@@ -558,21 +560,26 @@ class TestSEIRDModel:
 
 class TestEpidemiologicalProperties:
     def test_higher_beta_larger_final_size(self):
-        p1 = SIRParameters(N=100_000, I0=10, beta=0.2, gamma=0.1, t_span=(0,300))
-        p2 = SIRParameters(N=100_000, I0=10, beta=0.4, gamma=0.1, t_span=(0,300))
+        p1 = SIRParameters(N=100_000, I0=10, beta=0.2,
+                           gamma=0.1, t_span=(0, 300))
+        p2 = SIRParameters(N=100_000, I0=10, beta=0.4,
+                           gamma=0.1, t_span=(0, 300))
         r1 = SIRModel(p1).run()
         r2 = SIRModel(p2).run()
         assert r2.final_size > r1.final_size
 
     def test_higher_gamma_smaller_final_size(self):
-        p1 = SIRParameters(N=100_000, I0=10, beta=0.3, gamma=0.05, t_span=(0,400))
-        p2 = SIRParameters(N=100_000, I0=10, beta=0.3, gamma=0.2,  t_span=(0,400))
+        p1 = SIRParameters(N=100_000, I0=10, beta=0.3,
+                           gamma=0.05, t_span=(0, 400))
+        p2 = SIRParameters(N=100_000, I0=10, beta=0.3,
+                           gamma=0.2,  t_span=(0, 400))
         r1 = SIRModel(p1).run()
         r2 = SIRModel(p2).run()
         assert r1.final_size > r2.final_size
 
     def test_r0_less_than_1_no_epidemic(self):
-        p = SIRParameters(N=100_000, I0=10, beta=0.05, gamma=0.1, t_span=(0,300))
+        p = SIRParameters(N=100_000, I0=10, beta=0.05,
+                          gamma=0.1, t_span=(0, 300))
         r = SIRModel(p).run()
         # R0=0.5 < 1, infectious should decrease from start
         I = r.compartments["I"]
@@ -580,7 +587,8 @@ class TestEpidemiologicalProperties:
 
     def test_hit_equals_1_minus_s_final(self):
         """At end of epidemic S/N ≈ 1 - final_size, verify consistency."""
-        p = SIRParameters(N=100_000, I0=10, beta=0.3, gamma=0.1, t_span=(0,400))
+        p = SIRParameters(N=100_000, I0=10, beta=0.3,
+                          gamma=0.1, t_span=(0, 400))
         r = SIRModel(p).run()
         s_final_fraction = r.compartments["S"][-1] / p.N
         assert s_final_fraction == pytest.approx(1 - r.final_size, abs=0.01)

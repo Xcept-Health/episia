@@ -12,6 +12,7 @@ Supported output formats: PNG, SVG, PDF (via fig.savefig)
 
 from __future__ import annotations
 
+import os as _os
 from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
@@ -24,8 +25,6 @@ from .base_plotter import (
     PlotConfig,
     UnsupportedAnimationError,
 )
-
-
 
 # Theme helpers
 
@@ -55,7 +54,6 @@ _FONT_COLOR: Dict[str, str] = {
 }
 
 # Path to theme files relative to this file
-import os as _os
 _THEME_DIR = _os.path.join(_os.path.dirname(__file__), "..", "themes")
 
 
@@ -102,7 +100,6 @@ def _style_axes(ax, cfg: PlotConfig) -> None:
         ax.set_axisbelow(True)
 
 
-
 # MatplotlibPlotter
 
 class MatplotlibPlotter(BasePlotter):
@@ -135,14 +132,14 @@ class MatplotlibPlotter(BasePlotter):
         self._check_animation(cfg)   # raises if animation requested
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
 
         fig, ax = plt.subplots(
             figsize=(_px_to_in(cfg.width), _px_to_in(cfg.height)),
             facecolor=_BG.get(cfg.theme, "white"),
         )
 
-        times  = list(result.times)
+        times = list(result.times)
         values = list(result.values)
 
         ax.bar(times, values, color=pal[0], alpha=0.85, edgecolor="none",
@@ -187,7 +184,7 @@ class MatplotlibPlotter(BasePlotter):
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
 
         fig, ax = plt.subplots(
             figsize=(_px_to_in(cfg.width), _px_to_in(cfg.height)),
@@ -225,8 +222,10 @@ class MatplotlibPlotter(BasePlotter):
                           edgecolor="#cccccc", alpha=0.8),
             )
 
-        ax.set_xlabel(cfg.xlabel or "Time",       color=fc, fontsize=cfg.font_size)
-        ax.set_ylabel(cfg.ylabel or "Population", color=fc, fontsize=cfg.font_size)
+        ax.set_xlabel(cfg.xlabel or "Time",
+                      color=fc, fontsize=cfg.font_size)
+        ax.set_ylabel(cfg.ylabel or "Population",
+                      color=fc, fontsize=cfg.font_size)
         ax.set_title(cfg.title or f"{result.model_type} Model",
                      color=fc, fontsize=cfg.font_size + 2, fontweight="bold")
 
@@ -255,7 +254,7 @@ class MatplotlibPlotter(BasePlotter):
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
 
         size = _px_to_in(min(cfg.width, cfg.height))
         fig, ax = plt.subplots(figsize=(size, size),
@@ -311,14 +310,14 @@ class MatplotlibPlotter(BasePlotter):
         """
         Forest plot  horizontal CI lines, suitable for meta-analysis tables.
         """
-        import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
+        import matplotlib.pyplot as plt
 
         cfg = self._resolve_config(config)
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
 
         # Collect rows (same logic as PlotlyPlotter)
         rows: List[Dict] = []
@@ -365,9 +364,9 @@ class MatplotlibPlotter(BasePlotter):
 
         for i, row in enumerate(rows):
             y = n - 1 - i
-            color  = pal[1] if row["pooled"] else pal[0]
+            color = pal[1] if row["pooled"] else pal[0]
             marker = "D" if row["pooled"] else "s"
-            ms     = 9  if row["pooled"] else 7
+            ms = 9 if row["pooled"] else 7
 
             # CI whisker
             ax.plot([row["lo"], row["hi"]], [y, y],
@@ -415,11 +414,11 @@ class MatplotlibPlotter(BasePlotter):
         """
         import matplotlib.pyplot as plt
 
-        cfg   = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
-        pal   = _palette(cfg)
-        fc    = _FONT_COLOR.get(cfg.theme, "#222222")
+        pal = _palette(cfg)
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
         label = result.measure.replace("_", " ").title()
 
         fig, ax = plt.subplots(
@@ -476,27 +475,27 @@ class MatplotlibPlotter(BasePlotter):
         Diagnostic dashboard: confusion matrix heatmap + metrics bar chart.
         Two-panel layout, publication-ready.
         """
-        import matplotlib.pyplot as plt
         import matplotlib.gridspec as gridspec
+        import matplotlib.pyplot as plt
 
         cfg = self._resolve_config(config)
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
-        bg  = _BG.get(cfg.theme, "white")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
+        bg = _BG.get(cfg.theme, "white")
 
         fig = plt.figure(
             figsize=(_px_to_in(cfg.width), _px_to_in(cfg.height)),
             facecolor=bg,
         )
         gs = gridspec.GridSpec(1, 2, width_ratios=[1, 1.4], figure=fig)
-        ax_cm  = fig.add_subplot(gs[0])
+        ax_cm = fig.add_subplot(gs[0])
         ax_bar = fig.add_subplot(gs[1])
         ax_cm.set_facecolor(bg)
         ax_bar.set_facecolor(bg)
 
-        #  Confusion matrix heatmap 
+        #  Confusion matrix heatmap
         cm = np.array([
             [result.tn, result.fp],
             [result.fn, result.tp],
@@ -514,15 +513,15 @@ class MatplotlibPlotter(BasePlotter):
 
         ax_cm.set_xticks([0, 1])
         ax_cm.set_xticklabels(["Pred Neg", "Pred Pos"],
-                               fontsize=cfg.font_size - 1, color=fc)
+                              fontsize=cfg.font_size - 1, color=fc)
         ax_cm.set_yticks([0, 1])
         ax_cm.set_yticklabels(["Actual Neg", "Actual Pos"],
-                               fontsize=cfg.font_size - 1, color=fc)
+                              fontsize=cfg.font_size - 1, color=fc)
         ax_cm.set_title("Confusion Matrix", color=fc,
-                         fontsize=cfg.font_size, fontweight="bold")
+                        fontsize=cfg.font_size, fontweight="bold")
         ax_cm.tick_params(colors=fc)
 
-        #  Metrics bar chart 
+        #  Metrics bar chart
         metrics = {
             "Sensitivity": result.sensitivity,
             "Specificity": result.specificity,
@@ -533,7 +532,7 @@ class MatplotlibPlotter(BasePlotter):
         }
         m_labels = list(metrics.keys())
         m_values = list(metrics.values())
-        colors   = [pal[i % len(pal)] for i in range(len(m_labels))]
+        colors = [pal[i % len(pal)] for i in range(len(m_labels))]
 
         bars = ax_bar.barh(m_labels, m_values, color=colors,
                            edgecolor="none", height=0.6)
@@ -547,7 +546,7 @@ class MatplotlibPlotter(BasePlotter):
         ax_bar.set_xlim(0, 1.15)
         ax_bar.set_xlabel("Value", color=fc, fontsize=cfg.font_size)
         ax_bar.set_title("Performance Metrics", color=fc,
-                          fontsize=cfg.font_size, fontweight="bold")
+                         fontsize=cfg.font_size, fontweight="bold")
         ax_bar.tick_params(colors=fc)
         ax_bar.invert_yaxis()
 
@@ -571,15 +570,15 @@ class MatplotlibPlotter(BasePlotter):
         """
         2x2 contingency table  annotated heatmap with summary table.
         """
-        import matplotlib.pyplot as plt
         import matplotlib.gridspec as gridspec
+        import matplotlib.pyplot as plt
 
         cfg = self._resolve_config(config)
         self._check_animation(cfg)
         _apply_theme(cfg.theme)
         pal = _palette(cfg)
-        fc  = _FONT_COLOR.get(cfg.theme, "#222222")
-        bg  = _BG.get(cfg.theme, "white")
+        fc = _FONT_COLOR.get(cfg.theme, "#222222")
+        bg = _BG.get(cfg.theme, "white")
 
         if hasattr(result, "table"):
             tbl = result.table
@@ -595,14 +594,16 @@ class MatplotlibPlotter(BasePlotter):
         )
         gs = gridspec.GridSpec(1, 2, width_ratios=[1, 1.2], figure=fig,
                                wspace=0.35)
-        ax_tbl  = fig.add_subplot(gs[0])
+        ax_tbl = fig.add_subplot(gs[0])
         ax_text = fig.add_subplot(gs[1])
 
         # Heatmap
         cells = np.array([[d, c], [b, a]], dtype=float)
         cell_labels = [
-            [f"TN (d)\n{d}\n{d/total:.1%}", f"Exp Non-cases (c)\n{c}\n{c/total:.1%}"],
-            [f"Unexp Cases (b)\n{b}\n{b/total:.1%}", f"Exp Cases (a)\n{a}\n{a/total:.1%}"],
+            [f"TN (d)\n{d}\n{d/total:.1%}",
+             f"Exp Non-cases (c)\n{c}\n{c/total:.1%}"],
+            [f"Unexp Cases (b)\n{b}\n{b/total:.1%}",
+             f"Exp Cases (a)\n{a}\n{a/total:.1%}"],
         ]
         ax_tbl.imshow(cells, cmap="Blues", aspect="auto")
         for r in range(2):
@@ -614,16 +615,16 @@ class MatplotlibPlotter(BasePlotter):
 
         ax_tbl.set_xticks([0, 1])
         ax_tbl.set_xticklabels(["Unexposed", "Exposed"],
-                                fontsize=cfg.font_size - 1, color=fc)
+                               fontsize=cfg.font_size - 1, color=fc)
         ax_tbl.set_yticks([0, 1])
         ax_tbl.set_yticklabels(["Non-cases", "Cases"],
-                                fontsize=cfg.font_size - 1, color=fc)
+                               fontsize=cfg.font_size - 1, color=fc)
         ax_tbl.set_title("2×2 Table", color=fc,
-                          fontsize=cfg.font_size + 1, fontweight="bold")
+                         fontsize=cfg.font_size + 1, fontweight="bold")
         ax_tbl.tick_params(colors=fc)
 
         # Summary text panel
-        rr  = tbl.risk_ratio()
+        rr = tbl.risk_ratio()
         or_ = tbl.odds_ratio()
         chi = tbl.chi_square()
 
@@ -642,7 +643,7 @@ class MatplotlibPlotter(BasePlotter):
         ax_text.set_facecolor(bg)
 
         y_start = 0.92
-        line_h  = 0.13
+        line_h = 0.13
         for i, (label, value) in enumerate(summary_lines):
             y = y_start - i * line_h
             ax_text.text(0.02, y, label + ":", transform=ax_text.transAxes,
@@ -653,7 +654,7 @@ class MatplotlibPlotter(BasePlotter):
                          va="top", fontweight="bold")
 
         ax_text.set_title("Summary", color=fc,
-                           fontsize=cfg.font_size + 1, fontweight="bold")
+                          fontsize=cfg.font_size + 1, fontweight="bold")
 
         if cfg.title:
             fig.suptitle(cfg.title, fontsize=cfg.font_size + 3,
@@ -694,7 +695,6 @@ class MatplotlibPlotter(BasePlotter):
         fig.savefig(path, dpi=dpi, bbox_inches="tight",
                     facecolor=fig.get_facecolor())
         return path
-
 
 
 # Exports

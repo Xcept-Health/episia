@@ -11,9 +11,8 @@ from typing import List, Optional, Tuple, Union
 
 import numpy as np
 
-
-
 # Colour utilities
+
 
 def hex_to_rgb(hex_color: str) -> Tuple[int, int, int]:
     """Convert '#rrggbb' to (r, g, b) tuple."""
@@ -30,7 +29,6 @@ def hex_to_rgba_str(hex_color: str, alpha: float = 1.0) -> str:
 def adjust_alpha(hex_color: str, alpha: float) -> str:
     """Return rgba string with given alpha  convenience wrapper."""
     return hex_to_rgba_str(hex_color, alpha)
-
 
 
 # Scale / axis helpers
@@ -72,9 +70,8 @@ def symlog_range(values: np.ndarray, margin: float = 0.05) -> Tuple[float, float
     """
     vmin, vmax = float(np.nanmin(values)), float(np.nanmax(values))
     span = vmax - vmin
-    pad  = span * margin if span > 0 else abs(vmin) * margin or 0.1
+    pad = span * margin if span > 0 else abs(vmin) * margin or 0.1
     return vmin - pad, vmax + pad
-
 
 
 # Confidence interval band helper
@@ -98,7 +95,6 @@ def ci_band_xy(
     x_poly = list(x) + list(x[::-1])
     y_poly = list(upper) + list(lower[::-1])
     return x_poly, y_poly
-
 
 
 # Annotation helpers
@@ -143,7 +139,6 @@ def significance_stars(p: Optional[float]) -> str:
     return "ns"
 
 
-
 # Figure sizing
 
 def auto_height(n_rows: int, row_px: int = 36, min_px: int = 300,
@@ -168,9 +163,7 @@ def px_to_inches(px: int, dpi: int = 100) -> float:
     return px / dpi
 
 
-
 # Exports
-
 __all__ = [
     "hex_to_rgb",
     "hex_to_rgba_str",

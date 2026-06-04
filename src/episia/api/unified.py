@@ -39,7 +39,7 @@ class EpisiaAPI:
     Instantiated as the module-level `epi` singleton.
     """
 
-    #  Stats 
+    #  Stats
 
     @staticmethod
     def risk_ratio(*args, **kwargs):
@@ -55,7 +55,7 @@ class EpisiaAPI:
     def proportion_ci(*args, **kwargs):
         from ..stats.descriptive import proportion_ci
         return proportion_ci(*args, **kwargs)
-    
+
     @staticmethod
     def prevalence(*args, **kwargs):
         from ..stats.descriptive import prevalence
@@ -85,16 +85,15 @@ class EpisiaAPI:
     def diagnostic(*args, **kwargs):
         from ..stats.diagnostic import diagnostic_test_2x2
         return diagnostic_test_2x2(*args, **kwargs)
-    
 
-    #  Models 
+    #  Models
 
     @staticmethod
     def sir(N: int, I0: float, beta: float, gamma: float,
             t_end: float = 160, **kwargs):
         """Convenience factory for SIRModel."""
-        from ..models.sir import SIRModel
         from ..models.parameters import SIRParameters
+        from ..models.sir import SIRModel
         p = SIRParameters(N=N, I0=I0, beta=beta, gamma=gamma,
                           t_span=(0, t_end), **kwargs)
         return SIRModel(p)
@@ -103,8 +102,8 @@ class EpisiaAPI:
     def seir(N: int, I0: float, E0: float, beta: float,
              sigma: float, gamma: float, t_end: float = 365, **kwargs):
         """Convenience factory for SEIRModel."""
-        from ..models.seir import SEIRModel
         from ..models.parameters import SEIRParameters
+        from ..models.seir import SEIRModel
         p = SEIRParameters(N=N, I0=I0, E0=E0, beta=beta,
                            sigma=sigma, gamma=gamma,
                            t_span=(0, t_end), **kwargs)
@@ -114,14 +113,14 @@ class EpisiaAPI:
     def seird(N: int, I0: float, E0: float, beta: float, sigma: float,
               gamma: float, mu: float, t_end: float = 365, **kwargs):
         """Convenience factory for SEIRDModel."""
-        from ..models.seird import SEIRDModel
         from ..models.parameters import SEIRDParameters
+        from ..models.seird import SEIRDModel
         p = SEIRDParameters(N=N, I0=I0, E0=E0, beta=beta, sigma=sigma,
                             gamma=gamma, mu=mu,
                             t_span=(0, t_end), **kwargs)
         return SEIRDModel(p)
 
-    #  Data 
+    #  Data
 
     @staticmethod
     def read_csv(path, **kwargs):
@@ -133,18 +132,18 @@ class EpisiaAPI:
         from ..data.surveillance import SurveillanceDataset
         return SurveillanceDataset.from_csv(path, **kwargs)
 
-    #  Reporting 
+    #  Reporting
 
     @staticmethod
     def report(result: Any, title: Optional[str] = None, **kwargs):
         """Build a report from any EpiResult or ModelResult."""
-        from .reporting import report_from_result, report_from_model
+        from .reporting import report_from_model, report_from_result
         from .results import ModelResult
         if isinstance(result, ModelResult):
             return report_from_model(result, title=title, **kwargs)
         return report_from_result(result, title=title, **kwargs)
 
-    #  Viz 
+    #  Viz
 
     @staticmethod
     def set_theme(theme: str) -> None:

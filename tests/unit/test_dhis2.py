@@ -6,65 +6,73 @@ All tests use mock data — no live DHIS2 connection required.
 """
 
 import sys
-sys.path.insert(0, '/tmp')
 
 import pytest
+
+from episia.data.surveillance import AlertEngine, SurveillanceDataset
 from episia.dhis2 import DHIS2Adapter
 from episia.dhis2.constants import ENDPOINTS, PERIOD_TYPES, WHO_AFRO_ELEMENTS
-from episia.data.surveillance import SurveillanceDataset, AlertEngine
+
+sys.path.insert(0, '/tmp')
 
 
-#  Fixtures 
+#  Fixtures
 
 @pytest.fixture
 def adapter():
     return DHIS2Adapter()
 
+
 @pytest.fixture
 def mock_simple():
     return {
-        "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+        "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
         "rows": [
-            ["dx1","2024W01","OU1","5"],
-            ["dx1","2024W02","OU1","10"],
-            ["dx1","2024W03","OU1","15"],
-            ["dx1","2024W04","OU1","20"],
+            ["dx1", "2024W01", "OU1", "5"],
+            ["dx1", "2024W02", "OU1", "10"],
+            ["dx1", "2024W03", "OU1", "15"],
+            ["dx1", "2024W04", "OU1", "20"],
         ]
     }
+
 
 @pytest.fixture
 def mock_with_deaths():
     return {
-        "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+        "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
         "rows": [
-            ["elem_cases",  "2024W01","District_A","12"],
-            ["elem_cases",  "2024W02","District_A","18"],
-            ["elem_cases",  "2024W03","District_A","25"],
-            ["elem_cases",  "2024W04","District_A","8"],
-            ["elem_cases",  "2024W05","District_A","31"],
-            ["elem_deaths", "2024W01","District_A","1"],
-            ["elem_deaths", "2024W02","District_A","2"],
-            ["elem_deaths", "2024W03","District_A","3"],
+            ["elem_cases",  "2024W01", "District_A", "12"],
+            ["elem_cases",  "2024W02", "District_A", "18"],
+            ["elem_cases",  "2024W03", "District_A", "25"],
+            ["elem_cases",  "2024W04", "District_A", "8"],
+            ["elem_cases",  "2024W05", "District_A", "31"],
+            ["elem_deaths", "2024W01", "District_A", "1"],
+            ["elem_deaths", "2024W02", "District_A", "2"],
+            ["elem_deaths", "2024W03", "District_A", "3"],
         ]
     }
+
 
 @pytest.fixture
 def mock_dvs():
     return {
         "dataValues": [
-            {"period":"2024W01","orgUnit":"OU1","dataElement":"dx1","value":"5"},
-            {"period":"2024W02","orgUnit":"OU1","dataElement":"dx1","value":"10"},
-            {"period":"2024W03","orgUnit":"OU1","dataElement":"dx2","value":"2"},
+            {"period": "2024W01", "orgUnit": "OU1",
+                "dataElement": "dx1", "value": "5"},
+            {"period": "2024W02", "orgUnit": "OU1",
+                "dataElement": "dx1", "value": "10"},
+            {"period": "2024W03", "orgUnit": "OU1",
+                "dataElement": "dx2", "value": "2"},
         ]
     }
 
 
-#  Constants 
+#  Constants
 
 class TestConstants:
 
     def test_all_endpoints_present(self):
-        for key in ("analytics","data_values","org_units","data_elements","me"):
+        for key in ("analytics", "data_values", "org_units", "data_elements", "me"):
             assert key in ENDPOINTS
 
     def test_endpoints_start_with_slash(self):
@@ -72,7 +80,7 @@ class TestConstants:
             assert v.startswith("/"), f"{k} must start with '/'"
 
     def test_period_types_present(self):
-        for key in ("weekly","monthly","quarterly","yearly"):
+        for key in ("weekly", "monthly", "quarterly", "yearly"):
             assert key in PERIOD_TYPES
 
     def test_who_afro_uids_are_11_chars(self):
@@ -80,7 +88,7 @@ class TestConstants:
             assert len(uid) == 11, f"{k}: DHIS2 UIDs must be 11 chars"
 
 
-#  DHIS2Adapter: from_analytics_response 
+#  DHIS2Adapter: from_analytics_response
 
 class TestAdapterAnalytics:
 
@@ -103,8 +111,8 @@ class TestAdapterAnalytics:
     def test_with_deaths_element(self, adapter, mock_with_deaths):
         ds = adapter.from_analytics_response(
             mock_with_deaths,
-            cases_element  = "elem_cases",
-            deaths_element = "elem_deaths",
+            cases_element="elem_cases",
+            deaths_element="elem_deaths",
         )
         assert ds.total_cases == 94
         assert ds.deaths_col is not None
@@ -113,14 +121,14 @@ class TestAdapterAnalytics:
     def test_cfr_computed(self, adapter, mock_with_deaths):
         ds = adapter.from_analytics_response(
             mock_with_deaths,
-            cases_element  = "elem_cases",
-            deaths_element = "elem_deaths",
+            cases_element="elem_cases",
+            deaths_element="elem_deaths",
         )
         assert ds.cfr is not None
         assert 0 < ds.cfr < 1
 
     def test_empty_rows(self, adapter):
-        ds = adapter.from_analytics_response({"headers":[],"rows":[]})
+        ds = adapter.from_analytics_response({"headers": [], "rows": []})
         assert isinstance(ds, SurveillanceDataset)
         assert ds.n_records == 0
 
@@ -130,24 +138,24 @@ class TestAdapterAnalytics:
 
     def test_multi_district(self, adapter):
         response = {
-            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
             "rows": [
-                ["dx1","2024W01","Dist_A","10"],
-                ["dx1","2024W01","Dist_B","20"],
-                ["dx1","2024W01","Dist_C","5"],
+                ["dx1", "2024W01", "Dist_A", "10"],
+                ["dx1", "2024W01", "Dist_B", "20"],
+                ["dx1", "2024W01", "Dist_C", "5"],
             ]
         }
         ds = adapter.from_analytics_response(response, cases_element="dx1")
         assert len(ds.districts) == 3
 
 
-#  DHIS2Adapter: period parsing 
+#  DHIS2Adapter: period parsing
 
 class TestAdapterPeriodParsing:
 
     def _ds_from_period(self, adapter, period_str):
         response = {
-            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
             "rows": [["dx1", period_str, "OU1", "5"]]
         }
         return adapter.from_analytics_response(response)
@@ -195,19 +203,19 @@ class TestAdapterPeriodParsing:
     def test_all_four_types_no_nat(self, adapter):
         import pandas as pd
         response = {
-            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
             "rows": [
-                ["dx1","2024W01","OU1","1"],
-                ["dx1","202401", "OU1","2"],
-                ["dx1","2024Q1", "OU1","3"],
-                ["dx1","2024",   "OU1","4"],
+                ["dx1", "2024W01", "OU1", "1"],
+                ["dx1", "202401", "OU1", "2"],
+                ["dx1", "2024Q1", "OU1", "3"],
+                ["dx1", "2024",   "OU1", "4"],
             ]
         }
         ds = adapter.from_analytics_response(response)
         assert ds.df["period"].notna().all()
 
 
-#  DHIS2Adapter: from_data_value_sets 
+#  DHIS2Adapter: from_data_value_sets
 
 class TestAdapterDataValueSets:
 
@@ -222,21 +230,21 @@ class TestAdapterDataValueSets:
 
     def test_expected_columns(self, adapter, mock_dvs):
         df = adapter.from_data_value_sets(mock_dvs)
-        for col in ("period","org_unit","data_element","value"):
+        for col in ("period", "org_unit", "data_element", "value"):
             assert col in df.columns
 
     def test_value_is_numeric(self, adapter, mock_dvs):
         df = adapter.from_data_value_sets(mock_dvs)
-        assert df["value"].dtype in ["float64","int64"]
+        assert df["value"].dtype in ["float64", "int64"]
 
     def test_empty_returns_empty_df(self, adapter):
         import pandas as pd
-        df = adapter.from_data_value_sets({"dataValues":[]})
+        df = adapter.from_data_value_sets({"dataValues": []})
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 0
 
 
-#  DHIS2Client (offline) 
+#  DHIS2Client (offline)
 
 class TestDHIS2ClientOffline:
 
@@ -268,6 +276,7 @@ class TestDHIS2ClientOffline:
     def test_import_error_without_requests(self, monkeypatch):
         import builtins
         real = builtins.__import__
+
         def mock_import(name, *args, **kwargs):
             if name == "requests":
                 raise ImportError("mocked")
@@ -278,7 +287,7 @@ class TestDHIS2ClientOffline:
             C("http://x", "u", "p")
 
 
-#  Integration: adapter + AlertEngine 
+#  Integration: adapter + AlertEngine
 
 class TestDHIS2Integration:
 
@@ -315,25 +324,25 @@ class TestDHIS2Integration:
 
     def test_filter_district(self, adapter):
         response = {
-            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
             "rows": [
-                ["dx1","2024W01","Dist_A","10"],
-                ["dx1","2024W02","Dist_A","15"],
-                ["dx1","2024W01","Dist_B","5"],
+                ["dx1", "2024W01", "Dist_A", "10"],
+                ["dx1", "2024W02", "Dist_A", "15"],
+                ["dx1", "2024W01", "Dist_B", "5"],
             ]
         }
         ds = adapter.from_analytics_response(response, cases_element="dx1")
         ds_a = ds.filter_district("Dist_A")
         assert ds_a.total_cases == 25
-        assert ds_a.n_records   == 2
+        assert ds_a.n_records == 2
 
     def test_endemic_channel_multiweek(self, adapter):
         rows = []
-        for year in [2022,2023,2024]:
-            for week in range(1,10):
-                rows.append(["dx1",f"{year}W{week:02d}","OU1",str(week+1)])
+        for year in [2022, 2023, 2024]:
+            for week in range(1, 10):
+                rows.append(["dx1", f"{year}W{week:02d}", "OU1", str(week+1)])
         response = {
-            "headers":[{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "headers": [{"name": "dx"}, {"name": "pe"}, {"name": "ou"}, {"name": "value"}],
             "rows": rows
         }
         ds = adapter.from_analytics_response(response, cases_element="dx1")

@@ -56,7 +56,7 @@ class ScenarioResults:
             # Optional SEIRD metrics
             if "total_deaths" in res.metadata.get("metrics", {}):
                 row["total_deaths"] = res.metadata["metrics"]["total_deaths"]
-                row["cfr"]          = res.metadata["metrics"].get("cfr")
+                row["cfr"] = res.metadata["metrics"].get("cfr")
             rows.append(row)
 
         return pd.DataFrame(rows).set_index("scenario")
@@ -80,13 +80,14 @@ class ScenarioResults:
         Returns:
             Figure object.
         """
-        from ..viz.themes.registry import get_palette
         from ..viz.plotters import PlotConfig, get_plotter
+        from ..viz.themes.registry import get_palette
 
         pal = get_palette(theme)
 
         if backend == "plotly":
             import plotly.graph_objects as go
+
             from ..viz.plotters.plotly_plotter import _layout
 
             config = PlotConfig(title=title, theme=theme, xlabel="Time (days)",
@@ -109,6 +110,7 @@ class ScenarioResults:
 
         else:
             import matplotlib.pyplot as plt
+
             from ..viz.themes.registry import apply_mpl_theme
             apply_mpl_theme(theme)
 
@@ -167,7 +169,7 @@ class ScenarioRunner:
             model_class:    Model class to instantiate (SIRModel, SEIRModel…).
             solver_kwargs:  Extra kwargs forwarded to model.run().
         """
-        self.model_class   = model_class
+        self.model_class = model_class
         self.solver_kwargs = solver_kwargs or {}
 
     def run(self, scenarios: ScenarioSet) -> ScenarioResults:
@@ -180,11 +182,11 @@ class ScenarioRunner:
         Returns:
             ScenarioResults ready for plotting or DataFrame export.
         """
-        labels  = []
+        labels = []
         results = []
 
         for label, params in scenarios:
-            model  = self.model_class(params)
+            model = self.model_class(params)
             result = model.run(**self.solver_kwargs)
             labels.append(label)
             results.append(result)

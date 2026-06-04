@@ -44,13 +44,17 @@ Advanced usage (direct imports)::
     from episia.data import SurveillanceDataset, AlertEngine
 """
 
-__version__      = "0.1.2"
-__author__       = "Fidlouindé Ariel Shadrac Ouedraogo"
-__email__        = "arielshadrac@gmail.com"
-__organization__ = "Xcept-Health"
-__license__      = "MIT"
+from .api.reporting import EpiReport, report_from_model, report_from_result
+from .api.unified import EpisiaAPI, epi
+from .data.surveillance import AlertEngine, SurveillanceDataset
 
-#  Plotly renderer — auto-configure browser for script environments 
+__version__ = "0.1.2"
+__author__ = "Fidlouindé Ariel Shadrac Ouedraogo"
+__email__ = "arielshadrac@gmail.com"
+__organization__ = "Xcept-Health"
+__license__ = "MIT"
+
+#  Plotly renderer — auto-configure browser for script environments
 # Prevents raw JSON from being dumped in the terminal when calling fig.show()
 # in a non-notebook context (PowerShell, CMD, terminal).
 # In Jupyter, the renderer is left as-is so inline display works normally.
@@ -68,22 +72,19 @@ try:
 except ImportError:
     pass
 
-#  Main entry point 
-from .api.unified  import epi, EpisiaAPI
+#  Main entry point
 
-#  Reporting — available directly from episia 
-from .api.reporting import EpiReport, report_from_result, report_from_model
+#  Reporting — available directly from episia
 
-#  Models 
+#  Models
 
-#  Stats 
+#  Stats
 
 
-#  Surveillance 
-from .data.surveillance import SurveillanceDataset, AlertEngine
+#  Surveillance
 
 
-#  Lazy imports (PEP 562) 
+#  Lazy imports (PEP 562)
 # Heavy modules (scipy, sklearn, plotly, matplotlib) are NOT loaded at startup.
 # They load on first use — `from episia import risk_ratio` triggers the load,
 # but `from episia import epi` (the common case) stays fast.
@@ -105,6 +106,7 @@ _LAZY = {
     "plot_roc": ".viz.roc",
     "plot_forest": ".viz.forest",
 }
+
 
 def __getattr__(name: str):
     if name in _LAZY:

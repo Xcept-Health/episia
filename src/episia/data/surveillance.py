@@ -27,9 +27,8 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-
-
 # SurveillanceDataset
+
 
 class SurveillanceDataset:
     """
@@ -67,18 +66,18 @@ class SurveillanceDataset:
         except ImportError:
             raise ImportError("pandas is required. pip install pandas")
 
-        self._df          = df.copy()
-        self.date_col     = date_col
-        self.cases_col    = cases_col
-        self.deaths_col   = deaths_col
+        self._df = df.copy()
+        self.date_col = date_col
+        self.cases_col = cases_col
+        self.deaths_col = deaths_col
         self.district_col = district_col
-        self.disease_col  = disease_col
+        self.disease_col = disease_col
         self.population_col = population_col
 
         # Ensure date column is datetime
         if date_col in self._df.columns:
             self._df[date_col] = pd.to_datetime(self._df[date_col],
-                                                 errors="coerce")
+                                                errors="coerce")
 
     #  Constructors
 
@@ -181,7 +180,7 @@ class SurveillanceDataset:
             return sorted(self._df[self.disease_col].dropna().unique().tolist())
         return []
 
-    #  Filtering 
+    #  Filtering
 
     def filter_district(self, district: str) -> "SurveillanceDataset":
         """Return a new dataset filtered to a single district."""
@@ -223,7 +222,7 @@ class SurveillanceDataset:
             population_col=self.population_col,
         )
 
-    #  Aggregation 
+    #  Aggregation
 
     def aggregate(
         self,
@@ -332,9 +331,9 @@ class SurveillanceDataset:
             df = df[df["_year"].isin(historical_years)]
 
         grouped = df.groupby("_week")[self.cases_col]
-        p_low   = grouped.quantile(percentiles[0] / 100)
-        p_mid   = grouped.quantile(percentiles[1] / 100)
-        p_high  = grouped.quantile(percentiles[2] / 100)
+        p_low = grouped.quantile(percentiles[0] / 100)
+        p_mid = grouped.quantile(percentiles[1] / 100)
+        p_high = grouped.quantile(percentiles[2] / 100)
 
         return {
             "weeks":  p_low.index.tolist(),
@@ -344,7 +343,7 @@ class SurveillanceDataset:
             "percentiles": percentiles,
         }
 
-    #  Export to Episia viz 
+    #  Export to Episia viz
 
     def to_timeseries_result(self):
         """
@@ -356,12 +355,12 @@ class SurveillanceDataset:
         from ..api.results import TimeSeriesResult
 
         agg = self.aggregate(freq="W")
-        times  = agg["period"].dt.strftime("%Y-W%W").values
+        times = agg["period"].dt.strftime("%Y-W%W").values
         values = agg[self.cases_col].values.astype(float)
 
         return TimeSeriesResult(times=times, values=values)
 
-    #  Summary 
+    #  Summary
 
     def summary(self) -> Dict[str, Any]:
         """Return a summary statistics dict."""
@@ -374,10 +373,10 @@ class SurveillanceDataset:
         }
         if self.total_deaths is not None:
             s["total_deaths"] = self.total_deaths
-            s["cfr"]          = self.cfr
+            s["cfr"] = self.cfr
         if self.districts:
             s["n_districts"] = len(self.districts)
-            s["districts"]   = self.districts[:10]
+            s["districts"] = self.districts[:10]
         if self.diseases:
             s["diseases"] = self.diseases
         return s
@@ -392,6 +391,8 @@ class SurveillanceDataset:
         )
 
 # AlertEngine
+
+
 @dataclass
 class Alert:
     """A single surveillance alert."""
@@ -403,6 +404,7 @@ class Alert:
     district:   Optional[str] = None
     disease:    Optional[str] = None
     message:    str = ""
+
 
 class AlertEngine:
     """
@@ -466,7 +468,7 @@ class AlertEngine:
         # Z-score
         if len(values) >= 4:
             mean = np.mean(values)
-            std  = np.std(values)
+            std = np.std(values)
             if std > 0:
                 zscores = (values - mean) / std
                 for period, val, z in zip(periods, values, zscores):
@@ -523,6 +525,7 @@ class AlertEngine:
         }
 
 # Module-level convenience functions
+
 
 def from_dhis2_csv(
     path: Union[str, Path],

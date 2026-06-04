@@ -12,20 +12,20 @@ Controls
     Keys    : [Space] play/pause   [R] reset   [S] save PNG
 """
 
-import numpy as np
 import matplotlib
-import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
-from matplotlib.widgets import Slider, Button, RadioButtons
+import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.animation import FuncAnimation
+from matplotlib.widgets import Button, RadioButtons, Slider
+
+from episia.models import SEIRDModel, SEIRModel, SIRModel
+from episia.models.parameters import SEIRDParameters, SEIRParameters, SIRParameters
 
 matplotlib.use("TkAgg")  # replace with "Qt5Agg" if TkAgg is unavailable
 
-from episia.models import SIRModel, SEIRModel, SEIRDModel
-from episia.models.parameters import SIRParameters, SEIRParameters, SEIRDParameters
 
-
-#  Episia model runner 
+#  Episia model runner
 
 def run_model(model_name, N, I0, E0, beta, sigma, gamma, mu, t_end):
     """Run the selected compartmental model via Episia and return a data dict."""
@@ -74,7 +74,7 @@ def run_model(model_name, N, I0, E0, beta, sigma, gamma, mu, t_end):
         return None
 
 
-#  Colour palette (Episia teal → violet) 
+#  Colour palette (Episia teal → violet)
 
 COLORS = {
     "S": "#1D9E75",   # teal     - susceptible
@@ -93,21 +93,21 @@ LABELS = {
 }
 
 
-#  App 
+#  App
 
 class SEIRApp:
 
     def __init__(self):
-        self.model     = "SEIR"
+        self.model = "SEIR"
         self.animating = False
-        self.anim_obj  = None
-        self._data     = None
+        self.anim_obj = None
+        self._data = None
 
         self._build_figure()
         self._connect_events()
         self._update()
 
-    #  Figure layout 
+    #  Figure layout
 
     def _build_figure(self):
         self.fig = plt.figure(figsize=(15, 8), facecolor="#f8f8fc")
@@ -120,7 +120,7 @@ class SEIRApp:
             hspace=0.38, wspace=0.28,
         )
 
-        self.ax_main  = self.fig.add_subplot(gs[0, :])
+        self.ax_main = self.fig.add_subplot(gs[0, :])
         self.ax_phase = self.fig.add_subplot(gs[1, 0])
         self.ax_daily = self.fig.add_subplot(gs[1, 1])
 
@@ -143,7 +143,7 @@ class SEIRApp:
             ("σ (1/incub.)",   0.01,   1.0,       1/5.2,      "%.3f", "sl_sigma"),
             ("γ (1/infect.)",  0.01,   1.0,       1/14,       "%.3f", "sl_gamma"),
             ("μ (mortality)",  0.00,   0.30,      0.01,       "%.3f", "sl_mu"),
-            ("Duration (days)",30,     730,       365,        "%d",   "sl_tend"),
+            ("Duration (days)", 30,     730,       365,        "%d",   "sl_tend"),
         ]
 
         tops = np.linspace(0.92, 0.30, len(specs))
@@ -200,7 +200,7 @@ class SEIRApp:
                       edgecolor="#cccccc", alpha=0.9),
         )
 
-    #  Callbacks 
+    #  Callbacks
 
     def _on_slider(self, _val):
         self._stop_animation()
@@ -233,21 +233,21 @@ class SEIRApp:
                          facecolor=self.fig.get_facecolor())
         print(f"Saved → {fname}")
 
-    #  Params 
+    #  Params
 
     def _params(self):
         return dict(
-            N     = int(self.sl_N.val),
-            I0    = max(1, int(self.sl_I0.val)),
-            E0    = int(self.sl_E0.val),
-            beta  = self.sl_beta.val,
-            sigma = self.sl_sigma.val,
-            gamma = self.sl_gamma.val,
-            mu    = self.sl_mu.val,
-            t_end = int(self.sl_tend.val),
+            N=int(self.sl_N.val),
+            I0=max(1, int(self.sl_I0.val)),
+            E0=int(self.sl_E0.val),
+            beta=self.sl_beta.val,
+            sigma=self.sl_sigma.val,
+            gamma=self.sl_gamma.val,
+            mu=self.sl_mu.val,
+            t_end=int(self.sl_tend.val),
         )
 
-    #  Core update 
+    #  Core update
 
     def _update(self, frame=None):
         p = self._params()
@@ -272,7 +272,7 @@ class SEIRApp:
 
         t_arr = t_plot["t"]
 
-        # Main trajectory 
+        # Main trajectory
         self.ax_main.clear()
         self.ax_main.set_facecolor("white")
         for c in [k for k in ["S", "E", "I", "R", "D"] if k in t_plot]:
@@ -291,7 +291,7 @@ class SEIRApp:
         self.ax_main.grid(True, alpha=0.3, linestyle="--")
         self.ax_main.spines[["top", "right"]].set_visible(False)
 
-        # Phase portrait S vs I 
+        # Phase portrait S vs I
         self.ax_phase.clear()
         self.ax_phase.set_facecolor("white")
         if "S" in t_plot and "I" in t_plot:
@@ -318,15 +318,15 @@ class SEIRApp:
         self.ax_phase.grid(True, alpha=0.3, linestyle="--")
         self.ax_phase.spines[["top", "right"]].set_visible(False)
 
-        # Daily incidence 
+        # Daily incidence
         self.ax_daily.clear()
         self.ax_daily.set_facecolor("white")
         if "R" in t_plot and len(t_arr) > 1:
             recovered = t_plot["R"]
-            deaths    = t_plot.get("D", np.zeros_like(recovered))
-            removed   = recovered + deaths
-            dt        = np.diff(t_arr)
-            daily     = np.clip(np.diff(removed) / dt, 0, None)
+            deaths = t_plot.get("D", np.zeros_like(recovered))
+            removed = recovered + deaths
+            dt = np.diff(t_arr)
+            daily = np.clip(np.diff(removed) / dt, 0, None)
             self.ax_daily.fill_between(t_arr[1:], daily,
                                        alpha=0.35, color=COLORS["I"])
             self.ax_daily.plot(t_arr[1:], daily,
@@ -338,10 +338,10 @@ class SEIRApp:
         self.ax_daily.grid(True, alpha=0.3, linestyle="--")
         self.ax_daily.spines[["top", "right"]].set_visible(False)
 
-        # Metrics box 
+        # Metrics box
         denom = p["gamma"] + (p["mu"] if self.model == "SEIRD" else 0)
-        r0    = p["beta"] / denom if denom > 0 else 0
-        hit   = max(0.0, 1 - 1 / r0) if r0 > 1 else 0.0
+        r0 = p["beta"] / denom if denom > 0 else 0
+        hit = max(0.0, 1 - 1 / r0) if r0 > 1 else 0.0
         peak_I = float(data["I"].max())
         peak_t = float(data["t"][np.argmax(data["I"])])
         final_R = float(data["R"][-1]) / N
@@ -366,7 +366,7 @@ class SEIRApp:
 
         self.info_text.set_text("\n".join(lines))
 
-    #  Animation 
+    #  Animation
 
     def _start_animation(self):
         self.animating = True
@@ -386,7 +386,7 @@ class SEIRApp:
         self.btn_anim.label.set_text("Animate")
         self.btn_anim.color = "#d0f0e8"
 
-    #  Keyboard 
+    #  Keyboard
 
     def _connect_events(self):
         self.fig.canvas.mpl_connect("key_press_event", self._on_key)
@@ -399,13 +399,13 @@ class SEIRApp:
         elif event.key == "s":
             self._on_save(None)
 
-    #  Run 
+    #  Run
 
     def show(self):
         plt.show()
 
 
-#  Entry point 
+#  Entry point
 
 if __name__ == "__main__":
     print("Episia - SEIR Interactive")

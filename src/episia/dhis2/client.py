@@ -8,9 +8,9 @@ from __future__ import annotations
 import warnings
 from typing import Any, Dict, List, Optional, Union
 
-from .adapter   import DHIS2Adapter
-from .constants import ENDPOINTS
 from ..data.surveillance import SurveillanceDataset
+from .adapter import DHIS2Adapter
+from .constants import ENDPOINTS
 
 
 class DHIS2Client:
@@ -59,7 +59,7 @@ class DHIS2Client:
         username:  str,
         password:  str,
         api_token: Optional[str] = None,
-        timeout:   int  = 30,
+        timeout:   int = 30,
         verify:    bool = True,
     ):
         """
@@ -81,13 +81,13 @@ class DHIS2Client:
                 "Install with: pip install episia[dhis2]"
             )
 
-        self.url       = url.rstrip("/")
-        self.username  = username
-        self.password  = password
+        self.url = url.rstrip("/")
+        self.username = username
+        self.password = password
         self.api_token = api_token
-        self.timeout   = timeout
-        self.verify    = verify
-        self._session  = requests.Session()
+        self.timeout = timeout
+        self.verify = verify
+        self._session = requests.Session()
 
         if api_token:
             # PAT authentication -- DHIS2 2.38+
@@ -106,9 +106,8 @@ class DHIS2Client:
 
         self._adapter = DHIS2Adapter()
 
-    
     # Connection
-    
+
     def ping(self) -> bool:
         """
         Test connection to the DHIS2 instance.
@@ -125,9 +124,8 @@ class DHIS2Client:
         except Exception as e:
             raise ConnectionError(f"DHIS2 connection failed: {e}")
 
-    
     # Data fetching
-    
+
     def fetch_analytics(
         self,
         data_elements: Union[str, List[str]],
@@ -264,9 +262,8 @@ class DHIS2Client:
         response = self._get(ENDPOINTS["data_elements"], params=params)
         return response.get("dataElements", [])
 
-    
     # High-level convenience
-    
+
     def to_dataset(
         self,
         data_element:   str,
@@ -307,16 +304,16 @@ class DHIS2Client:
             elements.append(deaths_element)
 
         raw = self.fetch_analytics(
-            data_elements = elements,
-            period        = period,
-            org_unit      = org_unit,
-            org_unit_mode = org_unit_mode,
+            data_elements=elements,
+            period=period,
+            org_unit=org_unit,
+            org_unit_mode=org_unit_mode,
         )
 
         return self._adapter.from_analytics_response(
             raw,
-            cases_element  = data_element,
-            deaths_element = deaths_element,
+            cases_element=data_element,
+            deaths_element=deaths_element,
         )
 
     def to_dataset_by_district(
@@ -334,14 +331,14 @@ class DHIS2Client:
             SurveillanceDataset with district_col='org_unit'.
         """
         return self.to_dataset(
-            data_element  = data_element,
-            period        = period,
-            org_unit      = org_unit,
-            org_unit_mode = "CHILDREN",
+            data_element=data_element,
+            period=period,
+            org_unit=org_unit,
+            org_unit_mode="CHILDREN",
         )
 
-    
     # Internal helpers
+
     @staticmethod
     def _is_weekly_range(period: str) -> bool:
         """

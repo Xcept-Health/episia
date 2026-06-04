@@ -48,20 +48,24 @@ class DHIS2Adapter:
             raise ImportError("pandas required: pip install pandas")
 
         headers = [h["name"] for h in response.get("headers", [])]
-        rows    = response.get("rows", [])
+        rows = response.get("rows", [])
 
         if not rows:
             import pandas as pd
-            empty = pd.DataFrame(columns=["period", "org_unit", "data_element", "cases"])
+            empty = pd.DataFrame(
+                columns=["period", "org_unit", "data_element", "cases"])
             return SurveillanceDataset(empty, date_col="period", cases_col="cases")
 
         df = pd.DataFrame(rows, columns=headers)
 
         # Rename standard DHIS2 columns
         rename = {}
-        if "pe" in df.columns: rename["pe"] = "period"
-        if "ou" in df.columns: rename["ou"] = "org_unit"
-        if "dx" in df.columns: rename["dx"] = "data_element"
+        if "pe" in df.columns:
+            rename["pe"] = "period"
+        if "ou" in df.columns:
+            rename["ou"] = "org_unit"
+        if "dx" in df.columns:
+            rename["dx"] = "data_element"
         df = df.rename(columns=rename)
 
         df["value"] = pd.to_numeric(df["value"], errors="coerce").fillna(0)
@@ -83,9 +87,11 @@ class DHIS2Adapter:
             cases_df["cases"] = 0
 
         if deaths_element and "data_element" in df.columns:
-            deaths_df = df[df["data_element"] == deaths_element][["period","org_unit","value"]].copy()
+            deaths_df = df[df["data_element"] == deaths_element][[
+                "period", "org_unit", "value"]].copy()
             deaths_df = deaths_df.rename(columns={"value": "deaths"})
-            cases_df  = cases_df.merge(deaths_df, on=["period","org_unit"], how="left")
+            cases_df = cases_df.merge(
+                deaths_df, on=["period", "org_unit"], how="left")
             deaths_col = "deaths"
         else:
             deaths_col = None
@@ -95,10 +101,10 @@ class DHIS2Adapter:
 
         return SurveillanceDataset(
             cases_df,
-            date_col     = "period",
-            cases_col    = "cases",
-            deaths_col   = deaths_col,
-            district_col = "org_unit" if "org_unit" in cases_df.columns else None,
+            date_col="period",
+            cases_col="cases",
+            deaths_col=deaths_col,
+            district_col="org_unit" if "org_unit" in cases_df.columns else None,
         )
 
     def from_data_value_sets(
@@ -121,14 +127,14 @@ class DHIS2Adapter:
 
         values = response.get("dataValues", [])
         if not values:
-            return pd.DataFrame(columns=["period","org_unit","data_element","value"])
+            return pd.DataFrame(columns=["period", "org_unit", "data_element", "value"])
 
         rows = []
         for v in values:
             rows.append({
-                "period":       v.get("period",""),
-                "org_unit":     v.get("orgUnit",""),
-                "data_element": v.get("dataElement",""),
+                "period":       v.get("period", ""),
+                "org_unit":     v.get("orgUnit", ""),
+                "data_element": v.get("dataElement", ""),
                 "value":        float(v.get("value", 0) or 0),
             })
 
@@ -146,8 +152,9 @@ class DHIS2Adapter:
             2024Q1    quarter
             2024      year
         """
-        import pandas as pd
         import re
+
+        import pandas as pd
 
         def _parse_one(p: str):
             p = str(p).strip()

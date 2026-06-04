@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import numpy as np
-from scipy.optimize import minimize, OptimizeResult
+from scipy.optimize import OptimizeResult, minimize
 
 
 @dataclass
@@ -91,11 +91,11 @@ class ModelCalibrator:
             fit_params:    Parameters to fit; values are (lower, upper) bounds.
             loss:          Loss function: 'mse', 'rmse', 'mae', 'poisson'.
         """
-        self.model_class  = model_class
-        self.param_class  = param_class
+        self.model_class = model_class
+        self.param_class = param_class
         self.fixed_params = fixed_params
-        self.fit_params   = fit_params
-        self.loss         = loss
+        self.fit_params = fit_params
+        self.loss = loss
 
     # public
 
@@ -121,9 +121,9 @@ class ModelCalibrator:
         """
         t_obs = np.asarray(t_observed, dtype=float)
 
-        param_names  = list(self.fit_params.keys())
-        bounds       = [self.fit_params[k] for k in param_names]
-        x0           = [np.mean(b) for b in bounds]  # start at midpoint
+        param_names = list(self.fit_params.keys())
+        bounds = [self.fit_params[k] for k in param_names]
+        x0 = [np.mean(b) for b in bounds]  # start at midpoint
 
         result_cache: Dict = {}
 
@@ -187,7 +187,7 @@ class ModelCalibrator:
     ) -> Tuple[float, np.ndarray]:
         """Run model, interpolate to t_obs, compute loss."""
         try:
-            model  = self._build_model(fit_params)
+            model = self._build_model(fit_params)
             result = model.run()
         except Exception:
             # Return large penalty on solver failure
@@ -195,7 +195,7 @@ class ModelCalibrator:
             return 1e12, np.zeros(total_n)
 
         residuals_all = []
-        total_loss    = 0.0
+        total_loss = 0.0
 
         for comp, obs in observed.items():
             predicted_full = result.compartments.get(comp)
@@ -206,8 +206,8 @@ class ModelCalibrator:
 
             # Interpolate to observation times
             predicted = np.interp(t_obs, result.t, predicted_full)
-            obs       = np.asarray(obs, dtype=float)
-            res       = obs - predicted
+            obs = np.asarray(obs, dtype=float)
+            res = obs - predicted
             residuals_all.append(res)
 
             total_loss += self._compute_loss(obs, predicted)

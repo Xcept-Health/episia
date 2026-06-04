@@ -26,7 +26,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-#  Import target 
+#  Import target
 from episia.api.reporting import (
     EpiReport,
     ReportSection,
@@ -35,8 +35,6 @@ from episia.api.reporting import (
     report_from_model,
     report_from_result,
 )
-
-
 
 # Fixtures
 
@@ -59,7 +57,6 @@ def full_report():
     r.add_metrics({"Cases": 42, "Deaths": 3, "CFR": "7.1%"})
     r.add_divider()
     return r
-
 
 
 # 1. EpiReport.__init__
@@ -116,7 +113,6 @@ class TestEpiReportInit:
         r = EpiReport(title="X")
         assert "X" in repr(r)
         assert "0 sections" in repr(r)
-
 
 
 # 2. Section adders
@@ -272,7 +268,6 @@ class TestChaining:
         assert kinds == ["text", "metrics", "divider"]
 
 
-
 # 3. to_markdown()
 
 
@@ -341,7 +336,6 @@ class TestToMarkdown:
         r = EpiReport(title="T", description="My desc")
         md = r.to_markdown()
         assert "My desc" in md
-
 
 
 # 4. to_html()
@@ -417,7 +411,8 @@ class TestToHtml:
         assert "<img" not in html
         # onerror may appear as text inside &lt;img ... onerror=...&gt; which is safe
         # but must not appear as a live attribute
-        assert 'onerror=' not in html.replace("&lt;img", "").replace("onerror=alert", "")
+        assert 'onerror=' not in html.replace(
+            "&lt;img", "").replace("onerror=alert", "")
         assert "&lt;img" in html
 
     def test_section_heading_level(self):
@@ -442,7 +437,6 @@ class TestToHtml:
         r = EpiReport(title="T", author="Ariel Shadrac Ouédraogo")
         html = r.to_html()
         assert "Ouédraogo" in html
-
 
 
 # 5. to_json()
@@ -521,7 +515,6 @@ class TestToJson:
         raw = empty_report.to_json()
         # default indent=2 → should have newlines
         assert "\n" in raw
-
 
 
 # 6. save_* — file I/O
@@ -610,7 +603,6 @@ class TestSaveJson:
         assert data["title"] == "Données épidémiologiques"
 
 
-
 # 7. Helper functions
 
 
@@ -679,7 +671,6 @@ class TestEsc:
 
     def test_empty_string(self):
         assert _esc("") == ""
-
 
 
 # 8. Factory functions — report_from_result & report_from_model
@@ -812,7 +803,6 @@ class TestReportFromModel:
             report = report_from_model(mr)
         data = json.loads(report.to_json())
         assert data["title"] is not None
-
 
 
 # 9. Edge cases & error paths

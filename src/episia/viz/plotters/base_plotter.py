@@ -22,8 +22,6 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-
-
 # Animation support
 
 
@@ -38,10 +36,10 @@ class AnimationType(Enum):
     LOOP             continuous loop, no controls (Matplotlib FuncAnimation).
     """
     FRAME_BY_FRAME = "frame_by_frame"
-    CONTINUOUS     = "continuous"
-    SLIDER         = "slider"
-    PLAY_PAUSE     = "play_pause"
-    LOOP           = "loop"
+    CONTINUOUS = "continuous"
+    SLIDER = "slider"
+    PLAY_PAUSE = "play_pause"
+    LOOP = "loop"
 
 
 @dataclass
@@ -60,15 +58,15 @@ class AnimationConfig:
         easing:        CSS/Plotly easing function for transitions.
         fps:           Frames per second (Matplotlib backend).
     """
-    enabled:       bool          = False
+    enabled:       bool = False
     anim_type:     AnimationType = AnimationType.PLAY_PAUSE
-    duration_ms:   int           = 3000
-    frame_ms:      int           = 50
-    transition_ms: int           = 30
-    loop:          bool          = True
-    show_controls: bool          = True
-    easing:        str           = "cubic-in-out"
-    fps:           int           = 25
+    duration_ms:   int = 3000
+    frame_ms:      int = 50
+    transition_ms: int = 30
+    loop:          bool = True
+    show_controls: bool = True
+    easing:        str = "cubic-in-out"
+    fps:           int = 25
 
     @classmethod
     def default(cls) -> "AnimationConfig":
@@ -130,7 +128,6 @@ class UnsupportedAnimationError(NotImplementedError):
     pass
 
 
-
 # Plot configuration
 
 
@@ -155,20 +152,21 @@ class PlotConfig:
         animation:    AnimationConfig object.
         extra:        Backend-specific kwargs forwarded as-is.
     """
-    title:       str                      = ""
-    subtitle:    str                      = ""
-    xlabel:      str                      = ""
-    ylabel:      str                      = ""
-    width:       int                      = 800
-    height:      int                      = 500
-    theme:       str                      = "scientific"
-    palette:     Optional[List[str]]      = None
-    show_grid:   bool                     = True
-    show_legend: bool                     = True
-    font_size:   int                      = 13
-    confidence:  float                    = 0.95
-    animation:   AnimationConfig          = field(default_factory=AnimationConfig.default)
-    extra:       Dict[str, Any]           = field(default_factory=dict)
+    title:       str = ""
+    subtitle:    str = ""
+    xlabel:      str = ""
+    ylabel:      str = ""
+    width:       int = 800
+    height:      int = 500
+    theme:       str = "scientific"
+    palette:     Optional[List[str]] = None
+    show_grid:   bool = True
+    show_legend: bool = True
+    font_size:   int = 13
+    confidence:  float = 0.95
+    animation:   AnimationConfig = field(
+        default_factory=AnimationConfig.default)
+    extra:       Dict[str, Any] = field(default_factory=dict)
 
     @classmethod
     def minimal(cls, title: str = "", **kwargs) -> "PlotConfig":
@@ -192,20 +190,18 @@ class PlotConfig:
         )
 
 
-
 # Output type
 
 
 class OutputFormat(Enum):
     """Output format when saving or exporting a figure."""
-    PNG    = "png"
-    SVG    = "svg"
-    PDF    = "pdf"
-    HTML   = "html"
-    JSON   = "json"   # Plotly only  serialised figure dict
-    GIF    = "gif"    # Animated  Matplotlib only
-    MP4    = "mp4"    # Animated  requires ffmpeg
-
+    PNG = "png"
+    SVG = "svg"
+    PDF = "pdf"
+    HTML = "html"
+    JSON = "json"   # Plotly only  serialised figure dict
+    GIF = "gif"    # Animated  Matplotlib only
+    MP4 = "mp4"    # Animated  requires ffmpeg
 
 
 # Abstract base plotter
@@ -447,9 +443,7 @@ class BasePlotter(ABC):
         )
 
 
-
 # Exports
-
 
 __all__ = [
     "AnimationType",

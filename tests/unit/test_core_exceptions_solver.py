@@ -2,9 +2,27 @@
 tests/test_core_exceptions_solver.py
 Coverage: core/exceptions.py, models/solver.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
+import sys
+
 import numpy as np
+import pytest
+
+from episia.core.exceptions import (
+    ComputationError,
+    ConfigurationError,
+    ConvergenceError,
+    DataError,
+    DimensionError,
+    FileError,
+    ModelError,
+    ParameterError,
+    PlotError,
+    StatisticalError,
+    ValidationError,
+)
+from episia.models.solver import doubling_time, estimate_herd_immunity, solve_model
+
+sys.path.insert(0, '/tmp')
 # Import base exception  name varies by version
 try:
     from episia.core.exceptions import EpiToolsError as _BaseError
@@ -14,17 +32,10 @@ except ImportError:
     except ImportError:
         _BaseError = Exception
 
-from episia.core.exceptions import (
-    ValidationError, DataError, ModelError,
-    ComputationError, ConfigurationError, ConvergenceError,
-    ParameterError, StatisticalError, PlotError, FileError,
-    DimensionError,
-)
 EpiToolsError = _BaseError
-from episia.models.solver import solve_model, doubling_time, estimate_herd_immunity
 
 
-#  Exceptions 
+#  Exceptions
 
 class TestExceptions:
 
@@ -94,10 +105,11 @@ class TestExceptions:
             StatisticalError, PlotError, FileError, DimensionError,
         ]
         for cls in errors:
-            assert issubclass(cls, EpiToolsError), f"{cls.__name__} not subclass of EpiToolsError"
+            assert issubclass(
+                cls, EpiToolsError), f"{cls.__name__} not subclass of EpiToolsError"
 
 
-#  models/solver 
+#  models/solver
 
 class TestDoublingTime:
 
@@ -111,7 +123,7 @@ class TestDoublingTime:
 
     def test_higher_beta_shorter_doubling(self):
         dt_high = doubling_time(beta=0.5, gamma=1/14)
-        dt_low  = doubling_time(beta=0.2, gamma=1/14)
+        dt_low = doubling_time(beta=0.2, gamma=1/14)
         assert float(dt_high) < float(dt_low)
 
 
@@ -130,7 +142,7 @@ class TestEstimateHerdImmunity:
         assert abs(float(result)) < 0.01
 
     def test_higher_r0_higher_hit(self):
-        hit_low  = estimate_herd_immunity(r0=2.0)
+        hit_low = estimate_herd_immunity(r0=2.0)
         hit_high = estimate_herd_immunity(r0=10.0)
         assert float(hit_high) > float(hit_low)
 
@@ -147,8 +159,8 @@ class TestSolveModel:
             N = S + I + R
             beta, gamma = 0.35, 1/14
             dS = -beta * S * I / N
-            dI =  beta * S * I / N - gamma * I
-            dR =  gamma * I
+            dI = beta * S * I / N - gamma * I
+            dR = gamma * I
             return [dS, dI, dR]
 
         y0 = np.array([99_990., 10., 0.])
@@ -168,10 +180,12 @@ class TestSolveModel:
 
     def test_t_starts_at_t0(self):
         def derivatives(t, y): return [-0.1*y[0]]
-        t, _ = solve_model(derivatives, np.array([100.]), t_span=(0., 10.), check_conservation=False)
+        t, _ = solve_model(derivatives, np.array(
+            [100.]), t_span=(0., 10.), check_conservation=False)
         assert t[0] == pytest.approx(0.)
 
     def test_t_ends_at_t1(self):
         def derivatives(t, y): return [-0.1*y[0]]
-        t, _ = solve_model(derivatives, np.array([100.]), t_span=(0., 10.), check_conservation=False)
+        t, _ = solve_model(derivatives, np.array(
+            [100.]), t_span=(0., 10.), check_conservation=False)
         assert t[-1] == pytest.approx(10.)

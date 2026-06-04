@@ -4,11 +4,12 @@ statistical thresholds, default parameters, and configuration options.
 """
 
 from enum import Enum
-from typing import Dict, Any
+from typing import Any, Dict
+
 import numpy as np
 
+# STATISTICAL CONSTANTS
 
-# STATISTICAL CONSTANTS 
 
 class ConfidenceLevel(float, Enum):
     """Common confidence levels."""
@@ -72,7 +73,7 @@ EUROPEAN_STANDARD_POPULATION = np.array([
 ])
 
 
-# DISEASE-SPECIFIC CONSTANTS 
+# DISEASE-SPECIFIC CONSTANTS
 
 COVID19_PARAMS = {
     "incubation_period": {
@@ -141,7 +142,7 @@ EBOLA_PARAMS = {
 }
 
 
-# CALCULATION METHODS 
+# CALCULATION METHODS
 
 class ConfidenceIntervalMethod(str, Enum):
     """Methods for confidence interval calculation."""
@@ -171,7 +172,7 @@ class OddsRatioMethod(str, Enum):
     EXACT = "exact"
 
 
-# VISUALIZATION CONSTANTS 
+# VISUALIZATION CONSTANTS
 
 class PlotStyle(str, Enum):
     """Plot style presets."""
@@ -202,7 +203,7 @@ DEFAULT_COLOR_PALETTE = ColorPalette.VIRIDIS
 DEFAULT_PLOT_STYLE = PlotStyle.SCIENTIFIC
 
 
-# CONFIGURATION DICTIONARY 
+# CONFIGURATION DICTIONARY
 
 EPISIA_CONFIG: Dict[str, Any] = {
     # Statistical defaults
@@ -213,7 +214,7 @@ EPISIA_CONFIG: Dict[str, Any] = {
         "convergence_tol": CONVERGENCE_TOL,
         "max_iterations": MAX_ITERATIONS
     },
-    
+
     # Visualization defaults
     "visualization": {
         "figure_size": DEFAULT_FIGSIZE,
@@ -222,7 +223,7 @@ EPISIA_CONFIG: Dict[str, Any] = {
         "color_palette": DEFAULT_COLOR_PALETTE,
         "plot_style": DEFAULT_PLOT_STYLE
     },
-    
+
     # Computational defaults
     "computation": {
         "use_cache": True,
@@ -230,7 +231,7 @@ EPISIA_CONFIG: Dict[str, Any] = {
         "parallel_processing": False,
         "n_jobs": 1
     },
-    
+
     # Output defaults
     "output": {
         "decimal_places": 3,
@@ -244,45 +245,45 @@ EPISIA_CONFIG: Dict[str, Any] = {
 def get_config(key: str = None) -> Any:
     """
     Get configuration value(s).
-    
+
     Args:
         key: Configuration key (e.g., 'statistics.confidence_level')
-        
+
     Returns:
         Configuration value or dictionary
     """
     if key is None:
         return EPISIA_CONFIG.copy()
-    
+
     # Handle nested keys
     keys = key.split('.')
     value = EPISIA_CONFIG
-    
+
     for k in keys:
         if isinstance(value, dict) and k in value:
             value = value[k]
         else:
             raise KeyError(f"Configuration key not found: {key}")
-    
+
     return value
 
 
 def set_config(key: str, value: Any) -> None:
     """
     Set configuration value.
-    
+
     Args:
         key: Configuration key (e.g., 'statistics.confidence_level')
         value: New value
     """
     keys = key.split('.')
     config = EPISIA_CONFIG
-    
+
     # Navigate to nested dictionary
     for k in keys[:-1]:
         if k not in config:
             config[k] = {}
         config = config[k]
-    
+
     # Set value
     config[keys[-1]] = value

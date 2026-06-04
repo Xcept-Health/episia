@@ -32,8 +32,6 @@ from .base_plotter import (
     UnsupportedAnimationError,
 )
 
-
-
 # Colour palettes per theme
 
 _PALETTES: Dict[str, List[str]] = {
@@ -68,21 +66,21 @@ _FONT_COLOR: Dict[str, str] = {
 }
 
 
-
 # Helper: build Plotly layout dict
 
 def _layout(cfg: PlotConfig, **overrides) -> Dict:
-    theme   = cfg.theme
-    bg      = _BG.get(theme, "#ffffff")
-    grid_c  = _GRID.get(theme, "#e5e5e5")
-    font_c  = _FONT_COLOR.get(theme, "#222222")
+    theme = cfg.theme
+    bg = _BG.get(theme, "#ffffff")
+    grid_c = _GRID.get(theme, "#e5e5e5")
+    font_c = _FONT_COLOR.get(theme, "#222222")
 
     title_text = cfg.title
     if cfg.subtitle:
         title_text += f"<br><sup>{cfg.subtitle}</sup>"
 
     base = dict(
-        title=dict(text=title_text, font=dict(size=cfg.font_size + 3, color=font_c)),
+        title=dict(text=title_text, font=dict(
+            size=cfg.font_size + 3, color=font_c)),
         xaxis=dict(
             title=cfg.xlabel,
             showgrid=cfg.show_grid,
@@ -113,7 +111,6 @@ def _palette(cfg: PlotConfig) -> List[str]:
     if cfg.palette:
         return cfg.palette
     return _PALETTES.get(cfg.theme, _PALETTES["scientific"])
-
 
 
 # Helper: build animation frames + layout buttons
@@ -217,14 +214,14 @@ class PlotlyPlotter(BasePlotter):
         """
         import plotly.graph_objects as go
 
-        cfg   = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
-        anim  = cfg.animation
+        anim = cfg.animation
         color = _palette(cfg)[0]
 
-        times  = list(result.times)
+        times = list(result.times)
         values = list(result.values)
-        n      = len(times)
+        n = len(times)
 
         if not anim.enabled:
             traces = [
@@ -249,7 +246,7 @@ class PlotlyPlotter(BasePlotter):
             )
             return go.Figure(data=traces, layout=layout)
 
-        #  animated version 
+        #  animated version
         # Frame i shows bars for periods 0..i
         frames = []
         for i in range(n):
@@ -274,8 +271,10 @@ class PlotlyPlotter(BasePlotter):
                 range=[0, max(values) * 1.1],
                 showgrid=cfg.show_grid,
             ),
-            updatemenus=_make_play_pause_buttons(anim) if cfg.show_legend else [],
-            sliders=[_make_slider([str(t) for t in times], anim, prefix="Period: ")],
+            updatemenus=_make_play_pause_buttons(
+                anim) if cfg.show_legend else [],
+            sliders=[_make_slider([str(t)
+                                  for t in times], anim, prefix="Period: ")],
         )
         fig.update_layout(layout)
         return fig
@@ -296,15 +295,15 @@ class PlotlyPlotter(BasePlotter):
         """
         import plotly.graph_objects as go
 
-        cfg   = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
-        anim  = cfg.animation
-        pal   = _palette(cfg)
+        anim = cfg.animation
+        pal = _palette(cfg)
 
-        t            = list(result.t)
+        t = list(result.t)
         compartments = result.compartments   # dict name -> array
-        names        = list(compartments.keys())
-        n_steps      = len(t)
+        names = list(compartments.keys())
+        n_steps = len(t)
 
         if not anim.enabled:
             traces = []
@@ -322,7 +321,8 @@ class PlotlyPlotter(BasePlotter):
                     x=0.02, y=0.97, xref="paper", yref="paper",
                     text=f"R₀ = {result.r0:.2f}",
                     showarrow=False,
-                    font=dict(size=cfg.font_size, color=_FONT_COLOR.get(cfg.theme)),
+                    font=dict(size=cfg.font_size,
+                              color=_FONT_COLOR.get(cfg.theme)),
                     bgcolor="rgba(255,255,255,0.7)",
                     bordercolor="#cccccc",
                     borderwidth=1,
@@ -402,14 +402,14 @@ class PlotlyPlotter(BasePlotter):
         """
         import plotly.graph_objects as go
 
-        cfg   = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
-        anim  = cfg.animation
-        pal   = _palette(cfg)
+        anim = cfg.animation
+        pal = _palette(cfg)
 
-        fpr  = list(result.fpr)
-        tpr  = list(result.tpr)
-        n    = len(fpr)
+        fpr = list(result.fpr)
+        tpr = list(result.tpr)
+        n = len(fpr)
 
         # Reference diagonal
         diag = go.Scatter(
@@ -423,7 +423,7 @@ class PlotlyPlotter(BasePlotter):
         # Optimal threshold marker
         opt_fpr = 1 - result.optimal_point.get("specificity", 0)
         opt_tpr = result.optimal_point.get("sensitivity", 0)
-        marker  = go.Scatter(
+        marker = go.Scatter(
             x=[opt_fpr], y=[opt_tpr],
             mode="markers+text",
             marker=dict(color=pal[1], size=10, symbol="star"),
@@ -437,7 +437,8 @@ class PlotlyPlotter(BasePlotter):
             x=0.97, y=0.05, xref="paper", yref="paper",
             text=f"AUC = {result.auc:.3f}",
             showarrow=False,
-            font=dict(size=cfg.font_size + 1, color=_FONT_COLOR.get(cfg.theme)),
+            font=dict(size=cfg.font_size + 1,
+                      color=_FONT_COLOR.get(cfg.theme)),
             bgcolor="rgba(255,255,255,0.8)",
             bordercolor="#cccccc",
             borderwidth=1,
@@ -451,9 +452,9 @@ class PlotlyPlotter(BasePlotter):
                 name=f"ROC (AUC={result.auc:.3f})",
                 line=dict(color=pal[0], width=2.5),
                 fill="tozeroy",
-                fillcolor=f"rgba({int(pal[0][1:3],16)},"
-                          f"{int(pal[0][3:5],16)},"
-                          f"{int(pal[0][5:7],16)},0.08)",
+                fillcolor=f"rgba({int(pal[0][1:3], 16)},"
+                f"{int(pal[0][3:5], 16)},"
+                f"{int(pal[0][5:7], 16)},0.08)",
             )
             layout = _layout(
                 cfg,
@@ -466,7 +467,7 @@ class PlotlyPlotter(BasePlotter):
             )
             return go.Figure(data=[diag, roc_trace, marker], layout=layout)
 
-        #  animated: threshold sweep 
+        #  animated: threshold sweep
         frames = []
         for i in range(2, n + 1):
             frames.append(go.Frame(
@@ -477,9 +478,9 @@ class PlotlyPlotter(BasePlotter):
                         mode="lines",
                         line=dict(color=pal[0], width=2.5),
                         fill="tozeroy",
-                        fillcolor=f"rgba({int(pal[0][1:3],16)},"
-                                  f"{int(pal[0][3:5],16)},"
-                                  f"{int(pal[0][5:7],16)},0.08)",
+                        fillcolor=f"rgba({int(pal[0][1:3], 16)},"
+                        f"{int(pal[0][3:5], 16)},"
+                        f"{int(pal[0][5:7], 16)},0.08)",
                         showlegend=False,
                     ),
                     marker,
@@ -520,10 +521,10 @@ class PlotlyPlotter(BasePlotter):
         """
         import plotly.graph_objects as go
 
-        cfg  = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
         anim = cfg.animation
-        pal  = _palette(cfg)
+        pal = _palette(cfg)
 
         # Collect rows -
         rows: List[Dict] = []
@@ -571,15 +572,15 @@ class PlotlyPlotter(BasePlotter):
             ))
 
         n_rows = len(rows)
-        y_pos  = list(range(n_rows - 1, -1, -1))  # top to bottom
+        y_pos = list(range(n_rows - 1, -1, -1))  # top to bottom
 
         def _build_traces(subset_rows, subset_y):
             traces = []
             for row, y in zip(subset_rows, subset_y):
                 is_pooled = row.get("pooled", False)
-                color     = pal[1] if is_pooled else pal[0]
-                size      = 14 if is_pooled else 10
-                symbol    = "diamond" if is_pooled else "square"
+                color = pal[1] if is_pooled else pal[0]
+                size = 14 if is_pooled else 10
+                symbol = "diamond" if is_pooled else "square"
 
                 # CI line
                 traces.append(go.Scatter(
@@ -666,8 +667,8 @@ class PlotlyPlotter(BasePlotter):
         """
         import plotly.graph_objects as go
 
-        cfg   = self._resolve_config(config)
-        pal   = _palette(cfg)
+        cfg = self._resolve_config(config)
+        pal = _palette(cfg)
         label = result.measure.replace("_", " ").title()
 
         null_value = result.null_value
@@ -747,14 +748,14 @@ class PlotlyPlotter(BasePlotter):
         import plotly.graph_objects as go
         from plotly.subplots import make_subplots
 
-        cfg  = self._resolve_config(config)
+        cfg = self._resolve_config(config)
         self._check_animation(cfg)
         anim = cfg.animation
-        pal  = _palette(cfg)
+        pal = _palette(cfg)
         font_c = _FONT_COLOR.get(cfg.theme, "#222222")
-        bg     = _BG.get(cfg.theme, "#ffffff")
+        bg = _BG.get(cfg.theme, "#ffffff")
 
-        # Confusion matrix 
+        # Confusion matrix
         cm_values = [
             [result.tn, result.fp],
             [result.fn, result.tp],
@@ -785,7 +786,7 @@ class PlotlyPlotter(BasePlotter):
         }
         m_labels = list(metrics.keys())
         m_values = list(metrics.values())
-        colors   = [pal[i % len(pal)] for i in range(len(m_labels))]
+        colors = [pal[i % len(pal)] for i in range(len(m_labels))]
 
         # Subplot layout
         fig = make_subplots(
@@ -859,10 +860,10 @@ class PlotlyPlotter(BasePlotter):
         import plotly.graph_objects as go
         from plotly.subplots import make_subplots
 
-        cfg    = self._resolve_config(config)
-        pal    = _palette(cfg)
+        cfg = self._resolve_config(config)
+        pal = _palette(cfg)
         font_c = _FONT_COLOR.get(cfg.theme, "#222222")
-        bg     = _BG.get(cfg.theme, "#ffffff")
+        bg = _BG.get(cfg.theme, "#ffffff")
 
         # Extract table cells
         if hasattr(result, "table"):
@@ -899,9 +900,9 @@ class PlotlyPlotter(BasePlotter):
         ), row=1, col=1)
 
         # Summary metrics
-        rr_result  = tbl.risk_ratio()
-        or_result  = tbl.odds_ratio()
-        chi2       = tbl.chi_square()
+        rr_result = tbl.risk_ratio()
+        or_result = tbl.odds_ratio()
+        chi2 = tbl.chi_square()
 
         summary_labels = ["Risk Exposed", "Risk Unexposed", "Risk Ratio",
                           "Odds Ratio", "χ² p-value"]
@@ -974,7 +975,6 @@ class PlotlyPlotter(BasePlotter):
                     f"Install kaleido: pip install kaleido\n{e}"
                 )
         return path
-
 
 
 # Exports

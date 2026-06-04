@@ -13,12 +13,11 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
+from .plotters import AnimationConfig, AnimationType, PlotConfig, get_plotter
 from .themes.registry import get_palette
 
-
-
 # _collect_rows helper
+
 
 def _collect_rows(result: Any) -> Tuple[List[Dict], float]:
     """Extract rows and null_value from various result types."""
@@ -84,7 +83,6 @@ def _p_str(p: Optional[float]) -> str:
     return "p<0.001" if p < 0.001 else f"p={p:.3f}"
 
 
-
 # plot_forest
 
 def plot_forest(
@@ -128,7 +126,6 @@ def plot_forest(
         )
 
     return get_plotter(backend).plot_forest(result, config=config)
-
 
 
 # plot_meta_forest
@@ -180,7 +177,8 @@ def plot_meta_forest(
     """
     n = len(estimates)
     if not (len(ci_lowers) == len(ci_uppers) == len(labels) == n):
-        raise ValueError("estimates, ci_lowers, ci_uppers, labels must all have same length.")
+        raise ValueError(
+            "estimates, ci_lowers, ci_uppers, labels must all have same length.")
 
     # Normalise weights → marker sizes
     if weights is not None:
@@ -209,14 +207,15 @@ def plot_meta_forest(
 
     if backend == "plotly":
         import plotly.graph_objects as go
-        from .plotters.plotly_plotter import _layout, _FONT_COLOR
+
+        from .plotters.plotly_plotter import _FONT_COLOR, _layout
 
         fc = _FONT_COLOR.get(theme, "#222222")
         fig = go.Figure()
 
         # Null line
         fig.add_vline(x=null_value, line=dict(color="#999999", width=1,
-                                               dash="dot"))
+                                              dash="dot"))
 
         for i in range(n):
             y = y_positions[i]
@@ -246,8 +245,8 @@ def plot_meta_forest(
         # Pooled diamond
         if pooled_estimate is not None and pooled_ci is not None:
             y_pool = -1
-            lo, hi  = pooled_ci
-            mid_h   = 0.35
+            lo, hi = pooled_ci
+            mid_h = 0.35
             diamond_x = [lo, pooled_estimate, hi, pooled_estimate, lo]
             diamond_y = [y_pool, y_pool + mid_h, y_pool,
                          y_pool - mid_h, y_pool]
@@ -283,8 +282,9 @@ def plot_meta_forest(
         return fig
 
     else:
-        import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
+        import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 

@@ -1,3 +1,151 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "Cython", "numpy"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "episia"
+dynamic = ["version"]
+description = "Open-source Python epidemiology and biostatistics toolbox. Based on OpenEpi algorithms risk ratios, odds ratios, sample size, diagnostic test evaluation, compartmental epidemic models (SIR/SEIR/SEIRD), Monte Carlo sensitivity analysis, surveillance data tools, and automated report generation. Built for the francophone African public health context."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Fildouindé Ariel Shadrac Ouedraogo", email = "arielshadrac@gmail.com" },
+]
+maintainers = [
+    { name = "Xcept-Health", email = "arielshadrac@gmail.com" },
+]
+keywords = [
+    "epidemiology", "biostatistics", "public health",
+    "OpenEpi", "outbreak analysis", "disease surveillance",
+    "risk ratio", "odds ratio", "confidence interval",
+    "sample size", "sensitivity", "specificity", "ROC curve",
+    "SIR model", "SEIR model", "SEIRD",
+    "compartmental model", "R0", "herd immunity",
+    "Monte Carlo", "calibration",
+    "Africa", "Burkina Faso", "DHIS2", "surveillance data",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Natural Language :: English",
+    "Natural Language :: French",
+]
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "pandas>=1.5.0",
+    "plotly>=5.14.0",
+    "matplotlib>=3.7.0",
+    "isort>=6.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Xcept-Health/episia"
+"Bug Tracker" = "https://github.com/Xcept-Health/episia/issues"
+Documentation = "https://github.com/Xcept-Health/episia#readme"
+"Source Code" = "https://github.com/Xcept-Health/episia"
+Organization = "https://xcept-health.com"
+
+[project.optional-dependencies]
+full = [
+    "ipywidgets>=8.0.0",
+    "kaleido>=0.2.1",
+    "scikit-learn>=1.2.0",
+    "seaborn>=0.12.0",
+    "openpyxl>=3.1.0",
+    "tabulate>=0.9.0",
+]
+jupyter = [
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+    "nbformat>=5.7.0",
+]
+export = [
+    "kaleido>=0.2.1",
+    "pillow>=9.0.0",
+]
+ml = [
+    "scikit-learn>=1.2.0",
+]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-xdist>=3.3.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.4.0",
+    "pre-commit>=3.3.0",
+    "ipython>=8.0.0",
+]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.3.0",
+    "myst-parser>=2.0.0",
+    "nbsphinx>=0.9.0",
+]
+all = [
+    "ipywidgets>=8.0.0",
+    "kaleido>=0.2.1",
+    "scikit-learn>=1.2.0",
+    "seaborn>=0.12.0",
+    "openpyxl>=3.1.0",
+    "tabulate>=0.9.0",
+    "jupyter>=1.0.0",
+    "nbformat>=5.7.0",
+    "pillow>=9.0.0",
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "episia.__version__" }
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*", "examples*", "docs*", "benchmarks*"]
+
+[tool.setuptools.package-data]
+"episia.viz" = ["themes/*.mplstyle"]
+"episia" = ["*.md", "*.txt", "*.yaml"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_unused_ignores = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[dependency-groups]
+dev = [
+    "autopep8>=2.3.2",
+    "black>=25.11.0",
+]

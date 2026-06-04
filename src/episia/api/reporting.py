@@ -57,10 +57,10 @@ class EpiReport:
         date: Optional[str] = None,
         description: Optional[str] = None,
     ):
-        self.title       = title
-        self.author      = author
+        self.title = title
+        self.author = author
         self.institution = institution
-        self.date        = date or datetime.now().strftime("%d %B %Y")
+        self.date = date or datetime.now().strftime("%d %B %Y")
         self.description = description
         self.sections: List[ReportSection] = []
 
@@ -86,7 +86,8 @@ class EpiReport:
             if not isinstance(data, pd.DataFrame):
                 data = pd.DataFrame(data)
             if len(data) > max_rows:
-                caption = (caption or "") + f"\n*Truncated to {max_rows}/{len(data)} rows.*"
+                caption = (caption or "") + \
+                    f"\n*Truncated to {max_rows}/{len(data)} rows.*"
                 data = data.head(max_rows)
         except ImportError:
             pass
@@ -138,7 +139,8 @@ class EpiReport:
 
         for sec in self.sections:
             if sec.kind == "divider":
-                lines.append("\n---\n"); continue
+                lines.append("\n---\n")
+                continue
             if sec.title:
                 lines.append(f"\n{'#' * min(sec.level, 4)} {sec.title}\n")
             if sec.kind == "text":
@@ -175,7 +177,8 @@ class EpiReport:
         parts = []
         for sec in self.sections:
             if sec.kind == "divider":
-                parts.append("<hr>"); continue
+                parts.append("<hr>")
+                continue
             if sec.title:
                 tag = f"h{min(sec.level, 4)}"
                 parts.append(f"<{tag}>{_esc(sec.title)}</{tag}>")
@@ -183,7 +186,7 @@ class EpiReport:
                 content = str(sec.content)
                 if content.startswith("```"):
                     inner = content.strip("`").strip()
-                    code  = "\n".join(inner.split("\n")[1:])
+                    code = "\n".join(inner.split("\n")[1:])
                     parts.append(f"<pre><code>{_esc(code)}</code></pre>")
                 else:
                     for para in content.split("\n\n"):
@@ -247,7 +250,8 @@ class EpiReport:
             if sec.kind in ("text", "divider"):
                 entry["content"] = str(sec.content) if sec.content else None
             elif sec.kind == "metrics":
-                entry["content"] = {str(k): _fmt(v) for k, v in sec.content.items()}
+                entry["content"] = {str(k): _fmt(v)
+                                    for k, v in sec.content.items()}
             elif sec.kind == "table":
                 try:
                     import pandas as pd
@@ -275,7 +279,7 @@ class EpiReport:
         return f"EpiReport('{self.title}', {len(self.sections)} sections)"
 
 
-# Factory functions 
+# Factory functions
 
 def report_from_result(
     result: Any,
@@ -308,7 +312,7 @@ def report_from_model(
     theme: str = "scientific",
 ) -> EpiReport:
     """Full model simulation report (SIR / SEIR / SEIRD)."""
-    mtype  = model_result.model_type
+    mtype = model_result.model_type
     report = EpiReport(
         title=title or f"Model report — {mtype}",
         author=author, institution=institution,
@@ -331,7 +335,7 @@ def report_from_model(
         metrics["Herd immunity threshold"] = f"{hit:.1%}"
     if model_result.peak_infected is not None:
         metrics["Peak infectious"] = f"{model_result.peak_infected:,.0f}"
-        metrics["Peak day"]      = f"{model_result.peak_time:.0f}"
+        metrics["Peak day"] = f"{model_result.peak_time:.0f}"
     if model_result.final_size is not None:
         metrics["Final size"] = f"{model_result.final_size:.1%}"
         n = model_result.parameters.get("N", 1)
@@ -354,11 +358,11 @@ def report_from_model(
         )
         s = sensitivity_result.summary()
         sa_m: Dict[str, str] = {}
-        for m, lbl in [("r0","R₀"), ("peak_infected","Peak infectious"),
-                        ("final_size","Final size")]:
+        for m, lbl in [("r0", "R₀"), ("peak_infected", "Peak infectious"),
+                       ("final_size", "Final size")]:
             if f"{m}_median" in s:
                 sa_m[f"{lbl}  median"] = _fmt(s[f"{m}_median"])
-                sa_m[f"{lbl}  90% CI"]  = (
+                sa_m[f"{lbl}  90% CI"] = (
                     f"[{_fmt(s[f'{m}_p5'])}, {_fmt(s[f'{m}_p95'])}]")
         report.add_metrics(sa_m)
         try:
@@ -379,26 +383,33 @@ def report_from_model(
     return report
 
 
-# Helpers 
+# Helpers
 
 def _fmt(v: Any) -> str:
-    if v is None: return ""
+    if v is None:
+        return ""
     if isinstance(v, float):
         return f"{v:,.1f}" if abs(v) >= 1000 else f"{v:.4f}"
     if isinstance(v, int):
         return f"{v:,}"
     return str(v)
 
+
 def _esc(s: str) -> str:
-    return (str(s).replace("&","&amp;").replace("<","&lt;")
-            .replace(">","&gt;").replace('"',"&quot;"))
+    return (str(s).replace("&", "&amp;").replace("<", "&lt;")
+            .replace(">", "&gt;").replace('"', "&quot;"))
+
 
 def _json_default(obj: Any) -> Any:
     import numpy as np
-    if isinstance(obj, np.integer): return int(obj)
-    if isinstance(obj, np.floating): return float(obj)
-    if isinstance(obj, np.ndarray): return obj.tolist()
+    if isinstance(obj, np.integer):
+        return int(obj)
+    if isinstance(obj, np.floating):
+        return float(obj)
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
     return str(obj)
+
 
 def _figure_to_html(figure: Any, width: str = "100%") -> str:
     try:
@@ -408,7 +419,8 @@ def _figure_to_html(figure: Any, width: str = "100%") -> str:
     except Exception:
         pass
     try:
-        import io, base64
+        import base64
+        import io
         buf = io.BytesIO()
         figure.savefig(buf, format="png", dpi=120, bbox_inches="tight")
         buf.seek(0)

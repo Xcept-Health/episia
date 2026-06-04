@@ -1,28 +1,38 @@
 """
 tests/test_models_scenarios.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
+import sys
+
 import numpy as np
 import pandas as pd
+import pytest
+
 from episia.models import SEIRModel, SIRModel
-from episia.models.parameters import SEIRParameters, SIRParameters, ScenarioSet
-from episia.models.scenarios import ScenarioRunner, ScenarioResults
+from episia.models.parameters import ScenarioSet, SEIRParameters, SIRParameters
+from episia.models.scenarios import ScenarioResults, ScenarioRunner
+
+sys.path.insert(0, '/tmp')
 
 
 @pytest.fixture
 def two_scenarios():
     return ScenarioSet([
-        ("base",     SEIRParameters(N=100_000,I0=1,E0=5,beta=0.35,sigma=1/5.2,gamma=1/14,t_span=(0,100))),
-        ("reduced",  SEIRParameters(N=100_000,I0=1,E0=5,beta=0.18,sigma=1/5.2,gamma=1/14,t_span=(0,100))),
+        ("base",     SEIRParameters(N=100_000, I0=1, E0=5,
+         beta=0.35, sigma=1/5.2, gamma=1/14, t_span=(0, 100))),
+        ("reduced",  SEIRParameters(N=100_000, I0=1, E0=5,
+         beta=0.18, sigma=1/5.2, gamma=1/14, t_span=(0, 100))),
     ])
+
 
 @pytest.fixture
 def three_scenarios():
     return ScenarioSet([
-        ("no_intervention", SEIRParameters(N=100_000,I0=1,E0=5,beta=0.35,sigma=1/5.2,gamma=1/14,t_span=(0,200))),
-        ("moderate",        SEIRParameters(N=100_000,I0=1,E0=5,beta=0.22,sigma=1/5.2,gamma=1/14,t_span=(0,200))),
-        ("strong",          SEIRParameters(N=100_000,I0=1,E0=5,beta=0.12,sigma=1/5.2,gamma=1/14,t_span=(0,200))),
+        ("no_intervention", SEIRParameters(N=100_000, I0=1, E0=5,
+         beta=0.35, sigma=1/5.2, gamma=1/14, t_span=(0, 200))),
+        ("moderate",        SEIRParameters(N=100_000, I0=1, E0=5,
+         beta=0.22, sigma=1/5.2, gamma=1/14, t_span=(0, 200))),
+        ("strong",          SEIRParameters(N=100_000, I0=1, E0=5,
+         beta=0.12, sigma=1/5.2, gamma=1/14, t_span=(0, 200))),
     ])
 
 
@@ -55,8 +65,8 @@ class TestScenarioRunner:
 
     def test_sir_model_works(self):
         scenarios = ScenarioSet([
-            ("a", SIRParameters(N=50_000,I0=5,beta=0.3,gamma=1/14,t_span=(0,100))),
-            ("b", SIRParameters(N=50_000,I0=5,beta=0.15,gamma=1/14,t_span=(0,100))),
+            ("a", SIRParameters(N=50_000, I0=5, beta=0.3, gamma=1/14, t_span=(0, 100))),
+            ("b", SIRParameters(N=50_000, I0=5, beta=0.15, gamma=1/14, t_span=(0, 100))),
         ])
         runner = ScenarioRunner(SIRModel)
         result = runner.run(scenarios)
@@ -93,14 +103,15 @@ class TestScenarioResults:
     def test_higher_beta_higher_r0(self, two_scenarios):
         result = ScenarioRunner(SEIRModel).run(two_scenarios)
         df = result.to_dataframe()
-        r0_base    = df.loc['base', 'r0']
+        r0_base = df.loc['base', 'r0']
         r0_reduced = df.loc['reduced', 'r0']
         assert r0_base > r0_reduced
 
     def test_higher_beta_higher_peak(self, two_scenarios):
         result = ScenarioRunner(SEIRModel).run(two_scenarios)
         df = result.to_dataframe()
-        assert df.loc['base', 'peak_infected'] > df.loc['reduced', 'peak_infected']
+        assert df.loc['base',
+                      'peak_infected'] > df.loc['reduced', 'peak_infected']
 
     def test_three_scenarios_df_shape(self, three_scenarios):
         result = ScenarioRunner(SEIRModel).run(three_scenarios)

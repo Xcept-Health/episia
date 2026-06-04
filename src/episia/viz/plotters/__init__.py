@@ -24,10 +24,9 @@ from .base_plotter import (
     PlotConfig,
     UnsupportedAnimationError,
 )
-from .plotly_plotter import PlotlyPlotter
+from .browser_plotter import save_html, to_json, to_react_props
 from .mpl_plotter import MatplotlibPlotter
-from .browser_plotter import save_html, to_react_props, to_json
-
+from .plotly_plotter import PlotlyPlotter
 
 _BACKENDS = {
     "plotly":      PlotlyPlotter,

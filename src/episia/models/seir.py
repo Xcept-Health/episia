@@ -66,18 +66,18 @@ class SEIRModel(CompartmentalModel):
 
     def _derivatives(self, t: float, y: np.ndarray) -> np.ndarray:
         S, E, I, R = y
-        N          = float(self.parameters.N)
-        beta       = self.parameters.beta
-        sigma      = self.parameters.sigma
-        gamma      = self.parameters.gamma
+        N = float(self.parameters.N)
+        beta = self.parameters.beta
+        sigma = self.parameters.sigma
+        gamma = self.parameters.gamma
 
-        new_exposed  = beta * S * I / N
+        new_exposed = beta * S * I / N
         new_infected = sigma * E
 
         dS = -new_exposed
-        dE =  new_exposed   - new_infected
-        dI =  new_infected  - gamma * I
-        dR =  gamma * I
+        dE = new_exposed - new_infected
+        dI = new_infected - gamma * I
+        dR = gamma * I
 
         return np.array([dS, dE, dI, dR])
 
@@ -90,14 +90,14 @@ class SEIRModel(CompartmentalModel):
         N = float(self.parameters.N)
         p = self.parameters
 
-        peak_idx      = int(np.argmax(I))
+        peak_idx = int(np.argmax(I))
         peak_infected = float(I[peak_idx])
-        peak_time     = float(t[peak_idx])
-        final_size    = float(R[-1]) / N
+        peak_time = float(t[peak_idx])
+        final_size = float(R[-1]) / N
 
         # Peak exposed
         peak_exposed_idx = int(np.argmax(E))
-        peak_exposed     = float(E[peak_exposed_idx])
+        peak_exposed = float(E[peak_exposed_idx])
 
         from .solver import estimate_herd_immunity
         hit = estimate_herd_immunity(p.r0)

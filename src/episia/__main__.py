@@ -7,9 +7,8 @@ Usage:
 
 import sys
 
-
-
 # ANSI colour helpers
+
 
 def _rgb(r, g, b, text):
     """True-colour ANSI escape  falls back to plain text on Windows < Win10."""
@@ -38,9 +37,7 @@ def _supports_color():
     return hasattr(sys.stdout, "isatty") and sys.stdout.isatty()
 
 
-
 # ASCII art title  gradient left → right across each row
-
 
 _LOGO = [
     " █████████╗ ████████╗  ███╗ ████████╗ ███╗  ████████╗",
@@ -97,7 +94,6 @@ def _render_logo(color: bool) -> str:
     return "\n".join(lines)
 
 
-
 # Version & metadata
 def _get_version():
     try:
@@ -115,7 +111,6 @@ def _get_version():
 def _get_python_version():
     v = sys.version_info
     return f"{v.major}.{v.minor}.{v.micro}"
-
 
 
 # Module catalogue
@@ -183,7 +178,6 @@ _MODULES = [
 ]
 
 
-
 # Printer
 
 
@@ -195,18 +189,18 @@ def _section(title, color, c_rgb):
 
 
 def _print_doc(color: bool):
-    version   = _get_version()
-    py_ver    = _get_python_version()
-    W         = 68
+    version = _get_version()
+    py_ver = _get_python_version()
+    W = 68
 
-    #  Logo 
+    #  Logo
     print()
     print(_render_logo(color))
     print()
 
-    #  Tagline 
+    #  Tagline
     tagline = "Open-source epidemiology & biostatistics for Python"
-    sub     = f"v{version}  ·  Python {py_ver}  ·  Xcept-Health  ·  MIT"
+    sub = f"v{version}  ·  Python {py_ver}  ·  Xcept-Health  ·  MIT"
     if color:
         print(_rgb(160, 200, 255, f"  {tagline}"))
         print(_dim(f"  {sub}"))
@@ -217,7 +211,7 @@ def _print_doc(color: bool):
     print()
     print("  " + "─" * (W - 2))
 
-    #  Modules 
+    #  Modules
     grad_steps = [
         (0,  210, 190),
         (60, 130, 255),
@@ -227,8 +221,8 @@ def _print_doc(color: bool):
     ]
 
     for idx, (mod, desc, functions) in enumerate(_MODULES):
-        t   = idx / max(len(_MODULES) - 1, 1)
-        c   = _lerp_color(grad_steps, t)
+        t = idx / max(len(_MODULES) - 1, 1)
+        c = _lerp_color(grad_steps, t)
         print()
         print(_section(mod, color, c))
         if color:
@@ -241,9 +235,9 @@ def _print_doc(color: bool):
                 # Function name in colour, rest dimmed
                 parts = fn.split("→")
                 if len(parts) == 2:
-                    left  = parts[0]
+                    left = parts[0]
                     right = "→" + parts[1]
-                    print(f"    {_rgb(r,g,b, left)}{_dim(right)}")
+                    print(f"    {_rgb(r, g, b, left)}{_dim(right)}")
                 else:
                     print(f"    {_rgb(r, g, b, fn)}")
             else:
@@ -252,7 +246,7 @@ def _print_doc(color: bool):
     print()
     print("  " + "─" * (W - 2))
 
-    #  Quick start 
+    #  Quick start
     print()
     if color:
         print(_bold(_rgb(0, 210, 190, "  Quick start")))
@@ -282,7 +276,7 @@ def _print_doc(color: bool):
     else:
         print(snippet)
 
-    #  Footer 
+    #  Footer
     print()
     print("  " + "─" * (W - 2))
     footer = "  GitHub : https://github.com/Xcept-Health/episia"
@@ -291,8 +285,6 @@ def _print_doc(color: bool):
     else:
         print(footer)
     print()
-
-
 
 
 def main():

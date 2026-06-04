@@ -26,29 +26,37 @@ import numpy as np
 import pandas as pd
 import pytest
 
+#  api ─
+from episia.api.unified import EpisiaAPI, epi
+
 #  data ─
 from episia.data.dataset import Dataset
 from episia.data.io import (
-    read_csv, from_pandas, from_dict, from_records,
-    detect_format, export_dataset,
+    detect_format,
+    export_dataset,
+    from_dict,
+    from_pandas,
+    from_records,
+    read_csv,
 )
 from episia.data.surveillance import (
-    SurveillanceDataset, Alert, AlertEngine,
-)
-
-#  viz ─
-from episia.viz.themes.registry import (
-    set_theme, get_theme, get_available_themes,
-    get_palette, get_plotly_layout, register_theme,
-    AVAILABLE_THEMES,
+    Alert,
+    AlertEngine,
+    SurveillanceDataset,
 )
 from episia.viz.curves import plot_epicurve
 from episia.viz.roc import plot_roc
 
-#  api ─
-from episia.api.unified import epi, EpisiaAPI
-
-
+#  viz ─
+from episia.viz.themes.registry import (
+    AVAILABLE_THEMES,
+    get_available_themes,
+    get_palette,
+    get_plotly_layout,
+    get_theme,
+    register_theme,
+    set_theme,
+)
 
 # Shared fixtures
 
@@ -59,17 +67,19 @@ def simple_df():
         "age":      [25, 30, 35, 40, 45],
         "exposed":  [1,  1,  0,  0,  1],
         "outcome":  [1,  0,  1,  0,  1],
-        "district": ["A","A","B","B","A"],
+        "district": ["A", "A", "B", "B", "A"],
     })
+
 
 @pytest.fixture
 def simple_dataset(simple_df):
     return Dataset(simple_df, low_memory=False)
 
+
 @pytest.fixture
 def surveillance_data():
     dates = pd.date_range("2024-01-01", periods=52, freq="W")
-    rng   = np.random.default_rng(0)
+    rng = np.random.default_rng(0)
     return pd.DataFrame({
         "date":     dates,
         "cases":    rng.poisson(10, 52).astype(int),
@@ -77,6 +87,7 @@ def surveillance_data():
         "district": ["Centre"] * 26 + ["Nord"] * 26,
         "pop":      [500_000] * 52,
     })
+
 
 @pytest.fixture
 def surv(surveillance_data):
@@ -87,13 +98,13 @@ def surv(surveillance_data):
         population_col="pop",
     )
 
+
 @pytest.fixture
 def roc_result():
     from episia.stats.diagnostic import roc_analysis
-    y_true  = np.array([1,1,1,1,1,0,0,0,0,0])
-    y_score = np.array([0.9,0.8,0.7,0.6,0.4,0.3,0.2,0.1,0.35,0.45])
+    y_true = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0, 0])
+    y_score = np.array([0.9, 0.8, 0.7, 0.6, 0.4, 0.3, 0.2, 0.1, 0.35, 0.45])
     return roc_analysis(y_true, y_score)
-
 
 
 # 1. Dataset — construction
@@ -144,7 +155,6 @@ class TestDatasetConstruction:
 
     def test_metadata_source(self, simple_dataset):
         assert "source" in simple_dataset.metadata
-
 
 
 # 2. Dataset — operations
@@ -240,7 +250,6 @@ class TestDatasetOperations:
         assert isinstance(h, pd.DataFrame)
 
 
-
 # 3. Dataset — I/O (save/load round-trip)
 
 
@@ -257,7 +266,6 @@ class TestDatasetIO:
         simple_dataset.to_parquet(p)
         ds2 = Dataset(str(p), low_memory=False)
         assert len(ds2) == len(simple_dataset)
-
 
 
 # 4. io.py convenience functions
@@ -314,7 +322,6 @@ class TestIOFunctions:
             export_dataset(simple_dataset, p, format="abc")
 
 
-
 # 5. SurveillanceDataset — construction & properties
 
 
@@ -333,8 +340,8 @@ class TestSurveillanceDatasetProperties:
         p = tmp_path / "surv.csv"
         surveillance_data.to_csv(p, index=False)
         ds = SurveillanceDataset.from_csv(str(p), date_col="date",
-                                           cases_col="cases",
-                                           deaths_col="deaths")
+                                          cases_col="cases",
+                                          deaths_col="deaths")
         assert ds.n_records == len(surveillance_data)
 
     def test_n_records(self, surv, surveillance_data):
@@ -372,7 +379,6 @@ class TestSurveillanceDatasetProperties:
 
     def test_df_property(self, surv):
         assert isinstance(surv.df, pd.DataFrame)
-
 
 
 # 6. SurveillanceDataset — filtering & aggregation
@@ -417,14 +423,13 @@ class TestSurveillanceFiltering:
         assert "cases" in agg.columns
 
     def test_aggregate_monthly_fewer_rows(self, surv):
-        weekly  = surv.aggregate(freq="W")
+        weekly = surv.aggregate(freq="W")
         monthly = surv.aggregate(freq="ME")
         assert len(monthly) < len(weekly)
 
     def test_aggregate_preserves_total(self, surv):
         agg = surv.aggregate(freq="W")
         assert agg["cases"].sum() == surv.total_cases
-
 
 
 # 7. SurveillanceDataset — metrics
@@ -478,7 +483,6 @@ class TestSurveillanceMetrics:
             assert k in s
 
 
-
 # 8. AlertEngine & Alert
 
 
@@ -486,8 +490,8 @@ class TestAlertEngine:
     @pytest.fixture
     def spike_surv(self):
         """Dataset with one large spike that should trigger alerts."""
-        dates  = pd.date_range("2024-01-01", periods=20, freq="W")
-        cases  = np.array([3]*10 + [80] + [3]*9, dtype=int)
+        dates = pd.date_range("2024-01-01", periods=20, freq="W")
+        cases = np.array([3]*10 + [80] + [3]*9, dtype=int)
         return SurveillanceDataset.from_dataframe(
             pd.DataFrame({"date": dates, "cases": cases}),
             date_col="date", cases_col="cases",
@@ -550,7 +554,6 @@ class TestAlertEngine:
         alerts = engine.run(threshold=30)
         sev = {a.severity for a in alerts if a.kind == "threshold"}
         assert "epidemic" in sev
-
 
 
 # 9. viz/themes/registry
@@ -637,20 +640,19 @@ class TestThemeRegistry:
         assert len(p2) == len(get_palette("scientific"))
 
 
-
 # 10. viz/curves — plot_epicurve
 
 
 class TestPlotEpicurve:
     def test_from_raw_arrays(self):
-        times  = np.arange(20)
+        times = np.arange(20)
         values = np.random.default_rng(0).poisson(10, 20).astype(float)
         fig = plot_epicurve(times=times, values=values)
         assert fig is not None
 
     def test_from_epidemic_curve_obj(self):
         from episia.stats.time_series import EpidemicCurve
-        dates  = pd.date_range("2024-01-01", periods=10, freq="W").values
+        dates = pd.date_range("2024-01-01", periods=10, freq="W").values
         counts = np.ones(10, dtype=float) * 5
         ec = EpidemicCurve(dates=dates, counts=counts, aggregated=False)
         fig = plot_epicurve(ec)
@@ -661,7 +663,7 @@ class TestPlotEpicurve:
             plot_epicurve()
 
     def test_title_parameter(self):
-        times  = np.arange(10)
+        times = np.arange(10)
         values = np.ones(10)
         # Should not raise
         fig = plot_epicurve(times=times, values=values, title="Test title")
@@ -670,13 +672,12 @@ class TestPlotEpicurve:
     def test_matplotlib_backend(self):
         import matplotlib
         matplotlib.use("Agg")
-        times  = np.arange(10)
+        times = np.arange(10)
         values = np.ones(10)
         fig = plot_epicurve(times=times, values=values, backend="matplotlib")
         assert fig is not None
         import matplotlib.pyplot as plt
         plt.close("all")
-
 
 
 # 11. viz/roc — plot_roc
@@ -700,7 +701,6 @@ class TestPlotROC:
         plt.close("all")
 
 
-
 # 12. api/unified — EpisiaAPI (epi singleton)
 
 
@@ -712,7 +712,7 @@ class TestEpiSingleton:
         r = repr(epi)
         assert "Episia" in r
 
-    #  Stats 
+    #  Stats
     def test_risk_ratio(self):
         from episia.stats.contingency import RiskRatioResult
         r = epi.risk_ratio(40, 10, 20, 30)
@@ -742,7 +742,7 @@ class TestEpiSingleton:
         r = epi.diagnostic(tp=80, fp=10, fn=20, tn=90)
         assert isinstance(r, DiagnosticResult)
 
-    #  Models 
+    #  Models
     def test_sir_returns_model(self):
         from episia.models import SIRModel
         m = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1)
@@ -770,10 +770,10 @@ class TestEpiSingleton:
                           beta=0.35, sigma=0.2, gamma=0.1).run()
         assert isinstance(result, ModelResult)
 
-    #  Data 
+    #  Data
     def test_read_csv(self, tmp_path):
         df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-        p  = tmp_path / "data.csv"
+        p = tmp_path / "data.csv"
         df.to_csv(p, index=False)
         ds = epi.read_csv(str(p), low_memory=False)
         assert isinstance(ds, Dataset)
@@ -782,10 +782,10 @@ class TestEpiSingleton:
         p = tmp_path / "surv.csv"
         surveillance_data.to_csv(p, index=False)
         ds = epi.surveillance_from_csv(str(p), date_col="date",
-                                        cases_col="cases")
+                                       cases_col="cases")
         assert isinstance(ds, SurveillanceDataset)
 
-    #  Reporting 
+    #  Reporting
     def test_report_from_model_result(self):
         from episia.api.reporting import EpiReport
         result = epi.sir(N=10_000, I0=10, beta=0.3, gamma=0.1).run()
@@ -798,7 +798,7 @@ class TestEpiSingleton:
         report = epi.report(result, title="RR Report")
         assert isinstance(report, EpiReport)
 
-    #  Viz / Theme 
+    #  Viz / Theme
     def test_set_theme(self):
         epi.set_theme("dark")
         assert get_theme() == "dark"
@@ -810,12 +810,12 @@ class TestEpiSingleton:
         assert "scientific" in themes
 
     def test_plot_epicurve(self):
-        times  = np.arange(10)
+        times = np.arange(10)
         values = np.ones(10)
         fig = epi.plot_epicurve(times=times, values=values)
         assert fig is not None
 
-    #  Sample size 
+    #  Sample size
     def test_sample_size(self):
         from episia.stats.samplesize import SampleSizeResult
         r = epi.sample_size(

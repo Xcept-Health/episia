@@ -6,11 +6,12 @@ for proportions, means, and other descriptive statistics commonly
 used in epidemiological analysis.
 """
 
-import numpy as np
-from typing import Union, Tuple, Optional, Dict
+import warnings
 from dataclasses import dataclass
 from enum import Enum
-import warnings
+from typing import Dict, Optional, Tuple, Union
+
+import numpy as np
 
 
 class CI_Method(Enum):
@@ -33,10 +34,10 @@ class ProportionResult:
     numerator: int
     denominator: int
     method: str
-    
+
     def __repr__(self) -> str:
         return f"Proportion: {self.proportion:.4f} ({self.ci_lower:.4f}-{self.ci_upper:.4f})"
-    
+
     def to_dict(self) -> Dict:
         """Convert result to dictionary."""
         return {
@@ -60,10 +61,10 @@ class MeanResult:
     sample_size: int
     std_dev: float
     method: str
-    
+
     def __repr__(self) -> str:
         return f"Mean: {self.mean:.4f} ({self.ci_lower:.4f}-{self.ci_upper:.4f})"
-    
+
     def to_dict(self) -> Dict:
         """Convert result to dictionary."""
         return {
@@ -76,6 +77,7 @@ class MeanResult:
             "method": self.method
         }
 
+
 @dataclass
 class IncidenceRateResult:
     """Rich result object for incidence rate calculations."""
@@ -87,14 +89,14 @@ class IncidenceRateResult:
     multiplier: int
     confidence: float
     method: str
-    
+
     def __repr__(self) -> str:
         unit = f"per {self.multiplier:,} person-time" if self.multiplier != 1 else "per person-time"
         scaled = self.rate * self.multiplier
         lo = self.ci_lower * self.multiplier
         hi = self.ci_upper * self.multiplier
         return f"Rate: {scaled:.4f} ({lo:.4f}-{hi:.4f}) {unit}"
-    
+
     def to_dict(self) -> Dict:
         """Convert result to dictionary."""
         return {
@@ -137,27 +139,27 @@ def proportion_ci(
 def _proportion_ci_impl(
     numerator: int,
     denominator: int,
-    method = CI_Method.WILSON,
+    method=CI_Method.WILSON,
     confidence: float = 0.95,
     **kwargs
 ) -> ProportionResult:
     """
     Calculate proportion with confidence interval.
-    
+
     Args:
         numerator: Number of events/cases
         denominator: Total sample size
         method: Method for CI calculation (default: Wilson)
         confidence: Confidence level (default: 0.95)
         **kwargs: Additional method-specific parameters
-        
+
     Returns:
         ProportionResult object
-        
+
     Raises:
         ValueError: If denominator <= 0 or numerator < 0
         ValueError: If numerator > denominator
-        
+
     Example:
         >>> result = proportion_ci(45, 100)
         >>> print(result.proportion)
@@ -169,7 +171,7 @@ def _proportion_ci_impl(
             method = CI_Method(method.lower())
         except ValueError:
             method = CI_Method.WILSON
-    
+
     # Input validation
     if denominator <= 0:
         raise ValueError("Denominator must be positive")
@@ -177,24 +179,29 @@ def _proportion_ci_impl(
         raise ValueError("Numerator must be non-negative")
     if numerator > denominator:
         raise ValueError("Numerator cannot exceed denominator")
-    
+
     p = numerator / denominator if denominator > 0 else 0.0
-    
+
     # Select CI calculation method
     if method == CI_Method.WALD:
         ci_lower, ci_upper = _wald_ci(p, denominator, confidence, **kwargs)
     elif method == CI_Method.WILSON:
-        ci_lower, ci_upper = _wilson_ci(numerator, denominator, confidence, **kwargs)
+        ci_lower, ci_upper = _wilson_ci(
+            numerator, denominator, confidence, **kwargs)
     elif method == CI_Method.AGRESTI_COULL:
-        ci_lower, ci_upper = _agresti_coull_ci(numerator, denominator, confidence, **kwargs)
+        ci_lower, ci_upper = _agresti_coull_ci(
+            numerator, denominator, confidence, **kwargs)
     elif method == CI_Method.JEFFREYS:
-        ci_lower, ci_upper = _jeffreys_ci(numerator, denominator, confidence, **kwargs)
+        ci_lower, ci_upper = _jeffreys_ci(
+            numerator, denominator, confidence, **kwargs)
     elif method == CI_Method.CLOPPER_PEARSON:
-        ci_lower, ci_upper = _clopper_pearson_ci(numerator, denominator, confidence, **kwargs)
+        ci_lower, ci_upper = _clopper_pearson_ci(
+            numerator, denominator, confidence, **kwargs)
     else:
         # Default to Wilson
-        ci_lower, ci_upper = _wilson_ci(numerator, denominator, confidence, **kwargs)
-    
+        ci_lower, ci_upper = _wilson_ci(
+            numerator, denominator, confidence, **kwargs)
+
     return ProportionResult(
         proportion=p,
         ci_lower=ci_lower,
@@ -214,16 +221,16 @@ def mean_ci(
 ) -> MeanResult:
     """
     Calculate mean with confidence interval.
-    
+
     Args:
         data: Array-like numeric data
         confidence: Confidence level (default: 0.95)
         method: 't_distribution' (small samples) or 'normal' (large samples)
         population_std: Known population standard deviation (optional)
-        
+
     Returns:
         MeanResult object
-        
+
     Example:
         >>> data = np.array([1.2, 1.5, 1.8, 2.1, 1.9])
         >>> result = mean_ci(data)
@@ -232,17 +239,17 @@ def mean_ci(
     # Convert to numpy array if needed
     if not isinstance(data, np.ndarray):
         data = np.array(data)
-    
+
     # Remove NaN values
     data = data[~np.isnan(data)]
-    
+
     n = len(data)
     if n == 0:
         raise ValueError("Data array is empty or contains only NaN values")
-    
+
     mean = np.mean(data)
     std = np.std(data, ddof=1)  # Sample standard deviation
-    
+
     if population_std is not None:
         # Use known population standard deviation
         se = population_std / np.sqrt(n)
@@ -259,10 +266,10 @@ def mean_ci(
         z = _z_score(confidence)
         se = std / np.sqrt(n)
         margin = z * se
-    
+
     ci_lower = mean - margin
     ci_upper = mean + margin
-    
+
     return MeanResult(
         mean=mean,
         ci_lower=ci_lower,
@@ -277,24 +284,24 @@ def incidence_rate(
     cases: int,
     person_time: float,
     confidence: float = 0.95,
-    multiplier: int = 1, 
+    multiplier: int = 1,
 ) -> IncidenceRateResult:
     """
     Calculate person-time incidence rate with confidence interval.
- 
+
     Uses Byar's approximation when cases >= 10, exact Poisson (chi-squared)
     otherwise consistent with OpenEpi and Rothman & Greenland.
- 
+
     Args:
         cases: Number of incident cases.
         person_time: Total person-time at risk (any unit: years, months, days).
         confidence: Confidence level (default 0.95).
         multiplier: Scale factor for display, e.g. 100, 1_000, 100_000.
                     Does not affect stored rate — only __repr__ scaling.
- 
+
     Returns:
         IncidenceRateResult
- 
+
     Example:
         >>> # HIV seroconversion cohort, 20 cases / 500 person-years
         >>> result = incidence_rate(20, 500, multiplier=100)
@@ -305,10 +312,10 @@ def incidence_rate(
         raise ValueError("Person-time must be positive")
     if cases < 0:
         raise ValueError("cases must be non-negative.")
-    
+
     rate = cases / person_time
     z = _z_score(confidence)
-    
+
     # Byar's approximation (good for cases >= 10)
     if cases >= 10:
         # Byar's approximation
@@ -327,9 +334,10 @@ def incidence_rate(
         from scipy import stats as _stats
         alpha = 1 - confidence
         ci_lower = _stats.chi2.ppf(alpha / 2, 2 * cases) / (2 * person_time)
-        ci_upper = _stats.chi2.ppf(1 - alpha / 2, 2 * (cases + 1)) / (2 * person_time)
+        ci_upper = _stats.chi2.ppf(
+            1 - alpha / 2, 2 * (cases + 1)) / (2 * person_time)
         method = "exact_poisson"
-    
+
     return IncidenceRateResult(
         rate=rate,
         ci_lower=ci_lower,
@@ -340,7 +348,8 @@ def incidence_rate(
         confidence=confidence,
         method=method,
     )
-    
+
+
 def cumulative_incidence(
     cases: int,
     population_at_risk: int,
@@ -349,19 +358,19 @@ def cumulative_incidence(
 ) -> ProportionResult:
     """
     Calculate cumulative incidence (attack rate / risk) with confidence interval.
- 
+
     The denominator must be the disease-free population at the start of
     the observation period, not the total population.
- 
+
     Args:
         cases: Number of new cases over the period.
         population_at_risk: Disease-free population at period start.
         confidence: Confidence level (default 0.95).
         method: CI method (default Wilson).
- 
+
     Returns:
         ProportionResult
- 
+
     Example:
         >>> # Malaria cohort, rainy season, Sahel
         >>> result = cumulative_incidence(120, 500)
@@ -370,6 +379,7 @@ def cumulative_incidence(
     """
     return _proportion_ci_impl(cases, population_at_risk, method, confidence)
 
+
 def attack_rate(
     cases: int,
     population: int,
@@ -377,12 +387,12 @@ def attack_rate(
 ) -> ProportionResult:
     """
     Calculate attack rate (cumulative incidence) with CI.
-    
+
     Args:
         cases: Number of cases
         population: Population at risk
         confidence: Confidence level
-        
+
     Returns:
         ProportionResult object
     """
@@ -397,16 +407,16 @@ def prevalence(
 ) -> ProportionResult:
     """
     Calculate point prevalence with confidence interval.
- 
+
     Args:
         cases: Number of prevalent cases (existing cases at time T).
         population: Total population examined.
         confidence: Confidence level (default 0.95).
         method: CI method (default Wilson).
- 
+
     Returns:
         ProportionResult
- 
+
     Example:
         >>> # HTA survey, Burkina Faso STEPS 2013
         >>> result = prevalence(1056, 4800)
@@ -416,7 +426,7 @@ def prevalence(
     return _proportion_ci_impl(cases, population, method, confidence)
 
 
-#  CONFIDENCE INTERVAL METHODS 
+#  CONFIDENCE INTERVAL METHODS
 
 def _wald_ci(
     p: float,
@@ -426,19 +436,19 @@ def _wald_ci(
 ) -> Tuple[float, float]:
     """
     Wald confidence interval for a proportion.
-    
+
     Appropriate for large samples (n > 30) with p not near 0 or 1.
     """
     if n == 0:
         return 0.0, 0.0
-    
+
     z = _z_score(confidence)
     se = np.sqrt(p * (1 - p) / n)
     margin = z * se
-    
+
     ci_lower = max(0, p - margin)
     ci_upper = min(1, p + margin)
-    
+
     return ci_lower, ci_upper
 
 
@@ -450,24 +460,24 @@ def _wilson_ci(
 ) -> Tuple[float, float]:
     """
     Wilson score confidence interval.
-    
+
     Recommended for all sample sizes, especially when p is near 0 or 1.
     """
     if denominator == 0:
         return 0.0, 0.0
-    
+
     n = denominator
     x = numerator
     p = x / n
     z = _z_score(confidence)
     z2 = z**2
-    
+
     center = (x + z2/2) / (n + z2)
     margin = z * np.sqrt((p*(1-p) + z2/(4*n)) / n) / (1 + z2/n)
-    
+
     ci_lower = max(0, center - margin)
     ci_upper = min(1, center + margin)
-    
+
     return ci_lower, ci_upper
 
 
@@ -479,27 +489,27 @@ def _agresti_coull_ci(
 ) -> Tuple[float, float]:
     """
     Agresti-Coull confidence interval (adjusted Wald).
-    
+
     Good alternative to Wilson, simpler calculation.
     """
     if denominator == 0:
         return 0.0, 0.0
-    
+
     n = denominator
     x = numerator
     z = _z_score(confidence)
     z2 = z**2
-    
+
     # Add z^2/2 successes and z^2/2 failures
     n_adj = n + z2
     p_adj = (x + z2/2) / n_adj
-    
+
     se_adj = np.sqrt(p_adj * (1 - p_adj) / n_adj)
     margin = z * se_adj
-    
+
     ci_lower = max(0, p_adj - margin)
     ci_upper = min(1, p_adj + margin)
-    
+
     return ci_lower, ci_upper
 
 
@@ -511,24 +521,24 @@ def _jeffreys_ci(
 ) -> Tuple[float, float]:
     """
     Jeffreys Bayesian confidence interval.
-    
+
     Good properties for all sample sizes.
     """
     if denominator == 0:
         return 0.0, 0.0
-    
+
     from scipy import stats
-    
+
     x = numerator
     n = denominator
-    
+
     # Beta distribution parameters
     alpha = x + 0.5
     beta = n - x + 0.5
-    
+
     ci_lower = stats.beta.ppf((1-confidence)/2, alpha, beta)
     ci_upper = stats.beta.ppf(1-(1-confidence)/2, alpha, beta)
-    
+
     return ci_lower, ci_upper
 
 
@@ -540,17 +550,17 @@ def _clopper_pearson_ci(
 ) -> Tuple[float, float]:
     """
     Clopper-Pearson exact binomial confidence interval.
-    
+
     Conservative - guaranteed coverage at least (1-alpha).
     """
     if denominator == 0:
         return 0.0, 0.0
-    
+
     from scipy import stats
-    
+
     x = numerator
     n = denominator
-    
+
     if x == 0:
         ci_lower = 0.0
         ci_upper = 1 - (confidence/2)**(1/n)
@@ -560,7 +570,7 @@ def _clopper_pearson_ci(
     else:
         ci_lower = stats.beta.ppf((1-confidence)/2, x, n-x+1)
         ci_upper = stats.beta.ppf(1-(1-confidence)/2, x+1, n-x)
-    
+
     return ci_lower, ci_upper
 
 
@@ -578,17 +588,17 @@ def _check_sample_size(
 ) -> bool:
     """
     Check if sample size is adequate for normal approximation.
-    
+
     Returns:
         True if n*p and n*(1-p) are both >= min_size
     """
     if p is None:
         return n >= 30  # Rule of thumb for means
-    
+
     return n * p >= min_size and n * (1 - p) >= min_size
 
 
-#  ADDITIONAL DESCRIPTIVE FUNCTIONS 
+#  ADDITIONAL DESCRIPTIVE FUNCTIONS
 
 def median_ci(
     data: np.ndarray,
@@ -597,36 +607,36 @@ def median_ci(
 ) -> Dict[str, float]:
     """
     Calculate median with confidence interval.
-    
+
     Args:
         data: Array-like numeric data
         confidence: Confidence level
         method: 'exact' or 'normal_approximation'
-        
+
     Returns:
         Dictionary with median and CI
     """
     data = np.array(data)
     data = data[~np.isnan(data)]
     n = len(data)
-    
+
     if n == 0:
         raise ValueError("Data array is empty")
-    
+
     median = np.median(data)
-    
+
     if method == "exact":
         # Binomial-based exact CI for median
         from scipy import stats
-        
+
         # Order statistics indices
         r = int(np.floor((n/2) - stats.norm.ppf(1-(1-confidence)/2) * np.sqrt(n)/2))
         s = int(np.ceil(1 + (n/2) + stats.norm.ppf(1-(1-confidence)/2) * np.sqrt(n)/2))
-        
+
         # Adjust for array indices (0-based)
         r = max(0, r - 1)
         s = min(n-1, s - 1)
-        
+
         sorted_data = np.sort(data)
         ci_lower = sorted_data[r]
         ci_upper = sorted_data[s]
@@ -635,10 +645,10 @@ def median_ci(
         se = 1.253 * np.std(data, ddof=1) / np.sqrt(n)
         z = _z_score(confidence)
         margin = z * se
-        
+
         ci_lower = median - margin
         ci_upper = median + margin
-    
+
     return {
         "measure": "median",
         "median": median,
@@ -655,21 +665,21 @@ def interquartile_range(
 ) -> Union[float, Dict[str, float]]:
     """
     Calculate interquartile range (IQR).
-    
+
     Args:
         data: Array-like numeric data
         return_quartiles: If True, returns Q1, Q3, and IQR
-        
+
     Returns:
         IQR value or dictionary with quartiles
     """
     data = np.array(data)
     data = data[~np.isnan(data)]
-    
+
     q1 = np.percentile(data, 25)
     q3 = np.percentile(data, 75)
     iqr = q3 - q1
-    
+
     if return_quartiles:
         return {
             "q1": q1,
@@ -678,11 +688,11 @@ def interquartile_range(
             "lower_fence": q1 - 1.5 * iqr,
             "upper_fence": q3 + 1.5 * iqr
         }
-    
+
     return iqr
 
 
-#  MODULE EXPORTS 
+#  MODULE EXPORTS
 
 __all__ = [
     'CI_Method',

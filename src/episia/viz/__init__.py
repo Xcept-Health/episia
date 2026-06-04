@@ -22,68 +22,73 @@ Backend selection
     Use get_plotter() for direct backend access and advanced control.
 """
 
-# Themes
-from .themes import (
-    set_theme,
-    get_theme,
-    get_available_themes,
-    get_palette,
-    register_theme,
+from .contingency_plot import (
+    plot_contingency,
+    plot_measures,
 )
-
-# Backend factory
-from .plotters import (
-    get_plotter,
-    PlotConfig,
-    AnimationConfig,
-    AnimationType,
-    OutputFormat,
-    PlotlyPlotter,
-    MatplotlibPlotter,
-)
-
-# Model trajectories (SIR / SEIR / SEIRD)
-def plot_model(result, backend="plotly", **kwargs):
-    """Plot compartmental model trajectories from a ModelResult."""
-    plotter = get_plotter(backend)
-    from .plotters import PlotConfig
-    config = kwargs.pop("config", None) or PlotConfig(**kwargs) if kwargs else PlotConfig()
-    return plotter.plot_model(result, config=config)
-
-# Curve / time-series plots
 from .curves import (
-    plot_epicurve,
-    plot_trend,
-    plot_incidence,
     plot_doubling,
+    plot_epicurve,
+    plot_incidence,
+    plot_trend,
 )
-
-# ROC / diagnostic curves
-from .roc import (
-    plot_roc,
-    plot_roc_compare,
-    plot_precision_recall,
-)
-
-# Forest plots
 from .forest import (
     plot_forest,
     plot_meta_forest,
 )
 
-# Contingency table plots
-from .contingency_plot import (
-    plot_contingency,
-    plot_measures,
+# Backend factory
+from .plotters import (
+    AnimationConfig,
+    AnimationType,
+    MatplotlibPlotter,
+    OutputFormat,
+    PlotConfig,
+    PlotlyPlotter,
+    get_plotter,
+)
+from .roc import (
+    plot_precision_recall,
+    plot_roc,
+    plot_roc_compare,
+)
+from .themes import (
+    get_available_themes,
+    get_palette,
+    get_theme,
+    register_theme,
+    set_theme,
 )
 
-# Utilities (exported for advanced users)
+# Themes
 from .utils import (
-    p_value_label,
-    significance_stars,
     auto_height,
     hex_to_rgba_str,
+    p_value_label,
+    significance_stars,
 )
+
+# Model trajectories (SIR / SEIR / SEIRD)
+
+
+def plot_model(result, backend="plotly", **kwargs):
+    """Plot compartmental model trajectories from a ModelResult."""
+    plotter = get_plotter(backend)
+    from .plotters import PlotConfig
+    config = kwargs.pop("config", None) or PlotConfig(
+        **kwargs) if kwargs else PlotConfig()
+    return plotter.plot_model(result, config=config)
+
+
+# Curve / time-series plots
+
+# ROC / diagnostic curves
+
+# Forest plots
+
+# Contingency table plots
+
+# Utilities (exported for advanced users)
 
 __all__ = [
     # Themes

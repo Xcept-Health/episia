@@ -25,33 +25,29 @@ Quick start::
     results.plot(compartment="I").show()
 """
 
-from .base   import CompartmentalModel
-from .sir    import SIRModel
-from .seir   import SEIRModel
-from .seird  import SEIRDModel
-
+from .base import CompartmentalModel
+from .calibration import (
+    CalibrationResult,
+    ModelCalibrator,
+)
 from .parameters import (
     ModelParameters,
-    SIRParameters,
-    SEIRParameters,
-    SEIRDParameters,
     ScenarioSet,
+    SEIRDParameters,
+    SEIRParameters,
+    SIRParameters,
 )
-
-from .solver import (
-    solve_model,
-    estimate_herd_immunity,
-    doubling_time,
-)
-
 from .scenarios import (
-    ScenarioRunner,
     ScenarioResults,
+    ScenarioRunner,
 )
-
-from .calibration import (
-    ModelCalibrator,
-    CalibrationResult,
+from .seir import SEIRModel
+from .seird import SEIRDModel
+from .sir import SIRModel
+from .solver import (
+    doubling_time,
+    estimate_herd_immunity,
+    solve_model,
 )
 
 __all__ = [

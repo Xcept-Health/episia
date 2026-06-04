@@ -16,13 +16,13 @@ Quick start::
 
 from .registry import (
     AVAILABLE_THEMES,
-    set_theme,
-    get_theme,
+    apply_mpl_theme,
     get_available_themes,
     get_palette,
     get_plotly_layout,
-    apply_mpl_theme,
+    get_theme,
     register_theme,
+    set_theme,
 )
 
 __all__ = [

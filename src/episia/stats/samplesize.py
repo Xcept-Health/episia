@@ -7,11 +7,12 @@ and statistical power for common epidemiological study designs:
 - Diagnostic test studies (sensitivity, specificity)
 """
 
-import numpy as np
-from typing import Union, Optional, Dict
+import warnings
 from dataclasses import dataclass
 from enum import Enum
-import warnings
+from typing import Dict, Optional, Union
+
+import numpy as np
 from scipy import stats
 
 
@@ -42,7 +43,7 @@ class SampleSizeResult:
     design: Optional[str] = None
     method: Optional[str] = None
     assumptions: Optional[Dict] = None
-    
+
     def __repr__(self) -> str:
         if self.n_per_group is not None:
             return f"Sample size: {self.n_per_group:.0f} per group (total: {self.n_total:.0f})"
@@ -52,7 +53,7 @@ class SampleSizeResult:
             return f"Power: {self.power:.3f}"
         else:
             return f"Sample size: {self.n_total:.0f} subjects"
-    
+
     def to_dict(self) -> Dict:
         """Convert result to dictionary."""
         result = {
@@ -61,21 +62,21 @@ class SampleSizeResult:
             "design": self.design,
             "method": self.method
         }
-        
+
         if self.n_per_group is not None:
             result["n_per_group"] = self.n_per_group
             result["n_total"] = self.n_total
-        
+
         if self.n_cases is not None:
             result["n_cases"] = self.n_cases
             result["n_controls"] = self.n_controls
-        
+
         if self.effect_size is not None:
             result["effect_size"] = self.effect_size
-        
+
         if self.assumptions is not None:
             result["assumptions"] = self.assumptions
-        
+
         return result
 
 
@@ -120,7 +121,7 @@ def _sample_size_rr_impl(
 ) -> SampleSizeResult:
     """
     Calculate sample size for cohort study comparing two proportions (risk ratio).
-    
+
     Args:
         risk_unexposed: Risk (proportion) in unexposed group
         risk_ratio: Expected risk ratio (exposed/unexposed)
@@ -129,10 +130,10 @@ def _sample_size_rr_impl(
         test_type: 'two_sided' or 'one_sided' test
         r: Ratio of unexposed to exposed (default: 1.0 = equal groups)
         design_effect: Cluster design effect (default: 1.0 = no clustering)
-        
+
     Returns:
         SampleSizeResult object
-        
+
     Example:
         >>> # How many participants to detect RR=2.0 with baseline risk=0.1?
         >>> result = sample_size_risk_ratio(risk_unexposed=0.1, risk_ratio=2.0)
@@ -150,40 +151,40 @@ def _sample_size_rr_impl(
         raise ValueError("alpha must be between 0 and 1")
     if r <= 0:
         raise ValueError("r must be positive")
-    
+
     # Calculate risk in exposed group
     risk_exposed = risk_unexposed * risk_ratio
-    
+
     # Ensure risks are valid probabilities
     if risk_exposed > 1:
         warnings.warn(f"Risk in exposed group would be {risk_exposed:.3f} (>1). "
-                     f"Consider using risk difference instead.")
+                      f"Consider using risk difference instead.")
         risk_exposed = min(risk_exposed, 0.99)
-    
+
     # Get z-scores
     z_alpha = _z_score(alpha, test_type)
     z_beta = stats.norm.ppf(power)
-    
+
     # Average risk
     p_bar = (risk_exposed + r * risk_unexposed) / (1 + r)
-    
+
     # Sample size formula for comparing two proportions (risk ratio)
-    numerator = (z_alpha * np.sqrt((1 + 1/r) * p_bar * (1 - p_bar)) + 
-                z_beta * np.sqrt(risk_exposed * (1 - risk_exposed) + 
-                                (risk_unexposed * (1 - risk_unexposed))/r))**2
+    numerator = (z_alpha * np.sqrt((1 + 1/r) * p_bar * (1 - p_bar)) +
+                 z_beta * np.sqrt(risk_exposed * (1 - risk_exposed) +
+                                  (risk_unexposed * (1 - risk_unexposed))/r))**2
     denominator = (risk_exposed - risk_unexposed)**2
-    
+
     n_exposed = numerator / denominator
     n_unexposed = n_exposed * r
-    
+
     # Apply design effect for clustered studies
     n_exposed *= design_effect
     n_unexposed *= design_effect
-    
+
     # Round up to nearest integer
     n_exposed = np.ceil(n_exposed)
     n_unexposed = np.ceil(n_unexposed)
-    
+
     return SampleSizeResult(
         n_per_group=float(n_exposed),
         n_total=float(n_exposed + n_unexposed),
@@ -212,7 +213,7 @@ def sample_size_risk_difference(
 ) -> SampleSizeResult:
     """
     Calculate sample size for cohort study based on risk difference.
-    
+
     Args:
         risk_unexposed: Risk in unexposed group
         risk_difference: Expected risk difference (exposed - unexposed)
@@ -220,17 +221,18 @@ def sample_size_risk_difference(
         alpha: Type I error rate
         test_type: 'two_sided' or 'one_sided' test
         r: Ratio of unexposed to exposed
-        
+
     Returns:
         SampleSizeResult object
     """
     # Calculate risk in exposed group
     risk_exposed = risk_unexposed + risk_difference
-    
+
     # Use the same formula as for risk ratio (different effect measure)
     return sample_size_risk_ratio(
         risk_unexposed=risk_unexposed,
-        risk_ratio=risk_exposed / risk_unexposed if risk_unexposed > 0 else float('inf'),
+        risk_ratio=risk_exposed /
+        risk_unexposed if risk_unexposed > 0 else float('inf'),
         power=power,
         alpha=alpha,
         test_type=test_type,
@@ -250,7 +252,7 @@ def sample_size_odds_ratio(
 ) -> SampleSizeResult:
     """
     Calculate sample size for case-control study (odds ratio).
-    
+
     Args:
         proportion_exposed_controls: Proportion exposed in controls
         odds_ratio: Expected odds ratio
@@ -258,10 +260,10 @@ def sample_size_odds_ratio(
         alpha: Type I error rate
         test_type: 'two_sided' or 'one_sided' test
         r: Ratio of controls to cases (default: 1.0)
-        
+
     Returns:
         SampleSizeResult object
-        
+
     Example:
         >>> # Case-control study: OR=2.0, 30% exposure in controls
         >>> result = sample_size_odds_ratio(0.3, 2.0)
@@ -273,30 +275,30 @@ def sample_size_odds_ratio(
         raise ValueError("proportion_exposed_controls must be between 0 and 1")
     if odds_ratio <= 0:
         raise ValueError("odds_ratio must be positive")
-    
+
     # Calculate proportion exposed in cases
     p0 = proportion_exposed_controls
     p1 = (odds_ratio * p0) / (1 - p0 + odds_ratio * p0)
-    
+
     # Get z-scores
     z_alpha = _z_score(alpha, test_type)
     z_beta = stats.norm.ppf(power)
-    
+
     # Average proportion exposed
     p_bar = (p1 + r * p0) / (1 + r)
     q_bar = 1 - p_bar
-    
+
     # Sample size for cases
-    n_cases = (z_alpha * np.sqrt((1 + 1/r) * p_bar * q_bar) + 
+    n_cases = (z_alpha * np.sqrt((1 + 1/r) * p_bar * q_bar) +
                z_beta * np.sqrt(p1 * (1 - p1) + (p0 * (1 - p0))/r))**2
     n_cases /= (p1 - p0)**2
-    
+
     n_controls = n_cases * r
-    
+
     # Round up
     n_cases = np.ceil(n_cases)
     n_controls = np.ceil(n_controls)
-    
+
     return SampleSizeResult(
         n_cases=float(n_cases),
         n_controls=float(n_controls),
@@ -325,7 +327,7 @@ def sample_size_sensitivity_specificity(
 ) -> SampleSizeResult:
     """
     Calculate sample size for diagnostic test studies.
-    
+
     Args:
         expected_sens: Expected sensitivity
         expected_spec: Expected specificity
@@ -333,10 +335,10 @@ def sample_size_sensitivity_specificity(
         alpha: Type I error rate
         prevalence: Disease prevalence (required for sensitivity/specificity)
         which: 'sensitivity', 'specificity', or 'both'
-        
+
     Returns:
         SampleSizeResult object
-        
+
     Example:
         >>> # Validate test with sens=0.9, spec=0.85, CI width ±0.05
         >>> result = sample_size_sensitivity_specificity(0.9, 0.85, 0.05, prevalence=0.1)
@@ -350,43 +352,47 @@ def sample_size_sensitivity_specificity(
         raise ValueError("expected_spec must be between 0 and 1")
     if precision <= 0:
         raise ValueError("precision must be positive")
-    
+
     z = stats.norm.ppf(1 - alpha/2)
-    
+
     results = {}
-    
+
     if which in ["sensitivity", "both"]:
         if prevalence is None:
-            raise ValueError("prevalence is required for sensitivity calculation")
-        
+            raise ValueError(
+                "prevalence is required for sensitivity calculation")
+
         # Sample size for sensitivity
-        n_diseased = (z**2 * expected_sens * (1 - expected_sens)) / (precision**2)
-        
+        n_diseased = (z**2 * expected_sens *
+                      (1 - expected_sens)) / (precision**2)
+
         # Total sample size based on prevalence
         n_total_sens = np.ceil(n_diseased / prevalence)
         results["sensitivity"] = {
             "n_diseased": float(np.ceil(n_diseased)),
             "n_total": float(n_total_sens)
         }
-    
+
     if which in ["specificity", "both"]:
         if prevalence is None:
-            raise ValueError("prevalence is required for specificity calculation")
-        
+            raise ValueError(
+                "prevalence is required for specificity calculation")
+
         # Sample size for specificity
-        n_non_diseased = (z**2 * expected_spec * (1 - expected_spec)) / (precision**2)
-        
+        n_non_diseased = (z**2 * expected_spec *
+                          (1 - expected_spec)) / (precision**2)
+
         # Total sample size based on prevalence
         n_total_spec = np.ceil(n_non_diseased / (1 - prevalence))
         results["specificity"] = {
             "n_non_diseased": float(np.ceil(n_non_diseased)),
             "n_total": float(n_total_spec)
         }
-    
+
     if which == "both":
         # Take the maximum of the two
-        n_total = max(results["sensitivity"]["n_total"], 
-                     results["specificity"]["n_total"])
+        n_total = max(results["sensitivity"]["n_total"],
+                      results["specificity"]["n_total"])
         n_diseased = np.ceil(n_total * prevalence)
         n_non_diseased = np.ceil(n_total * (1 - prevalence))
     elif which == "sensitivity":
@@ -397,7 +403,7 @@ def sample_size_sensitivity_specificity(
         n_total = results["specificity"]["n_total"]
         n_non_diseased = results["specificity"]["n_non_diseased"]
         n_diseased = np.ceil(n_total * prevalence)
-    
+
     return SampleSizeResult(
         n_total=float(n_total),
         power=None,  # Not applicable for precision-based calculation
@@ -424,15 +430,15 @@ def sample_size_single_proportion(
 ) -> SampleSizeResult:
     """
     Calculate sample size for estimating a single proportion.
-    
+
     Used for cross-sectional studies, prevalence surveys, etc.
-    
+
     Args:
         expected_proportion: Expected proportion
         precision: Desired precision (half-width of CI)
         alpha: Type I error rate
         design_effect: Cluster design effect
-        
+
     Returns:
         SampleSizeResult object
     """
@@ -440,21 +446,22 @@ def sample_size_single_proportion(
         raise ValueError("expected_proportion must be between 0 and 1")
     if precision <= 0:
         raise ValueError("precision must be positive")
-    
+
     z = stats.norm.ppf(1 - alpha/2)
-    
+
     # Conservative estimate (p=0.5 gives maximum variance)
     if expected_proportion == 0.5:
         n = (z**2 * 0.25) / (precision**2)
     else:
-        n = (z**2 * expected_proportion * (1 - expected_proportion)) / (precision**2)
-    
+        n = (z**2 * expected_proportion *
+             (1 - expected_proportion)) / (precision**2)
+
     # Apply design effect
     n *= design_effect
-    
+
     # Round up
     n = np.ceil(n)
-    
+
     return SampleSizeResult(
         n_total=float(n),
         power=None,
@@ -485,7 +492,7 @@ def power_calculation(
 ) -> SampleSizeResult:
     """
     Calculate statistical power for a given sample size.
-    
+
     Args:
         n_per_group: Sample size per group (for cohort studies)
         n_cases: Number of cases (for case-control)
@@ -498,54 +505,58 @@ def power_calculation(
         test_type: 'two_sided' or 'one_sided' test
         r: Group ratio
         design: Study design
-        
+
     Returns:
         SampleSizeResult object with calculated power
     """
     z_alpha = _z_score(alpha, test_type)
-    
+
     if design == StudyDesign.COHORT:
         if risk_unexposed is None or risk_ratio is None:
-            raise ValueError("risk_unexposed and risk_ratio required for cohort design")
-        
+            raise ValueError(
+                "risk_unexposed and risk_ratio required for cohort design")
+
         risk_exposed = risk_unexposed * risk_ratio
         p_bar = (risk_exposed + r * risk_unexposed) / (1 + r)
-        
+
         # Standard error under null
-        se_null = np.sqrt(p_bar * (1 - p_bar) * (1/n_per_group + 1/(n_per_group * r)))
-        
+        se_null = np.sqrt(p_bar * (1 - p_bar) *
+                          (1/n_per_group + 1/(n_per_group * r)))
+
         # Standard error under alternative
-        se_alt = np.sqrt(risk_exposed * (1 - risk_exposed)/n_per_group + 
-                        risk_unexposed * (1 - risk_unexposed)/(n_per_group * r))
-        
+        se_alt = np.sqrt(risk_exposed * (1 - risk_exposed)/n_per_group +
+                         risk_unexposed * (1 - risk_unexposed)/(n_per_group * r))
+
         effect_size = risk_exposed - risk_unexposed
         z_beta = (effect_size - z_alpha * se_null) / se_alt
-        
+
     elif design == StudyDesign.CASE_CONTROL:
-        if (proportion_exposed_controls is None or odds_ratio is None or 
-            n_cases is None):
-            raise ValueError("Missing required parameters for case-control design")
-        
+        if (proportion_exposed_controls is None or odds_ratio is None or
+                n_cases is None):
+            raise ValueError(
+                "Missing required parameters for case-control design")
+
         p0 = proportion_exposed_controls
         p1 = (odds_ratio * p0) / (1 - p0 + odds_ratio * p0)
-        
+
         if n_controls is None:
             n_controls = n_cases * r
-        
+
         p_bar = (p1 + r * p0) / (1 + r)
         q_bar = 1 - p_bar
-        
+
         se_null = np.sqrt(p_bar * q_bar * (1/n_cases + 1/n_controls))
         se_alt = np.sqrt(p1 * (1 - p1)/n_cases + p0 * (1 - p0)/n_controls)
-        
+
         effect_size = p1 - p0
         z_beta = (effect_size - z_alpha * se_null) / se_alt
-    
+
     else:
-        raise NotImplementedError(f"Power calculation not implemented for {design}")
-    
+        raise NotImplementedError(
+            f"Power calculation not implemented for {design}")
+
     power = stats.norm.cdf(z_beta)
-    
+
     return SampleSizeResult(
         n_per_group=n_per_group,
         n_cases=n_cases,
@@ -568,21 +579,21 @@ def fleiss_correction(
 ) -> float:
     """
     Apply Fleiss continuity correction to sample size.
-    
+
     Args:
         n_uncorrected: Sample size without correction
         continuity_correction: Apply correction if True
-        
+
     Returns:
         Corrected sample size
     """
     if not continuity_correction:
         return n_uncorrected
-    
+
     # Fleiss' recommended correction
     correction = 2 / abs(n_uncorrected)
     n_corrected = n_uncorrected * (1 + np.sqrt(1 + correction))**2 / 4
-    
+
     return np.ceil(n_corrected)
 
 
@@ -592,13 +603,13 @@ def design_effect_deff(
 ) -> float:
     """
     Calculate design effect for cluster randomized trials.
-    
+
     DEFF = 1 + (m - 1) * ρ
-    
+
     Args:
         intraclass_correlation: ICC (ρ)
         average_cluster_size: Average subjects per cluster (m)
-        
+
     Returns:
         Design effect
     """
@@ -606,11 +617,11 @@ def design_effect_deff(
         raise ValueError("intraclass_correlation must be between 0 and 1")
     if average_cluster_size < 1:
         raise ValueError("average_cluster_size must be ≥ 1")
-    
+
     return 1 + (average_cluster_size - 1) * intraclass_correlation
 
 
-#  HELPER FUNCTIONS 
+#  HELPER FUNCTIONS
 
 def _z_score(alpha: float, test_type: TestType = TestType.TWO_SIDED) -> float:
     """Get z-score for given alpha and test type."""
@@ -626,7 +637,7 @@ def _validate_probability(value: float, name: str) -> None:
         raise ValueError(f"{name} must be between 0 and 1")
 
 
-#  COMPREHENSIVE SAMPLE SIZE FUNCTION 
+#  COMPREHENSIVE SAMPLE SIZE FUNCTION
 
 def calculate_sample_size(
     design: Union[str, StudyDesign],
@@ -635,15 +646,15 @@ def calculate_sample_size(
 ) -> SampleSizeResult:
     """
     Comprehensive sample size calculation function.
-    
+
     Args:
         design: Study design ('cohort', 'case_control', etc.)
         parameters: Dictionary of parameters specific to the design
         **kwargs: Additional arguments passed to specific functions
-        
+
     Returns:
         SampleSizeResult object
-        
+
     Example:
         >>> params = {
         ...     'risk_unexposed': 0.1,
@@ -655,27 +666,27 @@ def calculate_sample_size(
     """
     if isinstance(design, str):
         design = StudyDesign(design.lower())
-    
+
     if design == StudyDesign.COHORT:
         if 'risk_difference' in parameters:
             return sample_size_risk_difference(**parameters, **kwargs)
         else:
             return sample_size_risk_ratio(**parameters, **kwargs)
-    
+
     elif design == StudyDesign.CASE_CONTROL:
         return sample_size_odds_ratio(**parameters, **kwargs)
-    
+
     elif design == StudyDesign.CROSS_SECTIONAL:
         return sample_size_single_proportion(**parameters, **kwargs)
-    
+
     elif design == StudyDesign.DIAGNOSTIC:
         return sample_size_sensitivity_specificity(**parameters, **kwargs)
-    
+
     else:
         raise ValueError(f"Unsupported study design: {design}")
 
 
-#  MODULE EXPORTS 
+#  MODULE EXPORTS
 
 __all__ = [
     'StudyDesign',

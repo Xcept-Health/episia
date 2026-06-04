@@ -24,23 +24,32 @@ stratified.py
     mathematical cross-checks       OR > RR (common outcome), pooled OR direction
 """
 from __future__ import annotations
+
 import math
+
 import numpy as np
 import pytest
 
+from episia.stats.contingency import Table2x2
 from episia.stats.samplesize import (
-    StudyDesign, TestType, SampleSizeResult,
-    sample_size_risk_ratio, sample_size_risk_difference,
-    sample_size_odds_ratio, sample_size_single_proportion,
-    sample_size_sensitivity_specificity, power_calculation,
-    fleiss_correction, design_effect_deff, calculate_sample_size,
+    SampleSizeResult,
+    StudyDesign,
+    TestType,
+    calculate_sample_size,
+    design_effect_deff,
+    fleiss_correction,
+    power_calculation,
+    sample_size_odds_ratio,
+    sample_size_risk_difference,
+    sample_size_risk_ratio,
+    sample_size_sensitivity_specificity,
+    sample_size_single_proportion,
 )
 from episia.stats.stratified import (
-    StratifiedTable, MantelHaenszelResult, mantel_haenszel_or,
+    MantelHaenszelResult,
+    StratifiedTable,
+    mantel_haenszel_or,
 )
-from episia.stats.contingency import Table2x2
-
-
 
 # 1. Enums
 
@@ -53,7 +62,6 @@ class TestStudyEnums:
 
     def test_test_types(self):
         assert {t.value for t in TestType} == {"two_sided", "one_sided"}
-
 
 
 # 2. SampleSizeResult
@@ -85,7 +93,6 @@ class TestSampleSizeResult:
         r = SampleSizeResult(n_cases=50, n_controls=50, alpha=0.05)
         d = r.to_dict()
         assert "n_cases" in d and "n_controls" in d
-
 
 
 # 3. sample_size_risk_ratio
@@ -175,7 +182,6 @@ class TestSampleSizeRiskRatio:
         assert r.assumptions["risk_unexposed"] == 0.1
 
 
-
 # 4. sample_size_risk_difference
 
 
@@ -196,7 +202,6 @@ class TestSampleSizeRiskDifference:
     def test_design_is_cohort(self):
         r = sample_size_risk_difference(0.1, 0.1)
         assert r.design == StudyDesign.COHORT.value
-
 
 
 # 5. sample_size_odds_ratio
@@ -241,24 +246,24 @@ class TestSampleSizeOddsRatio:
         assert r.n_total == pytest.approx(r.n_cases + r.n_controls)
 
 
-
 # 6. sample_size_single_proportion
 
 
 class TestSampleSizeSingleProportion:
     def test_returns_result(self):
-        assert isinstance(sample_size_single_proportion(0.5, 0.05), SampleSizeResult)
+        assert isinstance(sample_size_single_proportion(
+            0.5, 0.05), SampleSizeResult)
 
     def test_n_positive(self):
         assert sample_size_single_proportion(0.5, 0.05).n_total > 0
 
     def test_p_half_maximum_n(self):
         n_half = sample_size_single_proportion(0.5, 0.05).n_total
-        n_low  = sample_size_single_proportion(0.1, 0.05).n_total
+        n_low = sample_size_single_proportion(0.1, 0.05).n_total
         assert n_half >= n_low
 
     def test_smaller_precision_larger_n(self):
-        r_wide   = sample_size_single_proportion(0.5, 0.10)
+        r_wide = sample_size_single_proportion(0.5, 0.10)
         r_narrow = sample_size_single_proportion(0.5, 0.03)
         assert r_narrow.n_total > r_wide.n_total
 
@@ -286,21 +291,23 @@ class TestSampleSizeSingleProportion:
         assert 380 <= r.n_total <= 390
 
 
-
 # 7. sample_size_sensitivity_specificity
 
 
 class TestSampleSizeDiagnostic:
     def test_returns_result(self):
-        r = sample_size_sensitivity_specificity(0.9, 0.85, 0.05, prevalence=0.1)
+        r = sample_size_sensitivity_specificity(
+            0.9, 0.85, 0.05, prevalence=0.1)
         assert isinstance(r, SampleSizeResult)
 
     def test_n_total_positive(self):
-        r = sample_size_sensitivity_specificity(0.9, 0.85, 0.05, prevalence=0.1)
+        r = sample_size_sensitivity_specificity(
+            0.9, 0.85, 0.05, prevalence=0.1)
         assert r.n_total > 0
 
     def test_design_is_diagnostic(self):
-        r = sample_size_sensitivity_specificity(0.9, 0.85, 0.05, prevalence=0.1)
+        r = sample_size_sensitivity_specificity(
+            0.9, 0.85, 0.05, prevalence=0.1)
         assert r.design == StudyDesign.DIAGNOSTIC.value
 
     def test_which_sensitivity(self):
@@ -319,13 +326,15 @@ class TestSampleSizeDiagnostic:
 
     def test_invalid_sens_raises(self):
         with pytest.raises(ValueError):
-            sample_size_sensitivity_specificity(1.1, 0.85, 0.05, prevalence=0.1)
+            sample_size_sensitivity_specificity(
+                1.1, 0.85, 0.05, prevalence=0.1)
 
     def test_narrower_precision_larger_n(self):
-        r_wide   = sample_size_sensitivity_specificity(0.9, 0.85, 0.10, prevalence=0.1)
-        r_narrow = sample_size_sensitivity_specificity(0.9, 0.85, 0.03, prevalence=0.1)
+        r_wide = sample_size_sensitivity_specificity(
+            0.9, 0.85, 0.10, prevalence=0.1)
+        r_narrow = sample_size_sensitivity_specificity(
+            0.9, 0.85, 0.03, prevalence=0.1)
         assert r_narrow.n_total > r_wide.n_total
-
 
 
 # 8. power_calculation
@@ -349,14 +358,17 @@ class TestPowerCalculation:
         assert 0 < r.power < 1
 
     def test_larger_n_higher_power(self):
-        r_small = power_calculation(n_per_group=50,  risk_unexposed=0.1, risk_ratio=2.0)
-        r_large = power_calculation(n_per_group=500, risk_unexposed=0.1, risk_ratio=2.0)
+        r_small = power_calculation(
+            n_per_group=50,  risk_unexposed=0.1, risk_ratio=2.0)
+        r_large = power_calculation(
+            n_per_group=500, risk_unexposed=0.1, risk_ratio=2.0)
         assert r_large.power > r_small.power
 
     def test_power_at_design_n(self):
         # If we use the n from sample_size_risk_ratio, power should ≥ 80%
         n = sample_size_risk_ratio(0.1, 2.0, power=0.8).n_per_group
-        r = power_calculation(n_per_group=n, risk_unexposed=0.1, risk_ratio=2.0)
+        r = power_calculation(
+            n_per_group=n, risk_unexposed=0.1, risk_ratio=2.0)
         assert r.power >= 0.79   # Allow tiny numerical tolerance
 
     def test_case_control_returns_result(self):
@@ -380,7 +392,6 @@ class TestPowerCalculation:
                 risk_ratio=2.0,
                 design=StudyDesign.CROSS_SECTIONAL,
             )
-
 
 
 # 9. fleiss_correction & design_effect_deff
@@ -415,13 +426,13 @@ class TestHelpers:
             design_effect_deff(0.1, 0.5)
 
 
-
 # 10. calculate_sample_size dispatcher
 
 
 class TestCalculateSampleSize:
     def test_cohort_string(self):
-        r = calculate_sample_size("cohort", {"risk_unexposed": 0.1, "risk_ratio": 2.0})
+        r = calculate_sample_size(
+            "cohort", {"risk_unexposed": 0.1, "risk_ratio": 2.0})
         assert r.design == StudyDesign.COHORT.value
 
     def test_case_control(self):
@@ -458,7 +469,6 @@ class TestCalculateSampleSize:
             calculate_sample_size("randomized_trial", {})
 
 
-
 # 11. StratifiedTable
 
 
@@ -468,6 +478,7 @@ def two_strata():
         Table2x2(10, 20, 30, 40),
         Table2x2(15, 25, 35, 45),
     ])
+
 
 class TestStratifiedTable:
     def test_empty_raises(self):
@@ -503,7 +514,6 @@ class TestStratifiedTable:
         d = two_strata.to_dict()
         assert "n_strata" in d and "tables" in d
         assert d["n_strata"] == 2
-
 
 
 # 12. mantel_haenszel_or
@@ -591,7 +601,6 @@ class TestMantelHaenszel:
         r = mantel_haenszel_or([Table2x2(40, 10, 20, 30)])
         assert isinstance(r, MantelHaenszelResult)
         assert r.common_or > 0
-
 
 
 # 13. Mathematical cross-checks

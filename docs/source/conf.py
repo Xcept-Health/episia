@@ -15,7 +15,8 @@ extensions = [
     'sphinx.ext.napoleon',      # for Google and NumPy style docstrings
     'sphinx.ext.mathjax',       # for rendering math equations
     'sphinx.ext.intersphinx',   # for linking to external documentation
-    'sphinx.ext.autosummary',   # for generating summary tables of modules/classes/functions
+    # for generating summary tables of modules/classes/functions
+    'sphinx.ext.autosummary',
 ]
 
 # Source

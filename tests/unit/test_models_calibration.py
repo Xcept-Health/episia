@@ -1,26 +1,32 @@
 """
 tests/test_models_calibration.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
+import sys
+
 import numpy as np
+import pytest
+
 from episia.models import SEIRModel, SIRModel
+from episia.models.calibration import CalibrationResult, ModelCalibrator
 from episia.models.parameters import SEIRParameters, SIRParameters
-from episia.models.calibration import ModelCalibrator, CalibrationResult
+
+sys.path.insert(0, '/tmp')
 
 
 @pytest.fixture
 def seir_calibrator():
     return ModelCalibrator(
         SEIRModel, SEIRParameters,
-        fixed_params = dict(N=100_000, I0=1, E0=5, sigma=1/5.2, t_span=(0,60)),
-        fit_params   = {'beta': (0.1, 0.8), 'gamma': (0.05, 0.3)},
+        fixed_params=dict(N=100_000, I0=1, E0=5, sigma=1/5.2, t_span=(0, 60)),
+        fit_params={'beta': (0.1, 0.8), 'gamma': (0.05, 0.3)},
     )
+
 
 @pytest.fixture
 def observed_data():
     t = np.linspace(0, 60, 12)
-    I = np.array([1,5,20,80,200,350,350,280,180,100,50,20], dtype=float)
+    I = np.array([1, 5, 20, 80, 200, 350, 350, 280,
+                 180, 100, 50, 20], dtype=float)
     return t, {'I': I}
 
 
@@ -38,9 +44,10 @@ class TestModelCalibratorInit:
     def test_custom_loss(self):
         cal = ModelCalibrator(
             SEIRModel, SEIRParameters,
-            fixed_params = dict(N=100_000, I0=1, E0=5, sigma=1/5.2, t_span=(0,60)),
-            fit_params   = {'beta': (0.1, 0.8)},
-            loss         = 'mae',
+            fixed_params=dict(N=100_000, I0=1, E0=5,
+                              sigma=1/5.2, t_span=(0, 60)),
+            fit_params={'beta': (0.1, 0.8)},
+            loss='mae',
         )
         assert cal.loss == 'mae'
 
@@ -102,11 +109,11 @@ class TestModelCalibratorFit:
     def test_sir_calibration(self):
         cal = ModelCalibrator(
             SIRModel, SIRParameters,
-            fixed_params = dict(N=50_000, I0=5, t_span=(0,40)),
-            fit_params   = {'beta': (0.1, 0.8), 'gamma': (0.05, 0.3)},
+            fixed_params=dict(N=50_000, I0=5, t_span=(0, 40)),
+            fit_params={'beta': (0.1, 0.8), 'gamma': (0.05, 0.3)},
         )
         t = np.linspace(0, 40, 10)
-        I = np.array([5,20,80,200,300,280,200,120,60,25], dtype=float)
+        I = np.array([5, 20, 80, 200, 300, 280, 200, 120, 60, 25], dtype=float)
         result = cal.fit(t, {'I': I})
         assert isinstance(result, CalibrationResult)
         assert result.loss >= 0

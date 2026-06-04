@@ -18,34 +18,50 @@ from __future__ import annotations
 
 import json
 import math
+
 import numpy as np
 import pandas as pd
 import pytest
 
-#  api.results 
+#  api.results
 from episia.api.results import (
-    EpiResult, ConfidenceInterval,
-    AssociationResult, ProportionResult, DiagnosticResult,
-    ROCResult, ModelResult, TimeSeriesResult,
-    make_ci, make_association, make_proportion,
+    AssociationResult,
+    ConfidenceInterval,
+    DiagnosticResult,
+    EpiResult,
+    ModelResult,
+    ProportionResult,
+    ROCResult,
+    TimeSeriesResult,
+    make_association,
+    make_ci,
+    make_proportion,
 )
 
-#  stats.time_series 
+#  stats.regression
+from episia.stats.regression import (
+    RegressionResult,
+    calculate_vif,
+    hosmer_lemeshow_test,
+    likelihood_ratio_test,
+    logistic_regression,
+    poisson_regression,
+)
+
+#  stats.time_series
 from episia.stats.time_series import (
-    EpidemicCurve, TimeAggregation,
-    calculate_incidence, calculate_attack_rate, epidemic_curve,
-    moving_average, exponential_growth_rate,
-    cumulative_curve, detect_peaks, detect_epidemic_threshold,
+    EpidemicCurve,
+    TimeAggregation,
+    calculate_attack_rate,
+    calculate_incidence,
+    cumulative_curve,
+    detect_epidemic_threshold,
+    detect_peaks,
+    epidemic_curve,
+    exponential_growth_rate,
+    moving_average,
     reproductive_number,
 )
-
-#  stats.regression 
-from episia.stats.regression import (
-    RegressionResult, logistic_regression, poisson_regression,
-    likelihood_ratio_test, hosmer_lemeshow_test, calculate_vif,
-)
-
-
 
 # Fixtures
 
@@ -53,6 +69,7 @@ from episia.stats.regression import (
 @pytest.fixture
 def ci_95():
     return ConfidenceInterval(lower=0.5, upper=1.5, confidence=0.95, method="wald")
+
 
 @pytest.fixture
 def assoc_result(ci_95):
@@ -62,9 +79,11 @@ def assoc_result(ci_95):
         method="wald", n_total=100,
     )
 
+
 @pytest.fixture
 def rng():
     return np.random.default_rng(42)
+
 
 @pytest.fixture
 def logistic_data(rng):
@@ -75,6 +94,7 @@ def logistic_data(rng):
     y = (rng.uniform(0, 1, n) < prob).astype(float)
     return X, y
 
+
 @pytest.fixture
 def poisson_data(rng):
     n = 150
@@ -83,7 +103,6 @@ def poisson_data(rng):
     mu = np.exp(log_mu)
     y = rng.poisson(mu).astype(float)
     return X, y
-
 
 
 # 1. ConfidenceInterval
@@ -120,7 +139,6 @@ class TestConfidenceInterval:
         assert ci.confidence == 0.99 and ci.method == "wilson"
 
 
-
 # 2. AssociationResult
 
 
@@ -138,7 +156,8 @@ class TestAssociationResult:
         assert r.significant is True
 
     def test_repr_has_measure(self, assoc_result):
-        assert "Risk Ratio" in repr(assoc_result) or "risk_ratio" in repr(assoc_result)
+        assert "Risk Ratio" in repr(
+            assoc_result) or "risk_ratio" in repr(assoc_result)
 
     def test_repr_has_estimate(self, assoc_result):
         assert "2.667" in repr(assoc_result)
@@ -148,7 +167,7 @@ class TestAssociationResult:
 
     def test_to_dict_keys(self, assoc_result):
         d = assoc_result.to_dict()
-        for k in ["measure","estimate","ci_lower","ci_upper","p_value","significant"]:
+        for k in ["measure", "estimate", "ci_lower", "ci_upper", "p_value", "significant"]:
             assert k in d
 
     def test_to_json_valid(self, assoc_result):
@@ -173,7 +192,6 @@ class TestAssociationResult:
         assert isinstance(r, AssociationResult)
         assert r.estimate == 3.0
         assert r.significant is True
-
 
 
 # 3. ProportionResult
@@ -206,7 +224,6 @@ class TestProportionResult:
         r = make_proportion(0.3, 0.2, 0.4)
         parsed = json.loads(r.to_json())
         assert "proportion" in parsed
-
 
 
 # 4. ModelResult (api.results version)
@@ -258,7 +275,6 @@ class TestModelResultAPI:
         # numpy integers/floats should be serializable
         d = model_result.to_dict()
         json.dumps(d)   # should not raise
-
 
 
 # 5. EpiResult._json_safe & _flatten
@@ -313,7 +329,6 @@ class TestEpiResultHelpers:
             r.plot()
 
 
-
 # 6. EpidemicCurve
 
 
@@ -351,7 +366,6 @@ class TestEpidemicCurve:
         assert isinstance(curve.metadata, dict)
 
 
-
 # 7. calculate_incidence & calculate_attack_rate
 
 
@@ -362,7 +376,7 @@ class TestCalculateIncidence:
 
     def test_array_population(self):
         cases = np.array([10, 20])
-        pop   = np.array([1000, 2000])
+        pop = np.array([1000, 2000])
         r = calculate_incidence(cases, pop)
         np.testing.assert_array_almost_equal(r, [0.01, 0.01])
 
@@ -386,7 +400,6 @@ class TestCalculateIncidence:
     def test_attack_rate_zero_population_raises(self):
         with pytest.raises(ValueError):
             calculate_attack_rate(np.array([10]), 0)
-
 
 
 # 8. epidemic_curve
@@ -433,7 +446,6 @@ class TestEpidemicCurveFn:
         assert r.counts.sum() == pytest.approx(counts.sum())
 
 
-
 # 9. moving_average
 
 
@@ -466,7 +478,6 @@ class TestMovingAverage:
             warnings.simplefilter("always")
             result = moving_average(np.arange(5, dtype=float), window=10)
         assert len(result) == 5
-
 
 
 # 10. exponential_growth_rate
@@ -507,7 +518,6 @@ class TestExponentialGrowthRate:
         assert r["growth_rate"] == pytest.approx(0.05, rel=0.05)
 
 
-
 # 11. cumulative_curve & detect_peaks
 
 
@@ -537,7 +547,6 @@ class TestCumulativeAndPeaks:
         assert "peak_indices" in r and "n_peaks" in r
 
 
-
 # 12. detect_epidemic_threshold
 
 
@@ -559,14 +568,14 @@ class TestEpidemicThreshold:
 
     def test_all_normal_no_flag(self):
         data = np.ones(20, dtype=float) * 5
-        r = detect_epidemic_threshold(data, method="percentile", multiplier=1.5)
+        r = detect_epidemic_threshold(
+            data, method="percentile", multiplier=1.5)
         # Constant series — nothing exceeds 75th percentile * 1.5
         assert r["epidemic_days"] == 0
 
     def test_unknown_method_raises(self):
         with pytest.raises(ValueError):
             detect_epidemic_threshold(np.ones(10), method="magic")
-
 
 
 # 13. reproductive_number
@@ -586,8 +595,8 @@ class TestReproductiveNumber:
 
     def test_unknown_method_raises(self):
         with pytest.raises(ValueError):
-            reproductive_number(np.array([1, 2, 3], dtype=float), method="unknown")
-
+            reproductive_number(
+                np.array([1, 2, 3], dtype=float), method="unknown")
 
 
 # 14. logistic_regression
@@ -706,7 +715,6 @@ class TestLogisticRegression:
             logistic_regression(X, y, method="gradient_descent")
 
 
-
 # 15. poisson_regression
 
 
@@ -741,8 +749,6 @@ class TestPoissonRegression:
         r = poisson_regression(X, y)
         assert np.all((r.p_values >= 0) & (r.p_values <= 1))
 
-
-
     def test_with_offset(self, poisson_data):
         X, y = poisson_data
         offset = np.log(np.full(len(y), 1000.0))
@@ -756,7 +762,6 @@ class TestPoissonRegression:
         y = rng.poisson(np.exp(log_mu)).astype(float)
         r = poisson_regression(X, y, variable_names=["x"])
         assert r.p_values[1] < 0.05
-
 
 
 def test_poisson_negative_y_raises():
@@ -774,28 +779,28 @@ class TestLikelihoodRatioTest:
     def test_returns_dict(self, logistic_data):
         X, y = logistic_data
         r_full = logistic_regression(X, y)
-        r_red  = logistic_regression(X[:, :1], y)
+        r_red = logistic_regression(X[:, :1], y)
         result = likelihood_ratio_test(r_full, r_red)
         assert isinstance(result, dict)
 
     def test_lr_stat_positive(self, logistic_data):
         X, y = logistic_data
         r_full = logistic_regression(X, y)
-        r_red  = logistic_regression(X[:, :1], y)
+        r_red = logistic_regression(X[:, :1], y)
         result = likelihood_ratio_test(r_full, r_red)
         assert result["lr_statistic"] >= 0
 
     def test_p_value_in_0_1(self, logistic_data):
         X, y = logistic_data
         r_full = logistic_regression(X, y)
-        r_red  = logistic_regression(X[:, :1], y)
+        r_red = logistic_regression(X[:, :1], y)
         result = likelihood_ratio_test(r_full, r_red)
         assert 0 <= result["p_value"] <= 1
 
     def test_df_correct(self, logistic_data):
         X, y = logistic_data
         r_full = logistic_regression(X, y)          # 3 params (intercept + 2)
-        r_red  = logistic_regression(X[:, :1], y)   # 2 params (intercept + 1)
+        r_red = logistic_regression(X[:, :1], y)   # 2 params (intercept + 1)
         result = likelihood_ratio_test(r_full, r_red)
         assert result["df"] == 1
 
@@ -809,7 +814,6 @@ class TestLikelihoodRatioTest:
         r2 = dataclasses.replace(r1, model_type="poisson")
         with pytest.raises(ValueError, match="same type"):
             likelihood_ratio_test(r1, r2)
-
 
 
 # 17. hosmer_lemeshow_test
@@ -834,11 +838,10 @@ class TestHosmerLemeshow:
 
     def test_good_fit_high_p(self, rng):
         # Perfect predictions → excellent fit → high p-value
-        y    = np.array([0]*50 + [1]*50, dtype=float)
+        y = np.array([0]*50 + [1]*50, dtype=float)
         pred = np.array([0.05]*50 + [0.95]*50)
         r = hosmer_lemeshow_test(y, pred)
         assert r["p_value"] > 0.05
-
 
 
 # 18. calculate_vif

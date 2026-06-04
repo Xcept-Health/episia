@@ -3,12 +3,12 @@ This module provides functions for reading and writing epidemiological
 data in various formats with automatic format detection and validation.
 """
 
-import pandas as pd
-from typing import Union, Dict, List
 from pathlib import Path
+from typing import Dict, List, Union
 
+import pandas as pd
 
-from ..core.exceptions import FileError 
+from ..core.exceptions import FileError
 from .dataset import Dataset
 
 
@@ -19,12 +19,12 @@ def read_csv(
 ) -> Dataset:
     """
     Read CSV file into Dataset.
-    
+
     Args:
         path: Path to CSV file
         low_memory: Optimize memory usage
         **kwargs: Additional arguments for pd.read_csv
-        
+
     Returns:
         Dataset object
     """
@@ -43,13 +43,13 @@ def read_excel(
 ) -> Dataset:
     """
     Read Excel file into Dataset.
-    
+
     Args:
         path: Path to Excel file
         sheet_name: Sheet to read
         low_memory: Optimize memory usage
         **kwargs: Additional arguments for pd.read_excel
-        
+
     Returns:
         Dataset object
     """
@@ -67,12 +67,12 @@ def read_parquet(
 ) -> Dataset:
     """
     Read Parquet file into Dataset.
-    
+
     Args:
         path: Path to Parquet file
         low_memory: Optimize memory usage
         **kwargs: Additional arguments for pd.read_parquet
-        
+
     Returns:
         Dataset object
     """
@@ -89,11 +89,11 @@ def from_pandas(
 ) -> Dataset:
     """
     Create Dataset from pandas DataFrame.
-    
+
     Args:
         df: pandas DataFrame
         low_memory: Optimize memory usage
-        
+
     Returns:
         Dataset object
     """
@@ -107,12 +107,12 @@ def from_dict(
 ) -> Dataset:
     """
     Create Dataset from dictionary.
-    
+
     Args:
         data: Dictionary of data
         low_memory: Optimize memory usage
         **kwargs: Additional arguments for pd.DataFrame
-        
+
     Returns:
         Dataset object
     """
@@ -127,12 +127,12 @@ def from_records(
 ) -> Dataset:
     """
     Create Dataset from list of records.
-    
+
     Args:
         records: List of dictionaries
         low_memory: Optimize memory usage
         **kwargs: Additional arguments for pd.DataFrame.from_records
-        
+
     Returns:
         Dataset object
     """
@@ -148,34 +148,34 @@ def read_surveillance_format(
 ) -> Dataset:
     """
     Read surveillance data in standard formats.
-    
+
     Args:
         path: Path to surveillance data file
         format_type: Format type ('sidesp', 'who', 'ecdc', 'auto')
         low_memory: Optimize memory usage
         **kwargs: Additional arguments
-        
+
     Returns:
         Dataset object
     """
     from .surveillance import read_format
-    
+
     return read_format(path, format_type, low_memory, **kwargs)
 
 
 def detect_format(path: Union[str, Path]) -> str:
     """
     Detect file format from extension or content.
-    
+
     Args:
         path: Path to file
-        
+
     Returns:
         Detected format string
     """
     path = Path(path)
     suffix = path.suffix.lower()
-    
+
     format_map = {
         '.csv': 'csv',
         '.xlsx': 'excel',
@@ -185,7 +185,7 @@ def detect_format(path: Union[str, Path]) -> str:
         '.json': 'json',
         '.txt': 'text'
     }
-    
+
     return format_map.get(suffix, 'unknown')
 
 
@@ -197,7 +197,7 @@ def export_dataset(
 ) -> None:
     """
     Export Dataset to file.
-    
+
     Args:
         dataset: Dataset to export
         path: Output path
@@ -205,10 +205,10 @@ def export_dataset(
         **kwargs: Additional arguments for writer
     """
     path = Path(path)
-    
+
     if format == 'auto':
         format = detect_format(path)
-    
+
     try:
         if format == 'csv':
             dataset.df.to_csv(path, **kwargs)

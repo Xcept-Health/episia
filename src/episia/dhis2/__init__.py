@@ -25,7 +25,7 @@ Usage::
     print(ds)
 """
 
-from .client  import DHIS2Client
 from .adapter import DHIS2Adapter
+from .client import DHIS2Client
 
 __all__ = ["DHIS2Client", "DHIS2Adapter"]

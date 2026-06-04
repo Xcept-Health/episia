@@ -1,41 +1,52 @@
 """
 tests/test_stats_timeseries_regression.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
+import sys
+
 import numpy as np
-from episia.stats.time_series import (
-    calculate_incidence, detect_epidemic_threshold,
-    cumulative_curve, EpidemicCurve,
-)
+import pytest
+
 from episia.stats.regression import (
-    logistic_regression, hosmer_lemeshow_test,
-    likelihood_ratio_test, calculate_vif, RegressionResult,
+    RegressionResult,
+    calculate_vif,
+    hosmer_lemeshow_test,
+    likelihood_ratio_test,
+    logistic_regression,
+)
+from episia.stats.time_series import (
+    EpidemicCurve,
+    calculate_incidence,
+    cumulative_curve,
+    detect_epidemic_threshold,
 )
 
+sys.path.insert(0, '/tmp')
 
-#  Fixtures 
+
+#  Fixtures
 
 @pytest.fixture
 def weekly_counts():
-    return np.array([2,3,5,8,15,25,40,35,20,10,5,3], dtype=float)
+    return np.array([2, 3, 5, 8, 15, 25, 40, 35, 20, 10, 5, 3], dtype=float)
+
 
 @pytest.fixture
 def logistic_data():
     np.random.seed(42)
     n = 120
     X = np.random.randn(n, 2)
-    p = 1 / (1 + np.exp(-(X[:,0]*0.6 + X[:,1]*0.4 + 0.2)))
+    p = 1 / (1 + np.exp(-(X[:, 0]*0.6 + X[:, 1]*0.4 + 0.2)))
     y = (np.random.rand(n) < p).astype(float)
     return X, y
+
 
 @pytest.fixture
 def logistic_result(logistic_data):
     X, y = logistic_data
-    return logistic_regression(X, y, variable_names=['age','exposure'], add_intercept=True)
+    return logistic_regression(X, y, variable_names=['age', 'exposure'], add_intercept=True)
 
 
-#  Time series 
+#  Time series
 
 class TestCalculateIncidence:
 
@@ -53,7 +64,8 @@ class TestCalculateIncidence:
 
     def test_known_value(self):
         counts = np.array([100.0])
-        result = calculate_incidence(counts, population=10_000, time_period=1.0)
+        result = calculate_incidence(
+            counts, population=10_000, time_period=1.0)
         assert abs(result[0] - 0.01) < 1e-10
 
     def test_larger_population_lower_incidence(self, weekly_counts):
@@ -86,7 +98,8 @@ class TestDetectEpidemicThreshold:
 
     def test_peak_flagged_with_low_multiplier(self):
         # Use a low multiplier so the peak is flagged
-        counts = np.array([2,3,5,8,15,25,40,35,20,10,5,3], dtype=float)
+        counts = np.array([2, 3, 5, 8, 15, 25, 40, 35,
+                          20, 10, 5, 3], dtype=float)
         result = detect_epidemic_threshold(counts, multiplier=0.5)
         assert result['epidemic_flags'].any()
 
@@ -97,7 +110,8 @@ class TestDetectEpidemicThreshold:
         assert isinstance(result['epidemic_flags'], (list, np.ndarray))
 
     def test_method_parameter(self, weekly_counts):
-        result = detect_epidemic_threshold(weekly_counts, method='moving_average')
+        result = detect_epidemic_threshold(
+            weekly_counts, method='moving_average')
         assert 'threshold' in result
 
 
@@ -124,7 +138,7 @@ class TestCumulativeCurve:
         assert abs(result[0] - weekly_counts[0]) < 1e-9
 
 
-#  Logistic regression 
+#  Logistic regression
 
 class TestLogisticRegression:
 
@@ -221,30 +235,30 @@ class TestLikelihoodRatioTest:
 
     def test_returns_dict(self, logistic_data):
         X, y = logistic_data
-        full    = logistic_regression(X, y, add_intercept=True)
+        full = logistic_regression(X, y, add_intercept=True)
         reduced = logistic_regression(X[:, :1], y, add_intercept=True)
-        result  = likelihood_ratio_test(full, reduced)
+        result = likelihood_ratio_test(full, reduced)
         assert isinstance(result, dict)
 
     def test_has_lr_statistic(self, logistic_data):
         X, y = logistic_data
-        full    = logistic_regression(X, y, add_intercept=True)
+        full = logistic_regression(X, y, add_intercept=True)
         reduced = logistic_regression(X[:, :1], y, add_intercept=True)
-        result  = likelihood_ratio_test(full, reduced)
+        result = likelihood_ratio_test(full, reduced)
         assert 'lr_statistic' in result
 
     def test_has_p_value(self, logistic_data):
         X, y = logistic_data
-        full    = logistic_regression(X, y, add_intercept=True)
+        full = logistic_regression(X, y, add_intercept=True)
         reduced = logistic_regression(X[:, :1], y, add_intercept=True)
-        result  = likelihood_ratio_test(full, reduced)
+        result = likelihood_ratio_test(full, reduced)
         assert 'p_value' in result
 
     def test_lr_statistic_positive(self, logistic_data):
         X, y = logistic_data
-        full    = logistic_regression(X, y, add_intercept=True)
+        full = logistic_regression(X, y, add_intercept=True)
         reduced = logistic_regression(X[:, :1], y, add_intercept=True)
-        result  = likelihood_ratio_test(full, reduced)
+        result = likelihood_ratio_test(full, reduced)
         assert result['lr_statistic'] >= 0
 
 

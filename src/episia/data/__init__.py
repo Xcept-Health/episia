@@ -4,16 +4,19 @@ data/__init__.py - Episia data management layer.
 
 from .dataset import Dataset
 from .io import (
-    read_csv, read_excel, from_pandas, from_dict,
+    from_dict,
+    from_pandas,
+    read_csv,
+    read_excel,
 )
 from .surveillance import (
-    SurveillanceDataset,
-    AlertEngine,
     Alert,
-    from_dhis2_csv,
+    AlertEngine,
+    SurveillanceDataset,
+    aggregate_by,
     compute_attack_rate,
     endemic_channel,
-    aggregate_by,
+    from_dhis2_csv,
 )
 
 __all__ = [

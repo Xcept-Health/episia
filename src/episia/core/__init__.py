@@ -10,105 +10,101 @@ This module provides the technical foundation for Episia, including:
 """
 
 from .calculator import (
+    BaseCalculator,
     CacheStrategy,
     CalculationStats,
-    BaseCalculator,
     EpidemiologicalCalculator,
     MatrixCalculator,
+    cached_function,
     epi_calculator,
     matrix_calculator,
-    cached_function
 )
-
-from .validator import (
-    ValidationError,
-    validate_2x2_table,
-    validate_proportion,
-    validate_confidence_level,
-    validate_sample_size,
-    validate_dataframe,
-    validate_binary_variable,
-    validate_date_series,
-    validate_numeric_array,
-    validate_model_parameters,
-    check_convergence,
-    validate_positive
-)
-
-from .exceptions import (
-    EpisiaError,
-    ValidationError,
-    ConvergenceError,
-    ConfigurationError,
-    DataError,
-    ModelError,
-    StatisticalError,
-    DimensionError,
-    ParameterError,
-    ComputationError,
-    FileError,
-    PlotError,
-    WarningManager
-)
-
 from .constants import (
-    ConfidenceLevel,
-    AlphaLevel,
-    PowerLevel,
-    DEFAULT_CONFIDENCE,
-    DEFAULT_ALPHA,
-    DEFAULT_POWER,
-    EPSILON,
-    MAX_ITERATIONS,
-    CONVERGENCE_TOL,
+    BASIC_REPRODUCTION_COVID,
     CHI_SQUARE_SMALL_SAMPLE,
+    CONVERGENCE_TOL,
+    COVID19_PARAMS,
+    DEFAULT_ALPHA,
+    DEFAULT_COLOR_PALETTE,
+    DEFAULT_CONFIDENCE,
+    DEFAULT_DPI,
+    DEFAULT_FIGSIZE,
+    DEFAULT_FONTSIZE,
+    DEFAULT_PLOT_STYLE,
+    DEFAULT_POWER,
+    EBOLA_PARAMS,
+    EPISIA_CONFIG,
+    EPSILON,
+    EUROPEAN_STANDARD_POPULATION,
     FISHER_EXACT_THRESHOLD,
-    NORMAL_APPROXIMATION_N,
+    INFLUENZA_PARAMS,
+    MAX_ITERATIONS,
     MEAN_INCUBATION_COVID,
     MEAN_INFECTIOUS_PERIOD_COVID,
-    BASIC_REPRODUCTION_COVID,
+    NORMAL_APPROXIMATION_N,
     WHO_STANDARD_POPULATION,
-    EUROPEAN_STANDARD_POPULATION,
-    COVID19_PARAMS,
-    INFLUENZA_PARAMS,
-    EBOLA_PARAMS,
+    AlphaLevel,
+    ColorPalette,
     ConfidenceIntervalMethod,
-    RiskRatioMethod,
+    ConfidenceLevel,
     OddsRatioMethod,
     PlotStyle,
-    ColorPalette,
-    DEFAULT_FIGSIZE,
-    DEFAULT_DPI,
-    DEFAULT_FONTSIZE,
-    DEFAULT_COLOR_PALETTE,
-    DEFAULT_PLOT_STYLE,
-    EPISIA_CONFIG,
+    PowerLevel,
+    RiskRatioMethod,
     get_config,
-    set_config
+    set_config,
 )
-
+from .exceptions import (
+    ComputationError,
+    ConfigurationError,
+    ConvergenceError,
+    DataError,
+    DimensionError,
+    EpisiaError,
+    FileError,
+    ModelError,
+    ParameterError,
+    PlotError,
+    StatisticalError,
+    ValidationError,
+    WarningManager,
+)
 from .utilities import (
-    timer,
-    validate_input,
-    deprecated,
-    memoize,
-    safe_divide,
     clip_values,
+    create_bins,
+    deprecated,
+    expit,
     format_number,
     format_pvalue,
-    create_bins,
+    generate_random_id,
+    is_binary_array,
+    is_integer_array,
+    is_numeric,
     logit,
-    expit,
-    standardize,
-    winsorize,
+    memoize,
     numpy_errstate,
     pandas_display_options,
-    is_numeric,
-    is_integer_array,
-    is_binary_array,
+    safe_divide,
     sanitize_filename,
     set_random_seed,
-    generate_random_id
+    standardize,
+    timer,
+    validate_input,
+    winsorize,
+)
+from .validator import (
+    ValidationError,
+    check_convergence,
+    validate_2x2_table,
+    validate_binary_variable,
+    validate_confidence_level,
+    validate_dataframe,
+    validate_date_series,
+    validate_model_parameters,
+    validate_numeric_array,
+    validate_positive,
+    validate_proportion,
+    validate_sample_size,
 )
 
 __all__ = [
@@ -121,7 +117,7 @@ __all__ = [
     'epi_calculator',
     'matrix_calculator',
     'cached_function',
-    
+
     # From validator
     'ValidationError',
     'validate_2x2_table',
@@ -135,7 +131,7 @@ __all__ = [
     'validate_model_parameters',
     'check_convergence',
     'validate_positive',
-    
+
     # From exceptions
     'EpisiaError',
     'ValidationError',
@@ -150,7 +146,7 @@ __all__ = [
     'FileError',
     'PlotError',
     'WarningManager',
-    
+
     # From constants
     'ConfidenceLevel',
     'AlphaLevel',
@@ -185,7 +181,7 @@ __all__ = [
     'EPISIA_CONFIG',
     'get_config',
     'set_config',
-    
+
     # From utilities
     'timer',
     'validate_input',

@@ -6,37 +6,54 @@ Unit tests for episia.stats
     diagnostic   : diagnostic_test_2x2, roc_analysis
 """
 from __future__ import annotations
+
 import math
+
 import numpy as np
 import pandas as pd
 import pytest
 
 from episia.stats.contingency import (
-    Table2x2, RiskRatioResult, OddsRatioResult,
-    ConfidenceMethod, risk_ratio, odds_ratio, from_dataframe,
+    ConfidenceMethod,
+    OddsRatioResult,
+    RiskRatioResult,
+    Table2x2,
+    from_dataframe,
+    odds_ratio,
+    risk_ratio,
 )
 from episia.stats.descriptive import (
-    CI_Method, ProportionResult, MeanResult,
-    proportion_ci, mean_ci, incidence_rate, attack_rate, prevalence,
+    CI_Method,
+    MeanResult,
+    ProportionResult,
+    attack_rate,
+    incidence_rate,
     interquartile_range,
+    mean_ci,
+    prevalence,
+    proportion_ci,
 )
 from episia.stats.diagnostic import (
-    DiagnosticResult, ROCResult,
-    diagnostic_test_2x2, roc_analysis,
+    DiagnosticResult,
+    ROCResult,
+    diagnostic_test_2x2,
+    roc_analysis,
 )
 
-
 # Fixtures
+
 
 @pytest.fixture
 def table_standard():
     """Standard 2x2 table: a=40, b=10, c=20, d=30."""
     return Table2x2(40, 10, 20, 30)
 
+
 @pytest.fixture
 def table_equal():
     """Table with equal risks: RR=1, OR=1."""
     return Table2x2(10, 10, 10, 10)
+
 
 @pytest.fixture
 def diag_standard():
@@ -113,7 +130,6 @@ class TestTable2x2Properties:
         assert math.isinf(t.odds_unexposed)
 
 
-
 # 2. Table2x2 - risk_ratio
 
 class TestTable2x2RiskRatio:
@@ -180,7 +196,6 @@ class TestTable2x2RiskRatio:
         assert (r99.ci_upper - r99.ci_lower) > (r95.ci_upper - r95.ci_lower)
 
 
-
 # 3. Table2x2 - odds_ratio
 
 class TestTable2x2OddsRatio:
@@ -220,7 +235,6 @@ class TestTable2x2OddsRatio:
         t2 = Table2x2(10, 40, 30, 20)
         or2 = t2.odds_ratio().estimate
         assert or1 == pytest.approx(1.0 / or2, rel=1e-4)
-
 
 
 # 4. Table2x2 - risk_difference & chi_square & fisher_exact
@@ -275,7 +289,6 @@ class TestTable2x2OtherMeasures:
         assert 0 <= s["attributable_fractions"]["population"] <= 1
 
 
-
 # 5. Convenience functions & from_dataframe
 
 class TestConvenienceFunctions:
@@ -291,8 +304,8 @@ class TestConvenienceFunctions:
 
     def test_from_dataframe(self):
         df = pd.DataFrame({
-            "exposed": [1,1,1,0,0,0,1,0],
-            "outcome": [1,1,0,1,0,0,0,1],
+            "exposed": [1, 1, 1, 0, 0, 0, 1, 0],
+            "outcome": [1, 1, 0, 1, 0, 0, 0, 1],
         })
         t = from_dataframe(df, "exposed", "outcome")
         assert isinstance(t, Table2x2)
@@ -305,7 +318,6 @@ class TestConvenienceFunctions:
         })
         t = from_dataframe(df, "exp", "out")
         assert t.total == 4
-
 
 
 # 6. proportion_ci
@@ -396,7 +408,6 @@ class TestProportionCI:
         assert isinstance(r, ProportionResult)
 
 
-
 # 7. mean_ci
 
 class TestMeanCI:
@@ -452,7 +463,6 @@ class TestMeanCI:
         assert (r99.ci_upper - r99.ci_lower) > (r95.ci_upper - r95.ci_lower)
 
 
-
 # 8. incidence_rate & interquartile_range
 
 class TestIncidenceRate:
@@ -498,7 +508,6 @@ class TestInterquartileRange:
     def test_symmetric_data(self):
         data = list(range(11))  # 0..10, Q1=2.5, Q3=7.5, IQR=5
         assert interquartile_range(data) == pytest.approx(5.0)
-
 
 
 # 9. diagnostic_test_2x2
@@ -572,7 +581,7 @@ class TestDiagnosticTest2x2:
 
     def test_to_dict_keys(self, diag_standard):
         d = diag_standard.to_dict()
-        for k in ["sensitivity","specificity","ppv","npv","accuracy","youden"]:
+        for k in ["sensitivity", "specificity", "ppv", "npv", "accuracy", "youden"]:
             assert k in d
 
     def test_repr(self, diag_standard):
@@ -585,14 +594,14 @@ class TestDiagnosticTest2x2:
         assert "-" in diag_standard._spec_ci()
 
 
-
 # 10. roc_analysis
 
 class TestROCAnalysis:
     @pytest.fixture
     def roc_data(self):
-        y_true  = np.array([1,1,1,1,1,0,0,0,0,0])
-        y_score = np.array([0.9,0.8,0.7,0.6,0.4,0.3,0.2,0.1,0.35,0.45])
+        y_true = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0, 0])
+        y_score = np.array(
+            [0.9, 0.8, 0.7, 0.6, 0.4, 0.3, 0.2, 0.1, 0.35, 0.45])
         return y_true, y_score
 
     def test_returns_roc_result(self, roc_data):
@@ -605,8 +614,8 @@ class TestROCAnalysis:
         assert 0.5 <= r.auc <= 1.0
 
     def test_auc_perfect_classifier(self):
-        y_true  = np.array([1,1,1,0,0,0])
-        y_score = np.array([0.9,0.8,0.7,0.1,0.2,0.3])
+        y_true = np.array([1, 1, 1, 0, 0, 0])
+        y_score = np.array([0.9, 0.8, 0.7, 0.1, 0.2, 0.3])
         r = roc_analysis(y_true, y_score)
         assert r.auc == pytest.approx(1.0)
 
@@ -634,7 +643,7 @@ class TestROCAnalysis:
     def test_to_dict_keys(self, roc_data):
         y_true, y_score = roc_data
         d = roc_analysis(y_true, y_score).to_dict()
-        for k in ["auc","optimal_threshold","optimal_sensitivity","n_thresholds"]:
+        for k in ["auc", "optimal_threshold", "optimal_sensitivity", "n_thresholds"]:
             assert k in d
 
     def test_repr(self, roc_data):
@@ -646,7 +655,6 @@ class TestROCAnalysis:
         y_true, y_score = roc_data
         r = roc_analysis(y_true, y_score, method="youden")
         assert r.method == "youden"
-
 
 
 # 11. Mathematical cross-checks

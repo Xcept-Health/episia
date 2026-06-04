@@ -18,9 +18,8 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
-
-
 # Base
+
 
 @dataclass
 class ModelParameters:
@@ -38,11 +37,11 @@ class ModelParameters:
     """
     N:       int
     I0:      float
-    E0:      float   = 0.0
-    R0_init: float   = 0.0
-    D0:      float   = 0.0
+    E0:      float = 0.0
+    R0_init: float = 0.0
+    D0:      float = 0.0
     t_span:  Tuple[float, float] = (0.0, 160.0)
-    dt:      float   = 1.0
+    dt:      float = 1.0
 
     def __post_init__(self) -> None:
         if self.N <= 0:
@@ -76,7 +75,6 @@ class ModelParameters:
             "t_span":  list(self.t_span),
             "dt":      self.dt,
         }
-
 
 
 # SIR
@@ -118,7 +116,6 @@ class SIRParameters(ModelParameters):
         d = super().to_dict()
         d.update({"beta": self.beta, "gamma": self.gamma, "r0": self.r0})
         return d
-
 
 
 # SEIR
@@ -174,7 +171,6 @@ class SEIRParameters(ModelParameters):
             "r0":    self.r0,
         })
         return d
-
 
 
 # SEIRD
@@ -237,7 +233,6 @@ class SEIRDParameters(ModelParameters):
             "cfr":   self.cfr,
         })
         return d
-
 
 
 # ScenarioSet

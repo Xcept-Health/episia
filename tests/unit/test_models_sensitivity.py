@@ -1,22 +1,27 @@
 """
 tests/test_models_sensitivity.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
+import sys
+
 import numpy as np
+import pytest
+
 from episia.models import SEIRModel
 from episia.models.parameters import SEIRParameters
 from episia.models.sensitivity import SensitivityAnalysis, SensitivityResult
+
+sys.path.insert(0, '/tmp')
 
 
 @pytest.fixture
 def small_sa():
     return SensitivityAnalysis(
         SEIRModel, SEIRParameters,
-        fixed        = dict(N=100_000, I0=1, E0=5, t_span=(0,100)),
-        distributions= {'beta': ('uniform', 0.2, 0.5), 'gamma': ('uniform', 0.05, 0.15)},
-        n_samples    = 8,
-        seed         = 42,
+        fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+        distributions={'beta': ('uniform', 0.2, 0.5),
+                       'gamma': ('uniform', 0.05, 0.15)},
+        n_samples=8,
+        seed=42,
     )
 
 
@@ -38,18 +43,18 @@ class TestSensitivityAnalysisInit:
     def test_normal_distribution(self):
         sa = SensitivityAnalysis(
             SEIRModel, SEIRParameters,
-            fixed        = dict(N=100_000, I0=1, E0=5, t_span=(0,100)),
-            distributions= {'beta': ('normal', 0.35, 0.05)},
-            n_samples    = 5, seed=0,
+            fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+            distributions={'beta': ('normal', 0.35, 0.05)},
+            n_samples=5, seed=0,
         )
         assert sa.distributions['beta'][0] == 'normal'
 
     def test_triangular_distribution(self):
         sa = SensitivityAnalysis(
             SEIRModel, SEIRParameters,
-            fixed        = dict(N=100_000, I0=1, E0=5, t_span=(0,100)),
-            distributions= {'gamma': ('triangular', 1/21, 1/14, 1/7)},
-            n_samples    = 5, seed=0,
+            fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+            distributions={'gamma': ('triangular', 1/21, 1/14, 1/7)},
+            n_samples=5, seed=0,
         )
         assert sa.distributions['gamma'][0] == 'triangular'
 
@@ -99,11 +104,11 @@ class TestSensitivityAnalysisRun:
 
     def test_seed_reproducibility(self):
         kwargs = dict(
-            model_class  = SEIRModel,
-            param_class  = SEIRParameters,
-            fixed        = dict(N=100_000, I0=1, E0=5, t_span=(0,100)),
-            distributions= {'beta': ('uniform', 0.2, 0.5)},
-            n_samples    = 6,
+            model_class=SEIRModel,
+            param_class=SEIRParameters,
+            fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+            distributions={'beta': ('uniform', 0.2, 0.5)},
+            n_samples=6,
         )
         r1 = SensitivityAnalysis(**kwargs, seed=99).run(verbose=False)
         r2 = SensitivityAnalysis(**kwargs, seed=99).run(verbose=False)
@@ -112,14 +117,16 @@ class TestSensitivityAnalysisRun:
     def test_more_samples_more_stable(self):
         sa_small = SensitivityAnalysis(
             SEIRModel, SEIRParameters,
-            fixed=dict(N=100_000,I0=1,E0=5,t_span=(0,100)),
-            distributions={'beta':('uniform',0.2,0.5),'gamma':('uniform',0.05,0.15)},
+            fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+            distributions={'beta': ('uniform', 0.2, 0.5),
+                           'gamma': ('uniform', 0.05, 0.15)},
             n_samples=5, seed=42,
         )
         sa_large = SensitivityAnalysis(
             SEIRModel, SEIRParameters,
-            fixed=dict(N=100_000,I0=1,E0=5,t_span=(0,100)),
-            distributions={'beta':('uniform',0.2,0.5),'gamma':('uniform',0.05,0.15)},
+            fixed=dict(N=100_000, I0=1, E0=5, t_span=(0, 100)),
+            distributions={'beta': ('uniform', 0.2, 0.5),
+                           'gamma': ('uniform', 0.05, 0.15)},
             n_samples=20, seed=42,
         )
         r_small = sa_small.run(verbose=False)

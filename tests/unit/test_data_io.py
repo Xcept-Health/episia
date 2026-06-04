@@ -1,24 +1,35 @@
 """
 tests/test_data_io.py
 """
-import sys; sys.path.insert(0, '/tmp')
-import pytest
-import pandas as pd
-import numpy as np
-import tempfile
 import os
-from episia.data.io import read_csv, from_pandas, from_dict, export_dataset, detect_format
+import sys
+import tempfile
+
+import numpy as np
+import pandas as pd
+import pytest
+
 from episia.data.dataset import Dataset
+from episia.data.io import (
+    detect_format,
+    export_dataset,
+    from_dict,
+    from_pandas,
+    read_csv,
+)
+
+sys.path.insert(0, '/tmp')
 
 
 @pytest.fixture
 def sample_df():
     return pd.DataFrame({
-        'date':     ['2024-01-01','2024-01-08','2024-01-15'],
+        'date':     ['2024-01-01', '2024-01-08', '2024-01-15'],
         'cases':    [10, 25, 18],
         'deaths':   [1, 2, 1],
-        'district': ['Ouagadougou','Bobo','Koudougou'],
+        'district': ['Ouagadougou', 'Bobo', 'Koudougou'],
     })
+
 
 @pytest.fixture
 def csv_file(sample_df):
@@ -27,6 +38,7 @@ def csv_file(sample_df):
         path = f.name
     yield path
     os.unlink(path)
+
 
 @pytest.fixture
 def excel_file(sample_df):
@@ -87,7 +99,7 @@ class TestFromPandas:
 
     def test_empty_dataframe_raises(self):
         from episia.core.exceptions import ValidationError
-        df = pd.DataFrame(columns=['a','b'])
+        df = pd.DataFrame(columns=['a', 'b'])
         with pytest.raises((ValidationError, Exception)):
             from_pandas(df)
 
@@ -95,15 +107,16 @@ class TestFromPandas:
 class TestFromDict:
 
     def test_returns_dataset(self):
-        ds = from_dict({'cases':[1,2,3], 'date':['2024-01-01','2024-01-08','2024-01-15']})
+        ds = from_dict({'cases': [1, 2, 3], 'date': [
+                       '2024-01-01', '2024-01-08', '2024-01-15']})
         assert isinstance(ds, Dataset)
 
     def test_row_count(self):
-        ds = from_dict({'a':[1,2,3,4], 'b':[5,6,7,8]})
+        ds = from_dict({'a': [1, 2, 3, 4], 'b': [5, 6, 7, 8]})
         assert len(ds.df) == 4
 
     def test_columns(self):
-        ds = from_dict({'x':[1,2], 'y':[3,4]})
+        ds = from_dict({'x': [1, 2], 'y': [3, 4]})
         assert 'x' in ds.df.columns
         assert 'y' in ds.df.columns
 

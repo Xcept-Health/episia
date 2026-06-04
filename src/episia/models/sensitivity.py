@@ -88,7 +88,8 @@ def _draw_samples(
     rng = np.random.default_rng(seed)
     samples = []
     for _ in range(n_samples):
-        draw = {k: _sample_param(spec, rng) for k, spec in distributions.items()}
+        draw = {k: _sample_param(spec, rng)
+                for k, spec in distributions.items()}
         samples.append(draw)
     return samples
 
@@ -113,10 +114,11 @@ def _run_one(args):
             all_params["t_span"] = tuple(all_params["t_span"])
 
         params = param_class(**all_params)
-        model  = model_class(params)
+        model = model_class(params)
 
         t_span = params.t_span
-        t_eval = np.linspace(float(t_span[0]), float(t_span[1]), int(t_eval_len))
+        t_eval = np.linspace(float(t_span[0]), float(
+            t_span[1]), int(t_eval_len))
         result = model.run(t_eval=t_eval)
 
         return {
@@ -181,10 +183,10 @@ class SensitivityResult:
             if len(values) == 0:
                 continue
             out[f"{metric}_median"] = float(np.median(values))
-            out[f"{metric}_mean"]   = float(np.mean(values))
-            out[f"{metric}_p5"]     = float(np.percentile(values, 5))
-            out[f"{metric}_p95"]    = float(np.percentile(values, 95))
-            out[f"{metric}_std"]    = float(np.std(values))
+            out[f"{metric}_mean"] = float(np.mean(values))
+            out[f"{metric}_p5"] = float(np.percentile(values, 5))
+            out[f"{metric}_p95"] = float(np.percentile(values, 95))
+            out[f"{metric}_std"] = float(np.std(values))
         return out
 
     def to_dataframe(self):
@@ -239,8 +241,8 @@ class SensitivityResult:
                 f"Available: {self.compartment_names}"
             )
 
-        env   = self.envelopes[compartment]
-        t     = self.t
+        env = self.envelopes[compartment]
+        t = self.t
         title = title or (
             f"Sensitivity Analysis  {compartment}  "
             f"(n={self.n_samples})"
@@ -264,12 +266,13 @@ class SensitivityResult:
     def _plot_plotly(self, t, env, comp, col, title,
                      show_samples, n_traces, theme):
         import plotly.graph_objects as go
-        from ..viz.plotters.plotly_plotter import _layout, _FONT_COLOR
+
         from ..viz.plotters import PlotConfig
+        from ..viz.plotters.plotly_plotter import _FONT_COLOR, _layout
 
         def rgba(hex_col, alpha):
             h = hex_col.lstrip("#")
-            r,g,b = int(h[:2],16), int(h[2:4],16), int(h[4:],16)
+            r, g, b = int(h[:2], 16), int(h[2:4], 16), int(h[4:], 16)
             return f"rgba({r},{g},{b},{alpha})"
 
         fig = go.Figure()
@@ -317,6 +320,7 @@ class SensitivityResult:
     def _plot_mpl(self, t, env, comp, col, title,
                   show_samples, n_traces, theme):
         import matplotlib.pyplot as plt
+
         from ..viz.themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -368,17 +372,18 @@ class SensitivityResult:
             "peak_time":     "Jour du pic",
             "final_size":    "Taille finale (fraction)",
         }
-        label  = label_map.get(metric, metric)
+        label = label_map.get(metric, metric)
         median = float(np.median(values))
-        p5     = float(np.percentile(values, 5))
-        p95    = float(np.percentile(values, 95))
-        title  = f"Distribution  {label}  (médiane={median:.3f})"
+        p5 = float(np.percentile(values, 5))
+        p95 = float(np.percentile(values, 95))
+        title = f"Distribution  {label}  (médiane={median:.3f})"
 
         from ..viz.themes.registry import get_palette
         pal = get_palette(theme)
 
         if backend == "plotly":
             import plotly.graph_objects as go
+
             from ..viz.plotters import PlotConfig
             from ..viz.plotters.plotly_plotter import _layout
 
@@ -404,14 +409,17 @@ class SensitivityResult:
 
         else:
             import matplotlib.pyplot as plt
+
             from ..viz.themes.registry import apply_mpl_theme
             apply_mpl_theme(theme)
 
             fig, ax = plt.subplots(figsize=(8, 4), facecolor="white")
-            ax.hist(values, bins=40, color=pal[0], alpha=0.75, edgecolor="white")
+            ax.hist(values, bins=40, color=pal[0],
+                    alpha=0.75, edgecolor="white")
             ax.axvline(median, color=pal[1], linewidth=2, linestyle="--",
                        label=f"Médiane {median:.3f}")
-            ax.axvspan(p5, p95, alpha=0.10, color=pal[0], label="5e–95e percentile")
+            ax.axvspan(p5, p95, alpha=0.10,
+                       color=pal[0], label="5e–95e percentile")
             ax.set_xlabel(label, fontsize=11)
             ax.set_ylabel("Fréquence", fontsize=11)
             ax.set_title(title, fontsize=13, fontweight="bold")
@@ -491,14 +499,14 @@ class SensitivityAnalysis:
             n_jobs:         Parallel workers (1 = sequential, -1 = all CPUs).
             t_eval_points:  Number of time points per trajectory.
         """
-        self.model_class    = model_class
-        self.param_class    = param_class
-        self.fixed          = fixed
-        self.distributions  = distributions
-        self.n_samples      = n_samples
-        self.seed           = seed
-        self.n_jobs         = n_jobs
-        self.t_eval_points  = t_eval_points
+        self.model_class = model_class
+        self.param_class = param_class
+        self.fixed = fixed
+        self.distributions = distributions
+        self.n_samples = n_samples
+        self.seed = seed
+        self.n_jobs = n_jobs
+        self.t_eval_points = t_eval_points
 
     # ── run ──────────────────────────────────────────────────────────────────
 
@@ -522,7 +530,7 @@ class SensitivityAnalysis:
 
         raw_results = self._execute_with_progress(samples, verbose)
 
-        n_ok   = sum(1 for r in raw_results if "error" not in r)
+        n_ok = sum(1 for r in raw_results if "error" not in r)
         n_fail = len(raw_results) - n_ok
 
         if n_fail > 0 and verbose:
@@ -583,19 +591,19 @@ class SensitivityAnalysis:
             return f"\033[1m{text}\033[0m"
 
         bar_width = 36
-        label     = "Episia · Monte Carlo"
+        label = "Episia · Monte Carlo"
 
         def _draw(done, total, n_ok, n_fail):
-            frac   = done / max(total, 1)
+            frac = done / max(total, 1)
             filled = int(frac * bar_width)
-            bar    = ""
+            bar = ""
             for i in range(bar_width):
                 r, g, b = _grad_color(i, bar_width)
                 char = "█" if i < filled else "░"
                 bar += _rgb(r, g, b, char)
 
             r0, g0, b0 = _grad_color(filled, bar_width)
-            pct  = _rgb(r0, g0, b0, f"{frac*100:5.1f}%")
+            pct = _rgb(r0, g0, b0, f"{frac*100:5.1f}%")
             stat = f"  {done}/{total}"
             if n_fail:
                 stat += f"  \033[38;2;255;80;80m✗ {n_fail}\033[0m"
@@ -623,7 +631,7 @@ class SensitivityAnalysis:
             _draw(i + 1, n, n_ok, n_fail)
 
         r0, g0, b0 = _grad_color(bar_width - 1, bar_width)
-        done_text  = _rgb(r0, g0, b0, "✓ done")
+        done_text = _rgb(r0, g0, b0, "✓ done")
         print(f"  {done_text}  {n_ok}/{n} OK\n", flush=True)
 
         return results
@@ -672,8 +680,8 @@ class SensitivityAnalysis:
         samples: List[Dict],
     ) -> SensitivityResult:
         """Build SensitivityResult from list of raw run dicts."""
-        good    = [r for r in raw if "error" not in r]
-        n_fail  = len(raw) - len(good)
+        good = [r for r in raw if "error" not in r]
+        n_fail = len(raw) - len(good)
 
         if not good:
             raise RuntimeError(
@@ -706,13 +714,13 @@ class SensitivityAnalysis:
 
         # Scalar metrics
         metrics: Dict[str, np.ndarray] = {
-            "r0":            np.array([r["r0"]            for r in good
+            "r0":            np.array([r["r0"] for r in good
                                        if r.get("r0") is not None]),
             "peak_infected": np.array([r["peak_infected"] for r in good
                                        if r.get("peak_infected") is not None]),
-            "peak_time":     np.array([r["peak_time"]     for r in good
+            "peak_time":     np.array([r["peak_time"] for r in good
                                        if r.get("peak_time") is not None]),
-            "final_size":    np.array([r["final_size"]    for r in good
+            "final_size":    np.array([r["final_size"] for r in good
                                        if r.get("final_size") is not None]),
         }
 

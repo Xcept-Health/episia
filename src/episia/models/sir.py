@@ -63,15 +63,15 @@ class SIRModel(CompartmentalModel):
 
     def _derivatives(self, t: float, y: np.ndarray) -> np.ndarray:
         S, I, R = y
-        N       = float(self.parameters.N)
-        beta    = self.parameters.beta
-        gamma   = self.parameters.gamma
+        N = float(self.parameters.N)
+        beta = self.parameters.beta
+        gamma = self.parameters.gamma
 
         force_of_infection = beta * S * I / N
 
         dS = -force_of_infection
-        dI =  force_of_infection - gamma * I
-        dR =  gamma * I
+        dI = force_of_infection - gamma * I
+        dR = gamma * I
 
         return np.array([dS, dI, dR])
 
@@ -85,9 +85,9 @@ class SIRModel(CompartmentalModel):
         p = self.parameters
 
         # Peak
-        peak_idx      = int(np.argmax(I))
+        peak_idx = int(np.argmax(I))
         peak_infected = float(I[peak_idx])
-        peak_time     = float(t[peak_idx])
+        peak_time = float(t[peak_idx])
 
         # Final size (fraction of population ever infected)
         final_size = float(R[-1]) / N

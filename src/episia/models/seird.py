@@ -70,20 +70,20 @@ class SEIRDModel(CompartmentalModel):
 
     def _derivatives(self, t: float, y: np.ndarray) -> np.ndarray:
         S, E, I, R, D = y
-        N             = float(self.parameters.N)
-        beta          = self.parameters.beta
-        sigma         = self.parameters.sigma
-        gamma         = self.parameters.gamma
-        mu            = self.parameters.mu
+        N = float(self.parameters.N)
+        beta = self.parameters.beta
+        sigma = self.parameters.sigma
+        gamma = self.parameters.gamma
+        mu = self.parameters.mu
 
-        new_exposed  = beta * S * I / N
+        new_exposed = beta * S * I / N
         new_infected = sigma * E
 
         dS = -new_exposed
-        dE =  new_exposed   - new_infected
-        dI =  new_infected  - (gamma + mu) * I
-        dR =  gamma * I
-        dD =  mu    * I
+        dE = new_exposed - new_infected
+        dI = new_infected - (gamma + mu) * I
+        dR = gamma * I
+        dD = mu * I
 
         return np.array([dS, dE, dI, dR, dD])
 
@@ -96,19 +96,19 @@ class SEIRDModel(CompartmentalModel):
         N = float(self.parameters.N)
         p = self.parameters
 
-        peak_idx      = int(np.argmax(I))
+        peak_idx = int(np.argmax(I))
         peak_infected = float(I[peak_idx])
-        peak_time     = float(t[peak_idx])
-        final_size    = float(R[-1]) / N
-        total_deaths  = float(D[-1])
-        attack_rate   = (float(R[-1]) + total_deaths) / N
+        peak_time = float(t[peak_idx])
+        final_size = float(R[-1]) / N
+        total_deaths = float(D[-1])
+        attack_rate = (float(R[-1]) + total_deaths) / N
 
         from .solver import estimate_herd_immunity
         hit = estimate_herd_immunity(p.r0)
 
         # Daily deaths (finite difference)
         daily_deaths = np.diff(D)
-        peak_death_idx  = int(np.argmax(daily_deaths))
+        peak_death_idx = int(np.argmax(daily_deaths))
         peak_death_time = float(t[peak_death_idx + 1])
 
         return {

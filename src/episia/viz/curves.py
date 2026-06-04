@@ -24,12 +24,11 @@ from typing import Any, List, Optional, Union
 
 import numpy as np
 
-from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
+from .plotters import AnimationConfig, AnimationType, PlotConfig, get_plotter
 from .plotters.base_plotter import OutputFormat
 
-
-
 # Internal helpers
+
 
 def _coerce_times_values(
     source: Any,
@@ -51,22 +50,22 @@ def _coerce_times_values(
     if source is not None:
         # api.results.TimeSeriesResult
         if hasattr(source, "times") and hasattr(source, "values"):
-            times  = source.times
+            times = source.times
             values = source.values
-            trend  = getattr(source, "trend", None)
-            trend_method  = getattr(source, "trend_method", None)
+            trend = getattr(source, "trend", None)
+            trend_method = getattr(source, "trend_method", None)
             doubling_time = getattr(source, "doubling_time", None)
 
         # stats.time_series.EpidemicCurve
         elif hasattr(source, "dates") and hasattr(source, "counts"):
-            times  = source.dates
+            times = source.dates
             values = source.counts
 
         # stats.time_series.TimeSeriesResult
         elif hasattr(source, "dates") and hasattr(source, "observed"):
-            times  = source.dates
+            times = source.dates
             values = source.observed
-            trend  = getattr(source, "trend", None)
+            trend = getattr(source, "trend", None)
             trend_method = getattr(source, "method", None)
 
     if times is None or values is None:
@@ -74,10 +73,9 @@ def _coerce_times_values(
             "Provide either a result object or explicit times and values arrays."
         )
 
-    times  = np.asarray(times)
+    times = np.asarray(times)
     values = np.asarray(values, dtype=float)
     return times, values, trend, trend_method, doubling_time
-
 
 
 # plot_epicurve
@@ -133,9 +131,9 @@ def plot_epicurve(
         pass
 
     proxy = _Proxy()
-    proxy.times        = t
-    proxy.values       = v
-    proxy.trend        = trend
+    proxy.times = t
+    proxy.values = v
+    proxy.trend = trend
     proxy.trend_method = trend_method
 
     if config is None:
@@ -160,7 +158,6 @@ def plot_epicurve(
 
     plotter = get_plotter(backend)
     return plotter.plot_epicurve(proxy, config=config)
-
 
 
 # plot_trend
@@ -243,6 +240,7 @@ def plot_trend(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -268,7 +266,6 @@ def plot_trend(
             ax.legend(fontsize=config.font_size - 1)
         fig.tight_layout()
         return fig
-
 
 
 # plot_incidence
@@ -350,6 +347,7 @@ def plot_incidence(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -374,7 +372,6 @@ def plot_incidence(
             ax.legend(fontsize=config.font_size - 1)
         fig.tight_layout()
         return fig
-
 
 
 # plot_doubling
@@ -459,6 +456,7 @@ def plot_doubling(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -488,7 +486,6 @@ def plot_doubling(
         return fig
 
 
-
 # Internal colour helpers
 
 def _get_palette(theme: str) -> List[str]:
@@ -503,9 +500,7 @@ def _hex_to_rgb(hex_color: str) -> str:
     return f"{r},{g},{b}"
 
 
-
 # Exports
-
 __all__ = [
     "plot_epicurve",
     "plot_trend",

@@ -20,7 +20,6 @@ from typing import Any, Dict, List, Optional
 import matplotlib as _mpl
 import matplotlib.style as _mpl_style
 
-
 # Theme registry
 
 _THEME_DIR = os.path.join(os.path.dirname(__file__))
@@ -57,7 +56,6 @@ _MPL_FALLBACKS: Dict[str, str] = {
     "dark":        "dark_background",
     "colorblind":  "seaborn-v0_8-colorblind",
 }
-
 
 
 # Public API
@@ -189,10 +187,10 @@ def register_theme(
     }
 
     if mplstyle_path:
-        _MPL_FALLBACKS[name] = mplstyle_path   # treated as a path by _apply_mpl
+        # treated as a path by _apply_mpl
+        _MPL_FALLBACKS[name] = mplstyle_path
     else:
         _MPL_FALLBACKS[name] = "default"
-
 
 
 # Internal helpers

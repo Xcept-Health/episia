@@ -77,7 +77,6 @@ def solve_model(
     return sol.t, solution
 
 
-
 # Internal helpers
 
 def _integrate(

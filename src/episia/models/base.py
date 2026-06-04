@@ -114,8 +114,8 @@ class CompartmentalModel(ABC):
         """
         from .solver import solve_model
 
-        span  = t_span or self.parameters.t_span
-        y0    = self._initial_state()
+        span = t_span or self.parameters.t_span
+        y0 = self._initial_state()
 
         if t_eval is None:
             n_pts = max(500, int((span[1] - span[0]) * 10))

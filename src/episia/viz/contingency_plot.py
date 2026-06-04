@@ -13,12 +13,11 @@ from typing import Any, List, Optional
 
 import numpy as np
 
-from .plotters import get_plotter, PlotConfig
+from .plotters import PlotConfig, get_plotter
 from .themes.registry import get_palette
 
-
-
 # plot_contingency
+
 
 def plot_contingency(
     result: Any,
@@ -53,7 +52,6 @@ def plot_contingency(
         config = PlotConfig(title=title, theme=theme)
 
     return get_plotter(backend).plot_contingency(result, config=config)
-
 
 
 # plot_measures
@@ -91,9 +89,9 @@ def plot_measures(
         tbl = result
 
     # Compute measures
-    rr  = tbl.risk_ratio()
+    rr = tbl.risk_ratio()
     or_ = tbl.odds_ratio()
-    rd  = tbl.risk_difference()
+    rd = tbl.risk_difference()
 
     rows = [
         dict(label="Risk Ratio",       est=rr.estimate,
@@ -111,15 +109,16 @@ def plot_measures(
     if config is None:
         config = PlotConfig(title=title, theme=theme, height=300)
 
-    pal  = get_palette(theme)
-    n    = len(rows)
+    pal = get_palette(theme)
+    n = len(rows)
     y_pos = list(range(n - 1, -1, -1))
 
     if backend == "plotly":
         import plotly.graph_objects as go
-        from .plotters.plotly_plotter import _layout, _FONT_COLOR
 
-        fc  = _FONT_COLOR.get(theme, "#222222")
+        from .plotters.plotly_plotter import _FONT_COLOR, _layout
+
+        fc = _FONT_COLOR.get(theme, "#222222")
         fig = go.Figure()
 
         for row, y in zip(rows, y_pos):
@@ -165,6 +164,7 @@ def plot_measures(
 
     else:
         import matplotlib.pyplot as plt
+
         from .themes.registry import apply_mpl_theme
         apply_mpl_theme(theme)
 
@@ -186,7 +186,7 @@ def plot_measures(
 
         ax.set_yticks(y_pos)
         ax.set_yticklabels([r["label"] for r in rows],
-                            fontsize=config.font_size - 1)
+                           fontsize=config.font_size - 1)
         ax.set_xlabel("Estimate", fontsize=config.font_size)
         ax.set_title(title, fontsize=config.font_size + 2, fontweight="bold")
         ax.yaxis.grid(False)
