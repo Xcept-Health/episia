@@ -225,7 +225,7 @@ Classes: DHIS2Client, DHIS2Adapter
 from episia.dhis2 import DHIS2Client, DHIS2Adapter
 
 client = DHIS2Client(
-    base_url="https://dhis2.moh.gov.bf",
+    url="https://dhis2.moh.gov.bf",
     username="epi_officer",
     password="...",
 )
