@@ -384,7 +384,7 @@ from episia import epi
 
 # Initialize DHIS2 client
 client = DHIS2Client(
-    base_url="https://dhis2.moh.gov.bf",  # Burkina Faso example
+    url="https://dhis2.moh.gov.bf",  # Burkina Faso example
     username="epi_officer",
     password="your_password",  # Use environment variable in production
 )
@@ -471,7 +471,7 @@ from episia import epi
 
 # Connect to DHIS2
 client = DHIS2Client(
-    base_url="https://dhis2.example.com",
+    url="https://dhis2.example.com",
     username="admin",
     password="password"
 )
