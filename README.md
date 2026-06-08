@@ -9,8 +9,8 @@
 [![PyPI version](https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/episia/)
 [![PyPI Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)](#test-coverage)
-[![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)](#test-coverage)
+[![Tests](https://img.shields.io/badge/Tests-1497%20passed-brightgreen?style=flat-square)](#test-coverage)
+[![Coverage](https://img.shields.io/badge/Coverage-84%25-brightgreen?style=flat-square)](#test-coverage)
 [![Validation](https://img.shields.io/badge/Validated%20against-OpenEpi-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)
 [![Documentation](https://img.shields.io/badge/Docs-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
 [![Website](https://img.shields.io/badge/Website-xcept--health.github.io%2Fepisia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
@@ -48,7 +48,7 @@ Built on the scientific foundation of [OpenEpi](https://openepi.com), Episia ext
 - Self-contained HTML reports with dark/light mode toggle
 - Terminal loader animation for long-running operations (`EpiLoader`)
 - Systematic validation against OpenEpi reference implementation
-- Jupiter notebook support
+- Jupyter notebook support
 
 ---
 
@@ -239,7 +239,7 @@ print(rr.p_value)
 or_ = odds_ratio(a=40, b=10, c=20, d=30)
 print(or_)              # Odds Ratio: 6.000 (2.453-14.678)
 
-# Proportions5 CI methods
+# Proportions 5 CI methods
 p = proportion_ci(k=45, n=200, method="wilson")
 print(p)                # Proportion: 0.2250 (0.1714-0.2888)
 
@@ -306,7 +306,7 @@ with EpiLoader("Running SEIR model"):
 
 # Epidemic curveanimated, capped at 60 frames
 with EpiLoader("Building epidemic curve"):
-    ts = TimeSeriesResult(times=result.t, values=result.compartments["I"])
+    ts = TimeSeriesResult(dates=result.t, observed=result.compartments["I"])
     fig_curve = plot_epicurve(ts, animate=True)
 fig_curve.show()
 
@@ -606,8 +606,8 @@ src/episia/
 ## Test Coverage
 
 ```
-1390 tests0 failed0 xfailed
-Coverage: 80% (target: 85% at v0.2.0)
+1497 tests0 failed0 xfailed
+Coverage: 84% (target: 85% at v0.2.0)
 
 test_core.py                 165 tests
 test_stats.py                133 tests
@@ -744,7 +744,7 @@ pip install -e ".[dev]"
 pytest tests/ -v
 ```
 
-**Code style:** `black` + `isort`. Type hints required for all public functions. Tests required for all new features (target: 80% coverage).
+**Code style:** `black` + `isort`. Type hints required for all public functions. Tests required for all new features (target: 85% coverage).
 
 **Report bugs:** [GitHub Issues](https://github.com/Xcept-Health/episia/issues)  
 **Discuss ideas:** [GitHub Discussions](https://github.com/Xcept-Health/episia/discussions)
@@ -788,7 +788,7 @@ Copyright © 2026 Xcept-Health
 A: OpenEpi is the gold standard in epidemiology. Full concordance ensures Episia results are trusted in field settings and peer-reviewed publications.
 
 **Q: Can I use this in production?**  
-A: Core modules (models, stats) are production-ready (80% coverage). See [API Stability](#api-stability) section. Simulation module is experimental.
+A: Core modules (models, stats) are production-ready (84% coverage). See [API Stability](#api-stability) section. Simulation module is experimental.
 
 **Q: How do I contribute?**  
 A: Fork, create a feature branch, add tests, and submit a PR. See [Contributing](#contributing) section.
