@@ -378,128 +378,84 @@ plot_epicurve(ts, title="MeningitisCentre Region 2024").show()
 Pull surveillance data directly from a DHIS2 instance (health ministry reporting system).
 
 ```python
-from episia.dhis2 import DHIS2Client, DHIS2Adapter
-from episia.data import SurveillanceDataset
-from episia.core.utilities import EpiLoader
-from episia import epi
+from episia.dhis2 import DHIS2Client, period_range
 
 # Initialize DHIS2 client
 client = DHIS2Client(
-    base_url="https://dhis2.moh.gov.bf",  # Burkina Faso example
+    url="https://dhis2.moh.gov.bf",        # Burkina Faso example
     username="epi_officer",
-    password="your_password",  # Use environment variable in production
+    password="your_password",              # Use environment variable in production
 )
 
 # Verify connection
-print(client.about())  # Prints DHIS2 version, instance info
+client.ping()
 
-with EpiLoader("Fetching meningitis data from DHIS2"):
-    # Get all meningitis cases from 2024
-    cases_data = client.get_data_values(
-        data_element="rQLFQyPSmie",  # Meningitis confirmed cases (example UID)
-        period="202401:202412",      # Jan-Dec 2024
-        org_units="ImspD0yaksKo",    # All facilities under Centre Region (UID)
-    )
+# Build a period string for all of 2024 (monthly)
+period = period_range("202401", "202412")
+# → "202401;202402;...;202412"
 
-# Transform to epidemiological dataset
-adapter = DHIS2Adapter()
-ds = adapter.to_surveillance_dataset(
-    cases_data,
-    date_col="period",
-    cases_col="value",
-    location_col="orgUnit",
-    population_col=None,  # Load from separate API call
+# Fetch meningitis cases as a ready-to-use SurveillanceDataset
+ds = client.to_dataset(
+    data_element="rQLFQyPSmie",   # Meningitis confirmed cases (example UID)
+    period=period,
+    org_unit="ImspD0yaksKo",      # Centre Region (UID)
 )
 
 print(ds)
-# SurveillanceDataset(n=156, cases=342, 2024-01-01 to 2024-12-31)
 
-# Analyze trends
-weekly = ds.aggregate(freq="W")
-print(weekly.to_dataframe())
+# Check for silent reporting gaps (critical for DHIS2 data in sub-Saharan Africa)
+completeness = ds.completeness()
+# {
+#   "expected_periods": 12,
+#   "reported_periods": 10,
+#   "completeness_rate": 0.833,
+#   "missing_periods": ["202408", "202411"],
+#   "freq": "ME",
+# }
+print(f"Completeness: {completeness['completeness_rate']:.1%}")
+if completeness["missing_periods"]:
+    print(f"Missing periods: {completeness['missing_periods']}")
 
-# Create alert report
-from episia.data import AlertEngine
-from episia.api import EpiReport
-
-engine = AlertEngine(ds)
-alerts = engine.run(threshold=5, zscore_threshold=2.0)
-summary = engine.alert_summary(alerts)
-
-if summary['n_alerts'] > 0:
-    report = EpiReport(
-        title="Meningitis Alert Report2024",
-        author="Epidemiological Service, MOH",
-        institution="Ministry of Health - Burkina Faso",
-    )
-    
-    report.add_metrics({
-        "Total cases":      ds.total_cases,
-        "Total deaths":     ds.total_deaths,
-        "CFR":              f"{100*ds.total_deaths/ds.total_cases:.1f}%",
-        "Alerts triggered": summary['n_alerts'],
-        "Alert level":      summary['max_severity'],
-    })
-    
-    report.add_text(
-        f"Meningitis surveillance detected {summary['n_alerts']} alert weeks in 2024. "
-        f"Review implementation of response protocols.",
-        title="Summary",
-    )
-    
-    # Save and export
-    path = report.save_html("meningitis_alert_2024.html")
-    print(f"Report saved: {path}")
-
-# Push back to DHIS2 (optionalwrite cleaned/analyzed data)
-# Note: Requires DHIS2 write permissions
-cleaned_values = {
-    "dataElement": "xyz789",  # Meningitissuspected (cleaned) UID
-    "period": "202401",
-    "orgUnit": "ImspD0yaksKo",
-    "value": 45,
-}
-# client.post_data_value(cleaned_values)  # Uncomment with proper credentials
+# Analyze with Episia
+ts = ds.to_timeseries_result()
+ts.plot().show()
 ```
 
 **Full DHIS2 Workflow:**
 
 ```python
-from episia.dhis2 import DHIS2Client, DHIS2Adapter
+from episia.dhis2 import DHIS2Client, DHIS2Adapter, period_range
 from episia.models import SEIRModel
 from episia.models.parameters import SEIRParameters
-from episia import epi
+from episia.models.calibration import ModelCalibrator
 
 # Connect to DHIS2
 client = DHIS2Client(
-    base_url="https://dhis2.example.com",
+    url="https://dhis2.example.com",
     username="admin",
-    password="password"
+    password="password",
 )
 
-# Fetch historical cases
-historical_cases = client.get_data_values(
+# Fetch 3 years of weekly surveillance data
+period = period_range("2022W01", "2024W52")
+ds = client.to_dataset(
     data_element="uid_of_disease",
-    period="202201:202412",
-    org_units="region_uid",
+    period=period,
+    org_unit="region_uid",
 )
 
-# Create surveillance dataset
-adapter = DHIS2Adapter()
-ds = adapter.to_surveillance_dataset(
-    historical_cases,
-    date_col="period",
-    cases_col="value",
-)
+# DHIS2Adapter can also be used standalone to convert raw API responses
+# you have already fetched (e.g. from your own requests session):
+#   adapter = DHIS2Adapter()
+#   ds = adapter.from_analytics_response(raw_json, cases_element="uid_of_disease")
 
-print(f"Loaded {ds.total_cases} cases from {len(ds.dates)} reporting periods")
+df = ds.to_dataframe()
+print(f"Loaded {df['cases'].sum():.0f} cases over {len(df)} reporting periods")
 
 # Fit SEIR model to observed data
-from episia.models import ModelCalibrator
-
 calibrator = ModelCalibrator(
     model_class=SEIRModel,
-    observed_data=ds.to_dataframe(),
+    observed_data=df,
     target_column="cases",
 )
 
@@ -513,14 +469,6 @@ print(f"Best fit: R0 = {fitted_params.r0:.2f}")
 # Forecast
 result = SEIRModel(fitted_params).run()
 result.plot().show()
-
-# Generate report for health ministry
-report = epi.report(result, title="Meningitis Forecast 2025")
-report.save_html("forecast_2025.html")
-
-# (Optional) Push forecast to DHIS2 as target/projection
-# for_write = adapter.from_model_result(result, data_element_uid="target_uid")
-# client.post_data_values(for_write)
 ```
 
 ---
