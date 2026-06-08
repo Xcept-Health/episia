@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- ![episiabanner](https://raw.githubusercontent.com/Xcept-Health/episia/main/banner.jpg) -->
-![episiabanner](banner.jpg)
+![episiabanner](https://raw.githubusercontent.com/Xcept-Health/episia/main/banner.jpg)
+
 
 **Open-source epidemiology & biostatistics for Python**
 
