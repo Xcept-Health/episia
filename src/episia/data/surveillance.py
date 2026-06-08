@@ -27,8 +27,6 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 
 import numpy as np
 
-
-
 # SurveillanceDataset
 
 class SurveillanceDataset:
@@ -361,7 +359,200 @@ class SurveillanceDataset:
 
         return TimeSeriesResult(times=times, values=values)
 
-    #  Summary 
+    #  Data quality
+
+    def completeness(
+        self,
+        freq: str = "auto",
+        period_col: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Compute reporting completeness over the observed date range.
+
+        Identifies expected periods (inferred from ``freq``) versus periods
+        actually present in the dataset, and returns the missing ones.
+
+        This is especially relevant when loading data from DHIS2 instances
+        in sub-Saharan Africa where silent gaps are common: a district that
+        did not submit its weekly report will simply be absent from the
+        export, distorting endemic-channel baselines without any warning.
+
+        Args:
+            freq:       Expected reporting frequency.  One of:
+
+                        * ``"auto"``    -- inferred from median gap between
+                          dates (default).
+                        * ``"W"``       -- weekly (ISO weeks).
+                        * ``"ME"``      -- monthly (pandas >= 2.2).
+                        * ``"QE"``      -- quarterly.
+                        * ``"D"``       -- daily.
+
+            period_col: Column that contains DHIS2 period strings such as
+                        ``"2024W01"`` or ``"202401"`` (optional).  When
+                        provided, completeness is calculated against these
+                        string labels rather than inferred datetime periods,
+                        and the ``period_range()`` helper is used internally
+                        to build the expected sequence.
+
+        Returns:
+            dict with keys:
+
+            * ``expected_periods``   (int)
+            * ``reported_periods``   (int)
+            * ``completeness_rate``  (float, 0.0 -- 1.0)
+            * ``missing_periods``    (list[str])
+            * ``freq``               (str, the frequency used)
+
+        Raises:
+            ValueError: if the dataset has fewer than 2 records.
+
+        Example::
+
+            ds = client.to_dataset(
+                data_element="FTRrcoaog83",
+                period="LAST_52_WEEKS",
+                org_unit="ImspTQPwCqd",
+            )
+            result = ds.completeness()
+            # {
+            #   "expected_periods": 52,
+            #   "reported_periods": 49,
+            #   "completeness_rate": 0.942,
+            #   "missing_periods": ["2024W15", "2024W16", "2024W31"],
+            #   "freq": "W",
+            # }
+        """
+        import pandas as pd
+
+        if period_col and period_col in self._df.columns:
+            return self._completeness_from_period_col(period_col)
+
+        if self.n_records < 2:
+            raise ValueError(
+                "completeness() requires at least 2 records to infer "
+                "the reporting frequency."
+            )
+
+        dates = pd.to_datetime(self._df[self.date_col].dropna()).sort_values()
+
+        if freq == "auto":
+            freq = self._infer_freq(dates)
+
+        expected_index = pd.date_range(
+            start=dates.min(),
+            end=dates.max(),
+            freq=freq,
+        )
+
+        # pd.date_range uses "ME"/"QE" (offset aliases, pandas >= 2.2) but
+        # dt.to_period() needs the shorter "M"/"Q" period aliases.
+        _period_freq = {
+            "ME": "M", "MS": "M",
+            "QE": "Q", "QS": "Q",
+            "W-SUN": "W", "W-MON": "W",
+        }.get(freq, freq)
+
+        # Normalise to period strings for fair comparison.
+        # We emit DHIS2-compatible labels (e.g. "2024W03", "202403") so the
+        # output can be passed directly to period_range() or client queries.
+        def _to_dhis2_label(period_obj, _freq: str) -> str:
+            if _freq in ("W", "W-SUN", "W-MON"):
+                iso = period_obj.to_timestamp().isocalendar()
+                return f"{iso[0]}W{iso[1]:02d}"
+            if _freq in ("ME", "M", "MS"):
+                ts = period_obj.to_timestamp()
+                return f"{ts.year}{ts.month:02d}"
+            if _freq in ("QE", "Q", "QS"):
+                ts = period_obj.to_timestamp()
+                return f"{ts.year}Q{ts.quarter}"
+            return str(period_obj)
+
+        observed_periods = set(
+            [_to_dhis2_label(p, freq)
+             for p in dates.dt.to_period(_period_freq)]
+        )
+        expected_unique: List[str] = []
+        seen: set = set()
+        for d in expected_index:
+            p = _to_dhis2_label(d.to_period(_period_freq), freq)
+            if p not in seen:
+                seen.add(p)
+                expected_unique.append(p)
+
+        missing = [p for p in expected_unique if p not in observed_periods]
+        n_expected = len(expected_unique)
+        n_reported = n_expected - len(missing)
+        rate = round(n_reported / n_expected, 4) if n_expected else 0.0
+
+        return {
+            "expected_periods":  n_expected,
+            "reported_periods":  n_reported,
+            "completeness_rate": rate,
+            "missing_periods":   missing,
+            "freq":              freq,
+        }
+
+    @staticmethod
+    def _infer_freq(dates) -> str:
+        """Return the most likely pandas frequency alias from a sorted Series."""
+        import pandas as pd
+        gaps = dates.diff().dropna()
+        median_gap = gaps.median()
+        if median_gap <= pd.Timedelta(days=1):
+            return "D"
+        if median_gap <= pd.Timedelta(days=8):
+            return "W"
+        if median_gap <= pd.Timedelta(days=35):
+            return "ME"
+        return "QE"
+
+    def _completeness_from_period_col(self, period_col: str) -> Dict[str, Any]:
+        """Completeness when a DHIS2 period string column is available."""
+        import re as _re
+
+        observed = sorted(self._df[period_col].dropna().unique().tolist())
+        if len(observed) < 2:
+            raise ValueError(
+                "completeness() needs at least 2 distinct period values."
+            )
+
+        first = observed[0]
+        if _re.match(r"^\d{4}W\d{1,2}$", first):
+            freq = "W"
+        elif _re.match(r"^\d{4}Q[1-4]$", first):
+            freq = "Q"
+        elif _re.match(r"^\d{4}(0[1-9]|1[0-2])$", first):
+            freq = "M"
+        else:
+            return {
+                "expected_periods":  len(observed),
+                "reported_periods":  len(observed),
+                "completeness_rate": 1.0,
+                "missing_periods":   [],
+                "freq":              "unknown",
+            }
+
+        try:
+            from ..dhis2.periods import period_range as _period_range
+            full = _period_range(observed[0], observed[-1]).split(";")
+        except Exception:
+            full = observed
+
+        obs_set = set(observed)
+        missing = [p for p in full if p not in obs_set]
+        n_expected = len(full)
+        n_reported = n_expected - len(missing)
+        rate = round(n_reported / n_expected, 4) if n_expected else 0.0
+
+        return {
+            "expected_periods":  n_expected,
+            "reported_periods":  n_reported,
+            "completeness_rate": rate,
+            "missing_periods":   missing,
+            "freq":              freq,
+        }
+
+    #  Summary
 
     def summary(self) -> Dict[str, Any]:
         """Return a summary statistics dict."""
