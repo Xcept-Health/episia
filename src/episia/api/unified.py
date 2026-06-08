@@ -173,7 +173,7 @@ class EpisiaAPI:
 
     def __repr__(self) -> str:
         return (
-            "Episia API  v0.1.2\n"
+            "Episia API  v0.1.3\n"
             "  epi.sir() / epi.seir() / epi.seird()\n"
             "  epi.risk_ratio() / epi.odds_ratio() / epi.proportion_ci()\n"
             "  epi.prevalence() / epi.cumulative_incidence() / epi.incidence_rate()\n"
