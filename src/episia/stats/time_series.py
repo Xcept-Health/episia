@@ -130,30 +130,32 @@ def calculate_incidence(
 
 def calculate_attack_rate(
     cases: np.ndarray,
-    population: Union[float, np.ndarray]
+    population: Union[float, np.ndarray],
+    per: float = 1.0,
 ) -> np.ndarray:
     """
     Calculate attack rates (cumulative incidence).
-    
+
     Args:
         cases: Cumulative cases over time
         population: Population at risk
-        
+        per: Multiplier for the rate (e.g. 100 for percent, 100_000 for per 100k)
+
     Returns:
-        Attack rates (proportion)
+        Attack rates multiplied by ``per``
     """
     cases = np.asarray(cases, dtype=float)
     population = np.asarray(population, dtype=float)
-    
+
     if np.any(population <= 0):
         raise ValueError("Population must be positive")
-    
+
     attack_rate = cases / population
-    
-    # Ensure values are between 0 and 1
+
+    # Clip proportion to [0, 1] before applying the multiplier
     attack_rate = np.clip(attack_rate, 0, 1)
-    
-    return attack_rate
+
+    return attack_rate * per
 
 
 def epidemic_curve(

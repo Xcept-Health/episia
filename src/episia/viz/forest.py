@@ -50,14 +50,19 @@ def _collect_rows(result: Any) -> Tuple[List[Dict], float]:
     # RegressionResult (api.results)
     elif hasattr(result, "coefficients"):
         null_value = 0.0
-        for var, coef in result.coefficients.items():
-            lo, hi = result.ci_table.get(var, (coef, coef))
+        coefs = result.coefficients
+        names = result.variable_names
+        for i, var in enumerate(names):
+            coef = float(coefs[i])
+            lo   = float(result.ci_lower[i])
+            hi   = float(result.ci_upper[i])
+            p    = float(result.p_values[i]) if result.p_values is not None else None
             rows.append(dict(
                 label=var,
                 est=coef,
                 lo=lo,
                 hi=hi,
-                p=result.p_values.get(var),
+                p=p,
                 n=None,
                 pooled=False,
             ))
@@ -81,7 +86,7 @@ def _collect_rows(result: Any) -> Tuple[List[Dict], float]:
 def _p_str(p: Optional[float]) -> str:
     if p is None:
         return ""
-    return "p<0.001" if p < 0.001 else f"p={p:.3f}"
+    return "<0.001" if p < 0.001 else f"p={p:.3f}"
 
 
 

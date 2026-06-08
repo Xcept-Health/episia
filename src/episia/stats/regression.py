@@ -88,6 +88,10 @@ class RegressionResult:
         
         return pd.concat([df, stats_df], ignore_index=True)
     
+    def summary_table(self, decimal_places: int = 3) -> "pd.DataFrame":
+        """Alias for summary() — returns the regression summary as a DataFrame."""
+        return self.summary(decimal_places=decimal_places)
+
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
         Predict probabilities or expected counts.
