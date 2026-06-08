@@ -22,10 +22,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, List, Optional, Tuple
 
-
-
 # Animation support
-
 
 class AnimationType(Enum):
     """
@@ -129,10 +126,7 @@ class UnsupportedAnimationError(NotImplementedError):
     """Raised when a backend does not support the requested animation type."""
     pass
 
-
-
 # Plot configuration
-
 
 @dataclass
 class PlotConfig:
@@ -195,7 +189,6 @@ class PlotConfig:
 
 # Output type
 
-
 class OutputFormat(Enum):
     """Output format when saving or exporting a figure."""
     PNG    = "png"
@@ -206,10 +199,7 @@ class OutputFormat(Enum):
     GIF    = "gif"    # Animated  Matplotlib only
     MP4    = "mp4"    # Animated  requires ffmpeg
 
-
-
 # Abstract base plotter
-
 
 class BasePlotter(ABC):
     """
@@ -446,10 +436,7 @@ class BasePlotter(ABC):
             f"backend={self.BACKEND_NAME!r})"
         )
 
-
-
 # Exports
-
 
 __all__ = [
     "AnimationType",

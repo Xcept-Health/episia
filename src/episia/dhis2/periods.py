@@ -55,9 +55,7 @@ def period_range(start: str, end: str) -> str:
     return ";".join(periods)
 
 
-# ---------------------------------------------------------------------------
 # Internal helpers
-# ---------------------------------------------------------------------------
 
 _MONTHLY_RE   = re.compile(r"^(\d{4})(0[1-9]|1[0-2])$")
 _WEEKLY_RE    = re.compile(r"^(\d{4})W(\d{1,2})$")

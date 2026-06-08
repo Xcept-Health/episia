@@ -40,9 +40,8 @@ def _cprint(text: str, color: tuple) -> None:
     print(f"\033[38;2;{r};{g};{b}m{text}\033[0m")
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # Sampler
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _sample_param(spec: Tuple, rng: np.random.Generator) -> float:
     """Draw one sample from a distribution spec."""
@@ -92,10 +91,7 @@ def _draw_samples(
         samples.append(draw)
     return samples
 
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Worker (module-level for pickling with ProcessPoolExecutor)
-# ─────────────────────────────────────────────────────────────────────────────
 
 def _run_one(args):
     """
@@ -138,9 +134,9 @@ def _run_one(args):
         }
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # SensitivityResult
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 @dataclass
 class SensitivityResult:
@@ -164,7 +160,7 @@ class SensitivityResult:
     param_samples:     List[Dict[str, float]]
     compartment_names: List[str]
 
-    # ── Summary ──────────────────────────────────────────────────────────────
+    #  Summary 
 
     def summary(self) -> Dict[str, Any]:
         """
@@ -208,7 +204,7 @@ class SensitivityResult:
             rows.append(row)
         return pd.DataFrame(rows)
 
-    # ── Plots ─────────────────────────────────────────────────────────────────
+    #  Plots 
 
     def plot(
         self,
@@ -434,9 +430,9 @@ class SensitivityResult:
         return "\n".join(lines)
 
 
-# ─────────────────────────────────────────────────────────────────────────────
+
 # SensitivityAnalysis
-# ─────────────────────────────────────────────────────────────────────────────
+
 
 class SensitivityAnalysis:
     """
@@ -500,7 +496,7 @@ class SensitivityAnalysis:
         self.n_jobs         = n_jobs
         self.t_eval_points  = t_eval_points
 
-    # ── run ──────────────────────────────────────────────────────────────────
+    #  run 
 
     def run(self, verbose: bool = True) -> SensitivityResult:
         """
@@ -534,7 +530,7 @@ class SensitivityAnalysis:
 
         return self._aggregate(raw_results, samples)
 
-    # ── internal ─────────────────────────────────────────────────────────────
+    #  internal 
 
     def _validate_one(self, sample: Dict[str, float]) -> None:
         """Instantiate one model to catch parameter errors before full run."""
@@ -546,7 +542,7 @@ class SensitivityAnalysis:
                 f"Parameter validation failed for sample {sample}: {e}"
             )
 
-    # ── Progress helpers ─────────────────────────────────────────────────────
+    #  Progress helpers 
 
     def _execute_with_progress(
         self, samples: List[Dict], verbose: bool

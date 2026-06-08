@@ -7,8 +7,6 @@ Usage:
 
 import sys
 
-
-
 # ANSI colour helpers
 
 def _rgb(r, g, b, text):
@@ -97,7 +95,6 @@ def _render_logo(color: bool) -> str:
     return "\n".join(lines)
 
 
-
 # Version & metadata
 def _get_version():
     try:
@@ -115,7 +112,6 @@ def _get_version():
 def _get_python_version():
     v = sys.version_info
     return f"{v.major}.{v.minor}.{v.micro}"
-
 
 
 # Module catalogue

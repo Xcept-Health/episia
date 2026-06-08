@@ -16,8 +16,6 @@ import numpy as np
 from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
 from .themes.registry import get_palette
 
-
-
 # _collect_rows helper
 
 def _collect_rows(result: Any) -> Tuple[List[Dict], float]:
@@ -88,8 +86,6 @@ def _p_str(p: Optional[float]) -> str:
         return ""
     return "<0.001" if p < 0.001 else f"p={p:.3f}"
 
-
-
 # plot_forest
 
 def plot_forest(
@@ -133,8 +129,6 @@ def plot_forest(
         )
 
     return get_plotter(backend).plot_forest(result, config=config)
-
-
 
 # plot_meta_forest
 

@@ -64,7 +64,6 @@ def save_html(
 
     return path
 
-
 def to_react_props(fig: Any) -> Dict[str, Any]:
     """
     Serialize a Plotly figure into props for react-plotly.js <Plot />.
@@ -96,7 +95,6 @@ def to_react_props(fig: Any) -> Dict[str, Any]:
             "modeBarButtonsToRemove": ["sendDataToCloud", "lasso2d"],
         },
     }
-
 
 def to_json(fig: Any, indent: Optional[int] = None) -> str:
     """
