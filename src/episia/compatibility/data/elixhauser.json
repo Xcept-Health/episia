@@ -1,0 +1,659 @@
+{
+    "_meta": {
+      "index": "elixhauser",
+      "icd10_reference": "Elixhauser A et al. Comorbidity measures for use with administrative data. Med Care. 1998;36(1):8-27.",
+      "icd11_reference": "WHO ICD-11 MMS 2022 \u2014 crosswalk from ICD-10 Elixhauser mappings.",
+      "weights_reference": "van Walraven C et al. A modification of the Elixhauser comorbidity measures into a point system. Med Care. 2009;47(6):626-633."
+    },
+    "conditions": {
+      "congestive_heart_failure": {
+        "weight": 7,
+        "icd10": [
+          "I09",
+          "I11",
+          "I13",
+          "I25",
+          "I42",
+          "I43",
+          "I50",
+          "P29"
+        ],
+        "icd11": [
+          "BA00",
+          "BA01",
+          "BA02",
+          "BA80",
+          "BC43",
+          "BC44"
+        ]
+      },
+      "cardiac_arrhythmias": {
+        "weight": 5,
+        "icd10": [
+          "I44",
+          "I45",
+          "I46",
+          "I47",
+          "I48",
+          "I49",
+          "R00",
+          "T82"
+        ],
+        "icd11": [
+          "BC80",
+          "BC81",
+          "BC82",
+          "BC83",
+          "BC84",
+          "BC85",
+          "BC86",
+          "BC8Z"
+        ]
+      },
+      "valvular_disease": {
+        "weight": -1,
+        "icd10": [
+          "A52",
+          "I05",
+          "I06",
+          "I07",
+          "I08",
+          "I09",
+          "I34",
+          "I35",
+          "I36",
+          "I37",
+          "I38",
+          "I39",
+          "Q23",
+          "Z95"
+        ],
+        "icd11": [
+          "BA70",
+          "BA71",
+          "BA72",
+          "BA73",
+          "BA74",
+          "BA75",
+          "BA76",
+          "BA7Z"
+        ]
+      },
+      "pulmonary_circulation": {
+        "weight": 4,
+        "icd10": [
+          "I26",
+          "I27",
+          "I28"
+        ],
+        "icd11": [
+          "BB00",
+          "BB01",
+          "BB02",
+          "BB0Z"
+        ]
+      },
+      "peripheral_vascular_disease": {
+        "weight": 2,
+        "icd10": [
+          "I70",
+          "I71",
+          "I73",
+          "I77",
+          "I79",
+          "K55",
+          "Z95"
+        ],
+        "icd11": [
+          "BD10",
+          "BD11",
+          "BD40",
+          "BD41",
+          "BD42",
+          "BD43"
+        ]
+      },
+      "hypertension_uncomplicated": {
+        "weight": 0,
+        "icd10": [
+          "I10"
+        ],
+        "icd11": [
+          "BA00"
+        ]
+      },
+      "hypertension_complicated": {
+        "weight": 0,
+        "icd10": [
+          "I11",
+          "I12",
+          "I13",
+          "I15"
+        ],
+        "icd11": [
+          "BA00",
+          "BA01",
+          "BA02",
+          "BA03"
+        ]
+      },
+      "paralysis": {
+        "weight": 7,
+        "icd10": [
+          "G04",
+          "G11",
+          "G80",
+          "G81",
+          "G82",
+          "G83"
+        ],
+        "icd11": [
+          "8B61",
+          "8B62",
+          "8B63",
+          "8B64",
+          "8B65",
+          "8B66",
+          "8B67",
+          "8B68"
+        ]
+      },
+      "other_neurological": {
+        "weight": 6,
+        "icd10": [
+          "G10",
+          "G11",
+          "G12",
+          "G13",
+          "G20",
+          "G21",
+          "G22",
+          "G24",
+          "G25",
+          "G31",
+          "G32",
+          "G35",
+          "G36",
+          "G37",
+          "G40",
+          "G41",
+          "G93",
+          "R47"
+        ],
+        "icd11": [
+          "8A00",
+          "8A01",
+          "8A02",
+          "8A20",
+          "8A21",
+          "8A22",
+          "8A40",
+          "8A60",
+          "8A61",
+          "8A62"
+        ]
+      },
+      "chronic_pulmonary_disease": {
+        "weight": 3,
+        "icd10": [
+          "J40",
+          "J41",
+          "J42",
+          "J43",
+          "J44",
+          "J45",
+          "J46",
+          "J47",
+          "J60",
+          "J61",
+          "J62",
+          "J63",
+          "J64",
+          "J65",
+          "J66",
+          "J67"
+        ],
+        "icd11": [
+          "CA20",
+          "CA21",
+          "CA22",
+          "CA23",
+          "CA24",
+          "CA25",
+          "CA26",
+          "CA27",
+          "CA40",
+          "CA41",
+          "CA42"
+        ]
+      },
+      "diabetes_uncomplicated": {
+        "weight": 0,
+        "icd10": [
+          "E10",
+          "E11",
+          "E12",
+          "E13",
+          "E14"
+        ],
+        "icd11": [
+          "5A10",
+          "5A11"
+        ]
+      },
+      "diabetes_complicated": {
+        "weight": 0,
+        "icd10": [
+          "E10",
+          "E11",
+          "E12",
+          "E13",
+          "E14"
+        ],
+        "icd11": [
+          "5A10",
+          "5A11",
+          "5A12",
+          "5A13",
+          "5A14",
+          "5A15"
+        ]
+      },
+      "hypothyroidism": {
+        "weight": 0,
+        "icd10": [
+          "E00",
+          "E01",
+          "E02",
+          "E03"
+        ],
+        "icd11": [
+          "5A00",
+          "5A01",
+          "5A02",
+          "5A03",
+          "5A04",
+          "5A0Z"
+        ]
+      },
+      "renal_failure": {
+        "weight": 5,
+        "icd10": [
+          "I12",
+          "I13",
+          "N18",
+          "N19",
+          "N25",
+          "Z49",
+          "Z94",
+          "Z99"
+        ],
+        "icd11": [
+          "GB61",
+          "GB62",
+          "GB63",
+          "GB64",
+          "GB65",
+          "GB66",
+          "GB67",
+          "GB68",
+          "GB69",
+          "GB6A",
+          "GB6Z"
+        ]
+      },
+      "liver_disease": {
+        "weight": 11,
+        "icd10": [
+          "B18",
+          "K70",
+          "K71",
+          "K72",
+          "K73",
+          "K74",
+          "K76",
+          "K77",
+          "Z94"
+        ],
+        "icd11": [
+          "DB90",
+          "DB91",
+          "DB92",
+          "DB93",
+          "DB94",
+          "DB95",
+          "DB96",
+          "DB97",
+          "DB98",
+          "DB99",
+          "DB9Z",
+          "DC10"
+        ]
+      },
+      "peptic_ulcer_disease": {
+        "weight": 0,
+        "icd10": [
+          "K25",
+          "K26",
+          "K27",
+          "K28"
+        ],
+        "icd11": [
+          "DA60",
+          "DA61",
+          "DA62",
+          "DA63"
+        ]
+      },
+      "aids_hiv": {
+        "weight": 0,
+        "icd10": [
+          "B20",
+          "B21",
+          "B22",
+          "B24"
+        ],
+        "icd11": [
+          "1C60",
+          "1C61",
+          "1C62",
+          "1C63",
+          "1C64",
+          "1C65",
+          "1C6Z"
+        ]
+      },
+      "lymphoma": {
+        "weight": 9,
+        "icd10": [
+          "C81",
+          "C82",
+          "C83",
+          "C84",
+          "C85",
+          "C88",
+          "C96"
+        ],
+        "icd11": [
+          "2B30",
+          "2B31",
+          "2B32",
+          "2B33",
+          "2B34",
+          "2B35",
+          "2B36",
+          "2B37",
+          "2B3Z"
+        ]
+      },
+      "metastatic_cancer": {
+        "weight": 12,
+        "icd10": [
+          "C77",
+          "C78",
+          "C79",
+          "C80"
+        ],
+        "icd11": [
+          "2D00",
+          "2D01",
+          "2D02",
+          "2D03",
+          "2D04",
+          "2D05",
+          "2D06",
+          "2D07",
+          "2D08",
+          "2D09",
+          "2D0Z"
+        ]
+      },
+      "solid_tumor": {
+        "weight": 4,
+        "icd10": [
+          "C00",
+          "C01",
+          "C02",
+          "C03",
+          "C04",
+          "C05",
+          "C06",
+          "C07",
+          "C08",
+          "C09",
+          "C10",
+          "C11",
+          "C12",
+          "C13",
+          "C14",
+          "C15",
+          "C16",
+          "C17",
+          "C18",
+          "C19",
+          "C20",
+          "C21",
+          "C22",
+          "C23",
+          "C24",
+          "C25",
+          "C26"
+        ],
+        "icd11": [
+          "2B00",
+          "2B01",
+          "2B02",
+          "2B03",
+          "2B04",
+          "2B05",
+          "2B06",
+          "2B07",
+          "2B08",
+          "2B09",
+          "2B0A",
+          "2B0Z"
+        ]
+      },
+      "rheumatoid_arthritis": {
+        "weight": 0,
+        "icd10": [
+          "L40",
+          "M05",
+          "M06",
+          "M08",
+          "M12",
+          "M30",
+          "M31",
+          "M32",
+          "M33",
+          "M34",
+          "M35",
+          "M36"
+        ],
+        "icd11": [
+          "FA00",
+          "FA01",
+          "FA02",
+          "FA20",
+          "FA21",
+          "FA22",
+          "FA23"
+        ]
+      },
+      "coagulopathy": {
+        "weight": 3,
+        "icd10": [
+          "D65",
+          "D66",
+          "D67",
+          "D68",
+          "D69"
+        ],
+        "icd11": [
+          "3B10",
+          "3B11",
+          "3B12",
+          "3B13",
+          "3B14",
+          "3B1Z"
+        ]
+      },
+      "obesity": {
+        "weight": -4,
+        "icd10": [
+          "E66"
+        ],
+        "icd11": [
+          "5B80",
+          "5B81"
+        ]
+      },
+      "weight_loss": {
+        "weight": 6,
+        "icd10": [
+          "E40",
+          "E41",
+          "E42",
+          "E43",
+          "E44",
+          "E45",
+          "E46",
+          "R63",
+          "R64"
+        ],
+        "icd11": [
+          "5B50",
+          "5B51",
+          "5B52",
+          "5B53",
+          "5B54",
+          "5B55",
+          "5B5Z"
+        ]
+      },
+      "fluid_electrolyte": {
+        "weight": 5,
+        "icd10": [
+          "E22",
+          "E86",
+          "E87"
+        ],
+        "icd11": [
+          "5C70",
+          "5C71",
+          "5C72",
+          "5C73",
+          "5C7Z"
+        ]
+      },
+      "blood_loss_anemia": {
+        "weight": -2,
+        "icd10": [
+          "D50"
+        ],
+        "icd11": [
+          "3A00"
+        ]
+      },
+      "deficiency_anemia": {
+        "weight": -2,
+        "icd10": [
+          "D51",
+          "D52",
+          "D53"
+        ],
+        "icd11": [
+          "3A01",
+          "3A02",
+          "3A03",
+          "3A0Z"
+        ]
+      },
+      "alcohol_abuse": {
+        "weight": 0,
+        "icd10": [
+          "F10",
+          "E52",
+          "G62",
+          "I42",
+          "K29",
+          "K70",
+          "T51",
+          "Z50",
+          "Z71",
+          "Z72"
+        ],
+        "icd11": [
+          "6C40",
+          "6C41",
+          "6C4Z"
+        ]
+      },
+      "drug_abuse": {
+        "weight": -7,
+        "icd10": [
+          "F11",
+          "F12",
+          "F13",
+          "F14",
+          "F15",
+          "F16",
+          "F18",
+          "F19"
+        ],
+        "icd11": [
+          "6C40",
+          "6C41",
+          "6C42",
+          "6C43",
+          "6C44",
+          "6C45",
+          "6C4Z"
+        ]
+      },
+      "psychoses": {
+        "weight": 0,
+        "icd10": [
+          "F20",
+          "F22",
+          "F23",
+          "F24",
+          "F25",
+          "F28",
+          "F29",
+          "F30",
+          "F31"
+        ],
+        "icd11": [
+          "6A20",
+          "6A21",
+          "6A22",
+          "6A23",
+          "6A24",
+          "6A2Z"
+        ]
+      },
+      "depression": {
+        "weight": -3,
+        "icd10": [
+          "F20",
+          "F31",
+          "F32",
+          "F33",
+          "F34",
+          "F35",
+          "F38",
+          "F39"
+        ],
+        "icd11": [
+          "6A70",
+          "6A71",
+          "6A72",
+          "6A73",
+          "6A74",
+          "6A75",
+          "6A7Z"
+        ]
+      }
+    }
+  }
