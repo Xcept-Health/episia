@@ -594,8 +594,8 @@ src/episia/
 │   ├ utilities.py        EpiLoaderterminal animation
 │   └ constants.py        CI methods, statistical thresholds
 │
-├ simulation/             Post-MVPstochastic models, networks, spatial
-├ compatibility/          Post-MVPOpenEpi, R epiR interop
+├ simulation/             Stochastic models, networks, spatial
+├ compatibility/          OpenEpi, R epiR interop
 │
 ├ __init__.py             Public API surface
 └ __main__.py             python -m episia → terminal reference
@@ -634,8 +634,8 @@ test_datatypes.py             50 tests
 | **episia.data** | Stable  | Dataset, SurveillanceDataset |
 | **episia.viz** | Experimental  | Plotly working; Matplotlib coverage improving |
 | **episia.dhis2** | Experimental  | Core endpoints tested; some features pending |
-| **episia.simulation** | Placeholder  | Post-MVPstochastic models coming v0.2 |
-| **episia.compatibility** | Placeholder  | Post-MVPR/OpenEpi interop coming v0.2 |
+| **episia.simulation** | Placeholder  | Stochastic models coming v0.2 |
+| **episia.compatibility** | Placeholder  | R/OpenEpi interop coming v0.2 |
 
 Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for migration guides.
 
