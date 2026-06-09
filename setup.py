@@ -125,6 +125,7 @@ setup(
     package_data={
         "episia.viz": ["themes/*.mplstyle"],
         "episia":     ["*.md", "*.txt", "*.yaml"],
+        "episia.compatibility": ["data/*.json"],
     },
     include_package_data=True,
 
