@@ -5,7 +5,7 @@
 
 **Open-source epidemiology & biostatistics for Python**
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
+![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)
 [![PyPI version](https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/episia/)
 [![PyPI Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
@@ -14,9 +14,9 @@
 [![Validation](https://img.shields.io/badge/Validated%20against-OpenEpi-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)
 [![Documentation](https://img.shields.io/badge/Docs-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
 [![Website](https://img.shields.io/badge/Website-xcept--health.github.io%2Fepisia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19429374-blue?style=flat-square)](https://doi.org/10.5281/zenodo.19429374)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19429373-blue?style=flat-square)](https://doi.org/10.5281/zenodo.19429373)
 [![Preprint](https://img.shields.io/badge/Preprint-medRxiv-B31B1B?style=flat-square)](https://doi.org/10.64898/2026.04.17.26350337)
-[![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
+![Status](https://img.shields.io/badge/Status-Beta-blue?style=flat-square)
 
 
 *epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
@@ -56,7 +56,7 @@ Built on the scientific foundation of [OpenEpi](https://openepi.com), Episia ext
 
 Episia is systematically validated against [OpenEpi](https://openepi.com), the reference in epidemiology. All results from core functions (risk ratio, odds ratio, confidence intervals, χ² tests, etc.) have been compared and agree with OpenEpi on standard datasets.
 
-**[Check out the full validation notebook](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)** 
+**[Check out the full validation notebook](https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb)** 
 
 This notebook reproduces OpenEpi's calculations step by step and demonstrates concordance.
 
@@ -719,7 +719,7 @@ Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and bios
 
 **Author:** Fildouindé Ariel Shadrac Ouedraogo  
 **ORCID:** [0009-0003-3419-5985](https://orcid.org/0009-0003-3419-5985)  
-**Organization:** [Xcept-Health](https://xcept-health.com), Ouagadougou, Burkina Faso  
+**Organization:** Xcept-Health, Ouagadougou, Burkina Faso  
 **Affiliation:** MD Candidate, Université Joseph Ki-Zerbo, Department of Medicine  
 **GitHub:** [@arielshadrac](https://github.com/arielshadrac)
 
@@ -753,9 +753,9 @@ pytest tests/ -v
 
 ## Support
 
-- **Documentation:** [Full docs](https://docs.episia.io)
-- **Examples:** [Examples directory](examples/)
-- **Validation:** [OpenEpi comparison notebook](examples/episia_vs_openepi.ipynb)
+- **Documentation:** [Full docs](https://episia.readthedocs.io/en/latest/)
+- **Examples:** [Examples directory](https://github.com/Xcept-Health/episia/tree/main/exemples/)
+- **Validation:** [OpenEpi comparison notebook](https://github.com/Xcept-Health/episia/tree/main/exemples/episia_vs_openepi.ipynb)
 - **Issues:** [GitHub Issues](https://github.com/Xcept-Health/episia/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/Xcept-Health/episia/discussions)
 
@@ -776,7 +776,7 @@ pytest tests/ -v
 
 ## License
 
-MIT Licensesee [LICENSE](LICENSE) for details.
+MIT Licensesee [LICENSE](LICENSE.txt) for details.
 
 Copyright © 2026 Xcept-Health
 
@@ -794,7 +794,7 @@ A: Core modules (models, stats) are production-ready (84% coverage). See [API St
 A: Fork, create a feature branch, add tests, and submit a PR. See [Contributing](#contributing) section.
 
 **Q: Is there a GUI?**  
-A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [examples/](examples/).
+A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [examples/](https://github.com/Xcept-Health/episia/blob/main/exemples).
 
 **Q: Does it work offline?**  
 A: Yes. Episia has zero runtime network dependencies. DHIS2 integration requires connection only during data fetch.
