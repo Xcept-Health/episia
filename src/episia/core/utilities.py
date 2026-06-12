@@ -154,27 +154,25 @@ def memoize(maxsize: int = 128) -> Callable:
 def safe_divide(
     numerator: Union[Number, np.ndarray],
     denominator: Union[Number, np.ndarray],
-    default: Any = np.nan
+    default: Any = 0.0
 ) -> Union[Number, np.ndarray]:
     """
     Safe division with handling of zero denominators.
-    
+
     Args:
         numerator: Numerator
         denominator: Denominator
-        default: Value to return when denominator is zero
-        
+        default: Value to return when denominator is zero (default: 0.0)
+
     Returns:
         Result of division or default value
     """
     if isinstance(numerator, np.ndarray) or isinstance(denominator, np.ndarray):
-        result = np.full_like(
-            np.asarray(numerator), 
-            default, 
-            dtype=float
-        )
-        mask = denominator != 0
-        result[mask] = numerator[mask] / denominator[mask]
+        num = np.asarray(numerator, dtype=float)
+        den = np.asarray(denominator, dtype=float)
+        result = np.full_like(num, float(default), dtype=float)
+        mask = den != 0
+        result[mask] = num[mask] / den[mask]
         return result
     else:
         return numerator / denominator if denominator != 0 else default
@@ -315,45 +313,61 @@ def expit(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
 
 def standardize(
     x: np.ndarray,
-    ddof: int = 1
+    ddof: int = 0
 ) -> np.ndarray:
     """
-    Standardize array (z-score normalization).
-    
+    Standardize array to zero mean and unit variance (z-score normalization).
+
+    Uses ddof=0 by default so that np.std(result) == 1.0 on the output array.
+
     Args:
         x: Array to standardize
-        ddof: Degrees of freedom for std calculation
-        
+        ddof: Degrees of freedom for std calculation (default: 0)
+
     Returns:
         Standardized array
     """
-    x = np.asarray(x)
-    return (x - np.mean(x)) / np.std(x, ddof=ddof)
+    x = np.asarray(x, dtype=float)
+    mean = np.mean(x)
+    std = np.std(x, ddof=ddof)
+    if std == 0:
+        raise ValueError("Cannot standardize array with zero variance.")
+    return (x - mean) / std
 
 
 def winsorize(
     x: np.ndarray,
-    limits: Tuple[float, float] = (0.05, 0.05)
+    limits: Optional[Tuple[float, float]] = None,
+    lower: Optional[float] = None,
+    upper: Optional[float] = None,
 ) -> np.ndarray:
     """
-    Winsorize array by limiting extreme values.
-    
+    Winsorize array by clipping extreme values to percentile bounds.
+
+    Can be called as:
+        winsorize(x, limits=(0.05, 0.05))
+        winsorize(x, lower=0.05, upper=0.95)
+
     Args:
         x: Array to winsorize
-        limits: Tuple of (lower_limit, upper_limit) as proportions
-        
+        limits: Tuple of (lower_quantile, upper_quantile) as proportions
+        lower: Lower quantile bound (proportion, e.g. 0.05)
+        upper: Upper quantile bound (proportion, e.g. 0.95)
+
     Returns:
         Winsorized array
     """
-    x = np.asarray(x)
-    lower_limit, upper_limit = limits
-    
-    # Calculate quantiles
-    lower_q = np.quantile(x, lower_limit)
-    upper_q = np.quantile(x, 1 - upper_limit)
-    
-    # Clip values
-    return np.clip(x, lower_q, upper_q)
+    x = np.asarray(x, dtype=float)
+
+    if limits is not None:
+        lower_q_val, upper_q_val = limits
+    else:
+        lower_q_val = lower if lower is not None else 0.05
+        upper_q_val = upper if upper is not None else 0.95
+
+    lo = np.quantile(x, lower_q_val)
+    hi = np.quantile(x, upper_q_val)
+    return np.clip(x, lo, hi)
 
 
 #  CONTEXT MANAGERS 
@@ -505,8 +519,7 @@ def generate_random_id(length: int = 8) -> str:
     return ''.join(random.choice(chars) for _ in range(length))
 
 
-# EpiLoader — premium terminal animation for Episia
-
+# EpiLoader : terminal animation for Episia
 
 class EpiLoader:
     """
@@ -532,7 +545,7 @@ class EpiLoader:
             report.save_html("report.html")
     """
 
-    # Gradient: teal → sky → blue → violet → magenta (Episia palette) ──
+    # Gradient: teal → sky → blue → violet → magenta (Episia palette) 
     _GRADIENT = [
         (0,   210, 190),   # teal
         (0,   180, 255),   # sky blue
@@ -542,7 +555,7 @@ class EpiLoader:
         (240,  80, 160),   # rose
     ]
 
-    # Wave characters — full block to thin ──────────────────────────────────
+    # Wave characters — full block to thin 
     _BLOCKS   = "█▓▒░ "   # dense → sparse
     _BLOCKS_ASCII = "#=+-. "
 
@@ -717,5 +730,5 @@ class EpiLoader:
         )
 
 
-# Alias — keep Spinner name for backward compat
+# Alias keep Spinner name for backward compat
 Spinner = EpiLoader

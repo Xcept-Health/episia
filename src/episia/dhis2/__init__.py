@@ -27,5 +27,6 @@ Usage::
 
 from .client  import DHIS2Client
 from .adapter import DHIS2Adapter
+from .periods import period_range
 
-__all__ = ["DHIS2Client", "DHIS2Adapter"]
+__all__ = ["DHIS2Client", "DHIS2Adapter", "period_range"]

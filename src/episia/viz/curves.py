@@ -28,7 +28,6 @@ from .plotters import get_plotter, PlotConfig, AnimationConfig, AnimationType
 from .plotters.base_plotter import OutputFormat
 
 
-
 # Internal helpers
 
 def _coerce_times_values(
@@ -77,8 +76,6 @@ def _coerce_times_values(
     times  = np.asarray(times)
     values = np.asarray(values, dtype=float)
     return times, values, trend, trend_method, doubling_time
-
-
 
 # plot_epicurve
 
@@ -160,8 +157,6 @@ def plot_epicurve(
 
     plotter = get_plotter(backend)
     return plotter.plot_epicurve(proxy, config=config)
-
-
 
 # plot_trend
 
@@ -269,8 +264,6 @@ def plot_trend(
         fig.tight_layout()
         return fig
 
-
-
 # plot_incidence
 
 def plot_incidence(
@@ -374,8 +367,6 @@ def plot_incidence(
             ax.legend(fontsize=config.font_size - 1)
         fig.tight_layout()
         return fig
-
-
 
 # plot_doubling
 
@@ -501,8 +492,6 @@ def _hex_to_rgb(hex_color: str) -> str:
     h = hex_color.lstrip("#")
     r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
     return f"{r},{g},{b}"
-
-
 
 # Exports
 

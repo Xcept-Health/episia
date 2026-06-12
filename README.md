@@ -2,15 +2,16 @@
 
 ![episiabanner](https://raw.githubusercontent.com/Xcept-Health/episia/main/banner.jpg)
 
+
 **Open-source epidemiology & biostatistics for Python**
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)
 [![PyPI version](https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/episia/)
-[![Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Tests](https://img.shields.io/badge/Tests-1390%20passed-brightgreen?style=flat-square)
-![Coverage](https://img.shields.io/badge/Coverage-80%25-brightgreen?style=flat-square)
-[![Validation](https://img.shields.io/badge/Validated%20against-OpenEpi-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb)
+[![PyPI Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-1497%20passed-brightgreen?style=flat-square)](#test-coverage)
+[![Coverage](https://img.shields.io/badge/Coverage-84%25-brightgreen?style=flat-square)](#test-coverage)
+[![Validation](https://img.shields.io/badge/Validated%20against-OpenEpi-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)
 [![Documentation](https://img.shields.io/badge/Docs-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
 [![Website](https://img.shields.io/badge/Website-xcept--health.github.io%2Fepisia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19429373-blue?style=flat-square)](https://doi.org/10.5281/zenodo.19429373)
@@ -47,7 +48,7 @@ Built on the scientific foundation of [OpenEpi](https://openepi.com), Episia ext
 - Self-contained HTML reports with dark/light mode toggle
 - Terminal loader animation for long-running operations (`EpiLoader`)
 - Systematic validation against OpenEpi reference implementation
-- Jupiter notebook support
+- Jupyter notebook support
 
 ---
 
@@ -238,7 +239,7 @@ print(rr.p_value)
 or_ = odds_ratio(a=40, b=10, c=20, d=30)
 print(or_)              # Odds Ratio: 6.000 (2.453-14.678)
 
-# Proportions5 CI methods
+# Proportions 5 CI methods
 p = proportion_ci(k=45, n=200, method="wilson")
 print(p)                # Proportion: 0.2250 (0.1714-0.2888)
 
@@ -305,7 +306,7 @@ with EpiLoader("Running SEIR model"):
 
 # Epidemic curveanimated, capped at 60 frames
 with EpiLoader("Building epidemic curve"):
-    ts = TimeSeriesResult(times=result.t, values=result.compartments["I"])
+    ts = TimeSeriesResult(dates=result.t, observed=result.compartments["I"])
     fig_curve = plot_epicurve(ts, animate=True)
 fig_curve.show()
 
@@ -377,128 +378,84 @@ plot_epicurve(ts, title="MeningitisCentre Region 2024").show()
 Pull surveillance data directly from a DHIS2 instance (health ministry reporting system).
 
 ```python
-from episia.dhis2 import DHIS2Client, DHIS2Adapter
-from episia.data import SurveillanceDataset
-from episia.core.utilities import EpiLoader
-from episia import epi
+from episia.dhis2 import DHIS2Client, period_range
 
 # Initialize DHIS2 client
 client = DHIS2Client(
-    url="https://dhis2.moh.gov.bf",  # Burkina Faso example
+    url="https://dhis2.moh.gov.bf",        # Burkina Faso example
     username="epi_officer",
-    password="your_password",  # Use environment variable in production
+    password="your_password",              # Use environment variable in production
 )
 
 # Verify connection
-print(client.about())  # Prints DHIS2 version, instance info
+client.ping()
 
-with EpiLoader("Fetching meningitis data from DHIS2"):
-    # Get all meningitis cases from 2024
-    cases_data = client.get_data_values(
-        data_element="rQLFQyPSmie",  # Meningitis confirmed cases (example UID)
-        period="202401:202412",      # Jan-Dec 2024
-        org_units="ImspD0yaksKo",    # All facilities under Centre Region (UID)
-    )
+# Build a period string for all of 2024 (monthly)
+period = period_range("202401", "202412")
+# → "202401;202402;...;202412"
 
-# Transform to epidemiological dataset
-adapter = DHIS2Adapter()
-ds = adapter.to_surveillance_dataset(
-    cases_data,
-    date_col="period",
-    cases_col="value",
-    location_col="orgUnit",
-    population_col=None,  # Load from separate API call
+# Fetch meningitis cases as a ready-to-use SurveillanceDataset
+ds = client.to_dataset(
+    data_element="rQLFQyPSmie",   # Meningitis confirmed cases (example UID)
+    period=period,
+    org_unit="ImspD0yaksKo",      # Centre Region (UID)
 )
 
 print(ds)
-# SurveillanceDataset(n=156, cases=342, 2024-01-01 to 2024-12-31)
 
-# Analyze trends
-weekly = ds.aggregate(freq="W")
-print(weekly.to_dataframe())
+# Check for silent reporting gaps (critical for DHIS2 data in sub-Saharan Africa)
+completeness = ds.completeness()
+# {
+#   "expected_periods": 12,
+#   "reported_periods": 10,
+#   "completeness_rate": 0.833,
+#   "missing_periods": ["202408", "202411"],
+#   "freq": "ME",
+# }
+print(f"Completeness: {completeness['completeness_rate']:.1%}")
+if completeness["missing_periods"]:
+    print(f"Missing periods: {completeness['missing_periods']}")
 
-# Create alert report
-from episia.data import AlertEngine
-from episia.api import EpiReport
-
-engine = AlertEngine(ds)
-alerts = engine.run(threshold=5, zscore_threshold=2.0)
-summary = engine.alert_summary(alerts)
-
-if summary['n_alerts'] > 0:
-    report = EpiReport(
-        title="Meningitis Alert Report2024",
-        author="Epidemiological Service, MOH",
-        institution="Ministry of Health - Burkina Faso",
-    )
-    
-    report.add_metrics({
-        "Total cases":      ds.total_cases,
-        "Total deaths":     ds.total_deaths,
-        "CFR":              f"{100*ds.total_deaths/ds.total_cases:.1f}%",
-        "Alerts triggered": summary['n_alerts'],
-        "Alert level":      summary['max_severity'],
-    })
-    
-    report.add_text(
-        f"Meningitis surveillance detected {summary['n_alerts']} alert weeks in 2024. "
-        f"Review implementation of response protocols.",
-        title="Summary",
-    )
-    
-    # Save and export
-    path = report.save_html("meningitis_alert_2024.html")
-    print(f"Report saved: {path}")
-
-# Push back to DHIS2 (optionalwrite cleaned/analyzed data)
-# Note: Requires DHIS2 write permissions
-cleaned_values = {
-    "dataElement": "xyz789",  # Meningitissuspected (cleaned) UID
-    "period": "202401",
-    "orgUnit": "ImspD0yaksKo",
-    "value": 45,
-}
-# client.post_data_value(cleaned_values)  # Uncomment with proper credentials
+# Analyze with Episia
+ts = ds.to_timeseries_result()
+ts.plot().show()
 ```
 
 **Full DHIS2 Workflow:**
 
 ```python
-from episia.dhis2 import DHIS2Client, DHIS2Adapter
+from episia.dhis2 import DHIS2Client, DHIS2Adapter, period_range
 from episia.models import SEIRModel
 from episia.models.parameters import SEIRParameters
-from episia import epi
+from episia.models.calibration import ModelCalibrator
 
 # Connect to DHIS2
 client = DHIS2Client(
     url="https://dhis2.example.com",
     username="admin",
-    password="password"
+    password="password",
 )
 
-# Fetch historical cases
-historical_cases = client.get_data_values(
+# Fetch 3 years of weekly surveillance data
+period = period_range("2022W01", "2024W52")
+ds = client.to_dataset(
     data_element="uid_of_disease",
-    period="202201:202412",
-    org_units="region_uid",
+    period=period,
+    org_unit="region_uid",
 )
 
-# Create surveillance dataset
-adapter = DHIS2Adapter()
-ds = adapter.to_surveillance_dataset(
-    historical_cases,
-    date_col="period",
-    cases_col="value",
-)
+# DHIS2Adapter can also be used standalone to convert raw API responses
+# you have already fetched (e.g. from your own requests session):
+#   adapter = DHIS2Adapter()
+#   ds = adapter.from_analytics_response(raw_json, cases_element="uid_of_disease")
 
-print(f"Loaded {ds.total_cases} cases from {len(ds.dates)} reporting periods")
+df = ds.to_dataframe()
+print(f"Loaded {df['cases'].sum():.0f} cases over {len(df)} reporting periods")
 
 # Fit SEIR model to observed data
-from episia.models import ModelCalibrator
-
 calibrator = ModelCalibrator(
     model_class=SEIRModel,
-    observed_data=ds.to_dataframe(),
+    observed_data=df,
     target_column="cases",
 )
 
@@ -512,14 +469,6 @@ print(f"Best fit: R0 = {fitted_params.r0:.2f}")
 # Forecast
 result = SEIRModel(fitted_params).run()
 result.plot().show()
-
-# Generate report for health ministry
-report = epi.report(result, title="Meningitis Forecast 2025")
-report.save_html("forecast_2025.html")
-
-# (Optional) Push forecast to DHIS2 as target/projection
-# for_write = adapter.from_model_result(result, data_element_uid="target_uid")
-# client.post_data_values(for_write)
 ```
 
 ---
@@ -657,8 +606,8 @@ src/episia/
 ## Test Coverage
 
 ```
-1390 tests0 failed0 xfailed
-Coverage: 80% (target: 85% at v0.2.0)
+1497 tests0 failed0 xfailed
+Coverage: 84% (target: 85% at v0.2.0)
 
 test_core.py                 165 tests
 test_stats.py                133 tests
@@ -675,7 +624,7 @@ test_datatypes.py             50 tests
 
 ## API Stability
 
-**v0.1.2 is a stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
+**v0.1.3 is a stable release of the core API.** Breaking changes remain possible until v1.0.0, and will be documented in the changelog.
 
 | Module | Status | Notes |
 |--------|--------|-------|
@@ -703,7 +652,7 @@ Subscribe to [releases](https://github.com/Xcept-Health/episia/releases) for mig
 | **0.4.0** | Real-time forecasting, ensemble methods | Q4 2026 | Planned |
 | **1.0.0** | API stable, production-ready | 2027 | Roadmap |
 
-**Known Limitations (v0.1.2):**
+**Known Limitations (v0.1.3):**
 - Simulation module (networks, spatial) is placeholder
 - DHIS2 client covers POST/GET cases and basic metadata
 - Browser plotter (36% coverage) is experimental; use Plotly or Matplotlib for production
@@ -743,7 +692,7 @@ If you use Episia in your research, please cite it as:
   doi = {10.5281/zenodo.19429374},
   url = {https://doi.org/10.5281/zenodo.19429374},
   note = {Source code: https://github.com/Xcept-Health/episia},
-  version = {0.1.2},
+  version = {0.1.3},
   organization = {Xcept-Health},
   address = {Ouagadougou, Burkina Faso}
 }
@@ -751,17 +700,17 @@ If you use Episia in your research, please cite it as:
 
 **Vancouver:**
 ```
-Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.2. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
+Ouedraogo FAS. Episia: Open-source epidemiology and biostatistics for Python [Computer software]. Version 0.1.3. Ouagadougou: Xcept-Health; 2026. Available from: https://doi.org/10.5281/zenodo.19429374
 ```
 
 **APA:**
 ```
-Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.2) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
+Ouedraogo, F. A. S. (2026). Episia: Open-source epidemiology and biostatistics for Python (Version 0.1.3) [Computer software]. Xcept-Health. https://doi.org/10.5281/zenodo.19429374
 ```
 
 **MLA:**
 ```
-Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.2, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
+Ouedraogo, Fildouindé Ariel Shadrac. "Episia: Open-source epidemiology and biostatistics for Python." Version 0.1.3, Xcept-Health, 2026, https://doi.org/10.5281/zenodo.19429374.
 ```
 
 ---
@@ -795,7 +744,7 @@ pip install -e ".[dev]"
 pytest tests/ -v
 ```
 
-**Code style:** `black` + `isort`. Type hints required for all public functions. Tests required for all new features (target: 80% coverage).
+**Code style:** `black` + `isort`. Type hints required for all public functions. Tests required for all new features (target: 85% coverage).
 
 **Report bugs:** [GitHub Issues](https://github.com/Xcept-Health/episia/issues)  
 **Discuss ideas:** [GitHub Discussions](https://github.com/Xcept-Health/episia/discussions)
@@ -839,7 +788,7 @@ Copyright © 2026 Xcept-Health
 A: OpenEpi is the gold standard in epidemiology. Full concordance ensures Episia results are trusted in field settings and peer-reviewed publications.
 
 **Q: Can I use this in production?**  
-A: Core modules (models, stats) are production-ready (80% coverage). See [API Stability](#api-stability) section. Simulation module is experimental.
+A: Core modules (models, stats) are production-ready (84% coverage). See [API Stability](#api-stability) section. Simulation module is experimental.
 
 **Q: How do I contribute?**  
 A: Fork, create a feature branch, add tests, and submit a PR. See [Contributing](#contributing) section.
@@ -857,6 +806,10 @@ A: Python 3.9, 3.10, 3.11, 3.12. See [pyproject.toml](pyproject.toml).
 
 <div align="center">
 
-Built with precision for African public health · Xcept-Health · Burkina Faso
+Built with precision for African public health · [Xcept-Health](https://xcept-health.com) · Burkina Faso
+
+![Status](https://img.shields.io/badge/Made%20with-Python%203.9%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Version](https://img.shields.io/badge/Version-0.1.3-orange)
 
 </div>

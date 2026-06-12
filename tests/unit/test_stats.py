@@ -458,15 +458,15 @@ class TestMeanCI:
 class TestIncidenceRate:
     def test_rate_value(self):
         r = incidence_rate(10, 1000)
-        assert r["rate"] == pytest.approx(0.01)
+        assert r.rate == pytest.approx(0.01)
 
     def test_ci_present(self):
         r = incidence_rate(10, 1000)
-        assert "ci_lower" in r and "ci_upper" in r
+        assert hasattr(r, "ci_lower") and hasattr(r, "ci_upper")
 
     def test_ci_contains_rate(self):
         r = incidence_rate(10, 1000)
-        assert r["ci_lower"] < r["rate"] < r["ci_upper"]
+        assert r.ci_lower < r.rate < r.ci_upper
 
     def test_zero_person_time_raises(self):
         with pytest.raises(ValueError):
@@ -474,14 +474,14 @@ class TestIncidenceRate:
 
     def test_small_cases_exact_ci(self):
         r = incidence_rate(3, 1000)   # < 10 cases → exact Poisson
-        assert r["ci_lower"] >= 0
+        assert r.ci_lower >= 0
 
     def test_large_cases_byar(self):
         r = incidence_rate(50, 10000)  # >= 10 cases → Byar
-        assert r["ci_lower"] >= 0
+        assert r.ci_lower >= 0
 
     def test_measure_key(self):
-        assert incidence_rate(10, 1000)["measure"] == "incidence_rate"
+        assert incidence_rate(10, 1000).to_dict()["measure"] == "incidence_rate"
 
 
 class TestInterquartileRange:

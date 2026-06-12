@@ -18,7 +18,6 @@ from .plotters import get_plotter, PlotConfig, AnimationConfig
 from .themes.registry import get_palette
 
 
-
 # plot_roc
 
 def plot_roc(
@@ -72,8 +71,6 @@ def plot_roc(
         )
 
     return get_plotter(backend).plot_roc(result, config=config)
-
-
 
 # plot_roc_compare
 
@@ -174,8 +171,6 @@ def plot_roc_compare(
         ax.legend(fontsize=config.font_size - 1, loc="lower right")
         fig.tight_layout()
         return fig
-
-
 
 # plot_precision_recall
 

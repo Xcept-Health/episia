@@ -32,8 +32,6 @@ from .base_plotter import (
     UnsupportedAnimationError,
 )
 
-
-
 # Colour palettes per theme
 
 _PALETTES: Dict[str, List[str]] = {
@@ -66,7 +64,6 @@ _FONT_COLOR: Dict[str, str] = {
     "dark":       "#eeeeee",
     "colorblind": "#222222",
 }
-
 
 
 # Helper: build Plotly layout dict
@@ -113,8 +110,6 @@ def _palette(cfg: PlotConfig) -> List[str]:
     if cfg.palette:
         return cfg.palette
     return _PALETTES.get(cfg.theme, _PALETTES["scientific"])
-
-
 
 # Helper: build animation frames + layout buttons
 
@@ -177,7 +172,6 @@ def _make_slider(labels: List[str], anim: AnimationConfig,
 
 
 # PlotlyPlotter
-
 
 class PlotlyPlotter(BasePlotter):
     """
@@ -550,14 +544,19 @@ class PlotlyPlotter(BasePlotter):
 
         # RegressionResult
         elif hasattr(result, "coefficients"):
-            for var, coef in result.coefficients.items():
-                lo, hi = result.ci_table.get(var, (coef, coef))
+            coefs = result.coefficients
+            names = result.variable_names
+            for i, var in enumerate(names):
+                coef = float(coefs[i])
+                lo   = float(result.ci_lower[i])
+                hi   = float(result.ci_upper[i])
+                p    = float(result.p_values[i]) if result.p_values is not None else None
                 rows.append(dict(
                     label=var,
                     est=coef,
                     lo=lo,
                     hi=hi,
-                    p=result.p_values.get(var),
+                    p=p,
                 ))
 
         # Single AssociationResult fallback
@@ -974,8 +973,6 @@ class PlotlyPlotter(BasePlotter):
                     f"Install kaleido: pip install kaleido\n{e}"
                 )
         return path
-
-
 
 # Exports
 

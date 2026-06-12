@@ -340,3 +340,151 @@ class TestDHIS2Integration:
         channel = ds.endemic_channel()
         assert len(channel["weeks"]) > 0
         assert "p_high" in channel
+
+# ── period_range (issue #6) ────────────────────────────────────────────────
+
+class TestPeriodRange:
+
+    def test_monthly_basic(self):
+        from episia.dhis2 import period_range
+        result = period_range("202401", "202406")
+        assert result == "202401;202402;202403;202404;202405;202406"
+
+    def test_monthly_single_period(self):
+        from episia.dhis2 import period_range
+        assert period_range("202401", "202401") == "202401"
+
+    def test_monthly_year_boundary(self):
+        from episia.dhis2 import period_range
+        result = period_range("202311", "202402")
+        assert result == "202311;202312;202401;202402"
+
+    def test_weekly_basic(self):
+        from episia.dhis2 import period_range
+        result = period_range("2024W01", "2024W04")
+        assert result == "2024W01;2024W02;2024W03;2024W04"
+
+    def test_weekly_single(self):
+        from episia.dhis2 import period_range
+        assert period_range("2024W10", "2024W10") == "2024W10"
+
+    def test_weekly_year_boundary(self):
+        from episia.dhis2 import period_range
+        result = period_range("2023W51", "2024W02")
+        periods = result.split(";")
+        assert periods[0] == "2023W51"
+        assert periods[-1] == "2024W02"
+        assert len(periods) >= 3
+
+    def test_weekly_52_weeks(self):
+        from episia.dhis2 import period_range
+        result = period_range("2024W01", "2024W52")
+        periods = result.split(";")
+        assert len(periods) == 52
+
+    def test_quarterly_basic(self):
+        from episia.dhis2 import period_range
+        result = period_range("2024Q1", "2024Q4")
+        assert result == "2024Q1;2024Q2;2024Q3;2024Q4"
+
+    def test_quarterly_year_boundary(self):
+        from episia.dhis2 import period_range
+        result = period_range("2023Q3", "2024Q2")
+        assert result == "2023Q3;2023Q4;2024Q1;2024Q2"
+
+    def test_start_after_end_raises(self):
+        from episia.dhis2 import period_range
+        with pytest.raises(ValueError):
+            period_range("202406", "202401")
+
+    def test_mixed_formats_raises(self):
+        from episia.dhis2 import period_range
+        with pytest.raises(ValueError):
+            period_range("202401", "2024W04")
+
+    def test_unknown_format_raises(self):
+        from episia.dhis2 import period_range
+        with pytest.raises(ValueError):
+            period_range("2024-01", "2024-06")
+
+    def test_exported_from_dhis2_module(self):
+        from episia.dhis2 import period_range
+        assert callable(period_range)
+
+
+# ── SurveillanceDataset.completeness (issue #7) ───────────────────────────
+
+class TestCompleteness:
+
+    @pytest.fixture
+    def weekly_ds_complete(self, adapter):
+        """4 semaines consécutives sans gaps."""
+        response = {
+            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "rows": [
+                ["dx1","2024W01","OU1","10"],
+                ["dx1","2024W02","OU1","12"],
+                ["dx1","2024W03","OU1","8"],
+                ["dx1","2024W04","OU1","15"],
+            ]
+        }
+        return adapter.from_analytics_response(response, cases_element="dx1")
+
+    @pytest.fixture
+    def weekly_ds_with_gap(self, adapter):
+        """W01, W02, W04, W05 — W03 manquante."""
+        response = {
+            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "rows": [
+                ["dx1","2024W01","OU1","10"],
+                ["dx1","2024W02","OU1","12"],
+                ["dx1","2024W04","OU1","15"],
+                ["dx1","2024W05","OU1","9"],
+            ]
+        }
+        return adapter.from_analytics_response(response, cases_element="dx1")
+
+    def test_returns_dict(self, weekly_ds_complete):
+        result = weekly_ds_complete.completeness()
+        assert isinstance(result, dict)
+
+    def test_required_keys(self, weekly_ds_complete):
+        result = weekly_ds_complete.completeness()
+        for key in ("expected_periods","reported_periods","completeness_rate","missing_periods"):
+            assert key in result, f"Missing key: {key}"
+
+    def test_complete_dataset_rate_is_one(self, weekly_ds_complete):
+        result = weekly_ds_complete.completeness(freq="W")
+        assert result["completeness_rate"] == pytest.approx(1.0)
+
+    def test_complete_dataset_no_missing(self, weekly_ds_complete):
+        result = weekly_ds_complete.completeness(freq="W")
+        assert result["missing_periods"] == []
+
+    def test_gap_detected(self, weekly_ds_with_gap):
+        result = weekly_ds_with_gap.completeness(freq="W")
+        assert result["completeness_rate"] < 1.0
+        assert len(result["missing_periods"]) >= 1
+
+    def test_reported_periods_count(self, weekly_ds_with_gap):
+        result = weekly_ds_with_gap.completeness(freq="W")
+        # reported = expected - nb de périodes manquantes
+        assert result["reported_periods"] == result["expected_periods"] - len(result["missing_periods"])
+        assert result["reported_periods"] >= 0
+
+    def test_completeness_rate_range(self, weekly_ds_with_gap):
+        result = weekly_ds_with_gap.completeness(freq="W")
+        assert 0.0 <= result["completeness_rate"] <= 1.0
+
+    def test_missing_periods_is_list(self, weekly_ds_complete):
+        result = weekly_ds_complete.completeness()
+        assert isinstance(result["missing_periods"], list)
+
+    def test_single_record_raises(self, adapter):
+        response = {
+            "headers": [{"name":"dx"},{"name":"pe"},{"name":"ou"},{"name":"value"}],
+            "rows": [["dx1","2024W01","OU1","5"]]
+        }
+        ds = adapter.from_analytics_response(response, cases_element="dx1")
+        with pytest.raises(ValueError):
+            ds.completeness()

@@ -26,7 +26,6 @@ from .base_plotter import (
 )
 
 
-
 # Theme helpers
 
 # Colour palettes mirroring plotly_plotter for consistency
@@ -100,8 +99,6 @@ def _style_axes(ax, cfg: PlotConfig) -> None:
         ax.grid(True, linestyle="--", linewidth=0.5, alpha=0.6,
                 color="#dddddd" if cfg.theme != "dark" else "#333355")
         ax.set_axisbelow(True)
-
-
 
 # MatplotlibPlotter
 
@@ -694,8 +691,6 @@ class MatplotlibPlotter(BasePlotter):
         fig.savefig(path, dpi=dpi, bbox_inches="tight",
                     facecolor=fig.get_facecolor())
         return path
-
-
 
 # Exports
 

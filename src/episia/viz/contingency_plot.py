@@ -17,7 +17,6 @@ from .plotters import get_plotter, PlotConfig
 from .themes.registry import get_palette
 
 
-
 # plot_contingency
 
 def plot_contingency(
@@ -54,10 +53,7 @@ def plot_contingency(
 
     return get_plotter(backend).plot_contingency(result, config=config)
 
-
-
 # plot_measures
-
 
 def plot_measures(
     result: Any,
@@ -192,6 +188,5 @@ def plot_measures(
         ax.yaxis.grid(False)
         fig.tight_layout()
         return fig
-
 
 __all__ = ["plot_contingency", "plot_measures"]
