@@ -5,6 +5,7 @@ Requires: pip install episia[dhis2]   (adds requests dependency)
 """
 from __future__ import annotations
 
+import warnings
 from typing import Any, Dict, List, Optional, Union
 
 from .adapter   import DHIS2Adapter
@@ -32,7 +33,6 @@ class DHIS2Client:
 
         from episia.dhis2 import DHIS2Client
 
-        # Public DHIS2 demo instance
         client = DHIS2Client(
             url      = "https://play.dhis2.org/40.2.2",
             username = "admin",
@@ -43,9 +43,10 @@ class DHIS2Client:
         client.ping()
 
         # Fetch data as SurveillanceDataset
+        # Use semicolons for multiple periods
         ds = client.to_dataset(
             data_element = "FTRrcoaog83",
-            period       = "2024W01:2024W52",
+            period       = "2024W01;2024W02;2024W03",
             org_unit     = "ImspTQPwCqd",
         )
         print(ds)
@@ -105,8 +106,9 @@ class DHIS2Client:
 
         self._adapter = DHIS2Adapter()
 
+    
     # Connection
-
+    
     def ping(self) -> bool:
         """
         Test connection to the DHIS2 instance.
@@ -123,8 +125,9 @@ class DHIS2Client:
         except Exception as e:
             raise ConnectionError(f"DHIS2 connection failed: {e}")
 
+    
     # Data fetching
-
+    
     def fetch_analytics(
         self,
         data_elements: Union[str, List[str]],
@@ -138,9 +141,30 @@ class DHIS2Client:
         Args:
             data_elements: Data element UID or list of UIDs.
             period:        Period expression. Examples:
-                           - Single week: '2024W01'
-                           - Range:       '2024W01:2024W52'
-                           - Last N:      'LAST_12_WEEKS'
+
+                           Single period::
+
+                               '202401'
+                               '2024W01'
+
+                           Multiple periods (semicolon-separated)::
+
+                               '202401;202402;202403'
+                               '2024W01;2024W02;2024W03'
+
+                           Relative periods::
+
+                               'LAST_12_WEEKS'
+                               'LAST_6_MONTHS'
+                               'THIS_YEAR'
+
+                           .. warning::
+                               The colon range syntax (e.g. ``'2024W01:2024W52'``)
+                               is NOT supported by the DHIS2 analytics API for
+                               monthly or quarterly periods. Always use semicolons
+                               to list periods explicitly, or use a relative period
+                               keyword.
+
             org_unit:      Organisation unit UID.
             org_unit_mode: SELECTED, CHILDREN, or DESCENDANTS.
 
@@ -149,6 +173,17 @@ class DHIS2Client:
         """
         if isinstance(data_elements, str):
             data_elements = [data_elements]
+
+        # Warn if colon range syntax is used with non-weekly periods
+        if ":" in period and not self._is_weekly_range(period):
+            warnings.warn(
+                f"Period '{period}' uses colon range syntax which is not supported "
+                "by the DHIS2 analytics API for non-weekly periods. "
+                "Use semicolon-separated periods instead, e.g. '202401;202402;202403'. "
+                "Only LAST_N relative keywords or semicolon lists are reliable.",
+                UserWarning,
+                stacklevel=2,
+            )
 
         dx = ";".join(data_elements)
         params = {
@@ -173,7 +208,7 @@ class DHIS2Client:
 
         Args:
             data_set:  Data set UID.
-            period:    Period string (e.g. '2024W01').
+            period:    Period string (e.g. '202401').
             org_unit:  Organisation unit UID.
 
         Returns:
@@ -196,7 +231,7 @@ class DHIS2Client:
         List organisation units from DHIS2.
 
         Args:
-            level:   Filter by hierarchy level (1=national, 2=region…).
+            level:   Filter by hierarchy level (1=national, 2=region...).
             parent:  Filter by parent UID.
             fields:  Comma-separated fields to return.
 
@@ -229,8 +264,9 @@ class DHIS2Client:
         response = self._get(ENDPOINTS["data_elements"], params=params)
         return response.get("dataElements", [])
 
+    
     # High-level convenience
-
+    
     def to_dataset(
         self,
         data_element:   str,
@@ -246,7 +282,9 @@ class DHIS2Client:
 
         Args:
             data_element:   UID of the cases data element.
-            period:         Period expression (e.g. '2024W01:2024W52').
+            period:         Period expression. Use semicolons for multiple
+                            periods (e.g. ``'202401;202402;202403'``) or a
+                            relative keyword (e.g. ``'LAST_12_MONTHS'``).
             org_unit:       Organisation unit UID.
             deaths_element: UID of deaths data element (optional).
             org_unit_mode:  SELECTED, CHILDREN, or DESCENDANTS.
@@ -302,7 +340,16 @@ class DHIS2Client:
             org_unit_mode = "CHILDREN",
         )
 
-    # Internal HTTP helper
+    
+    # Internal helpers
+    @staticmethod
+    def _is_weekly_range(period: str) -> bool:
+        """
+        Return True if period looks like a valid weekly range (e.g. '2024W01:2024W52').
+        The colon range syntax is only reliable for weekly periods in DHIS2.
+        """
+        import re
+        return bool(re.match(r'^\d{4}W\d{1,2}:\d{4}W\d{1,2}$', period))
 
     def _get(
         self,
@@ -323,7 +370,6 @@ class DHIS2Client:
             requests.HTTPError: on non-2xx responses.
             ConnectionError:    on network errors.
         """
-
         url = self.url + endpoint
         try:
             response = self._session.get(

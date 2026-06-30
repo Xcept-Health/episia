@@ -1,69 +1,68 @@
 {
-    "version": "v1.0.0",
-    "entity": {
-      "type": "individual",
-      "role": "maintainer",
-      "name": "Fildouindé Ariel Shadrac Ouedraogo",
-      "email": "arielshadrac@gmail.com",
-      "description": "MD Candidate at Université Joseph Ki-Zerbo, Burkina Faso. Independent open-source developer building epidemiological tools for resource-limited settings in Africa.",
+  "version": "v1.0.0",
+  "entity": {
+    "type": "individual",
+    "role": "maintainer",
+    "name": "Fildouinde Ariel Shadrac Ouedraogo",
+    "email": "arielshadrac@gmail.com",
+    "description": "MD Candidate at Université Joseph Ki-Zerbo, Burkina Faso. Independent open source developer building epidemiological tools for resource-limited settings in Africa.",
+    "webpageUrl": {
+      "url": "https://xcept-health.github.io/episia/"
+    }
+  },
+  "projects": [
+    {
+      "guid": "episia",
+      "name": "Episia",
+      "description": "Open-source Python library for epidemiological surveillance, modeling, and biostatistics in resource-limited settings. Provides SIR/SEIR/SEIRD compartmental models, validated biostatistics, DHIS2 integration, and automated reporting — built for public health systems in Africa.",
       "webpageUrl": {
         "url": "https://xcept-health.github.io/episia/"
-      }
-    },
-    "projects": [
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/Xcept-Health/episia"
+      },
+      "licenses": ["spdx:MIT"],
+      "tags": [
+        "epidemiology",
+        "public-health",
+        "python",
+        "africa",
+        "open-source",
+        "biostatistics",
+        "disease-modeling"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
       {
-        "guid": "episia",
-        "name": "Episia",
-        "description": "Open-source Python library for epidemiological surveillance, modeling, and biostatistics in resource-limited settings. It provides SIR/SEIR/SEIRD compartmental models, validated biostatistical tools, DHIS2 integration, and automated reporting — designed specifically for public health systems in Africa.",
-        "webpageUrl": {
-          "url": "https://xcept-health.github.io/episia/"
-        },
-        "repositoryUrl": {
-          "url": "https://github.com/Xcept-Health/episia"
-        },
-        "licenses": ["spdx:MIT"],
-        "tags": [
-          "epidemiology",
-          "public-health",
-          "python",
-          "africa",
-          "open-source",
-          "biostatistics",
-          "disease-modeling"
-        ]
+        "guid": "bank-transfer",
+        "type": "bank",
+        "address": "Contact by email for bank transfer details",
+        "description": "International SWIFT bank transfer — Burkina Faso"
       }
     ],
-    "funding": {
-      "channels": [
-        {
-          "guid": "bank-transfer",
-          "type": "bank",
-          "address": "Contact by email for bank transfer details",
-          "description": "International SWIFT bank transfer Burkina Faso"
-        }
-      ],
-      "plans": [
-        {
-          "guid": "maintenance",
-          "status": "active",
-          "name": "Project Maintenance",
-          "description": "Covers ongoing development, bug fixes, documentation updates, and community support for Episia.",
-          "amount": 500,
-          "currency": "USD",
-          "frequency": "monthly",
-          "channels": ["bank-transfer"]
-        },
-        {
-          "guid": "one-time",
-          "status": "active",
-          "name": "One-time Support",
-          "description": "One-time contribution to support Episia development.",
-          "amount": 0,
-          "currency": "USD",
-          "frequency": "one-time",
-          "channels": ["bank-transfer"]
-        }
-      ],
-      "history": null
-    }
+    "plans": [
+      {
+        "guid": "maintenance",
+        "status": "active",
+        "name": "Project Maintenance",
+        "description": "Covers ongoing development, bug fixes, documentation, and community support for Episia.",
+        "amount": 500,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": ["bank-transfer"]
+      },
+      {
+        "guid": "one-time",
+        "status": "active",
+        "name": "One-time Support",
+        "description": "One-time contribution to support Episia development.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "one-time",
+        "channels": ["bank-transfer"]
+      }
+    ]
   }
+}

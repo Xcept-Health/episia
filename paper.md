@@ -12,7 +12,7 @@ tags:
   - surveillance
 
 authors:
-  - name: Fidlouindé Ariel Shadrac OUEDRAOGO
+  - name: Fildouindé Ariel Shadrac OUEDRAOGO
     orcid: 0009-0003-3419-5985
     affiliation: "1, 2"
 affiliations:
@@ -89,7 +89,7 @@ examples/episia_vs_openepi.ipynb.
 
 ## Testing
 
-La bibliothèque comprend 1 390 tests automatisés assurant une couverture de code de 80 %, mis en œuvre à l'aide de pytest. Les tests couvrent l'ensemble des modules, y compris des tests basés sur des simulateurs pour le client DHIS2, qui s'exécutent sans serveur en production. La suite de tests fonctionne sous Python 3.9–3.12 et est exécutée à chaque commit via GitHub Actions.
+The library includes 1,497 automated tests achieving 84% code coverage, implemented using pytest. Tests cover all modules, including simulator-based tests for the DHIS2 client that run without a live server. The test suite runs on Python 3.9–3.12 and is executed on every commit via GitHub Actions.
 
 ## Example Usage
 
@@ -125,7 +125,7 @@ report.save_html("rapport.html")
 
 # Research Impact Statement
 
-Episia a été développé chez Xcept-Health pour répondre à des besoins analytiques concrets rencontrés dans la pratique de la santé publique au Burkina Faso. Ses principales applications en matière de recherche comprennent :
+Episia was developed at Xcept-Health to address concrete analytical needs encountered in public health practice in Burkina Faso. Its main research applications include:
 
 **Outbreak Response.** The `SurveillanceDataset` and `AlertEngine` components implement the WHO’s “meningitis belt” detection algorithm [@who2014], enabling the automated identification of epidemic weeks based on weekly case reports from DHIS2. The SEIR and SEIRD models with uncertainty quantification enable rapid projection of epidemic trajectories and intervention scenarios.
 
@@ -136,16 +136,6 @@ Episia a été développé chez Xcept-Health pour répondre à des besoins analy
 **Training and capacity building.** Episia's unified API and included demo notebook (`examples/episia_demo.ipynb`) are designed for use in epidemiology training programmes at African schools of public health providing validated calculations and interactive visualizations without proprietary software requirements.
 
 The library is published on PyPI (`pip install episia`) and maintained on [github.com/Xcept-Health/episia](https://github.com/Xcept-Health/episia) under the MIT license. The documentation and validation notebook are available at [xcept-health.github.io/episia](https://xcept-health.github.io/episia).
-
-
-# AI Usage Disclosure
-
-The author used Claude (Anthropic) as an AI coding assistant during development of
-Episia. AI assistance was used for: generating boilerplate test code, debugging
-specific numerical edge cases, and drafting docstrings. All architectural decisions,
-statistical algorithm implementations, validation methodology, and domain-specific
-design choices were made by the author. The core statistical implementations were
-independently validated against OpenEpi reference outputs.
 
 
 # Acknowledgements
