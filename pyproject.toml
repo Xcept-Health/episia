@@ -1,3 +1,11 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel", "Cython", "numpy"]
+requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.mypy]
+ignore_missing_imports = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "episia.*"
+disallow_untyped_defs = false

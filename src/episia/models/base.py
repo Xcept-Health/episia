@@ -12,9 +12,12 @@ and shares a unified interface:
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Optional, Tuple
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Tuple
 
 import numpy as np
+
+if TYPE_CHECKING:
+    from .parameters import ModelParameters
 
 
 class CompartmentalModel(ABC):
@@ -31,7 +34,7 @@ class CompartmentalModel(ABC):
     the shared solver in models.solver.
     """
 
-    def __init__(self, parameters: "ModelParameters"):  # noqa: F821
+    def __init__(self, parameters: "ModelParameters"):
         self.parameters = parameters
         self._result: Optional[Any] = None   # cached ModelResult after run()
 

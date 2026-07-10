@@ -148,19 +148,53 @@ def read_surveillance_format(
 ) -> Dataset:
     """
     Read surveillance data in standard formats.
-    
+
+    .. warning::
+        Parsers for named surveillance standards ('sidesp', 'who', 'ecdc')
+        are not yet implemented. This function currently only supports
+        generic tabular files (CSV/Excel/Parquet) via ``format_type='auto'``.
+        Passing 'sidesp', 'who', or 'ecdc' raises ``NotImplementedError``
+        rather than silently misreading the file.
+
     Args:
         path: Path to surveillance data file
         format_type: Format type ('sidesp', 'who', 'ecdc', 'auto')
         low_memory: Optimize memory usage
-        **kwargs: Additional arguments
-        
+        **kwargs: Additional arguments passed to the underlying reader
+
     Returns:
         Dataset object
+
+    Raises:
+        NotImplementedError: If format_type is a named surveillance
+            standard ('sidesp', 'who', 'ecdc'), since no parser for it
+            exists yet.
+        FileError: If the file cannot be read.
     """
-    from .surveillance import read_format
-    
-    return read_format(path, format_type, low_memory, **kwargs)
+    if format_type == 'auto':
+        detected = detect_format(path)
+        if detected == 'csv':
+            return read_csv(path, low_memory=low_memory, **kwargs)
+        if detected == 'excel':
+            return read_excel(path, low_memory=low_memory, **kwargs)
+        if detected == 'parquet':
+            return read_parquet(path, low_memory=low_memory, **kwargs)
+        raise FileError(
+            f"Could not auto-detect a supported format for {path} "
+            f"(detected: '{detected}'). Use read_csv/read_excel/read_parquet directly."
+        )
+
+    if format_type in ('sidesp', 'who', 'ecdc'):
+        raise NotImplementedError(
+            f"format_type='{format_type}' is not implemented yet. "
+            "Only format_type='auto' (generic CSV/Excel/Parquet) is currently supported. "
+            "Contributions implementing SIDESP/WHO/ECDC-specific parsing are welcome."
+        )
+
+    raise ValueError(
+        f"Unknown format_type: '{format_type}'. "
+        "Expected one of: 'auto', 'sidesp', 'who', 'ecdc'."
+    )
 
 
 def detect_format(path: Union[str, Path]) -> str:

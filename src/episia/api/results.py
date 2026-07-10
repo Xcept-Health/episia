@@ -75,7 +75,7 @@ class EpiResult(ABC):
             from episia import viz as _viz
         except ImportError:
             try:
-                import viz as _viz  # dev / editable install fallback
+                import viz as _viz  # type: ignore[no-redef]  # dev / editable install fallback
             except ImportError:
                 raise ImportError(
                     "Episia viz module not found. "

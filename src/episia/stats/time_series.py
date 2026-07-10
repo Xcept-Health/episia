@@ -187,10 +187,18 @@ def epidemic_curve(
         resampled = series.resample('W').sum()
         agg_label = "weekly"
     elif aggregation == TimeAggregation.MONTHLY:
-        resampled = series.resample('M').sum()
+        try:
+            # pandas >= 2.2: 'M' (month-end) was renamed to 'ME'
+            resampled = series.resample('ME').sum()
+        except ValueError:
+            resampled = series.resample('M').sum()
         agg_label = "monthly"
     elif aggregation == TimeAggregation.YEARLY:
-        resampled = series.resample('Y').sum()
+        try:
+            # pandas >= 2.2: 'Y' (year-end) was renamed to 'YE'
+            resampled = series.resample('YE').sum()
+        except ValueError:
+            resampled = series.resample('Y').sum()
         agg_label = "yearly"
     else:  # DAILY
         if fill_missing:

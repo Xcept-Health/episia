@@ -56,7 +56,7 @@ Built on the scientific foundation of [OpenEpi](https://openepi.com), Episia ext
 
 Episia is systematically validated against [OpenEpi](https://openepi.com), the reference in epidemiology. All results from core functions (risk ratio, odds ratio, confidence intervals, χ² tests, etc.) have been compared and agree with OpenEpi on standard datasets.
 
-**[Check out the full validation notebook](https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb)** 
+**[Check out the full validation notebook](https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb)** 
 
 This notebook reproduces OpenEpi's calculations step by step and demonstrates concordance.
 
@@ -754,8 +754,8 @@ pytest tests/ -v
 ## Support
 
 - **Documentation:** [Full docs](https://docs.episia.io)
-- **Examples:** [Examples directory](examples/)
-- **Validation:** [OpenEpi comparison notebook](examples/episia_vs_openepi.ipynb)
+- **Examples:** [Examples directory](exemples/)
+- **Validation:** [OpenEpi comparison notebook](exemples/episia_vs_openepi.ipynb)
 - **Issues:** [GitHub Issues](https://github.com/Xcept-Health/episia/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/Xcept-Health/episia/discussions)
 
@@ -794,7 +794,7 @@ A: Core modules (models, stats) are production-ready (84% coverage). See [API St
 A: Fork, create a feature branch, add tests, and submit a PR. See [Contributing](#contributing) section.
 
 **Q: Is there a GUI?**  
-A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [examples/](examples/).
+A: Not yet. Episia is a Python library. Consider Jupyter notebooks or Streamlit for dashboards. See [exemples/](exemples/).
 
 **Q: Does it work offline?**  
 A: Yes. Episia has zero runtime network dependencies. DHIS2 integration requires connection only during data fetch.

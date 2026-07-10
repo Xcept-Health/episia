@@ -3,9 +3,12 @@ episia.dhis2.adapter - Convert DHIS2 API responses to SurveillanceDataset.
 """
 from __future__ import annotations
 
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 from ..data.surveillance import SurveillanceDataset
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 
 class DHIS2Adapter:
