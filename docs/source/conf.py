@@ -2,8 +2,8 @@
 
 project = "Episia"
 author = "Fildouindé Ariel Shadrac OUEDRAOGO"
-release = "0.1.1"
-version = "0.1.1"
+release = "0.1.3"
+version = "0.1.3"
 
 # Theme
 html_theme = "pydata_sphinx_theme"

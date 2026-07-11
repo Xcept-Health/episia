@@ -8,9 +8,13 @@ Open-source epidemiology and biostatistics for Python.
 
 .. image:: https://img.shields.io/badge/python-3.9%2B-blue
    :target: https://www.python.org/
+
 .. image:: https://img.shields.io/badge/license-MIT-green
    :target: https://opensource.org/licenses/MIT
-.. image:: https://img.shields.io/badge/version-0.1.0a1-orange
+
+.. image:: https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white
+   :target: https://pypi.org/project/episia/
+
 
 **Episia** is an open-source epidemiology and biostatistics toolbox for Python,
 based on OpenEpi algorithms and extended for the African public health context.

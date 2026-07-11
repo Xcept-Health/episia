@@ -1,5 +1,32 @@
 <div align="center">
 
+
+![episiabanner](https://raw.githubusercontent.com/Xcept-Health/episia/main/banner.jpg)
+
+
+**Open-source epidemiology & biostatistics for Python**
+
+[![Python](https://img.shields.io/badge/Python-3.9%2B-blue?style=flat-square&logo=python)](https://python.org)
+[![PyPI version](https://img.shields.io/pypi/v/episia?style=flat-square&logo=pypi&logoColor=white)](https://pypi.org/project/episia/)
+[![PyPI Downloads](https://static.pepy.tech/badge/episia?style=flat-square)](https://pepy.tech/projects/episia)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-1497%20passed-brightgreen?style=flat-square)](#test-coverage)
+[![Coverage](https://img.shields.io/badge/Coverage-84%25-brightgreen?style=flat-square)](#test-coverage)
+[![Validation](https://img.shields.io/badge/Validated%20against-OpenEpi-brightgreen?style=flat-square)](https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb)
+[![Documentation](https://img.shields.io/badge/Docs-ReadTheDocs-blue?style=flat-square&logo=readthedocs)](https://episia.readthedocs.io/en/latest/)
+[![Website](https://img.shields.io/badge/Website-xcept--health.github.io%2Fepisia-2997ff?style=flat-square)](https://xcept-health.github.io/episia)
+[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19429374-blue?style=flat-square)](https://doi.org/10.5281/zenodo.19429374)
+[![Preprint](https://img.shields.io/badge/Preprint-medRxiv-B31B1B?style=flat-square)](https://doi.org/10.64898/2026.04.17.26350337)
+[![Status](https://img.shields.io/badge/Status-Alpha-yellow?style=flat-square)](https://github.com/Xcept-Health/episia/releases)
+
+
+*epi- (Greek: upon, over, the root of epidemiology) · -sia (African geographic context)*
+
+[Installation](#installation) · [Quick Start](#quick-start) · [Modules](#modules) · [Citation](#citation) · [Roadmap](#roadmap)
+
+</div>
+
+
 ---
 
 ## Overview
