@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
@@ -375,6 +376,50 @@
       border-radius: 3px; font-family: var(--mono); font-size: 0.65rem;
       color: var(--teal); padding: 0.12rem 0.45rem; margin: 0.1rem 0.1rem 0 0;
     }
+    /* CHANGELOG */
+    .changelog-section { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .changelog-details {
+      margin-top: 2rem; border: 1px solid var(--border); border-radius: 10px;
+      background: var(--surface); overflow: hidden;
+    }
+    .changelog-details summary {
+      list-style: none; cursor: pointer; user-select: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem; font-family: var(--mono); font-size: 0.85rem;
+      font-weight: 600; color: var(--text);
+    }
+    .changelog-details summary::-webkit-details-marker { display: none; }
+    .changelog-summary-left { display: flex; align-items: center; gap: 0.6rem; }
+    .changelog-chevron { transition: transform 0.2s ease; color: var(--teal); flex-shrink: 0; }
+    .changelog-details[open] .changelog-chevron { transform: rotate(90deg); }
+    .changelog-count {
+      font-family: var(--mono); font-size: 0.68rem; color: var(--teal);
+      background: var(--teal-dim); border: 1px solid var(--border);
+      padding: 0.1rem 0.5rem; border-radius: 3px;
+    }
+    .changelog-body {
+      border-top: 1px solid var(--border);
+      max-height: 420px; overflow-y: auto; padding: 0.5rem 1.5rem;
+    }
+    .changelog-entry { padding: 1rem 0; border-bottom: 1px solid var(--border-soft); }
+    .changelog-entry:last-child { border-bottom: none; }
+    .changelog-entry-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.4rem; }
+    .changelog-tag {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 700; color: var(--teal);
+      text-decoration: none;
+    }
+    .changelog-tag:hover { text-decoration: underline; }
+    .changelog-date { font-family: var(--mono); font-size: 0.7rem; color: var(--text-dim); }
+    .changelog-name { font-size: 0.83rem; color: var(--text); font-weight: 600; }
+    .changelog-notes {
+      font-size: 0.8rem; color: var(--text-dim); line-height: 1.7;
+      white-space: pre-line; max-height: 8em; overflow: hidden;
+    }
+    .changelog-status {
+      padding: 1.25rem 1.5rem; font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim);
+    }
+    .changelog-status a { color: var(--teal); }
+
     /* FOOTER */
     footer { border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; position: relative; z-index: 1; }
     .footer-logo { font-family: var(--mono); font-size: 1.2rem; font-weight: 600; color: var(--teal); margin-bottom: 0.6rem; }
@@ -480,6 +525,7 @@
     <li><a href="#compare">Compare</a></li>
     <li><a href="#quickstart">Quickstart</a></li>
     <li><a href="#models">Models</a></li>
+    <li><a href="#changelog">Changelog</a></li>
   </ul>
   <div class="nav-right">
     <div class="theme-toggle" id="themeToggle" title="Toggle light/dark mode"></div>
@@ -494,7 +540,7 @@
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-badge">
-    v0.1.3 &nbsp;&middot;&nbsp; Open Source &nbsp;&middot;&nbsp; OpenEpi Validated
+    <span id="hero-version">v0.1.3</span> &nbsp;&middot;&nbsp; Open Source &nbsp;&middot;&nbsp; OpenEpi Validated
   </div>
   <h1 class="hero-title">
     Epidemic modelling<br>
@@ -524,7 +570,7 @@
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
       Get started
     </a>
-    <a class="btn-secondary" href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb">
+    <a class="btn-secondary" href="https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2" fill="none"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="14" y2="16"/></svg>
       Validation notebook
     </a>
@@ -751,16 +797,9 @@ sr.<span class="fn">to_dataframe</span>()</pre>
               </div>
               <div>
                 <div class="feature-row-title">11-section demo notebook</div>
-                <div class="feature-row-desc">Models, biostatistics, ROC, surveillance, Mantel-Haenszel, automated reports &mdash; ready to run.</div>
+                <div class="feature-row-desc">Models, biostatistics, ROC, surveillance, Mantel-Haenszel, automated reports, ready to run.</div>
               </div>
             </div>
-          </div>
-          <div style="margin-top:2rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-            <a class="btn-primary" href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_demo.ipynb" target="_blank">
-              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Demo notebook
-            </a>
-            <a class="btn-secondary" href="https://github.com/Xcept-Health/episia" target="_blank">View on GitHub</a>
           </div>
         </div>
       </div>
@@ -848,9 +887,13 @@ ds = adapter.<span class="fn">from_analytics_response</span>(
 <span class="cm"># pip install episia[dhis2]</span>
 
 <span class="cm"># Works with PAT token auth too</span>
+<span class="cm"># (username/password are still required by the constructor,</span>
+<span class="cm">#  pass empty strings when authenticating via token)</span>
 client2 = <span class="fn">DHIS2Client</span>(
-    url   = <span class="st">"https://your-instance/dhis"</span>,
-    token = <span class="st">"d2pat_xxxxxxxxxxxx"</span>,
+    url       = <span class="st">"https://your-instance/dhis"</span>,
+    username  = <span class="st">""</span>,
+    password  = <span class="st">""</span>,
+    api_token = <span class="st">"d2pat_xxxxxxxxxxxx"</span>,
 )</pre>
         </div>
         <div style="margin-top:1.25rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
@@ -988,7 +1031,7 @@ client2 = <span class="fn">DHIS2Client</span>(
         <div class="divider"></div>
         <p class="section-sub">No configuration required - sane defaults throughout. The simplest case is always the cleanest.</p>
         <br>
-        <a class="btn-primary" href="https://github.com/Xcept-Health/episia" target="_blank">Full documentation &rarr;</a>
+        <a class="btn-primary" href="https://episia.readthedocs.io/en/latest/index.html" target="_blank">Full documentation &rarr;</a>
       </div>
       <div class="reveal reveal-d1">
         <div class="code-block">
@@ -1063,17 +1106,44 @@ report.<span class="fn">save_markdown</span>(<span class="st">"report.md"</span>
   </div>
 </section>
 
+<!-- CHANGELOG -->
+<section class="changelog-section" id="changelog">
+  <div class="section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">Release history</div>
+        <h2 class="section-title">Changelog</h2>
+        <div class="divider"></div>
+        <p class="section-sub">Pulled live from <a href="https://github.com/Xcept-Health/episia/releases" target="_blank" style="color:var(--teal);">GitHub Releases</a>  expand to browse without leaving the page.</p>
+      </div>
+      <details class="changelog-details reveal reveal-d1" id="changelog-details">
+        <summary>
+          <div class="changelog-summary-left">
+            <svg class="changelog-chevron" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            <span>View release history</span>
+          </div>
+          <span class="changelog-count" id="changelog-count">&hellip;</span>
+        </summary>
+        <div class="changelog-body" id="changelog-body">
+          <div class="changelog-status">Loading releases from GitHub&hellip;</div>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="footer-logo"><span>Epi</span>sia<span>..</span></div>
   <p class="footer-sub">A project by <strong>Xcept-Health</strong> &middot; Built for low-resource epidemiology in Africa</p>
   <div class="footer-links">
     <a href="https://github.com/Xcept-Health/episia" target="_blank">GitHub</a>
     <a href="https://github.com/Xcept-Health/episia/issues" target="_blank">Issues</a>
-    <a href="https://github.com/Xcept-Health/episia/blob/main/examples/episia_vs_openepi.ipynb" target="_blank">Validation</a>
+    <a href="https://github.com/Xcept-Health/episia/blob/main/exemples/episia_vs_openepi.ipynb" target="_blank">Validation</a>
+    <a href="https://github.com/Xcept-Health/episia/releases" target="_blank">Changelog</a>
     <a href="https://github.com/Xcept-Health/episia/blob/main/LICENSE.txt" target="_blank">MIT License</a>
     <a href="https://xcept-health.com" target="_blank">Xcept-Health</a>
   </div>
-  <p class="footer-copy">&copy; 2026 Xcept-Health &middot; Ouagadougou, Burkina Faso &middot; v0.1.3</p>
+  <p class="footer-copy">&copy; 2026 Xcept-Health &middot; Ouagadougou, Burkina Faso &middot; <span id="footer-version">v0.1.3</span></p>
 </footer>
 
 <script>
@@ -1212,6 +1282,72 @@ const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); } });
 },{threshold:0.1});
 reveals.forEach(el=>io.observe(el));
+
+// --- Live version badge + changelog dropdown, fed by the GitHub Releases API ---
+(function () {
+  const REPO = 'Xcept-Health/episia';
+  const body  = document.getElementById('changelog-body');
+  const count = document.getElementById('changelog-count');
+  const heroV = document.getElementById('hero-version');
+  const footV = document.getElementById('footer-version');
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  function timeAgo(iso) {
+    const d = new Date(iso);
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    if (days < 1) return 'today';
+    if (days === 1) return 'yesterday';
+    if (days < 30) return days + 'd ago';
+    if (days < 365) return Math.floor(days / 30) + 'mo ago';
+    return Math.floor(days / 365) + 'y ago';
+  }
+
+  fetch(`https://api.github.com/repos/${REPO}/releases?per_page=15`, {
+    headers: { 'Accept': 'application/vnd.github+json' }
+  })
+    .then(r => { if (!r.ok) throw new Error('GitHub API ' + r.status); return r.json(); })
+    .then(releases => {
+      if (!Array.isArray(releases) || releases.length === 0) {
+        if (body) body.innerHTML = `<div class="changelog-status">No published releases yet  see <a href="https://github.com/${REPO}/commits/main" target="_blank">recent commits</a>.</div>`;
+        if (count) count.textContent = '0';
+        return;
+      }
+
+      // Auto-update the version badges from the latest (non-prerelease-first) release
+      const latest = releases.find(r => !r.prerelease) || releases[0];
+      const versionLabel = 'v' + latest.tag_name.replace(/^v/i, '');
+      if (heroV) heroV.textContent = versionLabel;
+      if (footV) footV.textContent = versionLabel;
+
+      if (count) count.textContent = releases.length + (releases.length === 15 ? '+' : '');
+
+      if (body) {
+        body.innerHTML = releases.map(r => {
+          const tag  = escapeHtml(r.tag_name || r.name || '');
+          const name = r.name && r.name !== r.tag_name ? escapeHtml(r.name) : '';
+          const notes = r.body ? escapeHtml(r.body).slice(0, 500) : 'No release notes provided.';
+          return `
+            <div class="changelog-entry">
+              <div class="changelog-entry-head">
+                <a class="changelog-tag" href="${r.html_url}" target="_blank">${tag}</a>
+                ${name ? `<span class="changelog-name">${name}</span>` : ''}
+                <span class="changelog-date">${timeAgo(r.published_at)}</span>
+                ${r.prerelease ? '<span class="tag" style="font-size:0.6rem;">pre-release</span>' : ''}
+              </div>
+              <div class="changelog-notes">${notes}</div>
+            </div>`;
+        }).join('');
+      }
+    })
+    .catch(() => {
+      // GitHub API can rate-limit unauthenticated requests; fail quietly and keep the static version.
+      if (body) body.innerHTML = `<div class="changelog-status">Couldn't load releases right now  see them directly on <a href="https://github.com/${REPO}/releases" target="_blank">GitHub</a>.</div>`;
+      if (count) count.textContent = '!';
+    });
+})();
 </script>
 </body>
 </html>
