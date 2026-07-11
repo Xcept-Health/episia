@@ -68,7 +68,7 @@ Example Output
  ╚══════╝╚═╝     ╚═╝╚══════╝╚═╝╚═╝  ╚═╝
 
     Open-source epidemiology & biostatistics for Python
-    v0.1.0a1 · Python 3.9.7 · Xcept-Health · MIT
+    v0.1.3 · Python 3.9.7 · Xcept-Health · MIT
 
     ────────────────────────────────────────────────────
 
@@ -103,6 +103,13 @@ Example Output
 
     ────────────────────────────────────────────────────
     GitHub : https://github.com/Xcept-Health/episia
+
+.. note::
+
+   The version and Python interpreter shown in the banner are read at
+   runtime (``episia.__version__`` and ``sys.version``), so they will
+   always match the environment the command is run in rather than the
+   values shown in this documentation snapshot.
 
 Internal Functions
 ------------------

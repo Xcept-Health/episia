@@ -28,7 +28,7 @@ Version Information
 
 .. data:: __version__
    :type: str
-   :value: "0.1.0a1"
+   :value: "0.1.3"
 
    Current version of Episia.
 
