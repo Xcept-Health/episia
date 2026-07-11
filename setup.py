@@ -59,6 +59,9 @@ EXTRAS_REQUIRE = {
     "ml": [
         "scikit-learn>=1.2.0",
     ],
+    "dhis2": [
+        "requests>=2.28.0",
+    ],
     "dev": [
         "pytest>=7.4.0",
         "pytest-cov>=4.1.0",
@@ -80,7 +83,7 @@ EXTRAS_REQUIRE = {
 
 EXTRAS_REQUIRE["all"] = list({
     dep
-    for key in ("full", "jupyter", "export", "ml")
+    for key in ("full", "jupyter", "export", "ml", "dhis2")
     for dep in EXTRAS_REQUIRE[key]
 })
 

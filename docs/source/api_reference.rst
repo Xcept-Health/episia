@@ -20,12 +20,12 @@ For advanced usage, you can import specific modules directly:
 Module Overview
 ---------------
 
-- :doc:`modules/stats/index` - Statistical methods for epidemiology
-- :doc:`modules/viz/index` - Visualization tools
-- :doc:`modules/dhis2/index` - DHIS2 integration
-- :doc:`modules/data/index` - Data management
+- :doc:`stats/index` - Statistical methods for epidemiology
+- :doc:`viz/index` - Visualization tools
+- :doc:`dhis2/index` - DHIS2 integration
+- :doc:`data/index` - Data management
 - :doc:`modules/core/index` - Core utilities
-- :doc:`modules/models/index` - Epidemic models
+- :doc:`models/index` - Epidemic models
 - :doc:`modules/api/reporting` - Report generation
 - :doc:`modules/api/results` - Result objects
 - :doc:`modules/api/unified` - Unified interface
@@ -33,5 +33,6 @@ Module Overview
 .. toctree::
    :maxdepth: 2
    :caption: API Reference:
+   :hidden:
 
    modules/index

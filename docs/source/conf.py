@@ -37,7 +37,14 @@ html_context = {
 
 html_theme_options = {
     "github_url": "https://github.com/Xcept-Health/episia",
-    "twitter_url": "https://twitter.com/xcept_health",
+    "icon_links": [
+        {
+            "name": "LinkedIn",
+            "url": "https://www.linkedin.com/company/xcept-health",
+            "icon": "fa-brands fa-linkedin",
+            "type": "fontawesome",
+        },
+    ],
     "use_edit_page_button": True,
     "show_toc_level": 2,
 }
